@@ -9,8 +9,9 @@ export default class Home extends Component {
                     this.props.history.push({
                         pathname: '/admin/about/',
                         sendData: {
-                            idRT: 1,
-                            roomType: "H"
+                            me: "Adrian",
+                            height: 175,
+                            weight: 55
                         }
                     });
                 }}>About</button>

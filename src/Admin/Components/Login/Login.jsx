@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import auth from "../../auth";
+import auth from "Admin/auth";
 
 export default class Login extends Component {
     render() {
