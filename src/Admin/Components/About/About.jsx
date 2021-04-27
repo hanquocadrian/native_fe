@@ -26,7 +26,6 @@ import React, { useState, useEffect } from 'react';
 import auth from 'Admin/auth';
 
 function About(props) {
-    
     const [sendData, setSendData] = useState({
         myName: "",
         height: 0,
