@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCart } from 'Actions';
 
 export default function Home() {
     const cart = useSelector(state => state.cartReducer);
     const dispatch = useDispatch();
+
+    const [sliders, setSliders] = useState([]);
+
+    useEffect(() => {
+        const fetchGetSlider = async () => {    
+            const result = await axios.get("https://nativecity.herokuapp.com/api/slider/")
+            .then((res)=>{
+                return res.data;
+            });
+            setSliders(result);
+        }
+        fetchGetSlider();
+    }, []);
 
     const roomType = {
         idLP: 1,
@@ -14,27 +28,44 @@ export default function Home() {
     };
     return (
         <>
-            <h3>Hello customer</h3>
-            <p>Number room in cart: { cart.count }</p>
-            <p>
-                <button onClick={() => {
-                    dispatch(addCart(roomType))   
-                }}>Add room to cart</button>
-            </p>
-                {
-                    cart.count > 0 && <p>This is your Cart:</p> 
-                }
+            <h1>Hello customer</h1>
             <div>
-                {
-                    cart.items.map((item, index) => 
-                        <p key={ index }>
-                            <b>Mã LP: </b><span>{ item.idLP }</span><br />
-                            <b>Tên LP: </b><span>{ item.tenLP }</span><br />
-                            <b>Hình loại LP: </b><span>{ item.hinhAnh }</span><br />
-                            <b>Giá LP: </b><span>{ item.giaLP }</span><br />
-                        </p>
-                    )
-                }
+                <h3>Slider API</h3>
+                <div>
+                    {
+                        sliders.map((item, index) => 
+                            <p key={ index }>
+                                <b>Mã Slider: </b><span>{ item.idSlide }</span><br />
+                                <b>Hình Slider: </b><span>{ item.hinhAnh }</span><br />
+                            </p>
+                        )
+                    }
+                </div>                
+            </div>
+            <div>
+                <h3>
+                    Number room in cart: { cart.count }
+                </h3>
+                <p>
+                    <button onClick={() => {
+                        dispatch(addCart(roomType))   
+                    }}>Add room to cart</button>
+                </p>
+                    {
+                        cart.count > 0 && <p>This is your Cart:</p> 
+                    }
+                <div>
+                    {
+                        cart.items.map((item, index) => 
+                            <p key={ index }>
+                                <b>Mã LP: </b><span>{ item.idLP }</span><br />
+                                <b>Tên LP: </b><span>{ item.tenLP }</span><br />
+                                <b>Hình loại LP: </b><span>{ item.hinhAnh }</span><br />
+                                <b>Giá LP: </b><span>{ item.giaLP }</span><br />
+                            </p>
+                        )
+                    }
+                </div>                
             </div>
         </>
     )
