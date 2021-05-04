@@ -11,7 +11,8 @@ export default function Home() {
 
     useEffect(() => {
         const fetchGetSlider = async () => {    
-            const result = await axios.get("https://nativecity.herokuapp.com/api/slider/")
+            var url = "https://nativecity.herokuapp.com/api/slider/";
+            const result = await axios.get(url)
             .then((res)=>{
                 return res.data;
             });
