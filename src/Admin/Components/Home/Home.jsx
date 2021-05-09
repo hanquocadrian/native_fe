@@ -15,6 +15,16 @@ export default class Home extends Component {
                         }
                     });
                 }}>About</button>
+                <button onClick={ () => {
+                    this.props.history.push({
+                        pathname: '/admin/slider/',
+                        sendData: {
+                            me: "Adrian",
+                            height: 175,
+                            weight: 55
+                        }
+                    });
+                }}>Slider</button>
             </>
         )
     }

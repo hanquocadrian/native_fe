@@ -12,7 +12,8 @@ import About from './Components/About/About';
 import AdLogin from './Admin/Components/Login/Login';
 import AdHome from './Admin/Components/Home/Home';
 import AdAbout from './Admin/Components/About/About';
-import { ProtectedRoute } from './Admin/protected.route';
+import AdSlider from './Admin/Components/Slider/Slider'
+import { ProtectedRoute } from './Admin/protected.route'; 
 
 export default class Router extends Component {
     render() {
@@ -28,6 +29,7 @@ export default class Router extends Component {
                         <Route exact path='/admin/' component={ AdLogin } />
                         <ProtectedRoute exact path="/admin/home/" component={ AdHome } />
                         <ProtectedRoute exact path='/admin/about/' component={ AdAbout } />
+                        <ProtectedRoute exact path='/admin/slider/' component={ AdSlider } />
 
                         {/* Not Found */}
                         <Route path='*' component={ ()=>'404' } />   
