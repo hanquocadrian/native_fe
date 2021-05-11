@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 // Customer
 import Home from './Components/Home/Home';
+import Login from './Components/Login/Login';
 import About from './Components/About/About';
 
 // Admin
@@ -23,6 +24,7 @@ export default class Router extends Component {
                     <Switch>
                         {/* Customer */}
                         <Route exact path='/' component={ Home } />
+                        <Route exact path='/login' component={ Login } />
                         <Route exact path='/about' component={ About } />
 
                         {/* Admin */}

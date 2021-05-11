@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/storage'; 
+import 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCfUO-LhMFQMpyY3RELw-AZ4v4nRGdp2Xk",
@@ -14,5 +15,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const storage = firebase.storage();
+const firAuth = firebase.auth();
+const firAuthFB = firebase.auth.FacebookAuthProvider.PROVIDER_ID;
+const firAuthGG = firebase.auth.GoogleAuthProvider.PROVIDER_ID;
 
-export { storage, firebase as default };
+export { storage, firAuth, firAuthFB, firAuthGG, firebase as default };
