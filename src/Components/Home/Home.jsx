@@ -2,24 +2,42 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCart } from 'Actions';
+import { storage } from '../../Firebase';
 
 export default function Home() {
     const cart = useSelector(state => state.cartReducer);
     const dispatch = useDispatch();
 
     const [sliders, setSliders] = useState([]);
+    const [data, setData] = useState([]);
 
     useEffect(() => {
         const fetchGetSlider = async () => {    
             var url = "https://nativecity.herokuapp.com/api/slider/";
             const result = await axios.get(url)
-            .then((res)=>{
-                return res.data;
-            });
+            .then((res) => res.data)
+            .catch((err) => console.log(err));
             setSliders(result);
         }
         fetchGetSlider();
-    }, []);
+        return () => {
+            sliders.map((item) => getImageInFir(item.hinhAnh));
+        }
+    },[sliders, getImageInFir]);
+
+    function getImageInFir(imgFull) {
+        var arr = imgFull.split("/");
+        var imgName = arr[1];
+        var folderName = arr[0];
+        // console.log("Hình từ Fir: "+ folderName + " " + imgName);
+
+        storage.ref(folderName).child(imgName).getDownloadURL()
+        .then((url) => { 
+            var newData = data;
+            newData.push(url);
+            setData(newData);
+        }).catch((err)=>{console.log(err);});
+    }
 
     const roomType = {
         idLP: 1,
@@ -27,6 +45,7 @@ export default function Home() {
         hinhAnh: "room_rose_01.png",
         giaLP: 1000000
     };
+    var i = 0;
     return (
         <>
             <h1>Hello customer</h1>
@@ -38,6 +57,7 @@ export default function Home() {
                             <p key={ index }>
                                 <b>Mã Slider: </b><span>{ item.idSlide }</span><br />
                                 <b>Hình Slider: </b><span>{ item.hinhAnh }</span><br />
+                                <img width="500" src={data[i++]} alt="Hình" />
                             </p>
                         )
                     }

@@ -5,21 +5,23 @@ export default function Slider() {
     const [img, setImg] = useState(null);
     useEffect(()=>{
         const imgName = "IMG_05.jpg";
-        storage.ref("sliderImages").child(imgName).getDownloadURL().then(url => { 
+        storage.ref("slide").child(imgName).getDownloadURL().then(url => { 
             setImg(url);
-        });
+        }).catch((err)=>{console.log(err);});
+
     },[]);
 
     const typeImg = ["image/png", "image/jpeg"];
     const handleChange = e => {
+        console.log(e.target.files[0])
         if(e.target.files[0] && typeImg.includes(e.target.files[0].type)){
             setImg(e.target.files[0]);
         }
     }
     const handleUpload = () => {
-        const uploadTask = storage.ref(`sliderImages/${ img.name }`).put(img);
+        const uploadTask = storage.ref(`slide/${ img.name }`).put(img);
         uploadTask.on("state_changed", snapshot => {}, error => { console.log(error) }, () => {
-            storage.ref("sliderImages").child(img.name).getDownloadURL()
+            storage.ref("slide").child(img.name).getDownloadURL()
             .then(url => { 
                 console.log("Upload to Firebase with url: ", url);
                 setImg(url);
