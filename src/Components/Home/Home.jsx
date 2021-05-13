@@ -23,7 +23,7 @@ export default function Home() {
         return () => {
             sliders.map((item) => getImageInFir(item.hinhAnh));
         }
-    },[sliders, getImageInFir]);
+    },[getImageInFir]);
 
     function getImageInFir(imgFull) {
         var arr = imgFull.split("/");
@@ -36,6 +36,7 @@ export default function Home() {
             var newData = data;
             newData.push(url);
             setData(newData);
+            console.log()
         }).catch((err)=>{console.log(err);});
     }
 
@@ -56,7 +57,8 @@ export default function Home() {
                             <p key={ index }>
                                 <b>Mã Slider: </b><span>{ item.idSlide }</span><br />
                                 <b>Hình Slider: </b><span>{ item.hinhAnh }</span><br />
-                                <img width="500" src={data[index]} alt="Hình" />
+                                {/* { console.log(data[index]) } */}
+                                <img width="300" src={data[index]} alt="Hình" />
                             </p>
                         )
                     }
