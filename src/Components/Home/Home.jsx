@@ -27,8 +27,8 @@ export default function Home() {
 
     function getImageInFir(imgFull) {
         var arr = imgFull.split("/");
-        var imgName = arr[1];
         var folderName = arr[0];
+        var imgName = arr[1];
         // console.log("Hình từ Fir: "+ folderName + " " + imgName);
 
         storage.ref(folderName).child(imgName).getDownloadURL()
@@ -45,7 +45,6 @@ export default function Home() {
         hinhAnh: "room_rose_01.png",
         giaLP: 1000000
     };
-    var i = 0;
     return (
         <>
             <h1>Hello customer</h1>
@@ -57,7 +56,7 @@ export default function Home() {
                             <p key={ index }>
                                 <b>Mã Slider: </b><span>{ item.idSlide }</span><br />
                                 <b>Hình Slider: </b><span>{ item.hinhAnh }</span><br />
-                                <img width="500" src={data[i++]} alt="Hình" />
+                                <img width="500" src={data[index]} alt="Hình" />
                             </p>
                         )
                     }
