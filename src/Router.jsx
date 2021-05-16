@@ -5,7 +5,7 @@ import {
     Switch
 } from 'react-router-dom';
 // Customer
-import Home from './Components/Home/Home';
+import Home from './Components/Home/_Home';
 import Login from './Components/Login/Login';
 import About from './Components/About/About';
 
