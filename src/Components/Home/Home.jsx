@@ -2,43 +2,29 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCart } from 'Actions';
-import { storage } from '../../Firebase';
 
 export default function Home() {
     const cart = useSelector(state => state.cartReducer);
     const dispatch = useDispatch();
 
     const [sliders, setSliders] = useState([]);
-    const [data, setData] = useState([]);
 
     useEffect(() => {
-        const fetchGetSlider = async () => {    
-            var url = "https://nativecity.herokuapp.com/api/slider/";
-            const result = await axios.get(url)
-            .then((res) => res.data)
-            .catch((err) => console.log(err));
-            setSliders(result);
+        try {
+            const fetchGetSlider = async () => {    
+                var url = "https://nativecity.herokuapp.com/api/slider/";
+                const result = await axios.get(url)
+                .then((res) =>{
+                    return res.data;
+                })
+                .catch((err) => console.log(err));
+                setSliders(result);
+            }
+            fetchGetSlider();              
+        } catch (error) {
+            console.log("Error: ", error)
         }
-        fetchGetSlider();
-        return () => {
-            sliders.map((item) => getImageInFir(item.hinhAnh));
-        }
-    },[getImageInFir]);
-
-    function getImageInFir(imgFull) {
-        var arr = imgFull.split("/");
-        var folderName = arr[0];
-        var imgName = arr[1];
-        // console.log("Hình từ Fir: "+ folderName + " " + imgName);
-
-        storage.ref(folderName).child(imgName).getDownloadURL()
-        .then((url) => { 
-            var newData = data;
-            newData.push(url);
-            setData(newData);
-            console.log()
-        }).catch((err)=>{console.log(err);});
-    }
+    },[]);
 
     const roomType = {
         idLP: 1,
@@ -46,6 +32,7 @@ export default function Home() {
         hinhAnh: "room_rose_01.png",
         giaLP: 1000000
     };
+
     return (
         <>
             <h1>Hello customer</h1>
@@ -56,9 +43,7 @@ export default function Home() {
                         sliders.map((item, index) => 
                             <p key={ index }>
                                 <b>Mã Slider: </b><span>{ item.idSlide }</span><br />
-                                <b>Hình Slider: </b><span>{ item.hinhAnh }</span><br />
-                                {/* { console.log(data[index]) } */}
-                                <img width="300" src={data[index]} alt="Hình" />
+                                <img width="200" src={ item.hinhAnh } alt="Hình" /><br />
                             </p>
                         )
                     }

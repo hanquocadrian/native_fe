@@ -19,12 +19,14 @@ export default function Slider() {
         }
     }
     const handleUpload = () => {
-        const uploadTask = storage.ref(`slide/${ img.name }`).put(img);
+        var newNameFile = Date.now() + "_" + img.name;
+        const uploadTask = storage.ref(`slide/${ newNameFile }`).put(img);
         uploadTask.on("state_changed", snapshot => {}, error => { console.log(error) }, () => {
-            storage.ref("slide").child(img.name).getDownloadURL()
+            storage.ref("slide").child(newNameFile).getDownloadURL()
             .then(url => { 
                 console.log("Upload to Firebase with url: ", url);
                 setImg(url);
+                // lưu vào db vs tên mới
             })
         })
 
