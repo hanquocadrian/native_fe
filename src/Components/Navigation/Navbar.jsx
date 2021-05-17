@@ -6,11 +6,11 @@ const { SubMenu } = Menu;
 export default function Navbar() {
     return (
         <>
-            <Row align="middle">
+            <Row align="middle" style={{ height: "8vh" }}>
                 <Col xs={2} md={6} lg={9}>
                     <Menu mode="horizontal">
                         <Menu.Item>
-                            About
+                            <a href="/about">About</a>
                         </Menu.Item>
                         <Menu.Item>
                             Rates
@@ -30,10 +30,10 @@ export default function Navbar() {
                         </SubMenu>
                     </Menu>
                 </Col>
-                <Col xs={20} md={12} lg={6} style={{ textAlign: "center", borderBottom: "0.5px solid #F0F0F0" }}>
+                <Col xs={20} md={12} lg={6} style={{ textAlign: "center", borderBottom: "1px solid #F0F0F0", height: "48px" }}>
                     <div style={{ display: "inline-block", fontSize: "3.7vh" }}><b>NATIVE CITY</b></div>
                 </Col>
-                <Col xs={0} md={2} lg={3} style={{ borderBottom: "0.5px solid #F0F0F0", height: "47px" }}></Col>
+                <Col xs={0} md={2} lg={3} style={{ borderBottom: "1px solid #F0F0F0", height: "48px" }}></Col>
                 <Col xs={2} md={4} lg={6} style={{ textAlign: "right" }}>
                     <Menu mode="horizontal">
                         <Menu.Item>
@@ -53,7 +53,6 @@ export default function Navbar() {
                             <Menu.Item>Option 2</Menu.Item>
                             <Menu.Item>Option 3</Menu.Item>
                             <Menu.Item>Option 4</Menu.Item>
-
                         </SubMenu>
                     </Menu>
                 </Col>
