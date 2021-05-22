@@ -41,12 +41,9 @@ export default function Navbar() {
                             <Menu.Item>Option 3</Menu.Item>
                             <Menu.Item>Option 4</Menu.Item>
                         </SubMenu>
-                        <SubMenu title="Service">
-                            <Menu.Item>Option 1</Menu.Item>
-                            <Menu.Item>Option 2</Menu.Item>
-                            <Menu.Item>Option 3</Menu.Item>
-                            <Menu.Item>Option 4</Menu.Item>
-                        </SubMenu>
+                        <Menu.Item>
+                        <Link to="/service">Service</Link>
+                        </Menu.Item>
                     </Menu>
                 </Col>
                 <Col xs={20} md={12} lg={6} style={{ textAlign: "center", borderBottom: "1px solid #F0F0F0", height: "48px" }}>

@@ -26,7 +26,7 @@ function ItemSlick(props) {
     },[])
 
     return (
-        <div>
+        <>
             <Card
                 hoverable
                 style={{ width: '35vw', height: 'auto' }}
@@ -37,7 +37,7 @@ function ItemSlick(props) {
                     <Button>VIEW</Button>
                 </Row>
             </Card>
-        </div>
+        </>
     )
 }
 

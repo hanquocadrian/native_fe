@@ -55,10 +55,10 @@ export default function AboutHotel() {
                 </Col>
                 <Col xs={3} md={3} lg={1} />
                 <Col xs={0} md={0} lg={12}>
-                <img style={{ width: '50vw', height: '92vh' }} src='./assets/images/IMG_about_2.jpg'  alt="about hotel 2" />
+                    <img style={{ width: '50vw', height: '92vh' }} src='./assets/images/IMG_about_2.jpg'  alt="about hotel 2" />
                 </Col>
                 <Col xs={24} md={24} lg={0}>
-                <img style={{ width: '100vw', height: 'auto' }} src='./assets/images/IMG_about_2.jpg'  alt="about hotel 2" />
+                    <img style={{ width: '100vw', height: 'auto' }} src='./assets/images/IMG_about_2.jpg'  alt="about hotel 2" />
                 </Col>
             </Row>
             <Row style={{ paddingTop:'5%', backgroundColor:'#F3F1EF'}}>

@@ -62,6 +62,28 @@ export default function CarouselQC(props) {
                         </Carousel>                
                     </div>
             }
+            { 
+                props.height === "67" && 
+                    <div style={{ overflow: 'hidden', height: '67vh' }}>
+                        <Carousel autoplay>
+                            { 
+                                slideQuangCao && slideQuangCao.map((item, index) => 
+                                    <div key={ index }>
+                                        <img src={ item.hinhAnh } alt="not found" style={{ 
+                                            display: 'block',
+                                            top: '50%', 
+                                            position: "relative",
+                                            objectFit: "cover",
+                                            verticalAlign: 'middle',
+                                            width: '100vw',
+                                            height: '67vh'
+                                        }} />
+                                    </div>
+                                )
+                            }
+                        </Carousel>                
+                    </div>
+            }
         </>
     )
 }

@@ -8,6 +8,8 @@ import {
 import Home from './Components/Home/_Home';
 import Login from './Components/Login/Login';
 import About from './Components/About/_About';
+import Service from './Components/Service/Service';
+import RoomDetail from './Components/RoomDetail/RoomDetail';
 
 // Admin
 import AdLogin from './Admin/Components/Login/Login';
@@ -26,6 +28,8 @@ export default class Router extends Component {
                         <Route exact path='/' component={ Home } />
                         <Route exact path='/login' component={ Login } />
                         <Route exact path='/about' component={ About } />
+                        <Route exact path='/service' component={ Service } />
+                        <Route exact path='/roomdetail/:id' component={ RoomDetail } />
 
                         {/* Admin */}
                         <Route exact path='/admin/' component={ AdLogin } />

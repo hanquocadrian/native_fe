@@ -66,16 +66,7 @@ export default function SliderItem() {
             </Row>
             <Row>
                 <Slider {...settings}>
-                    <div>
-                        <h3>1</h3>
-                    </div>
-                    <div>
-                        <h3>1</h3>
-                    </div>
-                    <div>
-                        <h3>1</h3>
-                    </div>
-                    {/* { 
+                    { 
                         roomTypes.map((item, index) => 
                             <ItemSlick 
                                 key={index} 
@@ -85,7 +76,7 @@ export default function SliderItem() {
                                 slHienTai = {item.slHienTai}
                             />
                         )
-                    } */}
+                    }
                 </Slider>
             </Row>
         </>
