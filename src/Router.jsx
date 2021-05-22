@@ -7,7 +7,7 @@ import {
 // Customer
 import Home from './Components/Home/_Home';
 import Login from './Components/Login/Login';
-import About from './Components/About/About';
+import About from './Components/About/_About';
 
 // Admin
 import AdLogin from './Admin/Components/Login/Login';

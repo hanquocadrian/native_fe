@@ -1,46 +1,32 @@
-import { Carousel } from 'antd';
+import { Col, Row } from 'antd';
 import React from 'react'
 import Navbar from '../Navigation/Navbar';
-import { http } from '../../link';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
 import './Home.css'
+import SliderItem from 'Components/SliderItem/SliderItem';
+import Footer from 'Components/Footer/Footer';
+import CarouselQC from 'Components/CarouselQC/CarouselQC';
+
 
 export default function Home() {
-    const [slideQuangCao, setSlideQuangCao] = useState([]);
 
-    useEffect(() => {
-        try {
-            const getSlideQuangCao = async () => {
-                var url = http + '/api/slider';
-                const result = await axios.get(url)
-                .then((res) => res.data)
-                .catch((err) => console.log(err));
-
-                setSlideQuangCao(result);
-            }      
-
-            getSlideQuangCao();      
-        } catch (error) {
-            console.log(error);
-        }
-    }, [])
 
     return (
         <div style={{ overflow: "hidden", width: "100vw" }}>
             <Navbar />
-            <div style={{ overflow: "hidden", height: "92vh" }}>
-                <Carousel autoplay>
-                    { 
-                        slideQuangCao && slideQuangCao.map((item, index) => 
-                        <div key={ index }>
-                            <img src={ item.hinhAnh } alt="not found" style={{ objectFit: "", width: "100vw", height: "92vh" }} />
-                        </div>
-                        )
-                    }
-                </Carousel>                
-            </div>
-            
+            <CarouselQC height="92" />
+            <Row style={{ marginTop: "8vh", height: "92vh" }}>
+                <Col xs={1} md={3} lg={3}></Col>
+                <Col xs={20} md={18} lg={18}>
+                    <SliderItem />
+                </Col>
+                <Col xs={1} md={3} lg={3}></Col>
+            </Row>
+
+            <Row style={{ marginTop: "8vh", minHeight: "92vh" }}>
+                <Col>
+                    <Footer />
+                </Col>
+            </Row>
         </div>
     )
 }
