@@ -33,3 +33,8 @@ code {
 .ant-menu-horizontal > .ant-menu-item-selected a{
   color: crimson !important;
 }
+
+.ant-carousel .slick-dots li button{
+  position: relative;
+  left: -15vw;
+}

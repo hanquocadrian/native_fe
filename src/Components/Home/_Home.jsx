@@ -1,7 +1,6 @@
 import { Col, Row } from 'antd';
 import React from 'react'
 import Navbar from '../Navigation/Navbar';
-import './Home.css'
 import SliderItem from 'Components/SliderItem/SliderItem';
 import Footer from 'Components/Footer/Footer';
 import CarouselQC from 'Components/CarouselQC/CarouselQC';

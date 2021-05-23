@@ -12,7 +12,6 @@ import Navbar from '../Navigation/Navbar';
 import { http } from '../../link';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import './Service.css'
 import CarouselQC from 'Components/CarouselQC/CarouselQC';
 
 export default function Service() {

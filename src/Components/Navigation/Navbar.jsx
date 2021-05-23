@@ -69,7 +69,7 @@ export default function Navbar() {
                     </Menu>
                 </Col>
             </Row>
-            <Row style={{ height: '8vh' }}></Row>
+            <Row style={{ height: '5.3vh' }}></Row>
         </>
     )
 }
