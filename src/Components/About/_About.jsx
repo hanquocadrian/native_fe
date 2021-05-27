@@ -1,16 +1,24 @@
 import React from 'react'
-import Navbar from '../Navigation/Navbar';
-import AboutHotel from './AboutHotel/AboutHotel';
-import Footer from '../Footer/Footer';
-import CarouselQC from '../CarouselQC/CarouselQC';
+import Paypal from '../../emu/Paypal/Paypal';
 
-export default function _About() {
+export default function About() {
     return (
         <>
-            <Navbar />
-            <CarouselQC height="72"/>
-            <AboutHotel/>
-            <Footer/>
+            <p>
+                <b>item:</b> Room Rose<br />
+                <b>Price:</b> 5 $<br />
+                <Paypal total={5} />
+            </p>
+            <p>
+                <b>item:</b> Room Yellow<br />
+                <b>Price:</b> 15 $<br />
+                <Paypal total={15} />
+            </p>
+            <p>
+                <b>item:</b> Room Kingdom<br />
+                <b>Price:</b> 25 $<br />
+                <Paypal total={25} />
+            </p>
         </>
     )
 }

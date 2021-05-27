@@ -1,8 +1,8 @@
 import React from 'react'
 import { Carousel } from 'antd';
-import { http } from '../../link';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { http } from '../../link';
 
 export default function CarouselQC(props) {
     const [slideQuangCao, setSlideQuangCao] = useState([]);

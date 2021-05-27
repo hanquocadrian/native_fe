@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { http } from '../../../link';
 
 const { Meta } = Card
@@ -38,8 +39,10 @@ function ItemSlick(props) {
             >
                 <Meta title={ props.tenLP } description={ props.moTaTD.length > 100 ? props.moTaTD.slice(0,100)+' ...' : props.moTaTD } />
                 <div style={{ height: '20px' }} />
-                <Row>
-                    <Button>VIEW MORE</Button>
+                <Row justify="center">
+                    <Link to={"/roomtype/" + props.idLP }>
+                        <Button >VIEW MORE</Button>
+                    </Link>
                 </Row>
             </Card>
         </div>
@@ -47,6 +50,7 @@ function ItemSlick(props) {
 }
 
 ItemSlick.propTypes = {
+    idLP: PropTypes.number,
     tenLP: PropTypes.string,
     moTaTD: PropTypes.string,
     image: PropTypes.string

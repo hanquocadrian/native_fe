@@ -1,24 +1,21 @@
 import React from 'react'
-import Paypal from '../Paypal/Paypal';
+import { useEffect } from 'react';
+import AboutHotel from './AboutHotel/AboutHotel';
+import Navbar from '../Navigation/Navbar';
+import CarouselQC from '../CarouselQC/CarouselQC';
+import Footer from '../Footer/Footer';
 
-export default function About() {
+export default function _About() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+
     return (
         <>
-            <p>
-                <b>item:</b> Room Rose<br />
-                <b>Price:</b> 5 $<br />
-                <Paypal total={5} />
-            </p>
-            <p>
-                <b>item:</b> Room Yellow<br />
-                <b>Price:</b> 15 $<br />
-                <Paypal total={15} />
-            </p>
-            <p>
-                <b>item:</b> Room Kingdom<br />
-                <b>Price:</b> 25 $<br />
-                <Paypal total={25} />
-            </p>
+            <Navbar />
+            <CarouselQC height="72"/>
+            <AboutHotel/>
+            <Footer/>
         </>
     )
 }

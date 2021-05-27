@@ -11,7 +11,7 @@ export default function Footer() {
     return (
         <>
             <Row>
-                <img src="./assets/images/IMG_footer.png" alt="not found" style={{ width: "100vw" }} />
+                <img src="/assets/images/IMG_footer.png" alt="not found" style={{ width: "100vw" }} />
             </Row>
             <Row style={{backgroundColor: 'black', color: 'white', paddingTop: "10vh"}}>
                 <Col xs={1} md={3} lg={3} />
@@ -19,7 +19,7 @@ export default function Footer() {
                     <Row>
                         <Col xs={24} md={8} lg={8}>
                             <Row>
-                                <img style={{padding: '5%', paddingBottom: '2vh' }} src='./assets/images/IMG_footer_native.png' alt="footer logo"/>
+                                <img style={{padding: '5%', paddingBottom: '2vh' }} src='/assets/images/IMG_footer_native.png' alt="footer logo"/>
                             </Row>
                             <Row className="navbar-text-footer">
                                 <span style={{ paddingLeft: '1.7vw', paddingBottom: '7vh', fontSize: '2.4vh' }}>nativehotelct@gmail.com</span>

@@ -47,7 +47,12 @@ export default function Navbar() {
                     </Menu>
                 </Col>
                 <Col xs={20} md={12} lg={6} style={{ textAlign: "center", borderBottom: "1px solid #F0F0F0", height: "48px" }}>
-                    <div style={{ display: "inline-block", fontSize: "3.7vh" }}><b>NATIVE HOTEL</b></div>
+                    <span className="LogoNavCus">
+                        <Link to="/">
+                            <div style={{ display: "inline-block", fontSize: "3.7vh" }}><b>NATIVE HOTEL</b></div>
+                        </Link>                        
+                    </span>
+  
                 </Col>
                 <Col xs={0} md={4} lg={4} style={{ borderBottom: "1px solid #F0F0F0", height: "48px" }} />
                 <Col xs={2} md={2} lg={5} style={{ textAlign: "right" }}>

@@ -1,0 +1,4 @@
+.ant-carousel .slick-dots li button{
+    position: relative;
+    left: -15vw;
+}

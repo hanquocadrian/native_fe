@@ -10,6 +10,7 @@ import { SiClockify } from "react-icons/si";
 
 
 export default function AboutHotel() {
+    
     return (
         <>
             <Row style={{ paddingTop:'3%', paddingBottom:'2%', backgroundColor:'#F3F1EF' }}>

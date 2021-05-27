@@ -1,5 +1,8 @@
 import React from 'react'
-import { Carousel, Row, Col, Rate, Image, Select, Collapse, Tooltip, DatePicker, Space } from 'antd';
+import { useEffect, useState } from 'react';
+import { Row, Col, Rate, Image, Select, Collapse, Tooltip } from 'antd';
+import DatePickerHotel from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { IoIosBed } from "react-icons/io";
@@ -11,58 +14,68 @@ import { GrObjectUngroup } from "react-icons/gr";
 import { GiPerfumeBottle } from "react-icons/gi";
 import { CgSmartHomeWashMachine } from "react-icons/cg";
 
-import Navbar from '../Navigation/Navbar';
-import { http } from '../../link';
+import './RoomDetail.css'
+import SliderItem from 'Components/SliderItem/SliderItem';
+import { http } from '../../../link';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
-import CarouselQC from 'Components/CarouselQC/CarouselQC';
 
-export default function RoomDetail() {
+export default function RoomDetail(props) {
     const { Option } = Select;
     const { Panel } = Collapse;
-    const { RangePicker } = DatePicker;
-    const [slideQuangCao, setSlideQuangCao] = useState([]);
+    const [roomType, setRoomType]  = useState([]);
+    const [image, setImage] = useState("");
 
     useEffect(() => {
         try {
-            const getSlideQuangCao = async () => {
-                var url = http + '/api/slider';
+            const getRoomType = async () => {
+                var url = http + '/api/roomtype/' + props.idLP;
                 const result = await axios.get(url)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
-
-                setSlideQuangCao(result);
-            }      
-
-            getSlideQuangCao();      
+                console.log('useEff 1: ', result);
+                setRoomType(result);
+            }
+            getRoomType();
         } catch (error) {
             console.log(error);
         }
-    }, [])
+    },[])
+
+    useEffect(() => {
+        try {
+            const getImage = async () => {
+                var url = http + '/api/imageroomtype/get_by_idlp/' + props.idLP;
+                const result = await axios.get(url)
+                .then((res) => res.data)
+                .catch((err) => console.log(err));
+                console.log('useEff 2: ',result[0].hinhAnh);
+                setImage(result[0].hinhAnh);
+            }
+            getImage();
+        } catch (error) {
+            console.log(error);
+        }
+    },[])
 
     return (
-        <div>
-            <Navbar />
-            <CarouselQC height='72'/>
+        <>
             <div>
                 <Row style={{padding:'3%'}}>
                     <Col span={6}></Col>
                     <Col span={12}>
                         <p style={{fontFamily:'Cambria', fontSize:'18px', textAlign:'center'}}>
-                            Nestled in the heart of Edinburgh’s New Town, a UNESCO World Heritage Site, you’ll find us. Native Edinburgh’s enviable location on Queen Street means you’re walking distance from world-famous sights like Edinburgh Castle and Princes Street Gardens, as well as both Haymarket and Waverley Stations. If you’re looking for a city centre hotel in Edinburgh then our aparthotel offers everything you need and more!
+                            {roomType.moTaGT}
                         </p>
                     </Col>
                     <Col span={6}></Col>
                 </Row>
-            </div>
-            <div>
                 <Row>
                     <Col span={3}></Col>
                     <Col span={6}>
-                        <span style={{fontFamily:'Cambria', fontSize:'30px', fontWeight:'revert'}}>Premium Room</span>
+                        <span style={{fontFamily:'Cambria', fontSize:'30px', fontWeight:'revert'}}>{roomType.tenLP}</span>
                     </Col>
                     <Col span={6}>
-                        <Rate style={{fontSize:'25px'}} disabled defaultValue={5} />
+                        <Rate allowHalf style={{fontSize:'25px'}} disabled value={roomType.hangPhong} />
                     </Col>
                     <Col span={9}></Col>
                 </Row>
@@ -71,19 +84,19 @@ export default function RoomDetail() {
                     <Col span={6}>
                         <Image
                             width={350}
-                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                            src={image}
                         />
                     </Col>
                     <Col span={7}>
                         <Row>
                             <Col span={6} style={{borderRight:'1px solid #CECECE'}}>
-                                <HiOutlineUserGroup style={{width:'4vw', height:'4vh'}}/><span style={{fontSize:'20px'}}>2</span>
+                                <HiOutlineUserGroup style={{width:'4vw', height:'4vh'}}/><span style={{fontSize:'20px'}}>{roomType.soNguoi}</span>
                             </Col>
                             <Col span={6} style={{borderRight:'1px solid #CECECE'}}>
-                                <IoIosBed style={{width:'4vw', height:'4vh'}}/><span style={{fontSize:'20px'}}>1</span>
+                                <IoIosBed style={{width:'4vw', height:'4vh'}}/><span style={{fontSize:'20px'}}>{roomType.giuong}</span>
                             </Col>
                             <Col span={6} style={{borderRight:'1px solid #CECECE'}}>
-                                <FaBath style={{width:'4vw', height:'4vh'}}/><span style={{fontSize:'20px'}}>1</span>
+                                <FaBath style={{width:'4vw', height:'4vh'}}/><span style={{fontSize:'20px'}}>{roomType.phongTam}</span>
                             </Col>
                             <Col span={6} style={{paddingLeft:'2%'}}>
                                 <Select defaultValue="1 room" name="slPhong" style={{height:'4vh', width: 100 }}>
@@ -100,7 +113,9 @@ export default function RoomDetail() {
                             <Col span={24}>
                                 <Collapse defaultActiveKey={['1']} expandIconPosition='right'>
                                     <Panel style={{fontFamily:'Cambria', fontSize:'15px', fontWeight:'bold'}} header="MORE DETAILS" key="1">
-                                        <p style={{fontFamily:'Cambria', fontSize:'15px', fontWeight:'normal'}}>Small but perfectly formed, if you’re looking for a stylish pit stop on your travels then these studios are a great option. Packed full of quirky and original features, all come with a stunning shower room, modern kitchen and big comfy bed to clock some zzzz.</p>
+                                        <p style={{fontFamily:'Cambria', fontSize:'15px', fontWeight:'normal'}}>
+                                            {roomType.moTaCT}
+                                        </p>
                                         <Row style={{paddingTop:'3%', paddingBottom:'3%'}} >
                                             <Col>
                                                 <span style={{fontFamily:'Cambria', fontSize:'15px', fontWeight:'bold'}}>WHAT INCLUDES?</span>
@@ -174,7 +189,10 @@ export default function RoomDetail() {
                                     <Col span={3}></Col>
                                     <Col style={{textAlign:'center'}} span={18}>
                                         <div className='date-start-picker'>
-                                            <DatePicker/>
+                                            <DatePickerHotel
+                                                dateFormat='dd/MM/yyyy'
+                                                placeholderText="Arrive"
+                                            />
                                         </div>
                                     </Col>
                                     <Col span={3}></Col>
@@ -183,7 +201,10 @@ export default function RoomDetail() {
                                     <Col span={3}></Col>
                                     <Col style={{textAlign:'center'}} span={18}>
                                         <div className='date-end-picker'>
-                                            <DatePicker/>
+                                            <DatePickerHotel
+                                                dateFormat='dd/MM/yyyy'
+                                                placeholderText="Depart"
+                                            />
                                         </div>
                                     </Col>
                                     <Col span={3}></Col>
@@ -208,67 +229,71 @@ export default function RoomDetail() {
                         <span style={{fontFamily:'Cambria', fontSize:'30px', fontWeight:'revert'}}>What you get when you stay with us.</span>
                     </Col>
                 </Row>
-                <div>
-                    <Row>
-                        <Col span={4}></Col>
-                        <Col span={4} style={{borderRight:'1px solid #CECECE'}}>
-                            <div>
-                                <div style={{textAlign:'center'}}><FaHotel style={{width:'4vw', height:'4vh'}}/></div>
-                                <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>CHECK IN 15:00 / CHECK OUT 11:00</p></div>
-                            </div>
-                        </Col>
-                        <Col span={4} style={{borderRight:'1px solid #CECECE'}}>
-                            <div>
-                                <div style={{textAlign:'center'}}><SiClockify style={{width:'4vw', height:'4vh'}}/></div>
-                                <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>24/7 SUPPORT</p></div>
-                            </div>
-                        </Col>
-                        <Col span={4} style={{borderRight:'1px solid #CECECE'}}>
-                            <div>
-                                <div style={{textAlign:'center'}}><BsBucket style={{width:'4vw', height:'4vh'}}/></div>
-                                <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>WEEKLY HOUSEKEEPING</p></div>
-                            </div>
-                        </Col>
-                        <Col span={4}>
-                            <div>
-                                <div style={{textAlign:'center'}}><AiOutlineWifi style={{width:'4vw', height:'4vh'}}/></div>
-                                <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>FREE WIFI</p></div>
-                            </div>
-                        </Col>
-                        <Col span={4}></Col>
-                    </Row>
-                    <Row style={{paddingBottom:'5%'}}>
-                        <Col span={4}></Col>
-                        <Col span={4} style={{borderRight:'1px solid #CECECE'}}>
-                            <div>
-                                <div style={{textAlign:'center'}}><GrObjectUngroup style={{width:'4vw', height:'4vh'}}/></div>
-                                <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>SOCIAL SPACES</p></div>
-                            </div>
-                        </Col>
-                        <Col span={4} style={{borderRight:'1px solid #CECECE'}}>
-                            <div>
-                                <div style={{textAlign:'center'}}><GiPerfumeBottle style={{width:'4vw', height:'4vh'}}/></div>
-                                <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>LUXURY TOILETRIES</p></div>
-                            </div>
-                        </Col>
-                        <Col span={4} style={{borderRight:'1px solid #CECECE'}}>
-                            <div>
-                                <div style={{textAlign:'center'}}><CgSmartHomeWashMachine style={{width:'4vw', height:'4vh'}}/></div>
-                                <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>WASHER DRYER</p></div>
-                            </div>
-                        </Col>
-                        <Col span={4}>
-                            <div>
-                                <div style={{textAlign:'center'}}><FaRegHandshake style={{width:'4vw', height:'4vh'}}/></div>
-                                <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>24/7 RECEPTION</p></div>
-                            </div>
-                        </Col>
-                        <Col span={4}></Col>
-                    </Row>
-                </div>
-                
+                <Row>
+                    <Col span={4}></Col>
+                    <Col span={4} style={{borderRight:'1px solid #CECECE'}}>
+                        <div>
+                            <div style={{textAlign:'center'}}><FaHotel style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>CHECK IN 15:00 / CHECK OUT 11:00</p></div>
+                        </div>
+                    </Col>
+                    <Col span={4} style={{borderRight:'1px solid #CECECE'}}>
+                        <div>
+                            <div style={{textAlign:'center'}}><SiClockify style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>24/7 SUPPORT</p></div>
+                        </div>
+                    </Col>
+                    <Col span={4} style={{borderRight:'1px solid #CECECE'}}>
+                        <div>
+                            <div style={{textAlign:'center'}}><BsBucket style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>WEEKLY HOUSEKEEPING</p></div>
+                        </div>
+                    </Col>
+                    <Col span={4}>
+                        <div>
+                            <div style={{textAlign:'center'}}><AiOutlineWifi style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>FREE WIFI</p></div>
+                        </div>
+                    </Col>
+                    <Col span={4}></Col>
+                </Row>
+                <Row style={{paddingBottom:'5%'}}>
+                    <Col span={4}></Col>
+                    <Col span={4} style={{borderRight:'1px solid #CECECE'}}>
+                        <div>
+                            <div style={{textAlign:'center'}}><GrObjectUngroup style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>SOCIAL SPACES</p></div>
+                        </div>
+                    </Col>
+                    <Col span={4} style={{borderRight:'1px solid #CECECE'}}>
+                        <div>
+                            <div style={{textAlign:'center'}}><GiPerfumeBottle style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>LUXURY TOILETRIES</p></div>
+                        </div>
+                    </Col>
+                    <Col span={4} style={{borderRight:'1px solid #CECECE'}}>
+                        <div>
+                            <div style={{textAlign:'center'}}><CgSmartHomeWashMachine style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>WASHER DRYER</p></div>
+                        </div>
+                    </Col>
+                    <Col span={4}>
+                        <div>
+                            <div style={{textAlign:'center'}}><FaRegHandshake style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>24/7 RECEPTION</p></div>
+                        </div>
+                    </Col>
+                    <Col span={4}></Col>
+                </Row>
+                <Row style={{ marginTop: "8vh", height: "92vh" }}>
+                    <Col xs={1} md={3} lg={3}></Col>
+                    <Col xs={20} md={18} lg={18}>
+                        <SliderItem />
+                    </Col>
+                    <Col xs={1} md={3} lg={3}></Col>
+                </Row>
             </div>
-        </div>
+        </>
     )
 }
 

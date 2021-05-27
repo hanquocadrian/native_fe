@@ -23,7 +23,7 @@
 // }
 
 import React, { useState, useEffect } from 'react';
-import auth from 'Admin/auth';
+import auth from '../../auth';
 
 function About(props) {
     const [sendData, setSendData] = useState({
