@@ -4,10 +4,44 @@ import './Navbar.css'
 import { Link } from 'react-router-dom';
 import { CgShoppingCart } from 'react-icons/cg';
 import { RiPhoneLine } from 'react-icons/ri';
+import { useEffect, useState } from 'react';
+import { http } from '../../link';
+import axios from 'axios';
 
 const { SubMenu } = Menu;
 
 export default function Navbar() {
+
+    const [roomTypes, setRoomTypes] = useState([]);
+
+    useEffect(() => {
+        try {
+            const getRoomType = async () => {
+                var url = http + '/api/roomtype/';
+                const result = await axios.get(url)
+                .then((res) => res.data)
+                .catch((err) => console.log(err));
+                console.log("Nabar, RT: ", result);
+                setRoomTypes(result);
+            }
+            getRoomType();
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
+    function showRoomTypes(){
+        console.log(roomTypes);
+        const lst = roomTypes.map((item, index) =>
+            <Menu.Item key={index}  className="LinkNavCus">
+                <Link to={'/roomdetail/' + item.idLP}  style={{textDecorationLine:'none', color: 'black'}}>
+                    <span>{item.tenLP}</span>
+                </Link>
+            </Menu.Item>
+        );
+        return lst;
+    };
+
     const cart = (
         <Menu style={{marginTop: '3vh'}}>
           <Menu.Item>
@@ -36,10 +70,7 @@ export default function Navbar() {
                             Rates
                         </Menu.Item>
                         <SubMenu title="Room Type">
-                            <Menu.Item>Option 1</Menu.Item>
-                            <Menu.Item>Option 2</Menu.Item>
-                            <Menu.Item>Option 3</Menu.Item>
-                            <Menu.Item>Option 4</Menu.Item>
+                            { showRoomTypes() }
                         </SubMenu>
                         <Menu.Item>
                         <Link to="/service">Service</Link>

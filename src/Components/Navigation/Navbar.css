@@ -10,10 +10,14 @@
   z-index: 100000; /*Hiển thị lớp trên cùng*/
 }
 
-.LogoNavCus a{
+.LogoNavCus a, .LinkNavCus a{
   color: black;
 }
 
 .LogoNavCus a:hover{
   color: black !important;
+}
+
+.LinkNavCus a:hover{
+  color: crimson !important;
 }

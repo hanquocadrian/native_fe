@@ -10,7 +10,6 @@ import { SiClockify } from "react-icons/si";
 
 
 export default function AboutHotel() {
-    
     return (
         <>
             <Row style={{ paddingTop:'3%', paddingBottom:'2%', backgroundColor:'#F3F1EF' }}>
@@ -20,14 +19,14 @@ export default function AboutHotel() {
                 </Col>
                 <Col xs={1} md={3} lg={3}></Col>
             </Row>
-            <Row>
-                <Col xs={3} md={3} lg={3} />
+            <Row style={{ overflow: "hidden", height:'92vh'}}>
+                <Col xs={3} md={3} lg={3}/>
                 <Col xs={18} md={18} lg={8} style={{ paddingTop:'15%', paddingBottom:'15%' }}>
                     <h1 style={{textAlign:'center', fontWeight:'revert'}}>Experience.</h1>
                     <p style={{textAlign:'center', fontSize:'18px'}}>If you haven’t booked one of our apartments before, then prepare to transform the way you stay. If you’re looking to break free from the shackles of hotel rules and don’t want to run the risk of an unresponsive host or lack of privacy then we’re right up your street. While not every property has a concierge, we have a full-time team available 24/7 to be on-site to help with any issue big or small.</p>
                 </Col>
                 <Col xs={3} md={3} lg={1} />
-                <Col xs={0} md={0} lg={12}>
+                <Col xs={0} md={0} lg={12} style={{ overflow: "hidden", width:'50vw'}}>
                     <img style={{ width: '50vw', height: '92vh' }} src='./assets/images/IMG_about_1.jpg'  alt="about hotel 1" />
                 </Col>
                 <Col xs={24} md={24} lg={0}>
@@ -35,7 +34,7 @@ export default function AboutHotel() {
                 </Col>
             </Row>
             <Row>
-                <Col xs={0} md={0} lg={12}>
+                <Col xs={0} md={0} lg={12} style={{ overflow: "hidden", width:'50vw'}}>
                     <img style={{ width: '50vw', height: '92vh' }} src='./assets/images/IMG_about_3.jpg'  alt="about hotel 3" />
                 </Col>
                 <Col xs={3} md={3} lg={1} />
@@ -55,7 +54,7 @@ export default function AboutHotel() {
                     <p style={{textAlign:'center', fontSize:'18px'}}>Old historic warehouses, striking modern developments and tucked away mews houses are just some of the places we call home – and no two of our apartments are the same meaning that you can choose a size and budget to suit you.</p>
                 </Col>
                 <Col xs={3} md={3} lg={1} />
-                <Col xs={0} md={0} lg={12}>
+                <Col xs={0} md={0} lg={12} style={{ overflow: "hidden", width:'50vw'}}>
                     <img style={{ width: '50vw', height: '92vh' }} src='./assets/images/IMG_about_2.jpg'  alt="about hotel 2" />
                 </Col>
                 <Col xs={24} md={24} lg={0}>
