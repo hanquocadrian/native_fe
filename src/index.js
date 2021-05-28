@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App/App';
+import App from './Components/App/App';
 import 'antd/dist/antd.less';
 import './index.css';
 
 //  Redux
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import allReducers from 'Reducers';
+import allReducers from 'Store/Reducers';
 
 const store = createStore(
   allReducers,

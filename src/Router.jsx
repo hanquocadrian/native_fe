@@ -5,18 +5,18 @@ import {
     Switch
 } from 'react-router-dom';
 // Customer
-import Home from './Components/Home/Home';
-import Login from './Components/Login/Login';
-import About from './Components/About/About';
-import Service from './Components/HotelService/HotelService';
-import Room from './Components/Room/Room';
+import Home from './Components/Pages/Home/Home';
+import Login from './Components/Pages/Login/Login';
+import About from './Components/Pages/About/About';
+import Service from './Components/Pages/HotelService/HotelService';
+import Room from './Components/Pages/Room/Room';
 
 // Admin
-import AdLogin from './Admin/Components/Login/Login';
-import AdHome from './Admin/Components/Home/Home';
-import AdAbout from './Admin/Components/About/About';
-import AdSlider from './Admin/Components/Slider/Slider'
-import { ProtectedRoute } from './Admin/protected.route'; 
+import AdLogin from './Components/Admin/Pages/Login/Login';
+import AdHome from './Components/Admin/Pages/Home/Home';
+import AdAbout from './Components/Admin/Pages/About/About';
+import AdSlider from './Components/Admin/Pages/Slider/Slider'
+import { ProtectedRoute } from './Auth/protected.route'; 
 
 export default class Router extends Component {
     render() {
