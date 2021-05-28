@@ -34,7 +34,7 @@ export default function Navbar() {
         console.log(roomTypes);
         const lst = roomTypes.map((item, index) =>
             <Menu.Item key={index}  className="LinkNavCus">
-                <Link to={'/roomdetail/' + item.idLP}  style={{textDecorationLine:'none', color: 'black'}}>
+                <Link to={'/roomtype/' + item.idLP}  style={{textDecorationLine:'none', color: 'black'}}>
                     <span>{item.tenLP}</span>
                 </Link>
             </Menu.Item>

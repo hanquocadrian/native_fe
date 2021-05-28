@@ -12,11 +12,11 @@ export default function HotelService() {
     }, [])
 
     return (
-        <>
+        <div  style={{ overflow: "hidden", width: "100vw" }}>
             <Navbar />
             <CarouselQC height="67"/>
             <Service/>
             <Footer/>
-        </>
+        </div>
     )
 }

@@ -18,11 +18,11 @@ export default function Room(props) {
     },[props.match.params.id])
 
     return (
-        <>
+        <div style={{ overflow: "hidden", width: "100vw" }}>
             <Navbar />
             <CarouselQC height="72"/>
             <RoomDetail idLP={ idLP }/>
             <Footer/>
-        </>
+        </div>
     )
 }
