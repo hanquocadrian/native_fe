@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import { http } from '../../../link';
-import ItemService from '../ItemService/ItemService';
+import ItemService from './ItemService/ItemService';
 import { useState, useEffect } from 'react';
 
 export default function SliderService() {
@@ -34,7 +34,6 @@ export default function SliderService() {
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 3,
-        initialSlide: 0,
         responsive: [
             {
                 breakpoint: 1024,
@@ -46,11 +45,30 @@ export default function SliderService() {
                 }
             },
             {
-                breakpoint: 600,
+                breakpoint: 992,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
-                    initialSlide: 2
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 576,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
                 }
             }
         ]
@@ -69,7 +87,7 @@ export default function SliderService() {
                         />
                     )
                 }
-            </Slider>
+            </Slider>   
         </>
     )
 }

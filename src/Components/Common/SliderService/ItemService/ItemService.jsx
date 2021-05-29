@@ -2,7 +2,7 @@ import { Button, Card, Row, Modal } from 'antd'
 import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { http } from '../../../link';
+import { http } from '../../../../link';
 import ShowServiceDetail from './showServiceDetail';
 
 const { Meta } = Card
@@ -22,7 +22,7 @@ function ItemService(props) {
                 .catch((err) => console.log(err));
                 console.log(result[0].hinhAnh);
                 setImage(result[0].hinhAnh);
-                setHinhAnhDV(result);
+                // setHinhAnhDV(result);
                 // console.log('hinh Anh dv:',hinhAnhDV);
             }
             getHinhAnh();
@@ -47,31 +47,31 @@ function ItemService(props) {
         }
     }, []);
 
-    // useEffect(() => {
-    //     try {
-    //         const getHinhAnhDV = async () => {
-    //             var url = http + '/api/imageservice/get_by_iddv/' + props.idDV;
-    //             const result = await axios.get(url)
-    //             .then((res) => res.data)
-    //             .catch((err) => console.log(err));
-    //             setHinhAnhDV(result);
-    //             console.log('hinh Anh dv:',hinhAnhDV);
-    //         }
-    //         getHinhAnhDV();
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }, []);
+    useEffect(() => {
+        try {
+            const getHinhAnhDV = async () => {
+                var url = http + '/api/imageservice/get_by_iddv/' + props.idDV;
+                const result = await axios.get(url)
+                .then((res) => res.data)
+                .catch((err) => console.log(err));
+                setHinhAnhDV(result);
+                console.log('hinh Anh dv:',hinhAnhDV);
+            }
+            getHinhAnhDV();
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
 
     const x = visible;
 
     return (
-        <div style={{ margin: '30px', width: '21vw' }}>
+        <div style={{ margin: '30px', width: '300px' }}>
             <Card
                 hoverable
                 cover={
-                    <div style={{ width: '21vw', height: '30vh', overflow: 'hidden' }}>
-                        <img alt="not found" src={ image } style={{width:'21vw', height:'30vh'}} />
+                    <div style={{ width: '300px', height: '250px', overflow: 'hidden' }}>
+                        <img alt="not found" src={ image } style={{width:'300px', height:'250px'}} />
                     </div>
                 }
             >

@@ -16,7 +16,7 @@ export default function Service() {
         <div style={{ overflow: "hidden", width: "100vw" }}>
             <div>
                 <Row style={{paddingTop:'3%', paddingBottom:'-5%', backgroundColor:'#E5E5E5'}}>
-                    <Col span={10}>
+                    <Col xs={8} md={8} lg={10}>
                         <div style={{padding:'4% 0 0 40%'}}>
                             <GiNewspaper style={{width:'5vw', height:'5vh', color:'black'}}/>
                             <RiLuggageCartLine style={{width:'5vw', height:'5vh', color:'black'}}/>
@@ -24,7 +24,7 @@ export default function Service() {
                             <GiWineBottle style={{width:'5vw', height:'5vh', color:'black'}}/>
                         </div>
                     </Col>
-                    <Col span={4}>
+                    <Col xs={8} md={8} lg={4}>
                         <p style={{fontFamily:'Cambria', fontSize:'20px', textAlign:'center'}}>
                             AT YOUR DISPOSAL
                         </p>
@@ -32,7 +32,7 @@ export default function Service() {
                             Services
                         </p>
                     </Col>
-                    <Col span={10}>
+                    <Col xs={8} md={8} lg={10}>
                         <div style={{padding:'4% 0 0 15%'}}>
                             <MdRoomService style={{width:'5vw', height:'5vh', color:'black'}}/>
                             <AiOutlinePhone style={{width:'5vw', height:'5vh', color:'black'}}/>
@@ -42,13 +42,13 @@ export default function Service() {
                     </Col>
                 </Row>
                 <Row style={{paddingTop:'2%'}}>
-                    <Col span={8}></Col>
-                    <Col span={8}>
+                    <Col xs={3} md={6} lg={8}></Col>
+                    <Col xs={18} md={12} lg={8}>
                         <p style={{fontFamily:'Cambria', fontSize:'20px', textAlign:'center'}}>
                             Besides the services offered by the hotel, our staff is here to answer your needs 24/7. Please ask the frontdesk for any request.
                         </p>
                     </Col>
-                    <Col span={8}></Col>
+                    <Col xs={3} md={6} lg={8}></Col>
                 </Row>
             </div>
             <div style={{paddingTop:'2%'}}>

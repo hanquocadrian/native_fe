@@ -28,12 +28,12 @@ function ItemSlick(props) {
     },[])
 
     return (
-        <div style={{ margin: '30px', width: '21vw' }}>
+        <div style={{ margin: '30px', width: '300px' }}>
             <Card
                 hoverable
                 cover={
-                    <div style={{width: '21vw', height: '30vh', overflow: 'hidden'}}>
-                        <img alt="not found" src={ image } style={{width: '21vw', height: '30vh'}} />
+                    <div style={{width: '300px', height: '230px', overflow: 'hidden'}}>
+                        <img alt="not found" src={ image } style={{width: '300px', height: '230px'}} />
                     </div>
                 }
             >

@@ -33,7 +33,7 @@ export default function Navbar() {
     function showRoomTypes(){
         console.log(roomTypes);
         const lst = roomTypes.map((item, index) =>
-            <Menu.Item key={index}  className="LinkNavCus">
+            <Menu.Item key={index} className="LinkNavCus">
                 <Link to={'/roomtype/' + item.idLP}  style={{textDecorationLine:'none', color: 'black'}}>
                     <span>{item.tenLP}</span>
                 </Link>
@@ -72,8 +72,8 @@ export default function Navbar() {
                         <SubMenu title="Room Type">
                             { showRoomTypes() }
                         </SubMenu>
-                        <Menu.Item>
-                        <Link to="/service">Service</Link>
+                        <Menu.Item className="LinkNavCus">
+                            <Link to="/service">Service</Link>
                         </Menu.Item>
                     </Menu>
                 </Col>

@@ -5,7 +5,7 @@
 
 .date-start-picker input, .date-end-picker input{
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 2.5vh;
+    font-size: inherit;
     border: none;
     line-height: 30px;
     border-bottom: 1px solid rgba(169, 169, 169, 0.823);
