@@ -44,12 +44,12 @@ export default function RoomDetail(props) {
     useEffect(() => {
         try {
             const getImage = async () => {
-                var uri = url + '/api/imageroomtype/get_by_idlp/' + props.idLP;
+                var uri = url + '/api/roomtype-image/get_by_idlp/' + props.idLP;
                 const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
                 // console.log('useEff 2: ',result[0].hinhAnh);
-                setImage(typeof result[0] !== 'undefined'? result[0].hinhAnh : "");
+                setImage(typeof result !== 'undefined' ? ( typeof result[0] !== 'undefined'? result[0].hinhAnh : "" ): "");
             }
             getImage();
         } catch (error) {

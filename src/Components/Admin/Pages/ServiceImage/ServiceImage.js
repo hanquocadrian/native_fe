@@ -22,7 +22,7 @@ export default function ServiceImage() {
     useEffect(() => {
         try {
             const loadServiceImage = async () =>  {
-                var url = http + '/api/imageservice/';
+                var url = http + '/api/service-image/';
                 const result = await axios.get(url)
                 .then(res => res.data)
                 .catch(err => console.log(err));
@@ -79,10 +79,10 @@ export default function ServiceImage() {
                 <>
                     <Row>
                         <Col xs={24} md={12} lg={12}>
-                            <Link to={ '/admin/imageservice/' + record.idHinhDV }><Button type="primary" ><FaRegEdit/></Button></Link>
+                            <Link to={ '/admin/service-image/' + record.idHinhDV }><Button type="primary" ><FaRegEdit/></Button></Link>
                         </Col>
                         <Col xs={24} md={12} lg={12}>
-                            <Link to={ '/admin/imageservice/' + record.idHinhDV }><Button type="primary" danger><RiDeleteBin5Line/></Button></Link>
+                            <Link to={ '/admin/service-image/' + record.idHinhDV }><Button type="primary" danger><RiDeleteBin5Line/></Button></Link>
                         </Col>
                     </Row>
                 </>

@@ -14,12 +14,12 @@ function ItemSlick(props) {
     useEffect(() => {
         try {
             const getHinhAnh = async () => {
-                var uri = url + '/api/imageroomtype/get_by_idlp/' + props.idLP;
+                var uri = url + '/api/roomtype-image/get_by_idlp/' + props.idLP;
                 const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
-                console.log("this: ",typeof result[0] !== 'undefined'? result[0].hinhAnh : "");
-                setImage(typeof result[0] !== 'undefined'? result[0].hinhAnh : "")
+                console.log("this: ", typeof result !== 'undefined' ? ( typeof result[0] !== 'undefined'? result[0].hinhAnh : "" ): "" );
+                setImage(typeof result !== 'undefined' ? ( typeof result[0] !== 'undefined'? result[0].hinhAnh : "" ): "")
             }
             getHinhAnh();
         } catch (error) {

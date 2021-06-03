@@ -1,23 +1,18 @@
 import React from 'react'
-import Sidebar from '../../Common/Sidebar/Sidebar';
-import { Row, Col, Table, Button, Rate, Tooltip, Modal, DatePicker, Popconfirm, message } from 'antd';
-import { useEffect, useState } from 'react';
-import { url } from '../../../../Api/url';
-
-import { Link } from 'react-router-dom';
-import { GrAdd } from 'react-icons/gr';
 import NavbarTop from '../../Common/Navigation/NavbarTop';
+import { Button, Col, Row, Tooltip } from 'antd';
+import Sidebar from '../../Common/Sidebar/Sidebar';
+import { GrAdd } from 'react-icons/gr';
 import { getData, deleteData } from 'Api/api';
+import { url } from 'Api/url';
 
-const { RangePicker } = DatePicker;
-
-export default function RoomType(props) {
+export default function PageRoomTypeImage() {
     const [dataRoomtypes, setdataRoomtypes] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     useEffect(() => {
         try {
-            var uri = url + '/api/roomtype/';
+            var uri = url + '/api/roomtype-image/';
 
             getData(uri)
             .then(res => setdataRoomtypes(res.data))
@@ -30,32 +25,28 @@ export default function RoomType(props) {
     const columns = [
         {
             title: '#',
-            dataIndex: 'idLP'
-        },
-        {
-            title: 'Tên LP',
-            dataIndex: 'tenLP'
+            dataIndex: 'idHinhLP'
         },
         {
             title: 'Thứ hạng',
-            dataIndex: 'hangPhong',
-            render: hangPhong => (
-                <Rate allowHalf disabled defaultValue={hangPhong} />
+            dataIndex: 'hinhAnh',
+            render: hinhAnh => (
+                <Image width={100} height="auto" src={hinhAnh} />
             )
         },
         {
-            title: 'Số lượng',
-            dataIndex: 'soLuong'
+            title: 'Mã LP',
+            dataIndex: 'idLP'
         },
         {
             title: 'Action',
             render: (record) => (
                 <>
-                    <Link to={ '/admin/roomtype-detail/' + record.idLP }><Button className="btn-detail">Detail</Button></Link>
-                    <Link to={ '/admin/roomtype-upd/' + record.idLP }><Button className="btn-edit">Edit</Button></Link>
+                    <Link to={ '/admin/roomtype-image-detail/' + record.idLP }><Button className="btn-detail">Detail</Button></Link>
+                    <Link to={ '/admin/roomtype-image-upd/' + record.idLP }><Button className="btn-edit">Edit</Button></Link>
                     <Popconfirm
                         title="Are you sure to delete this?"
-                        onConfirm={ () => onDelete(record.idLP) }
+                        onConfirm={ () => onDelete(record.idHinhLP) }
                         okText="Yes"
                         cancelText="No"
                     >
@@ -67,31 +58,18 @@ export default function RoomType(props) {
     ];
 
     function onDelete(id) {
-        var uri = url + '/api/roomtype/' + id;
+        var uri = url + '/api/roomtype-image/' + id;
         deleteData(uri)
         .then(res => {
             message.success("Delete this successful !");
 
-            uri = url + '/api/roomtype/';
+            uri = url + '/api/roomtype-image/';
             getData(uri)
             .then(res => setdataRoomtypes(res.data))
             .catch(err => console.error(err));
         })
         .catch(err => console.log(err));
     }
-
-    const showModalSearch = () => {
-      setIsModalVisible(true);
-    };
-
-    const handleCancel = () => {
-      setIsModalVisible(false);
-    };
-
-    const onChooseDate = (date, dateString) => {
-        console.log(date, dateString);
-    }
-
     return (
         <>
             <NavbarTop props={props} />
@@ -115,31 +93,9 @@ export default function RoomType(props) {
                                 </Tooltip>
                             </Col>
                             <Col xs={20} md={20} lg={20}>
-                                <h1 className="text-center"><b>DANH SÁCH LOẠI PHÒNG</b></h1>
+                                <h1 className="text-center"><b>DANH SÁCH HÌNH ẢNH LOẠI PHÒNG</b></h1>
                             </Col>
-                            <Col xs={2} md={2} lg={2}>
-                                <Button onClick={ showModalSearch }>Search</Button>
-                                <Modal 
-                                    title="Tìm DSLP theo ngày" 
-                                    visible={isModalVisible} 
-                                    onCancel={ handleCancel } 
-                                    footer={[
-                                        <Button onClick={ handleCancel }>
-                                            Đóng
-                                        </Button>
-                                    ]}
-                                >
-                                    <p>
-                                        <RangePicker onChange={ onChooseDate } />
-                                    </p>
-                                    <p>
-                                        DS LP trống trong ngày ấy
-                                    </p>
-                                    <p>
-                                        Here
-                                    </p>
-                                </Modal>
-                            </Col>
+                            <Col xs={2} md={2} lg={2} />
                         </Row>
                             <Table 
                                 columns={ columns } 

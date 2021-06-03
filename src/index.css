@@ -105,3 +105,11 @@ code {
   margin-top: 8vh;
   margin-left: 34vw;
 }
+
+.ant-pagination-item-active{
+  border-color: crimson !important;
+}
+
+.ant-pagination-item a:hover, .ant-pagination-item a:active, .ant-pagination-item-active a{
+  color: crimson !important;
+}
