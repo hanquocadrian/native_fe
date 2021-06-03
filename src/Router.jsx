@@ -22,7 +22,7 @@ import AdPageRoomType from './Components/Admin/Pages/RoomType/PageRoomType';
 import AdPageRoomTypeDetail from './Components/Admin/Pages/RoomType/Detail/PageRoomTypeDetail';
 import AdPageRoomTypeAdd from 'Components/Admin/Pages/RoomType/Add/PageRoomTypeAdd';
 import AdPageRoomTypeUpd from './Components/Admin/Pages/RoomType/Update/PageRoomTypeUpd';
-// import IMG RT
+import AdPageRoomTypeImage from 'Components/Admin/Pages/RoomTypeImage/PageRoomTypeImage';
 import AdService from './Components/Admin/Pages/Service/Service';
 import AdServiceImage from './Components/Admin/Pages/ServiceImage/ServiceImage';
 
@@ -34,9 +34,9 @@ export default class Router extends Component {
                     <Switch>
                         {/* Customer */}
                         <Route exact path='/' component={ Home } />
-                        <Route exact path='/login' component={ Login } />
-                        <Route exact path='/about' component={ About } />
-                        <Route exact path='/service' component={ Service } />
+                        <Route exact path='/login/' component={ Login } />
+                        <Route exact path='/about/' component={ About } />
+                        <Route exact path='/service/' component={ Service } />
                         <Route exact path='/roomtype/:id' component={ Room } />
 
                         {/* Admin */}
@@ -44,13 +44,16 @@ export default class Router extends Component {
                         <ProtectedRoute exact path="/admin/home/" component={ AdHome } />
                         <ProtectedRoute exact path='/admin/about/' component={ AdAbout } />
                         <ProtectedRoute exact path='/admin/slider/' component={ AdSlider } />
-                        <ProtectedRoute exact path='/admin/roomtype' component={ AdPageRoomType } />
+                        <ProtectedRoute exact path='/admin/roomtype/' component={ AdPageRoomType } />
                         <ProtectedRoute exact path='/admin/roomtype-detail/:id' component={ AdPageRoomTypeDetail } />
-                        <ProtectedRoute exact path='/admin/roomtype-add' component={ AdPageRoomTypeAdd } />
+                        <ProtectedRoute exact path='/admin/roomtype-add/' component={ AdPageRoomTypeAdd } />
                         <ProtectedRoute exact path='/admin/roomtype-upd/:id' component={ AdPageRoomTypeUpd } />
-                        {/* Route IMG RT */}
-                        <Route exact path='/admin/service/' component={ AdService } />
-                        <Route exact path='/admin/image-service/' component={ AdServiceImage } />
+                        <ProtectedRoute exact path='/admin/roomtype-image/' component={ AdPageRoomTypeImage } />
+                        <ProtectedRoute exact path='/admin/roomtype-image-detail/:id' component={ AdPageRoomTypeDetail } />
+                        <ProtectedRoute exact path='/admin/roomtype-image-add/' component={ AdPageRoomTypeAdd } />
+                        <ProtectedRoute exact path='/admin/roomtype-image-upd/:id' component={ AdPageRoomTypeUpd } />
+                        <ProtectedRoute exact path='/admin/service/' component={ AdService } />
+                        <ProtectedRoute exact path='/admin/service-image/' component={ AdServiceImage } />
 
 
                         {/* Not Found */}

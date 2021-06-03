@@ -21,7 +21,7 @@ export default function Sidebar() {
                     </Link>
                 </Menu.Item>
                 <Menu.Item className="LinkNavAd">
-                    <Link to='/admin/image-roomtype'>
+                    <Link to='/admin/roomtype-image'>
                         <IoIosImages />
                         Room type images
                     </Link>
@@ -39,7 +39,7 @@ export default function Sidebar() {
                     </Link>
                 </Menu.Item>
                 <Menu.Item className="LinkNavAd">
-                    <Link to='/admin/image-service'>
+                    <Link to='/admin/service-image'>
                         <IoIosImages />
                         Service images
                     </Link>

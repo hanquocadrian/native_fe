@@ -1,12 +1,14 @@
 import React from 'react'
 import NavbarTop from '../../Common/Navigation/NavbarTop';
-import { Button, Col, Row, Tooltip } from 'antd';
+import { Button, Col, Image, Row, Tooltip, Popconfirm, message, Table } from 'antd';
 import Sidebar from '../../Common/Sidebar/Sidebar';
 import { GrAdd } from 'react-icons/gr';
 import { getData, deleteData } from 'Api/api';
 import { url } from 'Api/url';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function PageRoomTypeImage() {
+export default function PageRoomTypeImage(props) {
     const [dataRoomtypes, setdataRoomtypes] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -97,7 +99,7 @@ export default function PageRoomTypeImage() {
                             </Col>
                             <Col xs={2} md={2} lg={2} />
                         </Row>
-                            <Table 
+                            <Table
                                 columns={ columns } 
                                 dataSource={ dataRoomtypes } 
                                 pagination={{ pageSize: 7, position: ['topRight', 'none'] }} 
