@@ -2,7 +2,7 @@ import React from 'react'
 import { Carousel } from 'antd';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { http } from '../../../link';
+import { url } from '../../../Api/url';
 
 export default function CarouselQC(props) {
     const [slideQuangCao, setSlideQuangCao] = useState([]);
@@ -10,8 +10,8 @@ export default function CarouselQC(props) {
     useEffect(() => {
         try {
             const getSlideQuangCao = async () => {
-                var url = http + '/api/slider';
-                const result = await axios.get(url)
+                var uri = url + '/api/slider';
+                const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
 

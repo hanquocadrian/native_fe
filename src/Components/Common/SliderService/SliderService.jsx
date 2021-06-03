@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
-import { http } from '../../../link';
+import { url } from '../../../Api/url';
 import ItemService from './ItemService/ItemService';
 import { useState, useEffect } from 'react';
 
@@ -14,8 +14,8 @@ export default function SliderService() {
     useEffect(() => {
         try {
             const getService = async () => {
-                var url = http + '/api/service/';
-                const result = await axios.get(url)
+                var uri = url + '/api/service/';
+                const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
                 console.log(result);

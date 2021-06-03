@@ -48,3 +48,60 @@ code {
   position: relative;
   left: -15vw;
 }
+
+.text-center{
+  text-align: center;
+}
+
+.icon-top{
+  display: block;
+  transition: 1s;
+  overflow: scroll;
+  width: 30px;
+  height: 23px;
+}
+
+.btn-add:hover{
+  border-color: black !important;
+}
+
+.btn-close, .btn-close:hover{
+  border-color: white !important;
+}
+
+.btn-add:hover .icon-top, .btn-close:hover .icon-top{
+  transform: rotate(180deg);
+}
+
+.btn-create:hover{
+  color: #3f6600 !important;
+  border-color: #5b8c00 !important;
+}
+
+.btn-detail:hover{
+  color: #00474f !important;
+  border-color: #36cfc9 !important;
+}
+
+.btn-edit:hover{
+  color: #873800 !important;
+  border-color: #ffa940 !important;
+}
+
+.btn-delete:hover, .btn-reset:hover{
+  color: #820014 !important;
+  border-color: #ff4d4f !important;
+}
+
+.mt-15{
+  margin-top: 15px;
+}
+
+.mb-15{
+  margin-bottom: 15px;
+}
+
+.ant-message{
+  margin-top: 8vh;
+  margin-left: 34vw;
+}

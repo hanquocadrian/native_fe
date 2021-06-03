@@ -1,0 +1,24 @@
+.LinkNavAd a{
+    color: #000;
+    font-weight: bolder;
+    font-size: 20px;
+    padding-left: 20px;
+    transition: 0.5s;
+}
+.LinkNavAd svg{
+    color: #000;
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+}
+.LinkNavAd a:hover, .LinkNavAd a:hover svg, .ant-menu-item-selected svg, .ant-menu-item-selected a{
+    color: rgb(255, 255, 255) !important;
+}
+
+.LinkNavAd:hover, .ant-menu-item-selected{
+    background-color: rgba(23, 23, 23, 0.704) !important;
+}
+
+.ant-menu.ant-menu:not(.ant-menu-horizontal) .LinkNavAd.ant-menu-item-selected {
+    background-color: #000 !important;
+}

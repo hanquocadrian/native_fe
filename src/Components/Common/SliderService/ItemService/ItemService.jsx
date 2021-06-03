@@ -2,7 +2,7 @@ import { Button, Card, Row, Modal } from 'antd'
 import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { http } from '../../../../link';
+import { url } from '../../../../Api/url';
 import ShowServiceDetail from './showServiceDetail';
 
 const { Meta } = Card
@@ -16,8 +16,8 @@ function ItemService(props) {
     useEffect(() => {
         try {
             const getHinhAnh = async () => {
-                var url = http + '/api/imageservice/get_by_iddv/' + props.idDV;
-                const result = await axios.get(url)
+                var uri = url + '/api/imageservice/get_by_iddv/' + props.idDV;
+                const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
                 console.log(result[0].hinhAnh);
@@ -34,8 +34,8 @@ function ItemService(props) {
     useEffect(() => {
         try {
             const getServiceByID = async () => {
-                var url = http + '/api/service/' + props.idDV;
-                const result = await axios.get(url)
+                var uri = url + '/api/service/' + props.idDV;
+                const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
                 console.log(result);
@@ -50,8 +50,8 @@ function ItemService(props) {
     useEffect(() => {
         try {
             const getHinhAnhDV = async () => {
-                var url = http + '/api/imageservice/get_by_iddv/' + props.idDV;
-                const result = await axios.get(url)
+                var uri = url + '/api/imageservice/get_by_iddv/' + props.idDV;
+                const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
                 setHinhAnhDV(result);

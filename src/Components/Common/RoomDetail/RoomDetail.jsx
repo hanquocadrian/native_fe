@@ -16,7 +16,7 @@ import { CgSmartHomeWashMachine } from "react-icons/cg";
 
 import './RoomDetail.css'
 import SliderItem from 'Components/Common/SliderItem/SliderItem';
-import { http } from '../../../link';
+import { url } from '../../../Api/url';
 import axios from 'axios';
 
 export default function RoomDetail(props) {
@@ -28,8 +28,8 @@ export default function RoomDetail(props) {
     useEffect(() => {
         try {
             const getRoomType = async () => {
-                var url = http + '/api/roomtype/' + props.idLP;
-                const result = await axios.get(url)
+                var uri = url + '/api/roomtype/' + props.idLP;
+                const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
                 console.log('useEff 1: ', result);
@@ -44,12 +44,12 @@ export default function RoomDetail(props) {
     useEffect(() => {
         try {
             const getImage = async () => {
-                var url = http + '/api/imageroomtype/get_by_idlp/' + props.idLP;
-                const result = await axios.get(url)
+                var uri = url + '/api/imageroomtype/get_by_idlp/' + props.idLP;
+                const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
-                console.log('useEff 2: ',result[0].hinhAnh);
-                setImage(result[0].hinhAnh);
+                // console.log('useEff 2: ',result[0].hinhAnh);
+                setImage(typeof result[0] !== 'undefined'? result[0].hinhAnh : "");
             }
             getImage();
         } catch (error) {

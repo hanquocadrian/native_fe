@@ -1,0 +1,47 @@
+.bg-hotel{
+    background: linear-gradient(rgba(55, 54, 54, 0.281), rgba(55,54,54,0.281)), url('https://firebasestorage.googleapis.com/v0/b/fir-nativecity.appspot.com/o/local%2Fluxury_hotel-wallpaper-2560x1600.jpeg?alt=media&token=2a61e21d-857d-4d3f-b908-ad2161229511');
+    background: -moz-linear-gradient(rgba(55,54,54,0.5), rgba(55,54,54,0.5)), url('https://firebasestorage.googleapis.com/v0/b/fir-nativecity.appspot.com/o/local%2Fluxury_hotel-wallpaper-2560x1600.jpeg?alt=media&token=2a61e21d-857d-4d3f-b908-ad2161229511');
+    background: -webkit-gradient(rgba(55,54,54,0.5), rgba(55,54,54,0.5)), url('https://firebasestorage.googleapis.com/v0/b/fir-nativecity.appspot.com/o/local%2Fluxury_hotel-wallpaper-2560x1600.jpeg?alt=media&token=2a61e21d-857d-4d3f-b908-ad2161229511');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+#login-form{
+    padding: 20px;
+    width: 380px; 
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    border: 0.3vh solid #3f3f3f;
+    border-radius: 3vh;
+
+    position: fixed;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+.login-form-button button{
+    color: white !important;
+    background-color: black;
+    border: 1px solid white;
+    text-align: center;
+    width: 100%;
+    transition: 0.5s;
+}
+.login-form-button button:hover{
+    color: black !important;
+    background-color: #F3F1EF;
+    border: 1px solid black !important;
+}
+.login-form-forgot a{
+    color: black !important;
+}
+.login-form-input .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+    border-color: black !important;
+}
+.login-form-input .ant-input-affix-wrapper-focused,.ant-input-affix-wrapper:focus{
+    border-color: black !important;
+    outline:0;
+    box-shadow: 0 0 0 1px rgb(4, 21, 36) !important;
+}

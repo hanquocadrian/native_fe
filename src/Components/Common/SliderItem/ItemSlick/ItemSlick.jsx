@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { http } from '../../../../link';
+import { url } from '../../../../Api/url';
 
 const { Meta } = Card
 
@@ -14,12 +14,12 @@ function ItemSlick(props) {
     useEffect(() => {
         try {
             const getHinhAnh = async () => {
-                var url = http + '/api/imageroomtype/get_by_idlp/' + props.idLP;
-                const result = await axios.get(url)
+                var uri = url + '/api/imageroomtype/get_by_idlp/' + props.idLP;
+                const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
-                console.log(result[0].hinhAnh);
-                setImage(result[0].hinhAnh);
+                console.log("this: ",typeof result[0] !== 'undefined'? result[0].hinhAnh : "");
+                setImage(typeof result[0] !== 'undefined'? result[0].hinhAnh : "")
             }
             getHinhAnh();
         } catch (error) {
@@ -28,7 +28,7 @@ function ItemSlick(props) {
     },[])
 
     return (
-        <div style={{ margin: '30px', width: '300px' }}>
+        <div style={{ margin: '30px', width: '300px', marginLeft: '50px' }}>
             <Card
                 hoverable
                 cover={
@@ -37,13 +37,16 @@ function ItemSlick(props) {
                     </div>
                 }
             >
+                <div style={{ height: '143px' }}>
                 <Meta title={ props.tenLP } description={ props.moTaTD.length > 100 ? props.moTaTD.slice(0,100)+' ...' : props.moTaTD } />
-                <div style={{ height: '20px' }} />
-                <Row justify="center">
-                    <Link to={"/roomtype/" + props.idLP }>
-                        <Button >VIEW MORE</Button>
-                    </Link>
-                </Row>
+                    <div style={{ height: '20px' }} />
+                    <Row justify="center">
+                        <Link to={"/roomtype/" + props.idLP }>
+                            <Button >VIEW MORE</Button>
+                        </Link>
+                    </Row>                
+                </div>
+ 
             </Card>
         </div>
     )

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import axios from 'axios';
-import { http } from '../../../link';
+import { url } from '../../../Api/url';
 import { Row } from 'antd';
 import ItemSlick from './ItemSlick/ItemSlick';
 import { useState, useEffect } from 'react';
@@ -15,8 +15,8 @@ export default function SliderItem() {
     useEffect(() => {
         try {
             const getRoomType = async () => {
-                var url = http + '/api/roomtype/';
-                const result = await axios.get(url)
+                var uri = url + '/api/roomtype/';
+                const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
                 console.log(result);

@@ -6,7 +6,7 @@ import { CgShoppingCart } from 'react-icons/cg';
 import { RiPhoneLine } from 'react-icons/ri';
 import { useState, useEffect } from 'react';
 
-import { http } from '../../../link';
+import { url } from '../../../Api/url';
 import axios from 'axios';
 
 const { SubMenu } = Menu;
@@ -15,12 +15,12 @@ export default function Navbar() {
     const cart = (
         <Menu style={{marginTop: '3vh'}}>
           <Menu.Item>
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+            <a target="_blank" rel="noopener noreferrer" href="urls://www.antgroup.com">
               1st menu item
             </a>
           </Menu.Item>
           <Menu.Item disabled>
-            <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
+            <a target="_blank" rel="noopener noreferrer" href="urls://www.luohanacademy.com">
               3rd menu item
             </a>
           </Menu.Item>
@@ -33,8 +33,8 @@ export default function Navbar() {
     useEffect(() => {
         try {
             const getRoomType = async () => {
-                var url = http + '/api/roomtype/';
-                const result = await axios.get(url)
+                var uri = url + '/api/roomtype/';
+                const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
                 console.log(result);

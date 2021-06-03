@@ -5,20 +5,20 @@ import { Link } from 'react-router-dom';
 import { CgShoppingCart } from 'react-icons/cg';
 import { RiPhoneLine } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
-import { http } from '../../../link';
+import { url } from '../../../Api/url';
 import axios from 'axios';
+import { cart, search } from './Module/module';
 
 const { SubMenu } = Menu;
 
 export default function Navbar() {
-
     const [roomTypes, setRoomTypes] = useState([]);
 
     useEffect(() => {
         try {
             const getRoomType = async () => {
-                var url = http + '/api/roomtype/';
-                const result = await axios.get(url)
+                var uri = url + '/api/roomtype/';
+                const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
                 console.log("Nabar, RT: ", result);
@@ -42,22 +42,6 @@ export default function Navbar() {
         return lst;
     };
 
-    const cart = (
-        <Menu style={{marginTop: '3vh'}}>
-          <Menu.Item>
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              1st menu item
-            </a>
-          </Menu.Item>
-          <Menu.Item disabled>
-            <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-              3rd menu item
-            </a>
-          </Menu.Item>
-          <Menu.Item danger>a danger item</Menu.Item>
-        </Menu>
-    );
-      
     return (
         <>
             <Row id="fixNav" align="middle" style={{ height: "8vh" }}>
@@ -85,18 +69,25 @@ export default function Navbar() {
                     </span>
   
                 </Col>
-                <Col xs={0} md={4} lg={4} style={{ borderBottom: "1px solid #F0F0F0", height: "48px" }} />
-                <Col xs={2} md={2} lg={5} style={{ textAlign: "right" }}>
+                <Col xs={0} md={4} lg={2} style={{ borderBottom: "1px solid #F0F0F0", height: "48px" }} />
+                <Col xs={2} md={2} lg={7} style={{ textAlign: "right" }}>
                     <Menu mode="horizontal">
-                        <Menu.Item>
-                            <Dropdown overlay={cart}>
+                        <Menu.Item className="LinkNavCus">
+                            <Dropdown overlay={ search } trigger={['click']}>
+                                <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                                    <span style={{fontSize:"18px"}}>Search</span>
+                                </a>
+                            </Dropdown>
+                        </Menu.Item>
+                        <Menu.Item className="LinkNavCus">
+                            <Dropdown overlay={ cart }>
                                 <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                                     <CgShoppingCart style={{fontSize: '20px', position: 'relative', top: '4px'}}/>
                                     <span style={{fontSize:"18px"}}>(0)</span>
                                 </a>
                             </Dropdown>
                         </Menu.Item>
-                        <Menu.Item>
+                        <Menu.Item className="LinkNavCus">
                             <a href='tel: 84789991876'>
                                 <RiPhoneLine style={{fontSize: '20px', position: 'relative', top: '4px'}} />
                                 <span style={{fontSize:"16px"}}> +84 789991876</span>
