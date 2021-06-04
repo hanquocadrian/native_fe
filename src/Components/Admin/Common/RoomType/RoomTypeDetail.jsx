@@ -64,7 +64,7 @@ function RoomTypeDetail(props) {
                             <Descriptions
                                 title={tenLP}
                                 bordered
-                                column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
+                                column={{ xxl: 3, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
                             >
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder', width: '150px' }} label="ID loại phòng">{idLP}</Descriptions.Item>
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Tên loại phòng">{tenLP}</Descriptions.Item>

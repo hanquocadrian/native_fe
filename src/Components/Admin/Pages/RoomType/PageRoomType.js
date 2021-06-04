@@ -30,7 +30,10 @@ export default function RoomType(props) {
     const columns = [
         {
             title: '#',
-            dataIndex: 'idLP'
+            dataIndex: 'idLP',
+            sorter: {
+                compare: (a, b) => a.idLP - b.idLP
+            }
         },
         {
             title: 'Tên LP',
@@ -39,6 +42,9 @@ export default function RoomType(props) {
         {
             title: 'Thứ hạng',
             dataIndex: 'hangPhong',
+            sorter: {
+                compare: (a, b) => a.hangPhong - b.hangPhong
+            },
             render: hangPhong => (
                 <Rate allowHalf disabled defaultValue={hangPhong} />
             )
@@ -70,6 +76,7 @@ export default function RoomType(props) {
         var uri = url + '/api/roomtype/' + id;
         deleteData(uri)
         .then(res => {
+            console.log(res);
             message.success("Delete this successful !");
 
             uri = url + '/api/roomtype/';

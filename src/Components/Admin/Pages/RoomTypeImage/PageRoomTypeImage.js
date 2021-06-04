@@ -7,48 +7,76 @@ import { getData, deleteData } from 'Api/api';
 import { url } from 'Api/url';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { urnRoomTypeImage, urnRoomTypeImageID, urnRoomType } from 'Api/urn';
+import { storage } from 'Store/Firebase';
 
 export default function PageRoomTypeImage(props) {
-    const [dataRoomtypes, setdataRoomtypes] = useState([]);
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [dataRoomtypeImages, setdataRoomtypeImages] = useState([]);
+    const [dataRoomtype, setdataRoomtype] = useState([]);
 
     useEffect(() => {
         try {
-            var uri = url + '/api/roomtype-image/';
+            var uri = url + urnRoomTypeImage;
 
             getData(uri)
-            .then(res => setdataRoomtypes(res.data))
+            .then(res => setdataRoomtypeImages(res.data))
             .catch(err => console.error(err));
         } catch (error) {
-            console.log('Error => get data RoomType in Page RoomType: ', error);
+            console.log(error);
+        }
+    }, []);
+
+    useEffect(() => {
+        try {
+            var uri = url + urnRoomType;
+
+            getData(uri)
+            .then(res => setdataRoomtype(res.data))
+            .catch(err => console.error(err));
+        } catch (error) {
+            console.log(error);
         }
     }, []);
     
     const columns = [
         {
             title: '#',
-            dataIndex: 'idHinhLP'
+            dataIndex: 'idHinhLP',
+            sorter: {
+                compare: (a, b) => a.idHinhLP - b.idHinhLP
+            }
         },
         {
-            title: 'Thứ hạng',
+            title: 'Hình ảnh',
             dataIndex: 'hinhAnh',
             render: hinhAnh => (
-                <Image width={100} height="auto" src={hinhAnh} />
+                <Image style={{ height: '125px', width: 'auto' }} src={hinhAnh} />
             )
         },
         {
             title: 'Mã LP',
-            dataIndex: 'idLP'
+            dataIndex: 'idLP',
+            sorter: {
+                compare: (a, b) => a.idLP - b.idLP
+            }
+        },
+        {
+            title: 'Tên LP',
+            dataIndex: 'idLP',
+            render: idLP => (
+                dataRoomtype.map((item) => 
+                    item.idLP === idLP && item.tenLP
+                )
+            )
         },
         {
             title: 'Action',
             render: (record) => (
                 <>
-                    <Link to={ '/admin/roomtype-image-detail/' + record.idLP }><Button className="btn-detail">Detail</Button></Link>
-                    <Link to={ '/admin/roomtype-image-upd/' + record.idLP }><Button className="btn-edit">Edit</Button></Link>
+                    <Link to={ '/admin/roomtype-image-upd/' + record.idHinhLP }><Button className="btn-edit">Edit</Button></Link>
                     <Popconfirm
                         title="Are you sure to delete this?"
-                        onConfirm={ () => onDelete(record.idHinhLP) }
+                        onConfirm={ () => onDelete(record.idHinhLP, record.hinhAnh) }
                         okText="Yes"
                         cancelText="No"
                     >
@@ -59,15 +87,30 @@ export default function PageRoomTypeImage(props) {
         }
     ];
 
-    function onDelete(id) {
-        var uri = url + '/api/roomtype-image/' + id;
+    const deleteFromFirebase = (url) => {
+        try { 
+            storage.refFromURL(url).delete().then(() => {
+                alert("Picture is deleted successfully!");
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        } catch (error) {
+            alert("Can't delete Picture!");
+            console.log(error);
+        }
+    };
+
+    function onDelete(id, image) {
+        deleteFromFirebase(image);
+        var uri = url + urnRoomTypeImageID(id);
         deleteData(uri)
         .then(res => {
             message.success("Delete this successful !");
 
-            uri = url + '/api/roomtype-image/';
+            uri = url + urnRoomTypeImage;
             getData(uri)
-            .then(res => setdataRoomtypes(res.data))
+            .then(res => setdataRoomtypeImages(res.data))
             .catch(err => console.error(err));
         })
         .catch(err => console.log(err));
@@ -86,8 +129,8 @@ export default function PageRoomTypeImage(props) {
                         <Col xs={20} md={20} lg={20}>
                         <Row>
                             <Col xs={2} md={2} lg={2}>
-                                <Tooltip placement="right" title="Thêm Loại Phòng">
-                                    <Link to="/admin/roomtype-add">
+                                <Tooltip placement="right" title="Thêm Hình Ảnh Loại Phòng">
+                                    <Link to="/admin/roomtype-image-add">
                                         <Button className="btn-add" id="btnAdd">
                                             <GrAdd className="icon-top" />
                                         </Button>
@@ -101,9 +144,8 @@ export default function PageRoomTypeImage(props) {
                         </Row>
                             <Table
                                 columns={ columns } 
-                                dataSource={ dataRoomtypes } 
-                                pagination={{ pageSize: 7, position: ['topRight', 'none'] }} 
-                                scroll={{ x: 1080 }}
+                                dataSource={ dataRoomtypeImages } 
+                                pagination={{ pageSize: 3, position: ['topRight', 'none'] }} 
                             />
                         </Col>
                         <Col xs={2} md={2} lg={2} />
