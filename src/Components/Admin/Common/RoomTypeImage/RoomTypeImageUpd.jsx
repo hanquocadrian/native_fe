@@ -159,7 +159,7 @@ function RoomTypeImageUpd(props) {
                                     <Col xs={18} md={18} lg={18}>
                                         <Row justify="center">
                                             <Col xs={24} md={24} lg={24}>
-                                                <Image src={ hinhAnhCu } alt="Not found" height={400} />
+                                                <Image src={ hinhAnhCu } alt="Not found" height={400}  />
                                             </Col>
                                         </Row>
                                     </Col>

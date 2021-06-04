@@ -1,6 +1,6 @@
 import React from 'react'
 import Sidebar from '../../Common/Sidebar/Sidebar';
-import { Row, Col, Table, Button, Tooltip } from 'antd';
+import { Row, Col, Table, Button, Tooltip, Popconfirm, message } from 'antd';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -15,9 +15,10 @@ import { Link } from 'react-router-dom';
 
 //Tạm sd http nhưng ko đúng ý nghĩa
 import { url } from '../../../../Api/url';
+import { getData, deleteData } from 'Api/api';
 const http = url;
 
-export default function Service() {
+export default function PageService() {
     const [dataServices, setdataServices] = useState([]);
 
     useEffect(() => {
@@ -75,13 +76,34 @@ export default function Service() {
             title: 'Actions',
             render: (record) => (
                 <>
-                    <Link to={ '/admin/service/' + record.idDV }><Button className="btn-detail"><BiDetail/></Button></Link>
-                    <Link to={ '/admin/service/' + record.idDV }><Button className="btn-edit"><FaRegEdit/></Button></Link>
-                    <Link to={ '/admin/service/' + record.idDV }><Button className="btn-delete"><RiDeleteBin5Line/></Button></Link>
+                    <Link to={ '/admin/service-detail/' + record.idDV }><Button className="btn-detail"><BiDetail/></Button></Link>
+                    <Link to={ '/admin/service-upd/' + record.idDV }><Button className="btn-edit"><FaRegEdit/></Button></Link>
+                    <Popconfirm
+                        title="Are you sure?"
+                        onConfirm={ () => onDelete(record.idDV) }
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Button className="btn-delete"><RiDeleteBin5Line/></Button>
+                    </Popconfirm>
                 </>
             )
         }
     ];
+
+    function onDelete(id) {
+        var uri = http + '/api/service/' + id;
+        deleteData(uri)
+        .then(res => {
+            message.success("Delete successfully !");
+
+            uri = http + '/api/service/';
+            getData(uri)
+            .then(res => setdataServices(res.data))
+            .catch(err => console.error(err));
+        })
+        .catch(err => console.log(err));
+    }
 
     return (
         <>
@@ -97,7 +119,7 @@ export default function Service() {
                         <Col xs={20} md={20} lg={20}>
                             <Row>
                                 <Col xs={2} md={2} lg={2}>
-                                    <Tooltip placement="right" title="Thêm Loại Phòng">
+                                    <Tooltip placement="right" title="Create new one">
                                         <Link to="/admin/service-add">
                                             <Button className="btn-add" id="btnAdd">
                                                 <GrAdd className="icon-top" />

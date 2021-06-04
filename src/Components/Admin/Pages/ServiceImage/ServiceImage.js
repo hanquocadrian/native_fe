@@ -1,11 +1,13 @@
 import React from 'react'
 import Sidebar from '../../Common/Sidebar/Sidebar';
-import { Row, Col, Table, Button } from 'antd';
+import { Row, Col, Table, Button, Tooltip, Popconfirm, message, Image } from 'antd';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
+import { GrAdd } from 'react-icons/gr';
+import { BiDetail } from 'react-icons/bi';
 
 import './ServiceImage.css'
 import NavbarTop from '../../Common/Navigation/NavbarTop';
@@ -13,6 +15,7 @@ import { Link } from 'react-router-dom';
 
 //Tạm sd http nhưng ko đúng ý nghĩa
 import { url } from '../../../../Api/url';
+import { getData, deleteData } from 'Api/api';
 const http = url;
 
 export default function ServiceImage() {
@@ -61,7 +64,7 @@ export default function ServiceImage() {
             title: 'Image',
             dataIndex: 'hinhAnh',
             render: hinhAnh => (
-                <img src={hinhAnh} alt="not found" style={{ width:"12.5vw", height:"17.5vh"}}/>
+                <Image src={hinhAnh} alt="not found" style={{ width:"12.5vw", height:"17.5vh"}}/>
             )
         },
         {
@@ -77,18 +80,34 @@ export default function ServiceImage() {
             title: 'Actions',
             render: (record) => (
                 <>
-                    <Row>
-                        <Col xs={24} md={12} lg={12}>
-                            <Link to={ '/admin/service-image/' + record.idHinhDV }><Button type="primary" ><FaRegEdit/></Button></Link>
-                        </Col>
-                        <Col xs={24} md={12} lg={12}>
-                            <Link to={ '/admin/service-image/' + record.idHinhDV }><Button type="primary" danger><RiDeleteBin5Line/></Button></Link>
-                        </Col>
-                    </Row>
+                    <Link to={ '/admin/service-image-upd/' + record.idHinhDV }><Button className="btn-edit"><FaRegEdit/></Button></Link>
+                    <Popconfirm
+                        title="Are you sure?"
+                        onConfirm={ () => onDelete(record.idHinhDV) }
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Button className="btn-delete"><RiDeleteBin5Line/></Button>
+                    </Popconfirm>
                 </>
             )
         }
     ];
+
+    
+    function onDelete(id) {
+        var uri = http + '/api/service-image/' + id;
+        deleteData(uri)
+        .then(res => {
+            message.success("Delete successfully !");
+
+            uri = http + '/api/service-image/';
+            getData(uri)
+            .then(res => setdataServiceImages(res.data))
+            .catch(err => console.error(err));
+        })
+        .catch(err => console.log(err));
+    }
 
     return (
         <>
@@ -98,10 +117,25 @@ export default function ServiceImage() {
                     <Sidebar />
                 </Col>
                 <Col span={19}>
-                    <Row  style={{paddingTop:"2%"}}>
+                    <div style={{ height: '3vh' }} />
+                    <Row>
                         <Col xs={2} md={2} lg={2} />
                         <Col xs={20} md={20} lg={20}>
-                        <h2 className="text-center"><b>LIST OF SERVICE IMAGES</b></h2>
+                            <Row>
+                                <Col xs={2} md={2} lg={2}>
+                                    <Tooltip placement="right" title="Create new one">
+                                        <Link to="/admin/service-add">
+                                            <Button className="btn-add" id="btnAdd">
+                                                <GrAdd className="icon-top" />
+                                            </Button>
+                                        </Link>
+                                    </Tooltip>
+                                </Col>
+                                <Col xs={20} md={20} lg={20}>
+                                    <h1 className="text-center"><b>LIST OF SERVICE IMAGES</b></h1>
+                                </Col>
+                                <Col xs={2} md={2} lg={2} />
+                            </Row>
                             <Table 
                                 columns={ columns } 
                                 dataSource={ dataServiceImages } 

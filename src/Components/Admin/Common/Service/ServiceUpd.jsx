@@ -1,12 +1,13 @@
 import React from 'react'
-import { Row, Col, Form, Input, Tooltip, Button, Select, message, } from 'antd';
+import { Row, Col, Form, Input, Tooltip, Button, Select, message, Popconfirm } from 'antd';
 import { Link } from 'react-router-dom';
 import { ImCancelCircle } from 'react-icons/im';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { url } from '../../../../Api/url';
-import { postData } from 'Api/api';
+import { putData, getData } from 'Api/api';
 
-export default function ServiceAdd() {
+export default function ServiceUpd(props) {
+    const [idDV, setidDV] = useState(props.idDV);
     const [tenDV, settenDV] = useState('');
     const [moTaTD, setmoTaTD] = useState('');
     const [moTaCT, setmoTaCT] = useState('');
@@ -15,20 +16,39 @@ export default function ServiceAdd() {
 
     const { Option } = Select;
 
+    useEffect(() => {
+        var uri = url + "/api/service/" + idDV;
+        getData(uri)
+        .then(res =>{
+            settenDV(res.data.tenDV);
+            setmoTaTD(res.data.moTaTD);
+            setmoTaCT(res.data.moTaCT);
+            sethinhThuc(res.data.hinhThuc);
+            setdonGia(res.data.donGia);
+        })
+        .catch(err => console.log(err));
+    }, []);
+
     function onReset(){
-        settenDV('');
-        setmoTaTD('');
-        setmoTaCT('')
-        sethinhThuc('');
-        setdonGia(0);
+        var uri = url + "/api/service/" + idDV;
+        getData(uri)
+        .then(res =>{
+            settenDV(res.data.tenDV);
+            setmoTaTD(res.data.moTaTD);
+            setmoTaCT(res.data.moTaCT);
+            sethinhThuc(res.data.hinhThuc);
+            setdonGia(res.data.donGia);
+        })
+        .catch(err => console.log(err));
     }
 
-    const onCreate = () => {
+    const onUpdate = () => {
         if(tenDV == "" || moTaCT == "" || moTaTD == "" ){
-            message.error("Please, fill out all fields");
+            message.error("Please, fill out all fields!");
             return;
         }
         const data = {
+            idDV,
             tenDV,
             moTaTD,
             moTaCT,
@@ -36,14 +56,15 @@ export default function ServiceAdd() {
             donGia
         }
         console.log(data);
-        var uri = url + '/api/service/';
-        postData(uri, data)
-        .then(res=>{
-            console.log("res add: ", res.data);
-            message.success("Create data successfully, this page will refesh a few moments later", 3).then(()=>{
-                onReset();
+        var uri = url + '/api/service/' + idDV;
+
+        putData(uri, data)
+        .then(res => {
+            console.log("res upd: ", res);
+            message.success("Update data successfully, this page will redirect a few moments later", 3).then(()=>{
+                props.propsParent.history.push('/admin/service/');
             })
-        })
+        });
     }
 
     return (
@@ -54,7 +75,7 @@ export default function ServiceAdd() {
                 <Col xs={20} md={20} lg={20}>
                     <Row>
                         <Col xs={2} md={2} lg={2}>
-                            <Tooltip placement="right" title="Trở về">
+                            <Tooltip placement="right" title="Back">
                                 <Link to="/admin/service">
                                     <Button className="btn-close" id="btnAdd">
                                         <ImCancelCircle style={{ color: 'black' }} className="icon-top" />
@@ -63,7 +84,7 @@ export default function ServiceAdd() {
                             </Tooltip>
                         </Col>
                         <Col xs={20} md={20} lg={20}>
-                            <h1 className="text-center"><b>CREATE SERVICE</b></h1>
+                            <h1 className="text-center"><b>UPDATE SERVICE</b></h1>
                         </Col>
                         <Col xs={2} md={2} lg={2} />
                     </Row>
@@ -89,7 +110,7 @@ export default function ServiceAdd() {
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={6}><b>Type:</b></Col>
                             <Col xs={18} md={18} lg={18}>
-                                <Select onChange={ value => sethinhThuc(value) } defaultValue="1" style={{width: 200}} value={hinhThuc}>
+                                <Select onChange={ value => sethinhThuc(value) } defaultValue="1" style={{width: 200}} value={hinhThuc == 1 ? 'Per booking' : (hinhThuc == 2 ? 'Per person per date' : 'Free')}>
                                     <Option value="1">Per booking</Option>
                                     <Option value="2">Per person per date</Option>
                                     <Option value="3">Free</Option>
@@ -98,10 +119,17 @@ export default function ServiceAdd() {
                         </Row>
                         <Row justify="end">
                             <Col xs={2} md={2} lg={2}>
-                                <Button size="large" onClick={ onReset } className="btn-reset">Reset</Button>
+                                <Popconfirm
+                                    title="Are you sure?"
+                                    onConfirm={ onReset }
+                                    okText="Yes"
+                                    cancelText="No"
+                                >
+                                    <Button size="large" className="btn-reset">Reset</Button>
+                                </Popconfirm>
                             </Col>
                             <Col xs={2} md={2} lg={2}>
-                                <Button size="large" onClick={ onCreate } className="btn-create">Create</Button>
+                                <Button size="large" onClick={ onUpdate } className="btn-create">Update</Button>
                             </Col>
                         </Row>
                     </Form>
