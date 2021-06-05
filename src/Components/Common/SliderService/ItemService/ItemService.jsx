@@ -16,12 +16,12 @@ function ItemService(props) {
     useEffect(() => {
         try {
             const getHinhAnh = async () => {
-                var uri = url + '/api/imageservice/get_by_iddv/' + props.idDV;
+                var uri = url + '/api/service-image/get_by_iddv/' + props.idDV;
                 const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
-                console.log(result[0].hinhAnh);
-                setImage(result[0].hinhAnh);
+                console.log("this: ", typeof result !== 'undefined' ? ( typeof result[0] !== 'undefined'? result[0].hinhAnh : "" ): "" );
+                setImage(typeof result !== 'undefined' ? ( typeof result[0] !== 'undefined'? result[0].hinhAnh : "" ): "")
                 // setHinhAnhDV(result);
                 // console.log('hinh Anh dv:',hinhAnhDV);
             }
@@ -50,7 +50,7 @@ function ItemService(props) {
     useEffect(() => {
         try {
             const getHinhAnhDV = async () => {
-                var uri = url + '/api/imageservice/get_by_iddv/' + props.idDV;
+                var uri = url + '/api/service-image/get_by_iddv/' + props.idDV;
                 const result = await axios.get(uri)
                 .then((res) => res.data)
                 .catch((err) => console.log(err));

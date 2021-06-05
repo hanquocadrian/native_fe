@@ -17,16 +17,21 @@ import AdLogin from './Components/Admin/Pages/Login/Login';
 import AdHome from './Components/Admin/Pages/Home/Home';
 import AdAbout from './Components/Admin/Pages/About/About';
 import AdSlider from './Components/Admin/Pages/Slider/Slider';
-import AdError from './Components/Admin/Pages/Error/Error';
 import AdPageRoomType from './Components/Admin/Pages/RoomType/PageRoomType';
-import AdPageRoomTypeAdd from 'Components/Admin/Pages/RoomType/Add/PageRoomTypeAdd';
 import AdPageRoomTypeDetail from './Components/Admin/Pages/RoomType/Detail/PageRoomTypeDetail';
+import AdPageRoomTypeAdd from 'Components/Admin/Pages/RoomType/Add/PageRoomTypeAdd';
 import AdPageRoomTypeUpd from './Components/Admin/Pages/RoomType/Update/PageRoomTypeUpd';
 import AdPageRoomTypeImage from 'Components/Admin/Pages/RoomTypeImage/PageRoomTypeImage';
 import AdPageRoomTypeImageAdd from 'Components/Admin/Pages/RoomTypeImage/Add/PageRoomTypeImageAdd';
 import AdPageRoomTypeImageUpd from 'Components/Admin/Pages/RoomTypeImage/Update/PageRoomTypeImageUpd';
-import AdPageService from 'Components/Admin/Pages/Service/PageService';
+import AdService from './Components/Admin/Pages/Service/PageService';
+import AdPageServiceAdd from 'Components/Admin/Pages/Service/Add/PageServiceAdd';
+import AdPageServiceDetail from 'Components/Admin/Pages/Service/Detail/PageServiceDetail';
+import AdPageServiceUpd from 'Components/Admin/Pages/Service/Update/PageServiceUpd';
 import AdServiceImage from './Components/Admin/Pages/ServiceImage/ServiceImage';
+
+// Error 404
+import AdError from './Components/Admin/Pages/Error/Error';
 
 export default class Router extends Component {
     render() {
@@ -46,19 +51,26 @@ export default class Router extends Component {
                         <ProtectedRoute exact path="/admin/home/" component={ AdHome } />
                         <ProtectedRoute exact path='/admin/about/' component={ AdAbout } />
                         <ProtectedRoute exact path='/admin/slider/' component={ AdSlider } />
+
                         <ProtectedRoute exact path='/admin/roomtype/' component={ AdPageRoomType } />
-                        <ProtectedRoute exact path='/admin/roomtype-add/' component={ AdPageRoomTypeAdd } />
+
                         <ProtectedRoute exact path='/admin/roomtype-detail/:id' component={ AdPageRoomTypeDetail } />
+                        <ProtectedRoute exact path='/admin/roomtype-add/' component={ AdPageRoomTypeAdd } />
                         <ProtectedRoute exact path='/admin/roomtype-upd/:id' component={ AdPageRoomTypeUpd } />
+                        <ProtectedRoute exact path='/admin/roomtype-image-detail/:id' component={ AdPageRoomTypeDetail } />
+
                         <ProtectedRoute exact path='/admin/roomtype-image/' component={ AdPageRoomTypeImage } />
                         <ProtectedRoute exact path='/admin/roomtype-image-detail/:id' component={ AdPageRoomTypeDetail } />
                         <ProtectedRoute exact path='/admin/roomtype-image-add/' component={ AdPageRoomTypeImageAdd } />
                         <ProtectedRoute exact path='/admin/roomtype-image-upd/:id' component={ AdPageRoomTypeImageUpd } />
-                        <ProtectedRoute exact path='/admin/service/' component={ AdPageService } />
+
+                        <ProtectedRoute exact path='/admin/service/' component={ AdService } />
+                        <ProtectedRoute exact path='/admin/service-add/' component={ AdPageServiceAdd } />
+                        <ProtectedRoute exact path='/admin/service-detail/:id' component={ AdPageServiceDetail } />
+                        <ProtectedRoute exact path='/admin/service-upd/:id' component={ AdPageServiceUpd } />
                         <ProtectedRoute exact path='/admin/service-image/' component={ AdServiceImage } />
 
-
-                        {/* Not Found */}
+                        {/* 404 Not Found */}
                         <Route path='*' component={ AdError } />   
                     </Switch>
                 </>

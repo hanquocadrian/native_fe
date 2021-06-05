@@ -33,7 +33,8 @@ export default function showServiceDetail(props) {
             <Col xs={0} md={0} lg={10}>
                 <Image
                     style={{width: "26vw"}}
-                    src={props.hinhAnhDV[0].hinhAnh}
+                    // src={props.hinhAnhDV[0].hinhAnh}
+                    src={(typeof props.hinhAnhDV !== 'undefined' ? ( typeof props.hinhAnhDV[0].hinhAnh !== 'undefined'? props.hinhAnhDV[0].hinhAnh : "" ): "")}
                 />
                 <Row style={{paddingTop:'2%'}}>
                     {
