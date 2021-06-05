@@ -25,7 +25,7 @@ import AdPageRoomTypeUpd from './Components/Admin/Pages/RoomType/Update/PageRoom
 import AdPageRoomTypeImage from 'Components/Admin/Pages/RoomTypeImage/PageRoomTypeImage';
 import AdPageRoomTypeImageAdd from 'Components/Admin/Pages/RoomTypeImage/Add/PageRoomTypeImageAdd';
 import AdPageRoomTypeImageUpd from 'Components/Admin/Pages/RoomTypeImage/Update/PageRoomTypeImageUpd';
-import AdService from './Components/Admin/Pages/Service/Service';
+import AdPageService from 'Components/Admin/Pages/Service/PageService';
 import AdServiceImage from './Components/Admin/Pages/ServiceImage/ServiceImage';
 
 export default class Router extends Component {
@@ -54,7 +54,7 @@ export default class Router extends Component {
                         <ProtectedRoute exact path='/admin/roomtype-image-detail/:id' component={ AdPageRoomTypeDetail } />
                         <ProtectedRoute exact path='/admin/roomtype-image-add/' component={ AdPageRoomTypeImageAdd } />
                         <ProtectedRoute exact path='/admin/roomtype-image-upd/:id' component={ AdPageRoomTypeImageUpd } />
-                        <ProtectedRoute exact path='/admin/service/' component={ AdService } />
+                        <ProtectedRoute exact path='/admin/service/' component={ AdPageService } />
                         <ProtectedRoute exact path='/admin/service-image/' component={ AdServiceImage } />
 
 

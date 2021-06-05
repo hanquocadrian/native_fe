@@ -9,7 +9,7 @@ import { getData, putData } from 'Api/api';
 import Form from 'antd/lib/form/Form';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { Option } from 'antd/lib/mentions';
-import { storage } from 'Store/Firebase';
+import { postImageFirebase, deleteImageFirebase } from 'Helper/ImageFir';
 
 function RoomTypeImageUpd(props) {
     const [roomTypes, setroomTypes] = useState([]);
@@ -61,21 +61,6 @@ function RoomTypeImageUpd(props) {
         .catch(err => console.log(err));
     }
 
-    const deleteFromFirebase = (url) => {
-        try { 
-            storage.refFromURL(url).delete().then(() => {
-                alert("Picture is deleted successfully!");
-                hinhAnhCu("");
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        } catch (error) {
-            alert("Can't delete Picture!");
-            console.log(error);
-        }
-    };
-
     const onUpdate = () => {
         if(!isChangeImage){
             var data = {
@@ -92,30 +77,24 @@ function RoomTypeImageUpd(props) {
                 })
             })
         } else {
-            deleteFromFirebase(hinhAnhCu);
+            deleteImageFirebase(hinhAnhCu, () => {
+                sethinhAnhCu("");
+            });
             if(fileHinhAnh){
-                var ref = 'RoomType';
-                var newNameFile = Date.now() + "_" + fileHinhAnh.name;
-                var child = newNameFile;
+                postImageFirebase('RoomType', fileHinhAnh, (uriImage) => {
+                    sethinhAnh(uriImage);
 
-                const uploadTask = storage.ref(ref).child(child).put(fileHinhAnh);
-                uploadTask.on("state_changed", snapshot => {}, error => { console.log(error) }, () => {
-                    storage.ref(ref).child(child).getDownloadURL()
-                    .then(uriImage => { 
-                        sethinhAnh(uriImage);
-
-                        const data = {
-                            hinhAnh: uriImage,
-                            idLP
-                        };
-                        console.log("data: ", data);
-                        const uri = url + urnRoomTypeImageID(idHinhLP);
-                        putData(uri, data)
-                        .then( res => {
-                            console.log("res upd: ", res);
-                            message.success("Update data successful, this page will redirect a few moments later", 3).then(()=>{
-                                props.propsParent.history.push('/admin/roomtype-image/');
-                            })
+                    const data = {
+                        hinhAnh: uriImage,
+                        idLP
+                    };
+                    console.log("data: ", data);
+                    const uri = url + urnRoomTypeImageID(idHinhLP);
+                    putData(uri, data)
+                    .then( res => {
+                        console.log("res upd: ", res);
+                        message.success("Update data successful, this page will redirect a few moments later", 3).then(()=>{
+                            props.propsParent.history.push('/admin/roomtype-image/');
                         })
                     })
                 });
@@ -157,9 +136,9 @@ function RoomTypeImageUpd(props) {
                                 <Row className="mb-15">
                                     <Col xs={6} md={6} lg={6}><b>Hình trước đó:</b></Col>
                                     <Col xs={18} md={18} lg={18}>
-                                        <Row justify="center">
+                                        <Row justify="center" style={{ overflow: 'hidden' }}>
                                             <Col xs={24} md={24} lg={24}>
-                                                <Image src={ hinhAnhCu } alt="Not found" height={400}  />
+                                                <Image src={ hinhAnhCu } alt="Not found" style={{ height: "400px", width: "auto"}}  />
                                             </Col>
                                         </Row>
                                     </Col>

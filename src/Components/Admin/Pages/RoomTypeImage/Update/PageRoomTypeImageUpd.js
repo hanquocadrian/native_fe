@@ -16,7 +16,7 @@ function PageRoomTypeImageUpd(props) {
                     {/* Container */}
                     <RoomTypeImageUpd propsParent={props} idHinhLP={props.match.params.id}  />
                 </Col>
-            </Row>  
+            </Row>
         </>
     )
 }

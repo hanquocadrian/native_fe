@@ -8,7 +8,7 @@ import { url } from 'Api/url';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { urnRoomTypeImage, urnRoomTypeImageID, urnRoomType } from 'Api/urn';
-import { storage } from 'Store/Firebase';
+import { deleteImageFirebase } from 'Helper/ImageFir';
 
 export default function PageRoomTypeImage(props) {
     const [dataRoomtypeImages, setdataRoomtypeImages] = useState([]);
@@ -87,22 +87,10 @@ export default function PageRoomTypeImage(props) {
         }
     ];
 
-    const deleteFromFirebase = (url) => {
-        try { 
-            storage.refFromURL(url).delete().then(() => {
-                alert("Picture is deleted successfully!");
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        } catch (error) {
-            alert("Can't delete Picture!");
-            console.log(error);
-        }
-    };
 
     function onDelete(id, image) {
-        deleteFromFirebase(image);
+        deleteImageFirebase(image);
+
         var uri = url + urnRoomTypeImageID(id);
         deleteData(uri)
         .then(res => {

@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 import { ImCancelCircle } from 'react-icons/im';
 import Form from 'antd/lib/form/Form';
 import { AiOutlineUpload } from 'react-icons/ai';
-import { storage } from 'Store/Firebase';
 import { Option } from 'antd/lib/mentions';
+import { postImageFirebase } from 'Helper/ImageFir';
 function RoomTypeImageAdd(props) {
     const [roomTypes, setroomTypes] = useState([]);
     const [isFile, setisFile] = useState(true);
@@ -51,28 +51,20 @@ function RoomTypeImageAdd(props) {
         }
         if(isFile){
             if(fileHinhAnh){
-                var ref = 'RoomType';
-                var newNameFile = Date.now() + "_" + fileHinhAnh.name;
-                var child = newNameFile;
+                postImageFirebase('RoomType', fileHinhAnh, (uriImage) => {
+                    sethinhAnh(uriImage);
 
-                const uploadTask = storage.ref(ref).child(child).put(fileHinhAnh);
-                uploadTask.on("state_changed", snapshot => {}, error => { console.log(error) }, () => {
-                    storage.ref(ref).child(child).getDownloadURL()
-                    .then(uriImage => { 
-                        sethinhAnh(uriImage);
-
-                        const data = {
-                            hinhAnh: uriImage,
-                            idLP
-                        };
-                        console.log("data: ", data);
-                        const uri = url + urnRoomTypeImage;
-                        postData(uri, data)
-                        .then( res => {
-                            console.log("res add: ", res.data);
-                            message.success("Create data successful, this page will refesh a few moments later", 3).then(()=>{
-                                onReset();
-                            })
+                    const data = {
+                        hinhAnh: uriImage,
+                        idLP
+                    };
+                    console.log("data: ", data);
+                    const uri = url + urnRoomTypeImage;
+                    postData(uri, data)
+                    .then( res => {
+                        console.log("res add: ", res.data);
+                        message.success("Create data successful, this page will refesh a few moments later", 3).then(()=>{
+                            onReset();
                         })
                     })
                 });
