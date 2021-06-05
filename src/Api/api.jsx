@@ -12,6 +12,7 @@ async function getData(uri){
         return resp
     } catch (error) {
         console.error(error);
+        return error;
     }
 }
 
@@ -20,7 +21,8 @@ async function postData(uri, data) {
         const resp = await axios.post(uri, data);
         return resp;
     } catch (error) {
-        console.warn(error);
+        console.error(error);
+        return error;
     }
 }
 
@@ -29,7 +31,8 @@ async function putData(uri, data) {
         const resp = await axios.put(uri, data);
         return resp;
     } catch (error) {
-        console.warn(error);
+        console.error(error);
+        return error;
     }
 }   
 
@@ -39,6 +42,7 @@ async function deleteData(uri) {
         return resp
     } catch (error) {
         console.error(error);
+        return error;
     }
 }
 

@@ -100,8 +100,7 @@ export default function PageRoomTypeImage(props) {
             getData(uri)
             .then(res => setdataRoomtypeImages(res.data))
             .catch(err => console.error(err));
-        })
-        .catch(err => console.log(err));
+        });
     }
     return (
         <>

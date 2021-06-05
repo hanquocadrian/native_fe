@@ -75,16 +75,20 @@ export default function RoomType(props) {
     function onDelete(id) {
         var uri = url + '/api/roomtype/' + id;
         deleteData(uri)
-        .then(res => {
-            console.log(res);
-            message.success("Delete this successful !");
+        .then((res) => {
+            if(typeof res.data !== 'undefined'){
+                console.log(res.data);
+                message.success("Delete this successful !");
 
-            uri = url + '/api/roomtype/';
-            getData(uri)
-            .then(res => setdataRoomtypes(res.data))
-            .catch(err => console.error(err));
+                uri = url + '/api/roomtype/';
+                getData(uri)
+                .then(res => setdataRoomtypes(res.data))
+                .catch(err => console.error(err));
+            } else if(typeof res.response !== 'undefined'){
+                console.log(res.response.data);
+                message.error("Delete fail. " + res.response.data);
+            }
         })
-        .catch(err => console.log(err));
     }
 
     const showModalSearch = () => {
