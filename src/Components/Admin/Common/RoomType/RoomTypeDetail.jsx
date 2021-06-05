@@ -1,10 +1,11 @@
-import { Button, Col, Descriptions, Rate, Row, Tooltip } from 'antd';
+import { Button, Col, Descriptions, Rate, Row, Tooltip, Carousel } from 'antd';
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { ImCancelCircle } from 'react-icons/im';
 import { Link } from 'react-router-dom';
 import { url } from '../../../../Api/url';
 import { getData } from 'Api/api';
+import { urnRoomTypeID, urnRoomTypeImageIDLP } from 'Api/urn';
 
 function RoomTypeDetail(props) {
     const [idLP, setidLP] = useState(props.idLP);
@@ -19,9 +20,10 @@ function RoomTypeDetail(props) {
     const [soLuong, setsoLuong] = useState(0);
     const [slHienTai, setslHienTai] = useState(0);
 
+    const [dataRoomTypeImages, setdataRoomTypeImages] = useState([])
 
     useEffect(() => {
-        var uri = url + "/api/roomtype/" + idLP;
+        var uri = url + urnRoomTypeID(idLP);
         getData(uri)
         .then(res => {
             settenLP(res.data.tenLP);
@@ -36,6 +38,18 @@ function RoomTypeDetail(props) {
             setslHienTai(res.data.slHienTai);
         })
         .catch(err => console.log(err));
+    }, [])
+    useEffect(() => {
+        try {
+            var uri = url + urnRoomTypeImageIDLP(idLP);
+            getData(uri)
+            .then(res => {
+                setdataRoomTypeImages(res.data);
+            })
+            .catch(err => console.log(err));
+        } catch (error) {
+            console.error(error);
+        }
     }, [])
 
     return (
@@ -79,8 +93,30 @@ function RoomTypeDetail(props) {
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Số lượng phòng hiện tại">{slHienTai}</Descriptions.Item>
                             </Descriptions>
                         </Row>
+                        {
+                            dataRoomTypeImages != null && 
+                                <>
+                                    <div style={{ height: '3vh' }} />
+                                    <Row justify="center">
+                                        <Col xs={24} md={24} lg={24}><h3><b>Các hình ảnh loại phòng</b></h3></Col>
+                                    </Row>
+                                    <div style={{ height: '3vh' }} />    
+                                </>
+                        }
+                        
                         <Row>
-
+                            <Col xs={5} md={5} lg={5} />
+                            <Col xs={19} md={19} lg={19}>
+                                <Carousel autoplay>
+                                    {
+                                        dataRoomTypeImages && dataRoomTypeImages.map((item, index) => 
+                                            <div key={ index }>
+                                                <img src={ item.hinhAnh } alt="not found" style={{ width: "auto", height: "50vh" }} />
+                                            </div>
+                                        )
+                                    }
+                                </Carousel>
+                            </Col>
                         </Row>
                     </div>
                 </Col>

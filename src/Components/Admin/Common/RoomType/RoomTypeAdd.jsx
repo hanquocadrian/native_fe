@@ -5,6 +5,7 @@ import { ImCancelCircle } from 'react-icons/im';
 import { useState } from 'react';
 import { url } from '../../../../Api/url';
 import { postData } from 'Api/api';
+import { urnRoomType } from 'Api/urn';
 
 export default function RoomTypeAdd() {
     const [tenLP, settenLP] = useState('');
@@ -47,7 +48,7 @@ export default function RoomTypeAdd() {
             slHienTai
         }
         console.log(data);
-        var uri = url + '/api/roomtype/';
+        var uri = url + urnRoomType;
         postData(uri, data)
         .then(res=>{
             console.log("res add: ", res.data);

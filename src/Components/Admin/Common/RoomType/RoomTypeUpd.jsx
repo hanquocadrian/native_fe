@@ -5,6 +5,7 @@ import { ImCancelCircle } from 'react-icons/im';
 import { useState, useEffect } from 'react';
 import { url } from '../../../../Api/url';
 import { putData, getData } from 'Api/api';
+import { urnRoomTypeID } from 'Api/urn';
 
 
 function RoomTypeUpd(props) {
@@ -21,7 +22,7 @@ function RoomTypeUpd(props) {
     const [slHienTai, setslHienTai] = useState(0);
 
     useEffect(() => {
-        var uri = url + "/api/roomtype/" + idLP;
+        var uri = url + urnRoomTypeID(idLP);
         getData(uri)
         .then(res => {
             settenLP(res.data.tenLP);
@@ -39,7 +40,7 @@ function RoomTypeUpd(props) {
     }, [])
 
     function onReset(){
-        var uri = url + "/api/roomtype/" + idLP;
+        var uri = url + urnRoomTypeID(idLP);
         getData(uri)
         .then(res => {
             settenLP(res.data.tenLP);
@@ -75,7 +76,7 @@ function RoomTypeUpd(props) {
             slHienTai
         }
         console.log(data);
-        var uri = url + '/api/roomtype/' + idLP;
+        var uri = url + urnRoomTypeID(idLP);
 
         putData(uri, data)
         .then(res => {

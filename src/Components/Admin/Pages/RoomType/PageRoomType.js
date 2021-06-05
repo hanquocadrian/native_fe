@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { GrAdd } from 'react-icons/gr';
 import NavbarTop from '../../Common/Navigation/NavbarTop';
 import { getData, deleteData } from 'Api/api';
+import { urnRoomType, urnRoomTypeID } from 'Api/urn';
 
 const { RangePicker } = DatePicker;
 
@@ -17,7 +18,7 @@ export default function RoomType(props) {
 
     useEffect(() => {
         try {
-            var uri = url + '/api/roomtype/';
+            var uri = url + urnRoomType;
 
             getData(uri)
             .then(res => setdataRoomtypes(res.data))
@@ -73,14 +74,14 @@ export default function RoomType(props) {
     ];
 
     function onDelete(id) {
-        var uri = url + '/api/roomtype/' + id;
+        var uri = url + urnRoomTypeID(id);
         deleteData(uri)
         .then((res) => {
             if(typeof res.data !== 'undefined'){
                 console.log(res.data);
                 message.success("Delete this successful !");
 
-                uri = url + '/api/roomtype/';
+                uri = url + urnRoomType;
                 getData(uri)
                 .then(res => setdataRoomtypes(res.data))
                 .catch(err => console.error(err));
@@ -131,8 +132,8 @@ export default function RoomType(props) {
                             <Col xs={2} md={2} lg={2}>
                                 <Button onClick={ showModalSearch }>Search</Button>
                                 <Modal 
-                                    title="Tìm DSLP theo ngày" 
-                                    visible={isModalVisible} 
+                                    title="Tìm danh sách loại phòng theo ngày" 
+                                    visible={ isModalVisible } 
                                     onCancel={ handleCancel } 
                                     footer={[
                                         <Button onClick={ handleCancel }>
