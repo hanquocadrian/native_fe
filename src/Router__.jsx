@@ -50,10 +50,12 @@ export default class Router extends Component {
                         <ProtectedRoute exact path='/admin/roomtype-add/' component={ AdPageRoomTypeAdd } />
                         <ProtectedRoute exact path='/admin/roomtype-detail/:id' component={ AdPageRoomTypeDetail } />
                         <ProtectedRoute exact path='/admin/roomtype-upd/:id' component={ AdPageRoomTypeUpd } />
+
                         <ProtectedRoute exact path='/admin/roomtype-image/' component={ AdPageRoomTypeImage } />
                         <ProtectedRoute exact path='/admin/roomtype-image-detail/:id' component={ AdPageRoomTypeDetail } />
                         <ProtectedRoute exact path='/admin/roomtype-image-add/' component={ AdPageRoomTypeImageAdd } />
                         <ProtectedRoute exact path='/admin/roomtype-image-upd/:id' component={ AdPageRoomTypeImageUpd } />
+                        
                         <ProtectedRoute exact path='/admin/service/' component={ AdPageService } />
                         <ProtectedRoute exact path='/admin/service-image/' component={ AdServiceImage } />
 

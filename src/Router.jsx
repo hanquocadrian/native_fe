@@ -31,7 +31,7 @@ import AdPageServiceUpd from 'Components/Admin/Pages/Service/Update/PageServiceU
 import AdServiceImage from './Components/Admin/Pages/ServiceImage/ServiceImage';
 
 // Error 404
-import AdError from './Components/Admin/Pages/Error/Error';
+import Error from './Components/Admin/Pages/Error/Error';
 
 export default class Router extends Component {
     render() {
@@ -71,7 +71,7 @@ export default class Router extends Component {
                         <ProtectedRoute exact path='/admin/service-image/' component={ AdServiceImage } />
 
                         {/* 404 Not Found */}
-                        <Route path='*' component={ AdError } />   
+                        <Route path='*' component={ Error } />   
                     </Switch>
                 </>
             </BRouter>
