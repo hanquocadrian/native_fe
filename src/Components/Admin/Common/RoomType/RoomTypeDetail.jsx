@@ -60,7 +60,7 @@ function RoomTypeDetail(props) {
                 <Col xs={20} md={20} lg={20}>
                     <Row>
                         <Col xs={2} md={2} lg={2}>
-                            <Tooltip placement="right" title="Trở về">
+                            <Tooltip placement="right" title="Back">
                                 <Link to="/admin/roomtype">
                                     <Button className="btn-close" id="btnAdd">
                                         <ImCancelCircle style={{ color: 'black' }} className="icon-top" />
@@ -69,7 +69,7 @@ function RoomTypeDetail(props) {
                             </Tooltip>
                         </Col>
                         <Col xs={20} md={20} lg={20}>
-                            <h1 className="text-center"><b>THÔNG TIN LOẠI PHÒNG</b></h1>
+                            <h1 className="text-center"><b>INFORMATION ROOM TYPE</b></h1>
                         </Col>
                         <Col xs={2} md={2} lg={2} />
                     </Row>
@@ -80,17 +80,17 @@ function RoomTypeDetail(props) {
                                 bordered
                                 column={{ xxl: 3, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
                             >
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder', width: '150px' }} label="ID loại phòng">{idLP}</Descriptions.Item>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Tên loại phòng">{tenLP}</Descriptions.Item>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Hạng của loại phòng"><Rate allowHalf disabled value={hangPhong} onChange={ value => sethangPhong(value) } /></Descriptions.Item>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Mô tả chi tiết" span={3}>{moTaCT}</Descriptions.Item>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Mô tả giới thiệu" span={3}>{moTaGT}</Descriptions.Item>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Mô tả tiêu đề" span={3}>{moTaTD}</Descriptions.Item>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Số người">{soNguoi}</Descriptions.Item>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Số giường">{giuong}</Descriptions.Item>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Số phòng tắm">{phongTam}</Descriptions.Item>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Số lượng phòng">{soLuong}</Descriptions.Item>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Số lượng phòng hiện tại">{slHienTai}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder', width: '150px' }} label="ID Room type">{idLP}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Room type title">{tenLP}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Room type rate"><Rate allowHalf disabled value={hangPhong} onChange={ value => sethangPhong(value) } /></Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Detail description" span={3}>{moTaCT}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Intro description" span={3}>{moTaGT}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Title description" span={3}>{moTaTD}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Number of guest(s)">{soNguoi}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Number of bed(s)">{giuong}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Number of bathroom(s)">{phongTam}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Number of room(s)">{soLuong}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Number of rooms available">{slHienTai}</Descriptions.Item>
                             </Descriptions>
                         </Row>
                         {
@@ -98,7 +98,7 @@ function RoomTypeDetail(props) {
                                 <>
                                     <div style={{ height: '3vh' }} />
                                     <Row justify="center">
-                                        <Col xs={24} md={24} lg={24}><h3><b>Các hình ảnh loại phòng</b></h3></Col>
+                                        <Col xs={24} md={24} lg={24}><h3><b>Room type images</b></h3></Col>
                                     </Row>
                                     <div style={{ height: '3vh' }} />    
                                 </>

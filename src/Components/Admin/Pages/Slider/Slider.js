@@ -1,4 +1,4 @@
-import { storage } from '../../../../Store/Firebase';
+import { storage } from '../../../../FirebaseConfig';
 import React, { useState, useEffect } from 'react';
 
 export default function Slider() {

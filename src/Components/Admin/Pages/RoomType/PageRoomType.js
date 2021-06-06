@@ -37,11 +37,11 @@ export default function RoomType(props) {
             }
         },
         {
-            title: 'Tên LP',
+            title: 'Title',
             dataIndex: 'tenLP'
         },
         {
-            title: 'Thứ hạng',
+            title: 'Rate',
             dataIndex: 'hangPhong',
             sorter: {
                 compare: (a, b) => a.hangPhong - b.hangPhong
@@ -51,11 +51,11 @@ export default function RoomType(props) {
             )
         },
         {
-            title: 'Số lượng',
+            title: 'Number',
             dataIndex: 'soLuong'
         },
         {
-            title: 'Action',
+            title: 'Actions',
             render: (record) => (
                 <>
                     <Link to={ '/admin/roomtype-detail/' + record.idLP }><Button className="btn-detail">Detail</Button></Link>
@@ -79,7 +79,7 @@ export default function RoomType(props) {
         .then((res) => {
             if(typeof res.data !== 'undefined'){
                 console.log(res.data);
-                message.success("Delete this successful !");
+                message.success("Delete successfully !");
 
                 uri = url + urnRoomType;
                 getData(uri)
@@ -118,7 +118,7 @@ export default function RoomType(props) {
                         <Col xs={20} md={20} lg={20}>
                         <Row>
                             <Col xs={2} md={2} lg={2}>
-                                <Tooltip placement="right" title="Thêm Loại Phòng">
+                                <Tooltip placement="right" title="Create new one">
                                     <Link to="/admin/roomtype-add">
                                         <Button className="btn-add" id="btnAdd">
                                             <GrAdd className="icon-top" />
@@ -127,17 +127,17 @@ export default function RoomType(props) {
                                 </Tooltip>
                             </Col>
                             <Col xs={20} md={20} lg={20}>
-                                <h1 className="text-center"><b>DANH SÁCH LOẠI PHÒNG</b></h1>
+                                <h1 className="text-center"><b>LIST OF ROOM TYPE</b></h1>
                             </Col>
                             <Col xs={2} md={2} lg={2}>
                                 <Button onClick={ showModalSearch }>Search</Button>
                                 <Modal 
-                                    title="Tìm danh sách loại phòng theo ngày" 
+                                    title="Looking for room type by date" 
                                     visible={ isModalVisible } 
                                     onCancel={ handleCancel } 
                                     footer={[
                                         <Button onClick={ handleCancel }>
-                                            Đóng
+                                            Close
                                         </Button>
                                     ]}
                                 >
@@ -145,7 +145,7 @@ export default function RoomType(props) {
                                         <RangePicker onChange={ onChooseDate } />
                                     </p>
                                     <p>
-                                        DS LP trống trong ngày ấy
+                                        List of room type available
                                     </p>
                                     <p>
                                         Here

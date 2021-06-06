@@ -9,7 +9,7 @@ import { getData, putData } from 'Api/api';
 import Form from 'antd/lib/form/Form';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { Option } from 'antd/lib/mentions';
-import { storage } from 'Store/Firebase';
+import { postImageFirebase, deleteImageFirebase } from 'Helper/ImageFir';
 
 export default function ServiceImageUpd(props) {
     const [services, setServices] = useState([]);
@@ -61,21 +61,6 @@ export default function ServiceImageUpd(props) {
         .catch(err => console.log(err));
     }
 
-    const deleteFromFirebase = (url) => {
-        try { 
-            storage.refFromURL(url).delete().then(() => {
-                alert("Delete successfully!");
-                hinhAnhCu("");
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        } catch (error) {
-            alert("Can't delete this picture!");
-            console.log(error);
-        }
-    }
-
     const onUpdate = () => {
         if(!isChangeImage){
             var data = {
@@ -87,36 +72,30 @@ export default function ServiceImageUpd(props) {
             putData(uri, data)
             .then( res => {
                 console.log("res upd: ", res);
-                message.success("Update successfully, this page will redirect a few moments later", 3).then(()=>{
+                message.success("Update successfully, wait a few seconds", 3).then(()=>{
                     props.propsParent.history.push('/admin/service-image/');
                 })
             })
         } 
         else {
-            deleteFromFirebase(hinhAnhCu);
+            deleteImageFirebase(hinhAnhCu, () => {
+                sethinhAnhCu("");
+            });
             if(fileHinhAnh){
-                var ref = 'Service';
-                var newNameFile = Date.now() + "_" + fileHinhAnh.name;
-                var child = newNameFile;
+                postImageFirebase('Service', fileHinhAnh, (uriImage) => {
+                    sethinhAnh(uriImage);
 
-                const uploadTask = storage.ref(ref).child(child).put(fileHinhAnh);
-                uploadTask.on("state_changed", snapshot => {}, error => { console.log(error) }, () => {
-                    storage.ref(ref).child(child).getDownloadURL()
-                    .then(uriImage => { 
-                        sethinhAnh(uriImage);
-
-                        const data = {
-                            hinhAnh: uriImage,
-                            idDV
-                        };
-                        console.log("data: ", data);
-                        const uri = url + urnServiceImageID(idHinhDV);
-                        putData(uri, data)
-                        .then( res => {
-                            console.log("res upd: ", res);
-                            message.success("Update successfully, this page will redirect a few moments later", 3).then(()=>{
-                                props.propsParent.history.push('/admin/service-image/');
-                            })
+                    const data = {
+                        hinhAnh: uriImage,
+                        idDV
+                    };
+                    console.log("data: ", data);
+                    const uri = url +  urnServiceImageID(idHinhDV);
+                    putData(uri, data)
+                    .then( res => {
+                        console.log("res add: ", res.data);
+                        message.success("Create successfully, wait a few seconds", 3).then(()=>{
+                            onReset();
                         })
                     })
                 });
@@ -185,7 +164,7 @@ export default function ServiceImageUpd(props) {
                         {
                             isChangeImage == true && isFile == true ? (
                                 <Row className="mb-15">
-                                    <Col xs={6} md={6} lg={6}><b>File Service image:</b></Col>
+                                    <Col xs={6} md={6} lg={6}><b>Service Image File:</b></Col>
                                     <Col xs={18} md={18} lg={18}>
                                         <Upload 
                                             maxCount={1}
@@ -217,8 +196,8 @@ export default function ServiceImageUpd(props) {
                             isChangeImage == true &&  !isFile ?
                              (
                                 <Row className="mb-15">
-                                    <Col xs={6} md={6} lg={6}><b>URI Service image:</b></Col>
-                                    <Col xs={18} md={18} lg={18}><Input name="hinhAnh" value={hinhAnh} onChange={ e => sethinhAnh(e.target.value) } placeholder="URI Service image" /></Col>
+                                    <Col xs={6} md={6} lg={6}><b>Service image URI:</b></Col>
+                                    <Col xs={18} md={18} lg={18}><Input name="hinhAnh" value={hinhAnh} onChange={ e => sethinhAnh(e.target.value) } placeholder="Service image URI" /></Col>
                                 </Row>
                             ) : ( <></> )
                         }

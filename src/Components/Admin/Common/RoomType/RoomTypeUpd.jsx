@@ -81,7 +81,7 @@ function RoomTypeUpd(props) {
         putData(uri, data)
         .then(res => {
             console.log("res upd: ", res);
-            message.success("Update data successful, this page will redirect a few moments later", 3).then(()=>{
+            message.success("Update successfully, this page will redirect a few moments later", 3).then(()=>{
                 props.propsParent.history.push('/admin/roomtype/');
             })
         });
@@ -103,67 +103,67 @@ function RoomTypeUpd(props) {
                             </Tooltip>
                         </Col>
                         <Col xs={20} md={20} lg={20}>
-                            <h1 className="text-center"><b>CẬP NHẬT LOẠI PHÒNG</b></h1>
+                            <h1 className="text-center"><b>UPDATE ROOM TYPE</b></h1>
                         </Col>
                         <Col xs={2} md={2} lg={2} />
                     </Row>
                     <Form>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>ID loại phòng:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input name="idLP" value={idLP} placeholder="idLP" disabled /></Col>
+                            <Col xs={6} md={6} lg={6}><b>ID Room type:</b></Col>
+                            <Col xs={18} md={18} lg={18}><Input name="idLP" value={idLP} placeholder="ID Room type" disabled /></Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Tên loại phòng:</b></Col>
+                            <Col xs={6} md={6} lg={6}><b>Room type title:</b></Col>
                             <Col xs={18} md={18} lg={18}>
-                                <Input name="tenLP" value={tenLP} onChange={ e => settenLP(e.target.value) } placeholder="Tên của loại phòng" />
+                                <Input name="tenLP" value={tenLP} onChange={ e => settenLP(e.target.value) } placeholder="Room type title" />
                             </Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Mô tả chi tiết:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input name="moTaCT" value={moTaCT} onChange={ e => setmoTaCT(e.target.value) } placeholder="Mô tả chi tiết cho loại phòng" /></Col>
+                            <Col xs={6} md={6} lg={6}><b>Detail description:</b></Col>
+                            <Col xs={18} md={18} lg={18}><Input name="moTaCT" value={moTaCT} onChange={ e => setmoTaCT(e.target.value) } placeholder="Detail description" /></Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Mô tả giới thiệu:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input name="moTaGT" value={moTaGT} onChange={ e => setmoTaGT(e.target.value) } placeholder="Mô tả giới thiệu bên ngoài cho loại phòng" /></Col>
+                            <Col xs={6} md={6} lg={6}><b>Intro description:</b></Col>
+                            <Col xs={18} md={18} lg={18}><Input name="moTaGT" value={moTaGT} onChange={ e => setmoTaGT(e.target.value) } placeholder="Intro description" /></Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Mô tả tiêu đề:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input name="moTaTD" value={moTaTD} onChange={ e => setmoTaTD(e.target.value) } placeholder="Mô tả tiêu đề bên trên cho loại phòng" /></Col>
+                            <Col xs={6} md={6} lg={6}><b>Title description:</b></Col>
+                            <Col xs={18} md={18} lg={18}><Input name="moTaTD" value={moTaTD} onChange={ e => setmoTaTD(e.target.value) } placeholder="Title description" /></Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Hạng của loại phòng:</b></Col>
+                            <Col xs={6} md={6} lg={6}><b>Room type rate:</b></Col>
                             <Col xs={18} md={18} lg={18}><Rate allowHalf value={hangPhong} onChange={ value => sethangPhong(value) } /></Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Số người:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input type="number" min={1} max={6} name="soNguoi" value={soNguoi} onChange={ e => setsoNguoi(e.target.value) } placeholder="Số người từ 1 đến 6" /></Col>
+                            <Col xs={6} md={6} lg={6}><b>Number of guest(s):</b></Col>
+                            <Col xs={18} md={18} lg={18}><Input type="number" min={1} max={6} name="soNguoi" value={soNguoi} onChange={ e => setsoNguoi(e.target.value) } placeholder="Number of guest(s) from 1 to 6" /></Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Số giường:</b></Col>
+                            <Col xs={6} md={6} lg={6}><b>Number of bed(s):</b></Col>
                             <Col xs={18} md={18} lg={18}>
                                 <Radio.Group onChange={ e => setgiuong(e.target.value) } value={giuong}>
-                                    <Radio value={1}>1 Giường</Radio>
-                                    <Radio value={2}>2 Giường</Radio>
-                                    <Radio value={3}>3 Giường</Radio>
-                                    <Radio value={4}>4 Giường</Radio>
+                                    <Radio value={1}>1 bed</Radio>
+                                    <Radio value={2}>2 beds</Radio>
+                                    <Radio value={3}>3 beds</Radio>
+                                    <Radio value={4}>4 beds</Radio>
                                 </Radio.Group>
                             </Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Số phòng tắm:</b></Col>
+                            <Col xs={6} md={6} lg={6}><b>Number of bathroom(s):</b></Col>
                             <Col xs={18} md={18} lg={18}>
                                 <Radio.Group onChange={ e => setphongTam(e.target.value) } value={phongTam}>
-                                    <Radio value={1}>1 Phòng tắm</Radio>
-                                    <Radio value={2}>2 Phòng tắm</Radio>
+                                    <Radio value={1}>1 bathroom</Radio>
+                                    <Radio value={2}>2 bathrooms</Radio>
                                 </Radio.Group>
                             </Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Số lượng phòng:</b></Col>
+                            <Col xs={6} md={6} lg={6}><b>Number of room(s):</b></Col>
                             <Col xs={18} md={18} lg={18}><Input type="number" min={0} name="soLuong" value={soLuong} onChange={ e => setsoLuong(e.target.value) } disabled /></Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Số lượng phòng hiện tại:</b></Col>
+                            <Col xs={6} md={6} lg={6}><b>Number of rooms available:</b></Col>
                             <Col xs={18} md={18} lg={18}><Input type="number" min={0} name="slHienTai" value={slHienTai} onChange={ e => setslHienTai(e.target.value) } disabled /></Col>
                         </Row>
                         <Row justify="end">

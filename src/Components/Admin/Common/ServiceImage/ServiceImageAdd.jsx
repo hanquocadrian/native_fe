@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 import { ImCancelCircle } from 'react-icons/im';
 import Form from 'antd/lib/form/Form';
 import { AiOutlineUpload } from 'react-icons/ai';
-import { storage } from 'Store/Firebase';
 import { Option } from 'antd/lib/mentions';
+import { postImageFirebase } from 'Helper/ImageFir';
 
 export default function ServiceImageAdd() {
     const [services, setServices] = useState([]);
@@ -51,28 +51,20 @@ export default function ServiceImageAdd() {
         }
         if(isFile){
             if(fileHinhAnh){
-                var ref = 'Service';
-                var newNameFile = Date.now() + "_" + fileHinhAnh.name;
-                var child = newNameFile;
+                postImageFirebase('Service', fileHinhAnh, (uriImage) => {
+                    sethinhAnh(uriImage);
 
-                const uploadTask = storage.ref(ref).child(child).put(fileHinhAnh);
-                uploadTask.on("state_changed", snapshot => {}, error => { console.log(error) }, () => {
-                    storage.ref(ref).child(child).getDownloadURL()
-                    .then(uriImage => { 
-                        sethinhAnh(uriImage);
-
-                        const data = {
-                            hinhAnh: uriImage,
-                            idDV
-                        };
-                        console.log("data: ", data);
-                        const uri = url + urnServiceImage;
-                        postData(uri, data)
-                        .then( res => {
-                            console.log("res add: ", res.data);
-                            message.success("Create successfully, this page will refesh a few moments later", 3).then(()=>{
-                                onReset();
-                            })
+                    const data = {
+                        hinhAnh: uriImage,
+                        idDV
+                    };
+                    console.log("data: ", data);
+                    const uri = url + urnServiceImage;
+                    postData(uri, data)
+                    .then( res => {
+                        console.log("res add: ", res.data);
+                        message.success("Create successfully, wait a few seconds", 3).then(()=>{
+                            onReset();
                         })
                     })
                 });
@@ -96,7 +88,7 @@ export default function ServiceImageAdd() {
             postData(uri, data)
             .then( res => {
                 console.log("res add: ", res.data);
-                message.success("Create successfully, this page will refesh a few moments later", 3).then(()=>{
+                message.success("Create successfully, wait a few seconds", 3).then(()=>{
                     onReset();
                 })
             })
@@ -134,7 +126,7 @@ export default function ServiceImageAdd() {
                         {
                             isFile == true ? (
                                 <Row className="mb-15">
-                                    <Col xs={6} md={6} lg={6}><b>File Service Image:</b></Col>
+                                    <Col xs={6} md={6} lg={6}><b>Service Image File:</b></Col>
                                     <Col xs={18} md={18} lg={18}>
                                         <Upload 
                                             maxCount={1}
@@ -162,8 +154,8 @@ export default function ServiceImageAdd() {
                                 </Row>
                             ) : (
                                 <Row className="mb-15">
-                                    <Col xs={6} md={6} lg={6}><b>URI Service Image:</b></Col>
-                                    <Col xs={18} md={18} lg={18}><Input name="hinhAnh" value={hinhAnh} onChange={ e => sethinhAnh(e.target.value) } placeholder="URI Service image" /></Col>
+                                    <Col xs={6} md={6} lg={6}><b>Service Image URI:</b></Col>
+                                    <Col xs={18} md={18} lg={18}><Input name="hinhAnh" value={hinhAnh} onChange={ e => sethinhAnh(e.target.value) } placeholder="Service Image URI" /></Col>
                                 </Row>
                             )
                         }

@@ -46,7 +46,7 @@ function RoomTypeImageAdd(props) {
     const onCreate = () => {
         if(idLP == "")
         {
-            message.error("Please, fields cannot be left blank!");
+            message.error("Please, fill out all the fields!");
             return;
         }
         if(isFile){
@@ -63,7 +63,7 @@ function RoomTypeImageAdd(props) {
                     postData(uri, data)
                     .then( res => {
                         console.log("res add: ", res.data);
-                        message.success("Create data successful, this page will refesh a few moments later", 3).then(()=>{
+                        message.success("Create successfully, wait a few seconds", 3).then(()=>{
                             onReset();
                         })
                     })
@@ -86,7 +86,7 @@ function RoomTypeImageAdd(props) {
             postData(uri, data)
             .then( res => {
                 console.log("res add: ", res.data);
-                message.success("Create data successful, this page will refesh a few moments later", 3).then(()=>{
+                message.success("Create successfully, wait a few seconds", 3).then(()=>{
                     onReset();
                 })
             })
@@ -102,7 +102,7 @@ function RoomTypeImageAdd(props) {
                 <Col xs={20} md={20} lg={20}>
                     <Row>
                         <Col xs={2} md={2} lg={2}>
-                            <Tooltip placement="right" title="Trở về">
+                            <Tooltip placement="right" title="Back">
                                 <Link to="/admin/roomtype-image">
                                     <Button className="btn-close" id="btnAdd">
                                         <ImCancelCircle style={{ color: 'black' }} className="icon-top" />
@@ -111,17 +111,17 @@ function RoomTypeImageAdd(props) {
                             </Tooltip>
                         </Col>
                         <Col xs={20} md={20} lg={20}>
-                            <h1 className="text-center"><b>THÊM HÌNH LOẠI PHÒNG</b></h1>
+                            <h1 className="text-center"><b>CREATE ROOM TYPE IMAGE</b></h1>
                         </Col>
                         <Col xs={2} md={2} lg={2} />
                     </Row>
                     <Form>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>ID hình loại phòng:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input name="idHinhLP" placeholder="idHinhLP" disabled /></Col>
+                            <Col xs={6} md={6} lg={6}><b>ID Room type image:</b></Col>
+                            <Col xs={18} md={18} lg={18}><Input name="idHinhLP" placeholder="ID Room type image" disabled /></Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Sử dụng file upload</b></Col>
+                            <Col xs={6} md={6} lg={6}><b>Using file upload</b></Col>
                             <Col xs={18} md={18} lg={18}>
                                 <Switch checkedChildren="On" unCheckedChildren="Off" defaultChecked onChange={ checked => setisFile(checked) } />
                             </Col>
@@ -129,7 +129,7 @@ function RoomTypeImageAdd(props) {
                         {
                             isFile == true ? (
                                 <Row className="mb-15">
-                                    <Col xs={6} md={6} lg={6}><b>File hình loại phòng:</b></Col>
+                                    <Col xs={6} md={6} lg={6}><b>Room type image file:</b></Col>
                                     <Col xs={18} md={18} lg={18}>
                                         <Upload 
                                             maxCount={1}
@@ -157,13 +157,13 @@ function RoomTypeImageAdd(props) {
                                 </Row>
                             ) : (
                                 <Row className="mb-15">
-                                    <Col xs={6} md={6} lg={6}><b>URI hình loại phòng:</b></Col>
-                                    <Col xs={18} md={18} lg={18}><Input name="hinhAnh" value={hinhAnh} onChange={ e => sethinhAnh(e.target.value) } placeholder="Hình uri cho loại phòng" /></Col>
+                                    <Col xs={6} md={6} lg={6}><b>Room type image URI:</b></Col>
+                                    <Col xs={18} md={18} lg={18}><Input name="hinhAnh" value={hinhAnh} onChange={ e => sethinhAnh(e.target.value) } placeholder="Room type image URI" /></Col>
                                 </Row>
                             )
                         }
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Loại phòng:</b></Col>
+                            <Col xs={6} md={6} lg={6}><b>Room type:</b></Col>
                             <Col xs={18} md={18} lg={18}>
                                 <Select value={idLP}  style={{ width: 225}} onChange={value => setidLP(value)}>
                                     {

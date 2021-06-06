@@ -1,4 +1,4 @@
-import { storage } from "Store/Firebase";
+import { storage } from "FirebaseConfig";
 
 const postImageFirebase = (ref, file, callback) => {
     try {

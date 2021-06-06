@@ -71,8 +71,8 @@ export default function ServiceDetail(props) {
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Price">{donGia} $</Descriptions.Item>
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Type">{hinhThuc == 1 ? "Per booking" : (hinhThuc == 2 ? "Per person per date" : "Free")}</Descriptions.Item>
                                 <br/>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Description title" span={3}>{moTaTD}</Descriptions.Item>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Description detail" span={3}>{moTaCT}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Title description " span={3}>{moTaTD}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Detail description" span={3}>{moTaCT}</Descriptions.Item>
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Images" span={3}>
                                     <Space split={<Divider type="vertical" />}>
                                         {imageService.map((item, index) => 

@@ -61,7 +61,7 @@ export default function ServiceUpd(props) {
         putData(uri, data)
         .then(res => {
             console.log("res upd: ", res);
-            message.success("Update data successfully, this page will redirect a few moments later", 3).then(()=>{
+            message.success("Update successfully, wait a few seconds", 3).then(()=>{
                 props.propsParent.history.push('/admin/service/');
             })
         });
@@ -96,12 +96,12 @@ export default function ServiceUpd(props) {
                             </Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Description title:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input name="moTaTD" value={moTaTD} onChange={ e => setmoTaTD(e.target.value) } placeholder="Description title" /></Col>
+                            <Col xs={6} md={6} lg={6}><b>Title description:</b></Col>
+                            <Col xs={18} md={18} lg={18}><Input name="moTaTD" value={moTaTD} onChange={ e => setmoTaTD(e.target.value) } placeholder="Title description" /></Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Description detail:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input name="moTaCT" value={moTaCT} onChange={ e => setmoTaCT(e.target.value) } placeholder="Description detail" /></Col>
+                            <Col xs={6} md={6} lg={6}><b>Detail description:</b></Col>
+                            <Col xs={18} md={18} lg={18}><Input name="moTaCT" value={moTaCT} onChange={ e => setmoTaCT(e.target.value) } placeholder="Detail description" /></Col>
                         </Row>
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={6}><b>Price:</b></Col>

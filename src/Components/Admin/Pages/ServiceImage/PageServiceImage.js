@@ -17,10 +17,10 @@ import { Link } from 'react-router-dom';
 import { url } from '../../../../Api/url';
 import { getData, deleteData } from 'Api/api';
 import { urnServiceImage, urnServiceImageID, urnService } from 'Api/urn';
-import { storage } from 'Store/Firebase';
+import { deleteImageFirebase } from 'Helper/ImageFir';
 const http = url;
 
-export default function ServiceImage() {
+export default function ServiceImage(props) {
     const [dataServiceImages, setdataServiceImages] = useState([]);
     const [service, setService] = useState([]);
 
@@ -96,22 +96,8 @@ export default function ServiceImage() {
         }
     ];
 
-    const deleteFromFirebase = (url) => {
-        try { 
-            storage.refFromURL(url).delete().then(() => {
-                alert("Delete successfully!");
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        } catch (error) {
-            alert("Can't delete this picture!");
-            console.log(error);
-        }
-    }
-    
     function onDelete(id, image) {
-        deleteFromFirebase(image);
+        deleteImageFirebase(image);
         var uri = http + urnServiceImageID(id);
         deleteData(uri)
         .then(res => {
@@ -127,7 +113,7 @@ export default function ServiceImage() {
 
     return (
         <>
-            <NavbarTop />
+            <NavbarTop props={props} />
             <Row>
                 <Col span={5}>
                     <Sidebar />

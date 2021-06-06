@@ -16,22 +16,19 @@ import { Link } from 'react-router-dom';
 //Tạm sd http nhưng ko đúng ý nghĩa
 import { url } from '../../../../Api/url';
 import { getData, deleteData } from 'Api/api';
+import { urnService, urnServiceID } from 'Api/urn';
 const http = url;
 
-export default function PageService() {
+export default function PageService(props) {
     const [dataServices, setdataServices] = useState([]);
 
     useEffect(() => {
         try {
-            const loadService = async () =>  {
-                var url = http + '/api/service/';
-                const result = await axios.get(url)
-                .then(res => res.data)
-                .catch(err => console.log(err));
-
-                setdataServices(result);
-            };
-            loadService();
+            var uri = http + urnService;
+            
+            getData(uri)
+            .then(res => setdataServices(res.data))
+            .catch(err => console.log(err));
         } catch (error) {
             console.log('Error => get data Service in Service Page: ', error);
         }
@@ -92,22 +89,27 @@ export default function PageService() {
     ];
 
     function onDelete(id) {
-        var uri = http + '/api/service/' + id;
+        var uri = http + urnServiceID(id);
         deleteData(uri)
         .then(res => {
-            message.success("Delete successfully !");
+            if (typeof res.data !== 'undefined') {
+                message.success("Delete successfully !");
 
-            uri = http + '/api/service/';
-            getData(uri)
-            .then(res => setdataServices(res.data))
-            .catch(err => console.error(err));
+                uri = http + urnService;
+                getData(uri)
+                .then(res => setdataServices(res.data))
+                .catch(err => console.error(err));
+            }
+            else if(typeof res.response !== 'undefined'){
+                console.log(res.response.data);
+                message.error("Delete fail. " + res.response.data);
+            }
         })
-        .catch(err => console.log(err));
     }
 
     return (
         <>
-            <NavbarTop />
+            <NavbarTop props={props} />
             <Row>
                 <Col span={5}>
                     <Sidebar />

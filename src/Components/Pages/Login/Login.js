@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { firAuth, firAuthFB, firAuthGG } from '../../../Store/Firebase';
+import { firAuth, firAuthFB, firAuthGG } from '../../../FirebaseConfig';
 
 export default function Login() {
     const [isSignedIn, setIsSignedIn] = useState(false);

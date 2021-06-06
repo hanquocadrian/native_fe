@@ -47,21 +47,21 @@ export default function PageRoomTypeImage(props) {
             }
         },
         {
-            title: 'Hình ảnh',
+            title: 'Image',
             dataIndex: 'hinhAnh',
             render: hinhAnh => (
                 <Image style={{ height: '125px', width: 'auto' }} src={hinhAnh} />
             )
         },
         {
-            title: 'Mã LP',
+            title: 'id LP',
             dataIndex: 'idLP',
             sorter: {
                 compare: (a, b) => a.idLP - b.idLP
             }
         },
         {
-            title: 'Tên LP',
+            title: 'Title',
             dataIndex: 'idLP',
             render: idLP => (
                 dataRoomtype.map((item) => 
@@ -70,12 +70,12 @@ export default function PageRoomTypeImage(props) {
             )
         },
         {
-            title: 'Action',
+            title: 'Actions',
             render: (record) => (
                 <>
                     <Link to={ '/admin/roomtype-image-upd/' + record.idHinhLP }><Button className="btn-edit">Edit</Button></Link>
                     <Popconfirm
-                        title="Are you sure to delete this?"
+                        title="Are you sure?"
                         onConfirm={ () => onDelete(record.idHinhLP, record.hinhAnh) }
                         okText="Yes"
                         cancelText="No"
@@ -94,7 +94,7 @@ export default function PageRoomTypeImage(props) {
         var uri = url + urnRoomTypeImageID(id);
         deleteData(uri)
         .then(res => {
-            message.success("Delete this successful !");
+            message.success("Delete successfully !");
 
             uri = url + urnRoomTypeImage;
             getData(uri)
@@ -116,7 +116,7 @@ export default function PageRoomTypeImage(props) {
                         <Col xs={20} md={20} lg={20}>
                         <Row>
                             <Col xs={2} md={2} lg={2}>
-                                <Tooltip placement="right" title="Thêm Hình Ảnh Loại Phòng">
+                                <Tooltip placement="right" title="Create new one">
                                     <Link to="/admin/roomtype-image-add">
                                         <Button className="btn-add" id="btnAdd">
                                             <GrAdd className="icon-top" />
@@ -125,7 +125,7 @@ export default function PageRoomTypeImage(props) {
                                 </Tooltip>
                             </Col>
                             <Col xs={20} md={20} lg={20}>
-                                <h1 className="text-center"><b>DANH SÁCH HÌNH ẢNH LOẠI PHÒNG</b></h1>
+                                <h1 className="text-center"><b>LIST OF ROOM TYPE IMAGES</b></h1>
                             </Col>
                             <Col xs={2} md={2} lg={2} />
                         </Row>

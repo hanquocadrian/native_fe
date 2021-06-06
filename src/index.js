@@ -5,14 +5,8 @@ import 'antd/dist/antd.less';
 import './index.css';
 
 //  Redux
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import allReducers from 'Store/Reducers';
-
-const store = createStore(
-  allReducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+import store from 'Redux/Store';
 
 //  main
 if(document.getElementById('root')){

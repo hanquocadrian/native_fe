@@ -8,10 +8,15 @@ import { useEffect, useState } from 'react';
 import { url } from '../../../Api/url';
 import axios from 'axios';
 import { cart, search } from './Module/module';
+import { useSelector } from 'react-redux';
 
 const { SubMenu } = Menu;
 
 export default function Navbar() {
+    // Redux
+    const userisLogin = useSelector(state => state.userReducer.isLogin);
+    console.log('Redux: ', userisLogin);
+
     const [roomTypes, setRoomTypes] = useState([]);
 
     useEffect(() => {
@@ -48,16 +53,16 @@ export default function Navbar() {
                 <Col xs={2} md={6} lg={9}>
                     <Menu mode="horizontal">
                         <Menu.Item>
-                            <Link to="/about">About</Link>
+                            <Link to="/about"><span style={{fontSize:"15px"}}>About</span></Link>
                         </Menu.Item>
                         <Menu.Item>
-                            Rates
+                            <span style={{fontSize:"15px"}}>Rates</span>
                         </Menu.Item>
-                        <SubMenu title="Room Type">
+                        <SubMenu  style={{fontSize:"15px"}} title="Room Type">
                             { showRoomTypes() }
                         </SubMenu>
                         <Menu.Item className="LinkNavCus">
-                            <Link to="/service">Service</Link>
+                            <Link to="/service"><span style={{fontSize:"15px"}}>Service</span></Link>
                         </Menu.Item>
                     </Menu>
                 </Col>
@@ -67,23 +72,22 @@ export default function Navbar() {
                             <div style={{ display: "inline-block", fontSize: "3.7vh" }}><b>NATIVE HOTEL</b></div>
                         </Link>                        
                     </span>
-  
                 </Col>
-                <Col xs={0} md={4} lg={2} style={{ borderBottom: "1px solid #F0F0F0", height: "48px" }} />
-                <Col xs={2} md={2} lg={7} style={{ textAlign: "right" }}>
+                <Col xs={0} md={4} lg={0} style={{ borderBottom: "1px solid #F0F0F0", height: "48px" }} />
+                <Col xs={2} md={2} lg={9} style={{ textAlign: "right" }}>
                     <Menu mode="horizontal">
                         <Menu.Item className="LinkNavCus">
                             <Dropdown overlay={ search } trigger={['click']}>
-                                <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                                    <span style={{fontSize:"18px"}}>Search</span>
-                                </a>
+                                <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                                    <span style={{fontSize:"15px"}}>Search</span>
+                                </span>
                             </Dropdown>
                         </Menu.Item>
                         <Menu.Item className="LinkNavCus">
                             <Dropdown overlay={ cart }>
                                 <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                                     <CgShoppingCart style={{fontSize: '20px', position: 'relative', top: '4px'}}/>
-                                    <span style={{fontSize:"18px"}}>(0)</span>
+                                    <span style={{fontSize:"15px"}}>(0)</span>
                                 </a>
                             </Dropdown>
                         </Menu.Item>
@@ -93,6 +97,18 @@ export default function Navbar() {
                                 <span style={{fontSize:"16px"}}> +84 789991876</span>
                             </a>
                         </Menu.Item>
+                        { 
+                            userisLogin ? (
+                                <Menu.Item className="LinkNavCus">
+                                    <Link to="/about"><span style={{fontSize:"15px"}}>Profile</span></Link>
+                                </Menu.Item>
+                            ) : (
+                                <Menu.Item className="LinkNavCus">
+                                    <Link to="/about"><span style={{fontSize:"15px"}}>Signin & Login</span></Link>
+                                </Menu.Item>
+                            )
+                            
+                        }
                     </Menu>
                 </Col>
             </Row>

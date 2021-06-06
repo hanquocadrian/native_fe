@@ -72,7 +72,7 @@ function RoomTypeImageUpd(props) {
             putData(uri, data)
             .then( res => {
                 console.log("res upd: ", res);
-                message.success("Update data successful, this page will redirect a few moments later", 3).then(()=>{
+                message.success("Update successfully, wait a few seconds", 3).then(()=>{
                     props.propsParent.history.push('/admin/roomtype-image/');
                 })
             })
@@ -93,7 +93,7 @@ function RoomTypeImageUpd(props) {
                     putData(uri, data)
                     .then( res => {
                         console.log("res upd: ", res);
-                        message.success("Update data successful, this page will redirect a few moments later", 3).then(()=>{
+                        message.success("Update successfully, wait a few seconds", 3).then(()=>{
                             props.propsParent.history.push('/admin/roomtype-image/');
                         })
                     })
@@ -113,7 +113,7 @@ function RoomTypeImageUpd(props) {
                 <Col xs={20} md={20} lg={20}>
                     <Row>
                         <Col xs={2} md={2} lg={2}>
-                            <Tooltip placement="right" title="Trở về">
+                            <Tooltip placement="right" title="Back">
                                 <Link to="/admin/roomtype-image/">
                                     <Button className="btn-close" id="btnAdd">
                                         <ImCancelCircle style={{ color: 'black' }} className="icon-top" />
@@ -122,19 +122,19 @@ function RoomTypeImageUpd(props) {
                             </Tooltip>
                         </Col>
                         <Col xs={20} md={20} lg={20}>
-                            <h1 className="text-center"><b>CẬP NHẬT HÌNH ẢNH LOẠI PHÒNG</b></h1>
+                            <h1 className="text-center"><b>UPDATE ROOM TYPE IMAGE</b></h1>
                         </Col>
                         <Col xs={2} md={2} lg={2} />
                     </Row>
                     <Form>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>ID hình loại phòng:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input name="idHinhLP" value={idHinhLP} placeholder="idHinhLP" disabled /></Col>
+                            <Col xs={6} md={6} lg={6}><b>ID Room type image:</b></Col>
+                            <Col xs={18} md={18} lg={18}><Input name="idHinhLP" value={idHinhLP} placeholder="ID Room type image" disabled /></Col>
                         </Row>
                         {
                             !isChangeImage && 
                                 <Row className="mb-15">
-                                    <Col xs={6} md={6} lg={6}><b>Hình trước đó:</b></Col>
+                                    <Col xs={6} md={6} lg={6}><b>Pre image:</b></Col>
                                     <Col xs={18} md={18} lg={18}>
                                         <Row justify="center" style={{ overflow: 'hidden' }}>
                                             <Col xs={24} md={24} lg={24}>
@@ -145,7 +145,7 @@ function RoomTypeImageUpd(props) {
                                 </Row>
                         }
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Cập nhật hình mới:</b></Col>
+                            <Col xs={6} md={6} lg={6}><b>Update new image:</b></Col>
                             <Col xs={18} md={18} lg={18}>
                                 <Switch checkedChildren="On" unCheckedChildren="Off" onChange={ checked => setisChangeImage(checked) } />
                             </Col>
@@ -153,7 +153,7 @@ function RoomTypeImageUpd(props) {
                         {
                             isChangeImage == true && 
                                 <Row className="mb-15">
-                                    <Col xs={6} md={6} lg={6}><b>Sử dụng file upload</b></Col>
+                                    <Col xs={6} md={6} lg={6}><b>Using file upload</b></Col>
                                     <Col xs={18} md={18} lg={18}>
                                         <Switch checkedChildren="On" unCheckedChildren="Off" defaultChecked onChange={ checked => setisFile(checked) } />
                                     </Col>
@@ -162,7 +162,7 @@ function RoomTypeImageUpd(props) {
                         {
                             isChangeImage == true && isFile == true ? (
                                 <Row className="mb-15">
-                                    <Col xs={6} md={6} lg={6}><b>File hình loại phòng:</b></Col>
+                                    <Col xs={6} md={6} lg={6}><b>Room type image file:</b></Col>
                                     <Col xs={18} md={18} lg={18}>
                                         <Upload 
                                             maxCount={1}
@@ -194,13 +194,13 @@ function RoomTypeImageUpd(props) {
                             isChangeImage == true &&  !isFile ?
                              (
                                 <Row className="mb-15">
-                                    <Col xs={6} md={6} lg={6}><b>URI hình loại phòng:</b></Col>
-                                    <Col xs={18} md={18} lg={18}><Input name="hinhAnh" value={hinhAnh} onChange={ e => sethinhAnh(e.target.value) } placeholder="Hình uri cho loại phòng" /></Col>
+                                    <Col xs={6} md={6} lg={6}><b>Room type image URI:</b></Col>
+                                    <Col xs={18} md={18} lg={18}><Input name="hinhAnh" value={hinhAnh} onChange={ e => sethinhAnh(e.target.value) } placeholder="Room type image URI" /></Col>
                                 </Row>
                             ) : ( <></> )
                         }
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Loại phòng:</b></Col>
+                            <Col xs={6} md={6} lg={6}><b>Room type:</b></Col>
                             <Col xs={18} md={18} lg={18}>
                                 <Select value={ idLP } style={{ width: 225}} onChange={value => setidLP(value)}>
                                     {
@@ -215,7 +215,7 @@ function RoomTypeImageUpd(props) {
                         <Row justify="end">
                             <Col xs={2} md={2} lg={2}>
                                 <Popconfirm
-                                    title="Are you sure to reload form?"
+                                    title="Are you sure?"
                                     onConfirm={ onReset }
                                     okText="Yes"
                                     cancelText="No"

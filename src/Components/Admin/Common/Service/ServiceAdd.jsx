@@ -25,7 +25,7 @@ export default function ServiceAdd() {
 
     const onCreate = () => {
         if(tenDV == "" || moTaCT == "" || moTaTD == "" ){
-            message.error("Please, fill out all fields");
+            message.error("Please, fill out all fields!");
             return;
         }
         const data = {
@@ -40,7 +40,7 @@ export default function ServiceAdd() {
         postData(uri, data)
         .then(res=>{
             console.log("res add: ", res.data);
-            message.success("Create data successfully, this page will refesh a few moments later", 3).then(()=>{
+            message.success("Create successfully, wait a few seconds", 3).then(()=>{
                 onReset();
             })
         })
@@ -54,7 +54,7 @@ export default function ServiceAdd() {
                 <Col xs={20} md={20} lg={20}>
                     <Row>
                         <Col xs={2} md={2} lg={2}>
-                            <Tooltip placement="right" title="Trở về">
+                            <Tooltip placement="right" title="Back">
                                 <Link to="/admin/service">
                                     <Button className="btn-close" id="btnAdd">
                                         <ImCancelCircle style={{ color: 'black' }} className="icon-top" />
@@ -75,12 +75,12 @@ export default function ServiceAdd() {
                             </Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Description title:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input name="moTaTD" value={moTaTD} onChange={ e => setmoTaTD(e.target.value) } placeholder="Description title" /></Col>
+                            <Col xs={6} md={6} lg={6}><b>Title description:</b></Col>
+                            <Col xs={18} md={18} lg={18}><Input name="moTaTD" value={moTaTD} onChange={ e => setmoTaTD(e.target.value) } placeholder="Title description" /></Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Description detail:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input name="moTaCT" value={moTaCT} onChange={ e => setmoTaCT(e.target.value) } placeholder="Description detail" /></Col>
+                            <Col xs={6} md={6} lg={6}><b>Detail description:</b></Col>
+                            <Col xs={18} md={18} lg={18}><Input name="moTaCT" value={moTaCT} onChange={ e => setmoTaCT(e.target.value) } placeholder="Detail description" /></Col>
                         </Row>
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={6}><b>Price:</b></Col>
