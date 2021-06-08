@@ -10,6 +10,7 @@ import Login from './Components/Pages/Login/Login';
 import About from './Components/Pages/About/About';
 import Service from './Components/Pages/HotelService/HotelService';
 import Room from './Components/Pages/Room/Room';
+import Basket from './Components/Pages/Basket/Basket';
 
 // Admin
 import { ProtectedRoute } from './Auth/protected.route'; 
@@ -17,18 +18,24 @@ import AdLogin from './Components/Admin/Pages/Login/Login';
 import AdHome from './Components/Admin/Pages/Home/Home';
 import AdAbout from './Components/Admin/Pages/About/About';
 import AdSlider from './Components/Admin/Pages/Slider/Slider';
+
 import AdPageRoomType from './Components/Admin/Pages/RoomType/PageRoomType';
 import AdPageRoomTypeDetail from './Components/Admin/Pages/RoomType/Detail/PageRoomTypeDetail';
 import AdPageRoomTypeAdd from 'Components/Admin/Pages/RoomType/Add/PageRoomTypeAdd';
 import AdPageRoomTypeUpd from './Components/Admin/Pages/RoomType/Update/PageRoomTypeUpd';
+
 import AdPageRoomTypeImage from 'Components/Admin/Pages/RoomTypeImage/PageRoomTypeImage';
 import AdPageRoomTypeImageAdd from 'Components/Admin/Pages/RoomTypeImage/Add/PageRoomTypeImageAdd';
 import AdPageRoomTypeImageUpd from 'Components/Admin/Pages/RoomTypeImage/Update/PageRoomTypeImageUpd';
+
 import AdService from './Components/Admin/Pages/Service/PageService';
 import AdPageServiceAdd from 'Components/Admin/Pages/Service/Add/PageServiceAdd';
 import AdPageServiceDetail from 'Components/Admin/Pages/Service/Detail/PageServiceDetail';
 import AdPageServiceUpd from 'Components/Admin/Pages/Service/Update/PageServiceUpd';
-import AdServiceImage from './Components/Admin/Pages/ServiceImage/ServiceImage';
+
+import AdPageServiceImage from './Components/Admin/Pages/ServiceImage/PageServiceImage';
+import AdPageServiceImageAdd from './Components/Admin/Pages/ServiceImage/Add/PageServiceImageAdd';
+import AdPageServiceImageUpd from './Components/Admin/Pages/ServiceImage/Update/PageServiceImageUpd';
 
 // Error 404
 import Error from './Components/Admin/Pages/Error/Error';
@@ -45,6 +52,7 @@ export default class Router extends Component {
                         <Route exact path='/about/' component={ About } />
                         <Route exact path='/service/' component={ Service } />
                         <Route exact path='/roomtype/:id' component={ Room } />
+                        <Route exact path='/your-basket' component={ Basket } />
 
                         {/* Admin */}
                         <Route exact path='/admin/' component={ AdLogin } />
@@ -68,7 +76,10 @@ export default class Router extends Component {
                         <ProtectedRoute exact path='/admin/service-add/' component={ AdPageServiceAdd } />
                         <ProtectedRoute exact path='/admin/service-detail/:id' component={ AdPageServiceDetail } />
                         <ProtectedRoute exact path='/admin/service-upd/:id' component={ AdPageServiceUpd } />
-                        <ProtectedRoute exact path='/admin/service-image/' component={ AdServiceImage } />
+
+                        <ProtectedRoute exact path='/admin/service-image/' component={ AdPageServiceImage } />
+                        <ProtectedRoute exact path='/admin/service-image-add/' component={ AdPageServiceImageAdd } />
+                        <ProtectedRoute exact path='/admin/service-image-upd/:id' component={ AdPageServiceImageUpd } />
 
                         {/* 404 Not Found */}
                         <Route path='*' component={ Error } />   

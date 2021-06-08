@@ -2,19 +2,26 @@ import { Col, Dropdown, Menu, Row } from 'antd'
 import React from 'react'
 import './Navbar.css'
 import { Link } from 'react-router-dom';
-import { CgShoppingCart } from 'react-icons/cg';
+import { CgProfile, CgShoppingCart } from 'react-icons/cg';
 import { RiPhoneLine } from 'react-icons/ri';
+import { FiLogIn } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { url } from '../../../Api/url';
 import axios from 'axios';
-import { cart, search } from './Module/module';
-import { useSelector } from 'react-redux';
+import { search } from './Module/module';
+import { firAuth } from 'FirebaseConfig';
+import { BiLogOut } from 'react-icons/bi';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from 'Redux/Actions/user';
 
 const { SubMenu } = Menu;
 
 export default function Navbar() {
     // Redux
     const userisLogin = useSelector(state => state.userReducer.isLogin);
+    const isSocialLogin = useSelector(state => state.userReducer.isSocialLogin);
+    const dispatch = useDispatch();
+
     console.log('Redux: ', userisLogin);
 
     const [roomTypes, setRoomTypes] = useState([]);
@@ -46,6 +53,40 @@ export default function Navbar() {
         );
         return lst;
     };
+
+
+    const onLogout = () => {
+    if(isSocialLogin){
+      firAuth.signOut();
+    }
+  
+    var user = {
+      email: '',
+      displayName: '',
+      isLogin: '',
+      isSocialLogin: true
+    };
+  
+    var actionLogout = logoutUser(user);
+    dispatch(actionLogout);
+  }
+  
+  const userAccount = (
+      <Menu style={{marginTop: '3vh'}}>
+        <Menu.Item  className="LinkNavCus">
+          <Link to="/about">
+            <CgProfile style={{fontSize: '20px', position: 'relative', top: '4px'}} />
+            <span style={{fontSize:"15px"}}> Profile</span>
+          </Link>
+        </Menu.Item>
+        <Menu.Item className="LinkNavCus">
+          <a onClick={ onLogout }>
+            <BiLogOut style={{fontSize: '20px', position: 'relative', top: '4px'}} />
+            <span style={{fontSize:"15px"}}> Logout</span>
+          </a>
+        </Menu.Item>
+      </Menu>
+  );
 
     return (
         <>
@@ -84,12 +125,10 @@ export default function Navbar() {
                             </Dropdown>
                         </Menu.Item>
                         <Menu.Item className="LinkNavCus">
-                            <Dropdown overlay={ cart }>
-                                <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                                    <CgShoppingCart style={{fontSize: '20px', position: 'relative', top: '4px'}}/>
-                                    <span style={{fontSize:"15px"}}>(0)</span>
-                                </a>
-                            </Dropdown>
+                            <Link to="/your-basket">
+                                <CgShoppingCart style={{fontSize: '20px', position: 'relative', top: '4px'}}/>
+                                <span style={{fontSize:"15px"}}>(0)</span>
+                            </Link>
                         </Menu.Item>
                         <Menu.Item className="LinkNavCus">
                             <a href='tel: 84789991876'>
@@ -100,14 +139,20 @@ export default function Navbar() {
                         { 
                             userisLogin ? (
                                 <Menu.Item className="LinkNavCus">
-                                    <Link to="/about"><span style={{fontSize:"15px"}}>Profile</span></Link>
+                                    <Dropdown overlay={ userAccount }>
+                                        <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                                            <span style={{fontSize:"15px"}}>User Account</span>
+                                        </span>
+                                    </Dropdown>
                                 </Menu.Item>
                             ) : (
                                 <Menu.Item className="LinkNavCus">
-                                    <Link to="/about"><span style={{fontSize:"15px"}}>Signin & Login</span></Link>
+                                    <Link to="/login">     
+                                        <FiLogIn style={{fontSize: '20px', position: 'relative', top: '4px'}} />
+                                        <span style={{fontSize:"15px"}}> Signin & Login</span>
+                                    </Link>
                                 </Menu.Item>
                             )
-                            
                         }
                     </Menu>
                 </Col>

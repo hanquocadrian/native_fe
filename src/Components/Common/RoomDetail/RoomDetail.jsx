@@ -544,64 +544,122 @@ export default function RoomDetail(props) {
                 </Row> */}
                 <hr style={{color:'#D9D9D9'}}/>
                 <Row style={{paddingTop:'3%', paddingBottom:'3%'}}>
-                    <Col span={24} style={{textAlign:'center'}}>
+                    <Col xs={1} md={4} lg={8}></Col>
+                    <Col xs={22} md={16} lg={8} style={{textAlign:'center'}}>
                         <span style={{fontFamily:'Cambria', fontSize:'30px', fontWeight:'revert'}}>What you get when you stay with us.</span>
                     </Col>
+                    <Col xs={1} md={4} lg={8}></Col>
                 </Row>
                 <Row>
                     <Col xs={0} md={4} lg={4}></Col>
-                    <Col xs={6} md={4} lg={4} style={{borderRight:'1px solid #CECECE'}}>
+                    <Col xs={0} md={4} lg={4} style={{borderRight:'1px solid #CECECE'}}>
                         <div>
                             <div style={{textAlign:'center'}}><FaHotel style={{width:'4vw', height:'4vh'}}/></div>
                             <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>CHECK IN 15:00 / CHECK OUT 11:00</p></div>
                         </div>
                     </Col>
-                    <Col xs={6} md={4} lg={4} style={{borderRight:'1px solid #CECECE'}}>
+                    <Col xs={0} md={4} lg={4} style={{borderRight:'1px solid #CECECE'}}>
                         <div>
                             <div style={{textAlign:'center'}}><SiClockify style={{width:'4vw', height:'4vh'}}/></div>
                             <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>24/7 SUPPORT</p></div>
                         </div>
                     </Col>
-                    <Col xs={6} md={4} lg={4} style={{borderRight:'1px solid #CECECE'}}>
+                    <Col xs={0} md={4} lg={4} style={{borderRight:'1px solid #CECECE'}}>
                         <div>
                             <div style={{textAlign:'center'}}><BsBucket style={{width:'4vw', height:'4vh'}}/></div>
                             <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>WEEKLY HOUSEKEEPING</p></div>
                         </div>
                     </Col>
-                    <Col xs={6} md={4} lg={4}>
+                    <Col xs={0} md={4} lg={4}>
                         <div>
                             <div style={{textAlign:'center'}}><AiOutlineWifi style={{width:'4vw', height:'4vh'}}/></div>
                             <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>FREE WIFI</p></div>
                         </div>
                     </Col>
+                    <Col xs={2} md={0} lg={0}/>
+                    <Col xs={10} md={0} lg={0}>
+                        <div>
+                            <div style={{textAlign:'center'}}><FaHotel style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>CHECK IN 15:00 / CHECK OUT 11:00</p></div>
+                        </div>
+                    </Col>
+                    <Col xs={10} md={0} lg={0}>
+                        <div>
+                            <div style={{textAlign:'center'}}><SiClockify style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>24/7 SUPPORT</p></div>
+                        </div>
+                    </Col>
+                    <Col xs={2} md={0} lg={0}/>
+                    <Col xs={2} md={0} lg={0}/>
+                    <Col xs={10} md={0} lg={0}>
+                        <div>
+                            <div style={{textAlign:'center'}}><BsBucket style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>WEEKLY HOUSEKEEPING</p></div>
+                        </div>
+                    </Col>
+                    <Col xs={10} md={0} lg={0}>
+                        <div>
+                            <div style={{textAlign:'center'}}><AiOutlineWifi style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>FREE WIFI</p></div>
+                        </div>
+                    </Col>
+                    <Col xs={2} md={0} lg={0}/>
                     <Col xs={0} md={4} lg={4}></Col>
                 </Row>
                 <Row style={{paddingBottom:'5%'}}>
                     <Col xs={0} md={4} lg={4}></Col>
-                    <Col xs={6} md={4} lg={4} style={{borderRight:'1px solid #CECECE'}}>
+                    <Col xs={0} md={4} lg={4} style={{borderRight:'1px solid #CECECE'}}>
                         <div>
                             <div style={{textAlign:'center'}}><GrObjectUngroup style={{width:'4vw', height:'4vh'}}/></div>
                             <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>SOCIAL SPACES</p></div>
                         </div>
                     </Col>
-                    <Col xs={6} md={4} lg={4} style={{borderRight:'1px solid #CECECE'}}>
+                    <Col xs={0} md={4} lg={4} style={{borderRight:'1px solid #CECECE'}}>
                         <div>
                             <div style={{textAlign:'center'}}><GiPerfumeBottle style={{width:'4vw', height:'4vh'}}/></div>
                             <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>LUXURY TOILETRIES</p></div>
                         </div>
                     </Col>
-                    <Col xs={6} md={4} lg={4} style={{borderRight:'1px solid #CECECE'}}>
+                    <Col xs={0} md={4} lg={4} style={{borderRight:'1px solid #CECECE'}}>
                         <div>
                             <div style={{textAlign:'center'}}><CgSmartHomeWashMachine style={{width:'4vw', height:'4vh'}}/></div>
                             <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>WASHER DRYER</p></div>
                         </div>
                     </Col>
-                    <Col xs={6} md={4} lg={4} >
+                    <Col xs={0} md={4} lg={4} >
                         <div>
                             <div style={{textAlign:'center'}}><FaRegHandshake style={{width:'4vw', height:'4vh'}}/></div>
                             <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>24/7 RECEPTION</p></div>
                         </div>
                     </Col>
+                    <Col xs={2} md={0} lg={0}/>
+                    <Col xs={10} md={0} lg={0}>
+                        <div>
+                            <div style={{textAlign:'center'}}><GrObjectUngroup style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>SOCIAL SPACES</p></div>
+                        </div>
+                    </Col>
+                    <Col xs={10} md={0} lg={0}>
+                        <div>
+                            <div style={{textAlign:'center'}}><GiPerfumeBottle style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>LUXURY TOILETRIES</p></div>
+                        </div>
+                    </Col>
+                    <Col xs={2} md={0} lg={0}/>
+                    <Col xs={2} md={0} lg={0}/>
+                    <Col xs={10} md={0} lg={0}>
+                        <div>
+                            <div style={{textAlign:'center'}}><CgSmartHomeWashMachine style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>WASHER DRYER</p></div>
+                        </div>
+                    </Col>
+                    <Col xs={10} md={0} lg={0}>
+                        <div>
+                            <div style={{textAlign:'center'}}><FaRegHandshake style={{width:'4vw', height:'4vh'}}/></div>
+                            <div style={{padding:'5%'}}><p style={{textAlign:'center', fontWeight:'revert'}}>24/7 RECEPTION</p></div>
+                        </div>
+                    </Col>
+                    <Col xs={2} md={0} lg={0}/>
                     <Col xs={0} md={4} lg={4}></Col>
                 </Row>
                 <Row style={{ marginTop: "8vh", height: "92vh" }}>

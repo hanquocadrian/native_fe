@@ -57,6 +57,10 @@ a:hover {
   text-align: center;
 }
 
+.text-right{
+  text-align: right;
+}
+
 .icon-top{
   display: block;
   transition: 1s;
@@ -95,6 +99,14 @@ a:hover {
 .btn-delete:hover, .btn-reset:hover{
   color: #820014 !important;
   border-color: #ff4d4f !important;
+}
+
+.mt-10{
+  margin-top: 10px;
+}
+
+.mb-10{
+  margin-bottom: 10px;
 }
 
 .mt-15{
