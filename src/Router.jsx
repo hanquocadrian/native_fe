@@ -95,9 +95,7 @@ export default class Router extends Component {
                         <ProtectedRoute exact path='/admin/special-rate-upd/:id' component={ AdPageSpecialRateUpd } />
 
                         {/* 404 Not Found */}
-                        {/* <Route path='*' component={ Error } />    */}
-                        {/* <Route path='*' component={ Error } />    */}
-                        {/* <Route path='*' component={ Error } />    */}
+                        <Route path='*' component={ Error } />   
                     </Switch>
                 </>
             </BRouter>
