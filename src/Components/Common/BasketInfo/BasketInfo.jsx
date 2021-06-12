@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect, useState } from 'react';
 import { Row, Col, Modal, Button, Image } from 'antd';
 import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
@@ -21,6 +22,75 @@ import { ImCancelCircle } from 'react-icons/im';
 import './BasketInfo.css';
 
 export default function BasketInfo() {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleOk = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            setIsModalVisible(false);
+        }, 3000);
+      };
+
+    function showModalDate(){
+        return (
+            <>
+                <Modal
+                    // className="modalDate"
+                    visible={isModalVisible}
+                    title= {<span style={{fontFamily:'Georgia'}}>Change Date &nbsp;&nbsp;<BsCalendar/></span>}
+                    onOk={handleOk}
+                    onCancel={handleCancel}
+                    footer={[
+                        <Button key="back" onClick={handleCancel}>
+                            Cancel
+                        </Button>,
+                        <Button key="submit" loading={loading} onClick={handleOk}>
+                            Save change
+                        </Button>
+                    ]}
+                >
+                    <Row>
+                        <Col xs="3" style={{fontSize:'2.5vh', fontFamily:'Georgia', paddingTop:'1%'}}>Arrive:</Col>
+                        <Col xs="9">
+                            <div className='date-start-picker'>
+                                <DatePicker
+                                    // selected={this.state.tempSD}
+                                    // onChange={this.changeStartDate}
+                                    selectsStart
+                                    // startDate={this.state.startDate}
+                                    // endDate={this.state.endDate}
+                                    dateFormat='dd/MM/yyyy'
+                                />
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="3" style={{fontSize:'2.5vh', fontFamily:'Georgia', paddingTop:'1%'}}>Depart:</Col>
+                        <Col xs="9">
+                            <div className='date-end-picker'>
+                                <DatePicker
+                                    // selected={this.state.tempED}
+                                    // onChange={this.changeEndDate}
+                                    selectsEnd
+                                    // startDate={this.state.startDate}
+                                    // endDate={this.state.endDate}
+                                    // minDate={this.state.startDate}
+                                    dateFormat='dd/MM/yyyy'
+                                />
+                            </div>
+                        </Col>
+                    </Row>
+                </Modal>
+            </>
+        );
+    }
+
     return (
         <div style={{ paddingTop:'1%', backgroundColor:'#FFFFFF'}}>
             <div style={{backgroundColor:'#FFFFFF', paddingBottom:'1%'}}>
@@ -105,14 +175,14 @@ export default function BasketInfo() {
                                 Cost rooms for night(s)<br />
                                 <span 
                                     className="hover-pointer hover-underline" 
+                                    onClick={ ()=>{ setIsModalVisible(true) } }
                                 >
                                     from <b>2/2/21</b> to <b>4/2/21</b>
                                 </span>
                             </span>
-                            <Modal 
-                                className="modalDate"
-                            >
-                            </Modal>
+                            { 
+                                isModalVisible && showModalDate()
+                            }
                         </Col>
                         <Col xs={3} md={6} lg={8} /> 
                     </Row>
@@ -192,7 +262,7 @@ export default function BasketInfo() {
                                 </span>
                             </span>
                             <Modal 
-                                className="modalDate"
+                                
                             >
                             </Modal>
                         </Col>
