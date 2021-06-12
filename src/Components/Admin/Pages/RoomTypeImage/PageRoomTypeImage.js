@@ -44,21 +44,24 @@ export default function PageRoomTypeImage(props) {
             dataIndex: 'idHinhLP',
             sorter: {
                 compare: (a, b) => a.idHinhLP - b.idHinhLP
-            }
+            },
+            align: 'center'
         },
         {
             title: 'Image',
             dataIndex: 'hinhAnh',
             render: hinhAnh => (
                 <Image style={{ height: '125px', width: 'auto' }} src={hinhAnh} />
-            )
+            ),
+            align: 'center'
         },
         {
             title: 'id LP',
             dataIndex: 'idLP',
             sorter: {
                 compare: (a, b) => a.idLP - b.idLP
-            }
+            },
+            align: 'center'
         },
         {
             title: 'Title',
@@ -67,7 +70,8 @@ export default function PageRoomTypeImage(props) {
                 dataRoomtype.map((item) => 
                     item.idLP === idLP && item.tenLP
                 )
-            )
+            ),
+            align: 'center'
         },
         {
             title: 'Actions',

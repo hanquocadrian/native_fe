@@ -28,7 +28,6 @@ function Login(props) {
 
     useEffect(()=>{
         firAuth.onAuthStateChanged(user => {
-            
             if(!!user){
                 const userLogin = {
                     email: user.email,
@@ -128,7 +127,6 @@ function Login(props) {
                                                 </>
                                             )
                                         }
-                                        
                                     </Col>
                                 </Row>
                             </Col>

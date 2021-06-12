@@ -91,7 +91,7 @@ a:hover {
   border-color: #36cfc9 !important;
 }
 
-.btn-edit:hover{
+.btn-edit:hover, .btn-update:hover{
   color: #873800 !important;
   border-color: #ffa940 !important;
 }

@@ -60,14 +60,15 @@ export default function ServiceImage(props) {
         {
             title: '#',
             dataIndex: 'idHinhDV',
-
+            align: 'center'
         },
         {
             title: 'Image',
             dataIndex: 'hinhAnh',
             render: hinhAnh => (
                 <Image src={hinhAnh} alt="not found" style={{ width:"12.5vw", height:"17.5vh"}}/>
-            )
+            ),
+            align: 'center'
         },
         {
             title: 'Service Title',
@@ -76,7 +77,8 @@ export default function ServiceImage(props) {
                 service.map((item, index) => 
                     item.idDV === idDV && item.tenDV
                 )
-            )
+            ),
+            align: 'center'
         },
         {
             title: 'Actions',

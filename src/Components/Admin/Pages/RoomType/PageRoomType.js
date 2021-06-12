@@ -34,11 +34,13 @@ export default function RoomType(props) {
             dataIndex: 'idLP',
             sorter: {
                 compare: (a, b) => a.idLP - b.idLP
-            }
+            },
+            align: 'center'
         },
         {
             title: 'Title',
-            dataIndex: 'tenLP'
+            dataIndex: 'tenLP',
+            align: 'center'
         },
         {
             title: 'Rate',
@@ -48,11 +50,13 @@ export default function RoomType(props) {
             },
             render: hangPhong => (
                 <Rate allowHalf disabled defaultValue={hangPhong} />
-            )
+            ),
+            align: 'center'
         },
         {
             title: 'Number',
-            dataIndex: 'soLuong'
+            dataIndex: 'soLuong',
+            align: 'center'
         },
         {
             title: 'Actions',

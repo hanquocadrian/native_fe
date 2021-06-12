@@ -45,15 +45,15 @@ export default function Sidebar() {
                     </Link>
                 </Menu.Item>
                 <Menu.Item className="LinkNavAd">
-                    <Link to='/admin/image-service'>
+                    <Link to='/admin/daily-rate'>
                         <GiPriceTag />
-                        Rate in week
+                        Daily Rates 
                     </Link>
                 </Menu.Item>
                 <Menu.Item className="LinkNavAd">
-                    <Link to='/admin/image-service'>
+                    <Link to='/admin/special-rate'>
                         <GiPriceTag />
-                        Room rate in date
+                        Special Rates
                     </Link>
                 </Menu.Item>
                 <Menu.Item className="LinkNavAd">

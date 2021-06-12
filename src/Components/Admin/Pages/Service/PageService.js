@@ -38,36 +38,41 @@ export default function PageService(props) {
         {
             title: '#',
             dataIndex: 'idDV',
-
+            align: 'center'
         },
         {
             title: 'Title',
             dataIndex: 'tenDV',
+            align: 'center'
         },
         {
             title: 'Type',
             dataIndex: 'hinhThuc',
             render: hinhThuc => (
                 hinhThuc === 1 ? 'per booking' : (hinhThuc === 2 ? 'per person per date' : 'free')
-            )
+            ),
+            align: 'center'
         },
         {
             title: 'Price',
             dataIndex: 'donGia',
+            align: 'center'
         },
         {
             title: 'Desc Title',
             dataIndex: 'moTaTD',
             render: moTaTD => (
                 moTaTD.length > 30 ? moTaTD.slice(0,30)+' ...' : moTaTD 
-            )
+            ),
+            align: 'center'
         },
         {
             title: 'Desc Detail',
             dataIndex: 'moTaCT',
             render: moTaCT => (
                 moTaCT.length > 30 ? moTaCT.slice(0,30)+' ...' : moTaCT 
-            )
+            ),
+            align: 'center'
         },
         {
             title: 'Actions',

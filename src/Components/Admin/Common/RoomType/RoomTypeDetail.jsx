@@ -5,7 +5,7 @@ import { ImCancelCircle } from 'react-icons/im';
 import { Link } from 'react-router-dom';
 import { url } from '../../../../Api/url';
 import { getData } from 'Api/api';
-import { urnRoomTypeID, urnRoomTypeImageIDLP } from 'Api/urn';
+import { urnRoomTypeID, urnRoomTypeImageIDLP, urnRoomTypeRateIDLP } from 'Api/urn';
 
 function RoomTypeDetail(props) {
     const [idLP, setidLP] = useState(props.idLP);
@@ -19,8 +19,9 @@ function RoomTypeDetail(props) {
     const [phongTam, setphongTam] = useState(1);
     const [soLuong, setsoLuong] = useState(0);
     const [slHienTai, setslHienTai] = useState(0);
+    const [giaLP, setgiaLP] = useState(null);
 
-    const [dataRoomTypeImages, setdataRoomTypeImages] = useState([])
+    const [dataRoomTypeImages, setdataRoomTypeImages] = useState([]);
 
     useEffect(() => {
         var uri = url + urnRoomTypeID(idLP);
@@ -38,19 +39,35 @@ function RoomTypeDetail(props) {
             setslHienTai(res.data.slHienTai);
         })
         .catch(err => console.log(err));
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        try {
+            var uri = url + urnRoomTypeRateIDLP(idLP);
+            getData(uri)
+            .then(res => {
+                console.log(res);
+                setgiaLP(res.data);
+            })
+            .catch(err => console.log(err));
+        } catch (error) {
+            console.error(error);
+        }
+    }, []);
+
     useEffect(() => {
         try {
             var uri = url + urnRoomTypeImageIDLP(idLP);
             getData(uri)
             .then(res => {
+                console.log(res);
                 setdataRoomTypeImages(res.data);
             })
             .catch(err => console.log(err));
         } catch (error) {
             console.error(error);
         }
-    }, [])
+    },[]);
 
     return (
         <>
@@ -91,6 +108,7 @@ function RoomTypeDetail(props) {
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Number of bathroom(s)">{phongTam}</Descriptions.Item>
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Number of room(s)">{soLuong}</Descriptions.Item>
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Number of rooms available">{slHienTai}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Room rate">{ giaLP ? `$` + giaLP + ` USD` : `Havn't rate`}</Descriptions.Item>
                             </Descriptions>
                         </Row>
                         {
@@ -109,7 +127,7 @@ function RoomTypeDetail(props) {
                             <Col xs={19} md={19} lg={19}>
                                 <Carousel autoplay>
                                     {
-                                        dataRoomTypeImages && dataRoomTypeImages.map((item, index) => 
+                                        typeof dataRoomTypeImages != null && dataRoomTypeImages.map((item, index) => 
                                             <div key={ index }>
                                                 <img src={ item.hinhAnh } alt="not found" style={{ width: "auto", height: "50vh" }} />
                                             </div>

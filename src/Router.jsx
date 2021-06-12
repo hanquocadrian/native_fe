@@ -37,6 +37,14 @@ import AdPageServiceImage from './Components/Admin/Pages/ServiceImage/PageServic
 import AdPageServiceImageAdd from './Components/Admin/Pages/ServiceImage/Add/PageServiceImageAdd';
 import AdPageServiceImageUpd from './Components/Admin/Pages/ServiceImage/Update/PageServiceImageUpd';
 
+import AdPageDailyRate from 'Components/Admin/Pages/DailyRate/PageDailyRate';
+import AdPageDailyRateAdd from 'Components/Admin/Pages/DailyRate/Add/PageDailyRateAdd';
+import AdPageDailyRateUpd from 'Components/Admin/Pages/DailyRate/Update/PageDailyRateUpd';
+
+import AdPageSpecialRate from 'Components/Admin/Pages/SpecialRate/PageSpecialRate';
+import AdPageSpecialRateAdd from 'Components/Admin/Pages/SpecialRate/Add/PageSpecialRateAdd';
+import AdPageSpecialRateUpd from 'Components/Admin/Pages/SpecialRate/Update/PageSpecialRateUpd';
+
 // Error 404
 import Error from './Components/Admin/Pages/Error/Error';
 
@@ -61,14 +69,11 @@ export default class Router extends Component {
                         <ProtectedRoute exact path='/admin/slider/' component={ AdSlider } />
 
                         <ProtectedRoute exact path='/admin/roomtype/' component={ AdPageRoomType } />
-
                         <ProtectedRoute exact path='/admin/roomtype-detail/:id' component={ AdPageRoomTypeDetail } />
                         <ProtectedRoute exact path='/admin/roomtype-add/' component={ AdPageRoomTypeAdd } />
                         <ProtectedRoute exact path='/admin/roomtype-upd/:id' component={ AdPageRoomTypeUpd } />
-                        <ProtectedRoute exact path='/admin/roomtype-image-detail/:id' component={ AdPageRoomTypeDetail } />
 
                         <ProtectedRoute exact path='/admin/roomtype-image/' component={ AdPageRoomTypeImage } />
-                        <ProtectedRoute exact path='/admin/roomtype-image-detail/:id' component={ AdPageRoomTypeDetail } />
                         <ProtectedRoute exact path='/admin/roomtype-image-add/' component={ AdPageRoomTypeImageAdd } />
                         <ProtectedRoute exact path='/admin/roomtype-image-upd/:id' component={ AdPageRoomTypeImageUpd } />
 
@@ -80,6 +85,14 @@ export default class Router extends Component {
                         <ProtectedRoute exact path='/admin/service-image/' component={ AdPageServiceImage } />
                         <ProtectedRoute exact path='/admin/service-image-add/' component={ AdPageServiceImageAdd } />
                         <ProtectedRoute exact path='/admin/service-image-upd/:id' component={ AdPageServiceImageUpd } />
+
+                        <ProtectedRoute exact path='/admin/daily-rate/' component={ AdPageDailyRate } />
+                        <ProtectedRoute exact path='/admin/daily-rate-add/' component={ AdPageDailyRateAdd } />
+                        <ProtectedRoute exact path='/admin/daily-rate-upd/:id' component={ AdPageDailyRateUpd } />
+
+                        <ProtectedRoute exact path='/admin/special-rate/' component={ AdPageSpecialRate } />
+                        <ProtectedRoute exact path='/admin/special-rate-add/' component={ AdPageSpecialRateAdd } />
+                        <ProtectedRoute exact path='/admin/special-rate-upd/:id' component={ AdPageSpecialRateUpd } />
 
                         {/* 404 Not Found */}
                         <Route path='*' component={ Error } />   
