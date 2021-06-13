@@ -98,6 +98,32 @@ function Login(props) {
         })
     }
 
+    const onSubmitLogin = () => {
+        if (email === '' || password === '') {
+            message.error("Please, fill out all the fields!");
+            return;
+        }
+        const data = {
+            email,
+            password
+        }
+        const uri = url + '/api/user/login';
+        postData(uri, data)
+        .then( res => {
+            if (res.data) {
+                console.log("res: ", res.data);
+                localStorage.setItem("token", "Bearer" + res.data.token);
+                message.success("Login successfully, wait a few seconds", 3).then(() => {
+                    onReset();
+                    return props.history.push('/');
+                })
+            }
+            else {
+                message.error("Login fail, please try again!!!", 3)
+            }
+        })
+    }
+
     return (
         <div  className="bg-hotel" style={{ overflow: "hidden", width: "100vw" }}>
             <Row>
@@ -187,7 +213,7 @@ function Login(props) {
                                                 <>
                                                     <Row>
                                                         <Col xs={24} md={24} lg={24} className="text-center mt-10">
-                                                            <Button shape="round">LOG IN</Button>
+                                                            <Button shape="round" onClick={ onSubmitLogin }>LOG IN</Button>
                                                         </Col>
                                                     </Row>
                                                 </>
