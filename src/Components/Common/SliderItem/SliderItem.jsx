@@ -86,7 +86,7 @@ export default function SliderItem() {
             <div style={{ height: '15px' }} />
             <Slider {...settings}>
                 { 
-                    roomTypes.map((item, index) => 
+                    typeof roomTypes !== 'undefined' && roomTypes.map((item, index) => 
                         <ItemSlick 
                             key={index} 
                             idLP = {item.idLP}
