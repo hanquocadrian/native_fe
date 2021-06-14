@@ -18,6 +18,9 @@ const urnDailyRateID = id => '/api/daily-rate/' + id;
 const urnSpecialRate = '/api/special-rate/';
 const urnSpecialRateID = id => '/api/special-rate/' + id;
 
+const urnRoom = '/api/room/';
+const urnRoomID = id => '/api/room/'+ id;
+
 export {
     urnRoomType,
     urnRoomTypeID,
@@ -38,4 +41,7 @@ export {
 
     urnSpecialRate,
     urnSpecialRateID,
+
+    urnRoom,
+    urnRoomID,
 };
