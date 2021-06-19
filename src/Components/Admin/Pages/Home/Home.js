@@ -17,7 +17,7 @@ export default function Home(props) {
                         <Col xs={2} md={2} lg={2} />
                         <Col xs={20} md={20} lg={20}>
                             <Row>
-                                Content
+                                Content chart
                             </Row>
                         </Col>
                         <Col xs={2} md={2} lg={2} />

@@ -29,20 +29,20 @@ export default function NavbarTop(props) {
     return (
         <>
             <Row id="fixNavTop" align="middle" style={{ height: "8vh" }}>
-                <Col xs={2} md={6} lg={9}>
+                <Col xs={2} md={6} lg={6}>
                     <Menu mode="horizontal">
                         <Menu.Item>
                             <Link to="/admin/home"><b style={{fontSize:'20px'}}>Admin Area</b></Link>
                         </Menu.Item>
                     </Menu>
                 </Col>
-                <Col xs={20} md={12} lg={6} style={{ textAlign: "center", borderBottom: "1px solid #F0F0F0", height: "48px" }}>
+                <Col xs={20} md={12} lg={12} style={{ textAlign: "center", borderBottom: "1px solid #F0F0F0", height: "48px" }}>
                     <span className="LogoNavAdmin">
                         <div style={{ display: "inline-block", fontSize: "3.2vh" }}><b>NATIVE HOTEL MANAGEMENT</b></div>             
                     </span>
   
                 </Col>
-                <Col xs={0} md={4} lg={6} style={{ borderBottom: "1px solid #F0F0F0", height: "48px" }} />
+                <Col xs={0} md={4} lg={3} style={{ borderBottom: "1px solid #F0F0F0", height: "48px" }} />
                 <Col xs={2} md={2} lg={3} style={{ textAlign: "right" }}>
                     <Menu mode="horizontal">
                         <Menu.Item>

@@ -1,6 +1,7 @@
 const urnRoomType = '/api/roomtype/';
 const urnRoomTypeID = id => '/api/roomtype/'+ id;
 const urnRoomTypeRateIDLP = id => '/api/roomtype/get-rate-by-idLP/'+ id;
+const urnRoomTypeSearchByDates = '/api/roomtype/search-roomtype-by-days';
 
 const urnRoomTypeImage = '/api/roomtype-image/';
 const urnRoomTypeImageID = id => '/api/roomtype-image/'+ id;
@@ -25,6 +26,7 @@ export {
     urnRoomType,
     urnRoomTypeID,
     urnRoomTypeRateIDLP,
+    urnRoomTypeSearchByDates,
 
     urnRoomTypeImage,
     urnRoomTypeImageID,
