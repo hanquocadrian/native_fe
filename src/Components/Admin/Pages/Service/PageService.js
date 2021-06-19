@@ -66,14 +66,14 @@ export default function PageService(props) {
             ),
             align: 'center'
         },
-        {
-            title: 'Desc Detail',
-            dataIndex: 'moTaCT',
-            render: moTaCT => (
-                moTaCT.length > 30 ? moTaCT.slice(0,30)+' ...' : moTaCT 
-            ),
-            align: 'center'
-        },
+        // {
+        //     title: 'Desc Detail',
+        //     dataIndex: 'moTaCT',
+        //     render: moTaCT => (
+        //         moTaCT.length > 30 ? moTaCT.slice(0,30)+' ...' : moTaCT 
+        //     ),
+        //     align: 'center'
+        // },
         {
             title: 'Actions',
             render: (record) => (

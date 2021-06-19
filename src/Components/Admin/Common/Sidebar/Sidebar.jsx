@@ -93,9 +93,9 @@ export default function Sidebar() {
                     </Link>
                 </Menu.Item>
                 <Menu.Item className="LinkNavAd">
-                    <Link to='/admin/image-service'>
+                    <Link to='/admin/adminacc'>
                         <FaUsers />
-                        Account staff
+                        Staff accounts
                     </Link>
                 </Menu.Item>
             </Menu>
