@@ -22,6 +22,8 @@ const urnSpecialRateID = id => '/api/special-rate/' + id;
 const urnRoom = '/api/room/';
 const urnRoomID = id => '/api/room/'+ id;
 
+const urnChartMoneyBooking = '/api/chart/booking-money-by-quarterlies';
+
 export {
     urnRoomType,
     urnRoomTypeID,
@@ -46,4 +48,6 @@ export {
 
     urnRoom,
     urnRoomID,
+
+    urnChartMoneyBooking,
 };
