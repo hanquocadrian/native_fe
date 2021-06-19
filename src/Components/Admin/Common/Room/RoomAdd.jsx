@@ -1,23 +1,23 @@
-import { Button, Col, DatePicker, Input, message, Row, Select, Tooltip } from 'antd'
+import { Button, Col, DatePicker, Input, message, Radio, Row, Select, Tooltip } from 'antd'
 import Form from 'antd/lib/form/Form'
 import { Option } from 'antd/lib/mentions'
 import { postData } from 'Api/api'
 import { getData } from 'Api/api'
 import { url } from 'Api/url'
-import { urnDailyRate } from 'Api/urn'
+import { urnRoomTypeID } from 'Api/urn'
+import { urnRoom } from 'Api/urn'
 import { urnRoomType } from 'Api/urn'
-import { format } from 'date-fns'
-import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { ImCancelCircle } from 'react-icons/im'
 import { Link } from 'react-router-dom'
 
-function DailyRateAdd(props) {
+function RoomAdd(props) {
     const [dataRoomTypes, setdataRoomTypes] = useState([]);
 
-    const [ngayBatDau, setngayBatDau] = useState(new Date());
-    const [giaMoiTuan, setgiaMoiTuan] = useState(0);
-    const [idLP, setidLP] = useState('');
+    const [maPhong, setmaPhong] = useState("");
+    const [soNguoi, setsoNguoi] = useState(0);
+    const [trangThai, settrangThai] = useState(1);
+    const [idLP, setidLP] = useState("");
     
     useEffect(() => {
         try {
@@ -30,25 +30,33 @@ function DailyRateAdd(props) {
             console.error(error);
         }
     }, []);
+
+    useEffect(() => {
+        var uri = url + urnRoomTypeID(idLP);
+        getData(uri)
+        .then(res => setsoNguoi(res.data.soNguoi));
+    }, [idLP])
     
     useEffect(()=>{
+        setsoNguoi(typeof dataRoomTypes[0] !== 'undefined' ? dataRoomTypes[0].soNguoi : 2)
         setidLP(typeof dataRoomTypes[0] !== 'undefined' ? dataRoomTypes[0].idLP : "");
     }, [dataRoomTypes])
-    
+
     function onReset() {
-        setngayBatDau(new Date());
-        setgiaMoiTuan(0)
+        settrangThai(1);
+        setsoNguoi(typeof dataRoomTypes[0] !== 'undefined' ? dataRoomTypes[0].soNguoi : 2)
         setidLP(typeof dataRoomTypes[0] !== 'undefined' ? dataRoomTypes[0].idLP : "");
     }
 
     const onCreate = () => {
         var data = {
-            ngayBatDau: format(new Date(ngayBatDau), 'yyyy-MM-dd') ,
-            giaMoiTuan: parseFloat(giaMoiTuan),
+            maPhong,
+            soNguoi,
+            trangThai,
             idLP
         }
         console.log(data);
-        var uri = url + urnDailyRate;
+        var uri = url + urnRoom;
         postData(uri, data)
         .then(res => {
             console.log('res: ', res);
@@ -81,7 +89,7 @@ function DailyRateAdd(props) {
                     <Row>
                         <Col xs={2} md={2} lg={2}>
                             <Tooltip placement="right" title="Back">
-                                <Link to="/admin/daily-rate">
+                                <Link to="/admin/room">
                                     <Button className="btn-close" id="btnAdd">
                                         <ImCancelCircle style={{ color: 'black' }} className="icon-top" />
                                     </Button>
@@ -89,29 +97,23 @@ function DailyRateAdd(props) {
                             </Tooltip>
                         </Col>
                         <Col xs={20} md={20} lg={20}>
-                            <h1 className="text-center"><b>CREATE DAILY RATE</b></h1>
+                            <h1 className="text-center"><b>CREATE A ROOM</b></h1>
                         </Col>
                         <Col xs={2} md={2} lg={2} />
                     </Row>
                     <Form>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>ID daily rate:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input name="idGTN" placeholder="ID daily rate" disabled /></Col>
+                            <Col xs={6} md={6} lg={6}><b>ID room:</b></Col>
+                            <Col xs={18} md={18} lg={18}><Input name="maPhong" placeholder="ID room" value={maPhong} onChange={ e => setmaPhong(e.target.value)} /></Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Rate:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input  min={0} type="number" prefix="$" suffix="USD" name="giaMoiTuan" value={giaMoiTuan} onChange={ e => setgiaMoiTuan(e.target.value) } placeholder="Rate of room type in week" /></Col>
-                        </Row>
-                        <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Room type title:</b></Col>
-                            <Col xs={18} md={18} lg={18}>
-                                <DatePicker value={ moment(ngayBatDau, 'YYYY/MM/DD') } onChange={ (date, dateString) => setngayBatDau(dateString? dateString: new Date()) } />
-                            </Col>
+                            <Col xs={6} md={6} lg={6}><b>Number of guest(s):</b></Col>
+                            <Col xs={18} md={18} lg={18}><Input min={0} type="number" name="giaMoiTuan" value={soNguoi} disabled /></Col>
                         </Row>
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={6}><b>Room type:</b></Col>
                             <Col xs={18} md={18} lg={18}>
-                                <Select value={idLP}  style={{ width: 225}} onChange={value => setidLP(value)}>
+                                <Select value={idLP } style={{ width: 225}} onChange={value => setidLP(value)}>
                                     {
                                         typeof dataRoomTypes !== 'undefined' && dataRoomTypes.map((item, index) => 
                                         <>  
@@ -121,7 +123,15 @@ function DailyRateAdd(props) {
                                 </Select>
                             </Col>
                         </Row>
-                        
+                        <Row className="mb-15">
+                            <Col xs={6} md={6} lg={6}><b>Status room:</b></Col>
+                            <Col xs={18} md={18} lg={18}>
+                                <Radio.Group onChange={ e => settrangThai(e.target.value) } value={trangThai}>
+                                    <Radio value={1}>Empty</Radio>
+                                    <Radio value={2}>Non Empty</Radio>
+                                </Radio.Group>
+                            </Col>
+                        </Row>
                         <Row justify="end">
                             <Col xs={2} md={2} lg={2}>
                                 <Button size="large" onClick={ onReset } className="btn-reset">Reset</Button>
@@ -133,10 +143,10 @@ function DailyRateAdd(props) {
                     </Form>
                 </Col>
                 <Col xs={2} md={2} lg={2} />
-            </Row>
+            </Row>  
         </>
     )
 }
 
-export default DailyRateAdd
+export default RoomAdd
 

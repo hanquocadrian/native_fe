@@ -2,6 +2,7 @@ import React from 'react'
 import NavbarTop from '../../Common/Navigation/NavbarTop';
 import { Row, Col } from 'antd';
 import Sidebar from '../../Common/Sidebar/Sidebar';
+import ChartBooking from 'Components/Admin/Common/Chart/ChartBooking';
 
 export default function Home(props) {
     return (
@@ -17,7 +18,7 @@ export default function Home(props) {
                         <Col xs={2} md={2} lg={2} />
                         <Col xs={20} md={20} lg={20}>
                             <Row>
-                                Content
+                                <ChartBooking />
                             </Row>
                         </Col>
                         <Col xs={2} md={2} lg={2} />

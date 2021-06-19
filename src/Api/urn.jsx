@@ -1,6 +1,7 @@
 const urnRoomType = '/api/roomtype/';
 const urnRoomTypeID = id => '/api/roomtype/'+ id;
 const urnRoomTypeRateIDLP = id => '/api/roomtype/get-rate-by-idLP/'+ id;
+const urnRoomTypeSearchByDates = '/api/roomtype/search-roomtype-by-days';
 
 const urnRoomTypeImage = '/api/roomtype-image/';
 const urnRoomTypeImageID = id => '/api/roomtype-image/'+ id;
@@ -18,10 +19,16 @@ const urnDailyRateID = id => '/api/daily-rate/' + id;
 const urnSpecialRate = '/api/special-rate/';
 const urnSpecialRateID = id => '/api/special-rate/' + id;
 
+const urnRoom = '/api/room/';
+const urnRoomID = id => '/api/room/'+ id;
+
+const urnChartMoneyBooking = '/api/chart/booking-money-by-quarterlies';
+
 export {
     urnRoomType,
     urnRoomTypeID,
     urnRoomTypeRateIDLP,
+    urnRoomTypeSearchByDates,
 
     urnRoomTypeImage,
     urnRoomTypeImageID,
@@ -38,4 +45,9 @@ export {
 
     urnSpecialRate,
     urnSpecialRateID,
+
+    urnRoom,
+    urnRoomID,
+
+    urnChartMoneyBooking,
 };

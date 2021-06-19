@@ -45,6 +45,10 @@ import AdPageSpecialRate from 'Components/Admin/Pages/SpecialRate/PageSpecialRat
 import AdPageSpecialRateAdd from 'Components/Admin/Pages/SpecialRate/Add/PageSpecialRateAdd';
 import AdPageSpecialRateUpd from 'Components/Admin/Pages/SpecialRate/Update/PageSpecialRateUpd';
 
+import AdPageRoom from 'Components/Admin/Pages/Room/PageRoom';
+import AdPageRoomAdd from 'Components/Admin/Pages/Room/Add/PageRoomAdd';
+import AdPageRoomUpd from 'Components/Admin/Pages/Room/Update/PageRoomUpd';
+
 // Error 404
 import Error from './Components/Admin/Pages/Error/Error';
 
@@ -93,6 +97,10 @@ export default class Router extends Component {
                         <ProtectedRoute exact path='/admin/special-rate/' component={ AdPageSpecialRate } />
                         <ProtectedRoute exact path='/admin/special-rate-add/' component={ AdPageSpecialRateAdd } />
                         <ProtectedRoute exact path='/admin/special-rate-upd/:id' component={ AdPageSpecialRateUpd } />
+
+                        <ProtectedRoute exact path='/admin/room/' component={ AdPageRoom } />
+                        <ProtectedRoute exact path='/admin/room-add/' component={ AdPageRoomAdd } />
+                        <ProtectedRoute exact path='/admin/room-upd/:id' component={ AdPageRoomUpd } />
 
                         {/* 404 Not Found */}
                         <Route path='*' component={ Error } />   

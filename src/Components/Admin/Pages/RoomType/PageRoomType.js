@@ -1,6 +1,6 @@
 import React from 'react'
 import Sidebar from '../../Common/Sidebar/Sidebar';
-import { Row, Col, Table, Button, Rate, Tooltip, Modal, DatePicker, Popconfirm, message } from 'antd';
+import { Row, Col, Table, Button, Rate, Tooltip, Popconfirm, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { url } from '../../../../Api/url';
 
@@ -9,12 +9,10 @@ import { GrAdd } from 'react-icons/gr';
 import NavbarTop from '../../Common/Navigation/NavbarTop';
 import { getData, deleteData } from 'Api/api';
 import { urnRoomType, urnRoomTypeID } from 'Api/urn';
-
-const { RangePicker } = DatePicker;
+import Search from 'Components/Admin/Common/Search/Search';
 
 export default function RoomType(props) {
     const [dataRoomtypes, setdataRoomtypes] = useState([]);
-    const [isModalVisible, setIsModalVisible] = useState(false);
 
     useEffect(() => {
         try {
@@ -43,18 +41,20 @@ export default function RoomType(props) {
             align: 'center'
         },
         {
-            title: 'Rate',
+            title: 'Kinds of room',
             dataIndex: 'hangPhong',
             sorter: {
                 compare: (a, b) => a.hangPhong - b.hangPhong
             },
             render: hangPhong => (
-                <Rate allowHalf disabled defaultValue={hangPhong} />
+                <>
+                    <b>{hangPhong}</b> Stars
+                </>
             ),
             align: 'center'
         },
         {
-            title: 'Number',
+            title: 'Number of rooms',
             dataIndex: 'soLuong',
             align: 'center'
         },
@@ -96,18 +96,6 @@ export default function RoomType(props) {
         })
     }
 
-    const showModalSearch = () => {
-      setIsModalVisible(true);
-    };
-
-    const handleCancel = () => {
-      setIsModalVisible(false);
-    };
-
-    const onChooseDate = (date, dateString) => {
-        console.log(date, dateString);
-    }
-
     return (
         <>
             <NavbarTop props={props} />
@@ -134,27 +122,7 @@ export default function RoomType(props) {
                                 <h1 className="text-center"><b>LIST OF ROOM TYPE</b></h1>
                             </Col>
                             <Col xs={2} md={2} lg={2}>
-                                <Button onClick={ showModalSearch }>Search</Button>
-                                <Modal 
-                                    title="Looking for room type by date" 
-                                    visible={ isModalVisible } 
-                                    onCancel={ handleCancel } 
-                                    footer={[
-                                        <Button onClick={ handleCancel }>
-                                            Close
-                                        </Button>
-                                    ]}
-                                >
-                                    <p>
-                                        <RangePicker onChange={ onChooseDate } />
-                                    </p>
-                                    <p>
-                                        List of room type available
-                                    </p>
-                                    <p>
-                                        Here
-                                    </p>
-                                </Modal>
+                                <Search />
                             </Col>
                         </Row>
                             <Table 
