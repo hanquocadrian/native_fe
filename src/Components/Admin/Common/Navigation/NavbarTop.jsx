@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState }  from 'react'
 import { Col, Dropdown, Menu, Row } from 'antd'
 import { BiUser } from "react-icons/bi";
 import { RiLogoutBoxLine, RiAccountPinBoxLine  } from "react-icons/ri";
@@ -7,14 +7,24 @@ import './NavbarTop.css';
 import auth from 'Auth/auth';
 
 export default function NavbarTop(props) {
+    const [idAdmin, setIdAdmin] = useState('');
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        var admin = sessionStorage.getItem('objAdmin') ? JSON.parse(sessionStorage.getItem('objAdmin')) : '';
+        setIdAdmin(admin.idAdmin);
+        setUsername(admin.displayName);
+    }, []);
+
     const onLogout = () => {
+        sessionStorage.removeItem('objAdmin');
         return auth.logout(() => props.props.history.push("/admin/"));
     }
 
     const user = (
         <Menu style={{marginTop: '3vh'}} className="LinkNavCus">
             <Menu.Item>
-                <Link to="/admin/edit-my-acc">
+                <Link to={ "/admin/adminacc-update/" + idAdmin }>
                     <RiAccountPinBoxLine fontSize="15px" /> Edit your account
                 </Link>
             </Menu.Item>
@@ -40,7 +50,6 @@ export default function NavbarTop(props) {
                     <span className="LogoNavAdmin">
                         <div style={{ display: "inline-block", fontSize: "3.2vh" }}><b>NATIVE HOTEL MANAGEMENT</b></div>             
                     </span>
-  
                 </Col>
                 <Col xs={0} md={4} lg={3} style={{ borderBottom: "1px solid #F0F0F0", height: "48px" }} />
                 <Col xs={2} md={2} lg={3} style={{ textAlign: "right" }}>
@@ -48,7 +57,7 @@ export default function NavbarTop(props) {
                         <Menu.Item>
                             <Dropdown overlay={user}>
                                 <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                                    <span style={{fontSize:"18px"}}>Hello, Admin </span>
+                                    <span style={{fontSize:"18px"}}>Hello, {username} </span>
                                     <BiUser style={{fontSize: '20px', position: 'relative', top: '4px'}}/>
                                 </a>
                             </Dropdown>

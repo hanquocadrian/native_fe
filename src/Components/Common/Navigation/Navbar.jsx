@@ -25,6 +25,7 @@ export default function Navbar() {
     console.log('Redux: ', userisLogin);
 
     const [roomTypes, setRoomTypes] = useState([]);
+    const [username, setUsername] = useState('');
 
     useEffect(() => {
         try {
@@ -42,6 +43,11 @@ export default function Navbar() {
         }
     }, []);
 
+    useEffect(() => {
+        var userLocal = sessionStorage.getItem('objUser') ? JSON.parse(sessionStorage.getItem('objUser')) : '';
+        setUsername(userLocal.displayName);
+    }, []);
+
     function showRoomTypes(){
         console.log(roomTypes);
         const lst = typeof roomTypes !== 'undefined' ? roomTypes.map((item, index) =>
@@ -56,37 +62,37 @@ export default function Navbar() {
 
 
     const onLogout = () => {
-    if(isSocialLogin){
-      firAuth.signOut();
+        if(isSocialLogin){
+            firAuth.signOut();
+        }
+
+        var user = {
+            email: '',
+            displayName: '',
+            isLogin: '',
+            isSocialLogin: true
+        };
+
+        var actionLogout = logoutUser(user);
+        dispatch(actionLogout);
     }
-  
-    var user = {
-      email: '',
-      displayName: '',
-      isLogin: '',
-      isSocialLogin: true
-    };
-  
-    var actionLogout = logoutUser(user);
-    dispatch(actionLogout);
-  }
-  
-  const userAccount = (
-      <Menu style={{marginTop: '3vh'}}>
+    
+    const userAccount = (
+        <Menu style={{marginTop: '3vh'}}>
         <Menu.Item  className="LinkNavCus">
-          <Link to="/about">
+            <Link to="/about">
             <CgProfile style={{fontSize: '20px', position: 'relative', top: '4px'}} />
             <span style={{fontSize:"15px"}}> Profile</span>
-          </Link>
+            </Link>
         </Menu.Item>
         <Menu.Item className="LinkNavCus">
-          <a onClick={ onLogout }>
+            <a onClick={ onLogout }>
             <BiLogOut style={{fontSize: '20px', position: 'relative', top: '4px'}} />
             <span style={{fontSize:"15px"}}> Logout</span>
-          </a>
+            </a>
         </Menu.Item>
-      </Menu>
-  );
+        </Menu>
+    );
 
     return (
         <>
