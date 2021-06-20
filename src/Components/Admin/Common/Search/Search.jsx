@@ -1,4 +1,4 @@
-import { Button, Col, DatePicker, message, Row, Table } from 'antd';
+import { Button, Col, DatePicker, message, Row, Spin, Table } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import { postData } from 'Api/api';
 import { url } from 'Api/url';
@@ -10,6 +10,7 @@ import './index.css';
 const { RangePicker } = DatePicker;
 
 function Search(props) {
+    const [isLoading, setisLoading] = useState(false);
     const [roomTypeCanBooking, setroomTypeCanBooking] = useState([]);
     const [dateA, setdateA] = useState('');
     const [dateB, setdateB] = useState('');
@@ -75,7 +76,13 @@ function Search(props) {
     }
 
     const onFindRoom = () => {
-        if(dateA == "" || dateB == ""){ return message.error("You must choose dates!") }
+        setroomTypeCanBooking([]);
+        setisLoading(true);
+        
+        if(dateA == "" || dateB == ""){ 
+            setisLoading(false); 
+            return message.error("You must choose dates!") 
+        }
         const data = {
             dateA,
             dateB
@@ -85,6 +92,7 @@ function Search(props) {
         postData(uri, data)
         .then(res => {
             setroomTypeCanBooking(res.data);
+            setisLoading(false);
         })
     }
   
@@ -119,13 +127,23 @@ function Search(props) {
                         <h1><b>RESULT</b></h1>
                     </Col>
                 </Row>
-                <Row>
-                    <Table
-                        columns={ columns } 
-                        dataSource={ roomTypeCanBooking } 
-                        pagination={{ pageSize: 3, position: ['bottomRight', 'none'] }} 
-                        scroll={{ x: 1080 }}
-                    />
+                <Row justify="center">
+                    {
+                        isLoading ? (
+                            <>
+                                <div style={{ minHeight: '314px' }}>
+                                    <Spin style={{ position: 'relative', top: "100px"}} size="large" />
+                                </div>
+                            </>
+                        ) : (
+                            <Table
+                                columns={ columns } 
+                                dataSource={ roomTypeCanBooking } 
+                                pagination={{ pageSize: 3, position: ['bottomRight', 'none'] }} 
+                                scroll={{ x: 1080 }}
+                            />
+                        )
+                    }
                 </Row>
             </Modal>  
         </>

@@ -19,6 +19,10 @@ import AdHome from './Components/Admin/Pages/Home/Home';
 import AdAbout from './Components/Admin/Pages/About/About';
 import AdSlider from './Components/Admin/Pages/Slider/Slider';
 
+import AdPageAdmin from './Components/Admin/Pages/AdminAccount/PageAdmin';
+import AdPageAdminAdd from './Components/Admin/Pages/AdminAccount/Add/PageAdminAdd';
+import AdPageAdminUpd from './Components/Admin/Pages/AdminAccount/Update/PageAdminUpd';
+
 import AdPageRoomType from './Components/Admin/Pages/RoomType/PageRoomType';
 import AdPageRoomTypeDetail from './Components/Admin/Pages/RoomType/Detail/PageRoomTypeDetail';
 import AdPageRoomTypeAdd from 'Components/Admin/Pages/RoomType/Add/PageRoomTypeAdd';
@@ -71,6 +75,10 @@ export default class Router extends Component {
                         <ProtectedRoute exact path="/admin/home/" component={ AdHome } />
                         <ProtectedRoute exact path='/admin/about/' component={ AdAbout } />
                         <ProtectedRoute exact path='/admin/slider/' component={ AdSlider } />
+
+                        <ProtectedRoute exact path='/admin/adminacc/' component={ AdPageAdmin } />
+                        <ProtectedRoute exact path='/admin/adminacc-add/' component={ AdPageAdminAdd } />
+                        <ProtectedRoute exact path='/admin/adminacc-update/:id' component={ AdPageAdminUpd } />
 
                         <ProtectedRoute exact path='/admin/roomtype/' component={ AdPageRoomType } />
                         <ProtectedRoute exact path='/admin/roomtype-detail/:id' component={ AdPageRoomTypeDetail } />
