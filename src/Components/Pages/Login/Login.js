@@ -35,16 +35,39 @@ function Login(props) {
             if(!!user){
                 //để hàm xử lý onSubmitFirebase
                 //khi đã có tài khoản r sẽ chạy mấy dòng dưới
-                const userLogin = {
-                    email: user.email,
-                    displayName: user.displayName,
-                    isLogin: true,
-                    isSocialLogin: true
-                };
-
-                const actionLogin = loginUser(userLogin);
-                dispatch(actionLogin);
-                return props.history.push('/');
+                const data1 = {
+                    tenKH: user.displayName
+                }
+                const uri1 = url + '/api/khd';
+                postData(uri1, data1)
+                .then( res => {
+                    console.log("res add KHD: ", res.data);
+                    const data2 ={
+                        email: user.email,
+                        displayName: user.displayName,
+                        loaiTaiKhoan: 1,
+                        idKHD: res.data
+                    }
+                    const uri2 = url + '/api/user/register';
+                    // console.log('data2:', data2);
+                    postData(uri2, data2)
+                    .then( res => {
+                        console.log("res add FB: ", res.data);
+                        message.success("Login successfully, wait a few seconds 2", 3).then(() => {
+                            const userLogin = {
+                                email: user.email,
+                                displayName: user.displayName,
+                                isLogin: true,
+                                isSocialLogin: true
+                            };
+            
+                            const actionLogin = loginUser(userLogin);
+                            dispatch(actionLogin);
+                            return props.history.push('/');
+                        })
+                    })
+                })
+                
             }
         })
     })
@@ -68,33 +91,81 @@ function Login(props) {
             return;
         }
         const data1 = {
+            email,
+            password,
+            displayName: username,
             tenKH,
             sdt: phone
         }
         const uri1 = url + '/api/khd';
         postData(uri1, data1)
         .then( res => {
-            console.log("res add KHD: ", res.data);
-            const data2 ={
-                email,
-                password,
-                displayName: username,
-                loaiTaiKhoan: 2,
-                idKHD: res.data
+            if (res.data !== undefined) {
+                console.log("res add KHD: ", res.data);
+                const data2 ={
+                    email,
+                    password,
+                    displayName: username,
+                    loaiTaiKhoan: 2,
+                    idKHD: res.data,
+                    tenKH,
+                    sdt: phone
+                }
+                const uri2 = url + '/api/user/register';
+                postData(uri2, data2)
+                .then( res => {
+                    if (res.data) {
+                        console.log("res add TK: ", res.data);
+                        message.success("SignIn successfully, wait a few seconds", 3).then(() => {
+                            onReset();
+                            setuseSignin(false);
+                        })
+                    }
+                    else {
+                        message.error("SignIn fail, wait a few seconds", 3)
+                    }
+                })
             }
-            const uri2 = url + '/api/user/register';
-            postData(uri2, data2)
-            .then( res => {
-                if (res.data) {
-                    console.log("res add TK: ", res.data);
-                    message.success("SignIn successfully, wait a few seconds", 3).then(() => {
-                        onReset();
-                    })
-                }
-                else {
-                    message.error("SignIn fail, wait a few seconds", 3)
-                }
-            })
+            else if(typeof res.response.data !== undefined){
+                console.log("res.response.data: ", res.response.data);
+                res.response.data.map(err => {
+                    message.error(err.message);
+                })
+                return;
+            }
+        })
+    }
+
+    const onSubmitLogin = () => {
+        if (email === '' || password === '') {
+            message.error("Please, fill out all the fields!");
+            return;
+        }
+        const data = {
+            email,
+            password
+        }
+        const uri = url + '/api/user/login';
+        postData(uri, data)
+        .then( res => {
+            if (res.data) {
+                console.log("res: ", res.data);
+                message.success("Login successfully, wait a few seconds", 3).then(() => {
+                    onReset();
+                    var objUser = {
+                        idTK:  res.data.results[0].idTK,
+                        email:  res.data.results[0].email,
+                        displayName:  res.data.results[0].displayName,
+                        idKHD:  res.data.results[0].idKHD,
+                        loaiTaiKhoan:  res.data.results[0].loaiTaiKhoan
+                    }
+                    sessionStorage.setItem('objUser',JSON.stringify(objUser));
+                    return props.history.push('/');
+                })
+            }
+            else {
+                message.error("Login fail, please try again!!!", 3)
+            }
         })
     }
 
@@ -187,7 +258,7 @@ function Login(props) {
                                                 <>
                                                     <Row>
                                                         <Col xs={24} md={24} lg={24} className="text-center mt-10">
-                                                            <Button shape="round">LOG IN</Button>
+                                                            <Button shape="round" onClick={ onSubmitLogin }>LOG IN</Button>
                                                         </Col>
                                                     </Row>
                                                 </>
