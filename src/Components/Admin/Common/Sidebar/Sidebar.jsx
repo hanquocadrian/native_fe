@@ -15,7 +15,7 @@ export default function Sidebar() {
         <>
             <Menu theme="light" mode="inline" style={{ width: '21vw', paddingTop: '10px', height: '92vh' }}>
                 <Menu.Item className="LinkNavAd">
-                    <Link to='/admin/roomtype'>
+                    <Link to='/admin/roomtype' >
                         <FaHotel />
                         Room type
                     </Link>
