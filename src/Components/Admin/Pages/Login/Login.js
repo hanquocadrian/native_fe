@@ -6,8 +6,13 @@ import { HiOutlineMail } from "react-icons/hi";
 import './Login.css';
 import { postData } from 'Api/api';
 import { url } from 'Api/url';
+import { getData } from 'Api/api';
+import { urnAdminID } from 'Api/urn';
+import { actLogin } from 'ReduxConfig/Actions/adminAccount';
+import { useDispatch } from 'react-redux';
 
 export default function Login(props) {
+    const dispatch = useDispatch();
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
 
@@ -30,19 +35,28 @@ export default function Login(props) {
         .then( res => {
             if (res.data) {
                 console.log("res: ", res.data);
-                message.success("Login successfully, wait a few seconds", 3).then(() => {
-                    onReset();
-                    var objAdmin = {
-                        idTK: res.data.results[0].idTK,
-                        email: res.data.results[0].email,
-                        displayName: res.data.results[0].displayName,
-                        idAdmin: res.data.results[0].idAdmin,
-                        loaiTaiKhoan: res.data.results[0].loaiTaiKhoan
-                    }
-                    sessionStorage.setItem('objAdmin',JSON.stringify(objAdmin));
-                    auth.login(() => {
-                        props.history.push("/admin/home/");
-                    });
+                
+                getData(url + urnAdminID(res.data.results[0].idAdmin))
+                .then(resAdmin => {
+                    console.log("resAdmin", resAdmin);
+                    message.success("Login successfully, wait a few seconds", 3).then(() => {
+                        onReset();
+                        var objAdmin = {
+                            idTK: res.data.results[0].idTK,
+                            idAdmin: res.data.results[0].idAdmin,
+                            email: res.data.results[0].email,
+                            phanQuyen:  resAdmin.data[0].phanQuyen,
+                            displayName: res.data.results[0].displayName,
+                            loaiTaiKhoan: res.data.results[0].loaiTaiKhoan,
+
+                            isLogin: true,
+                        }
+                        const action = actLogin(objAdmin);
+                        dispatch(action);
+                        auth.login(() => {
+                            props.history.push("/admin/home/");
+                        });
+                    })
                 })
             }
             else {

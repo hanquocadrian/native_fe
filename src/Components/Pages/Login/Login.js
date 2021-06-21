@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { firAuth, firAuthFB, firAuthGG } from 'FirebaseConfig';
 import { StyledFirebaseAuth } from 'react-firebaseui';
 import { Link } from 'react-router-dom';
-import { loginUser } from 'Redux/Actions/user';
+import { actLogin } from 'ReduxConfig/Actions/customerAccount';
 import { useDispatch } from 'react-redux';
 import { postData } from 'Api/api';
 import { url } from 'Api/url';
@@ -51,17 +51,21 @@ function Login(props) {
                     const uri2 = url + '/api/user/register';
                     // console.log('data2:', data2);
                     postData(uri2, data2)
-                    .then( res => {
+                    .then(res => {
                         console.log("res add FB: ", res.data);
                         message.success("Login successfully, wait a few seconds 2", 3).then(() => {
-                            const userLogin = {
+                            const customerAccount = {
+                                idTK: res.data,
+                                idKHD: data2.idKHD,
                                 email: user.email,
                                 displayName: user.displayName,
+                                loaiTaiKhoan: data2.loaiTaiKhoan,
+
                                 isLogin: true,
                                 isSocialLogin: true
                             };
             
-                            const actionLogin = loginUser(userLogin);
+                            const actionLogin = actLogin(customerAccount);
                             dispatch(actionLogin);
                             return props.history.push('/');
                         })
@@ -157,9 +161,14 @@ function Login(props) {
                         email:  res.data.results[0].email,
                         displayName:  res.data.results[0].displayName,
                         idKHD:  res.data.results[0].idKHD,
-                        loaiTaiKhoan:  res.data.results[0].loaiTaiKhoan
+                        loaiTaiKhoan:  res.data.results[0].loaiTaiKhoan,
+
+                        isLogin: true,
+                        isSocialLogin: false
                     }
-                    sessionStorage.setItem('objUser',JSON.stringify(objUser));
+
+                    var action = actLogin(objUser);
+                    dispatch(action);
                     return props.history.push('/');
                 })
             }
@@ -223,7 +232,7 @@ function Login(props) {
                                         <Row style={{ margin: '15px 0px' }}>
                                             <Col xs={7} md={7} lg={7} style={{ lineHeight: '32px' }}>Password: </Col>
                                             <Col xs={1} md={1} lg={1} />
-                                            <Col xs={16} md={16} lg={16}><Input.Password value={ password } onChange={ e => setpassword(e.target.value)} placeholder="Input your password" /></Col>
+                                            <Col xs={16} md={16} lg={16}><Input.Password value={ password } onKeyDown={e => { if(e.key == "Enter" && !useSignin) onSubmitLogin() }} onChange={ e => setpassword(e.target.value)} placeholder="Input your password" /></Col>
                                         </Row>
                                         {
                                             useSignin ? (
