@@ -6,7 +6,7 @@ import './index.css';
 
 //  Redux
 import { Provider } from 'react-redux';
-import store from 'Redux/Store';
+import store from 'ReduxConfig/Store';
 
 //  main
 if(document.getElementById('root')){

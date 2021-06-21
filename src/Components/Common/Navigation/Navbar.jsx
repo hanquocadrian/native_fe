@@ -12,20 +12,21 @@ import { search } from './Module/module';
 import { firAuth } from 'FirebaseConfig';
 import { BiLogOut } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from 'Redux/Actions/user';
+import { actLogout } from 'ReduxConfig/Actions/customerAccount';
 
 const { SubMenu } = Menu;
 
 export default function Navbar() {
     // Redux
-    const userisLogin = useSelector(state => state.userReducer.isLogin);
-    const isSocialLogin = useSelector(state => state.userReducer.isSocialLogin);
+    const userisLogin = useSelector(state => state.customerAccountReducer.isLogin);
+    const isSocialLogin = useSelector(state => state.customerAccountReducer.isSocialLogin);
+    const username = useSelector(state => state.customerAccountReducer.displayName);
+
     const dispatch = useDispatch();
 
     console.log('Redux: ', userisLogin);
 
     const [roomTypes, setRoomTypes] = useState([]);
-    const [username, setUsername] = useState('');
 
     useEffect(() => {
         try {
@@ -41,11 +42,6 @@ export default function Navbar() {
         } catch (error) {
             console.log(error);
         }
-    }, []);
-
-    useEffect(() => {
-        var userLocal = sessionStorage.getItem('objUser') ? JSON.parse(sessionStorage.getItem('objUser')) : '';
-        setUsername(userLocal.displayName);
     }, []);
 
     function showRoomTypes(){
@@ -66,14 +62,7 @@ export default function Navbar() {
             firAuth.signOut();
         }
 
-        var user = {
-            email: '',
-            displayName: '',
-            isLogin: '',
-            isSocialLogin: true
-        };
-
-        var actionLogout = logoutUser(user);
+        var actionLogout = actLogout();
         dispatch(actionLogout);
     }
     
@@ -147,7 +136,7 @@ export default function Navbar() {
                                 <Menu.Item className="LinkNavCus">
                                     <Dropdown overlay={ userAccount }>
                                         <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                                            <span style={{fontSize:"15px"}}>User Account</span>
+                                            <span style={{fontSize:"15px"}}>Hello, {username}</span>
                                         </span>
                                     </Dropdown>
                                 </Menu.Item>

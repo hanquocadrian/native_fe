@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCart } from 'Redux/Actions/cart';
+import { addCart } from 'ReduxConfig/Actions/cart';
 
 export default function Home() {
     const cart = useSelector(state => state.cartReducer);

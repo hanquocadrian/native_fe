@@ -24,6 +24,9 @@ const urnRoomID = id => '/api/room/'+ id;
 
 const urnChartMoneyBooking = '/api/chart/booking-money-by-quarterlies';
 
+const urnAdmin = '/api/admin/';
+const urnAdminID = id => '/api/admin/'+ id;
+
 export {
     urnRoomType,
     urnRoomTypeID,
@@ -50,4 +53,7 @@ export {
     urnRoomID,
 
     urnChartMoneyBooking,
+
+    urnAdmin,
+    urnAdminID
 };
