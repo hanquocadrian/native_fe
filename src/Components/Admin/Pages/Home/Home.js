@@ -18,7 +18,7 @@ export default function Home(props) {
                     <Row>
                         <Col xs={2} md={2} lg={2} />
                         <Col xs={20} md={20} lg={20}>
-                            <h1 className="text-center"><b>DASH BOARD</b></h1>
+                            <h1 className="text-center"><b>QUARTERLY REPORT</b></h1>
                         </Col>
                         <Col xs={2} md={2} lg={2} />
                     </Row>
