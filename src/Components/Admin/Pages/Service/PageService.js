@@ -17,9 +17,11 @@ import { Link } from 'react-router-dom';
 import { url } from '../../../../Api/url';
 import { getData, deleteData } from 'Api/api';
 import { urnService, urnServiceID } from 'Api/urn';
+import { useSelector } from 'react-redux';
 const http = url;
 
 export default function PageService(props) {
+    const phanQuyen = useSelector(state => state.adminAccountReducer.phanQuyen);
     const [dataServices, setdataServices] = useState([]);
 
     useEffect(() => {
@@ -75,20 +77,22 @@ export default function PageService(props) {
         //     align: 'center'
         // },
         {
-            title: 'Actions',
+            title: phanQuyen == 2 ? 'Actions' : '',
             render: (record) => (
-                <>
-                    <Link to={ '/admin/service-detail/' + record.idDV }><Button className="btn-detail"><BiDetail/></Button></Link>
-                    <Link to={ '/admin/service-upd/' + record.idDV }><Button className="btn-edit"><FaRegEdit/></Button></Link>
-                    <Popconfirm
-                        title="Are you sure?"
-                        onConfirm={ () => onDelete(record.idDV) }
-                        okText="Yes"
-                        cancelText="No"
-                    >
-                        <Button className="btn-delete"><RiDeleteBin5Line/></Button>
-                    </Popconfirm>
-                </>
+                phanQuyen == 2 && (
+                    <>
+                        <Link to={ '/admin/service-detail/' + record.idDV }><Button className="btn-detail"><BiDetail/></Button></Link>
+                        <Link to={ '/admin/service-upd/' + record.idDV }><Button className="btn-edit"><FaRegEdit/></Button></Link>
+                        <Popconfirm
+                            title="Are you sure?"
+                            onConfirm={ () => onDelete(record.idDV) }
+                            okText="Yes"
+                            cancelText="No"
+                        >
+                            <Button className="btn-delete"><RiDeleteBin5Line/></Button>
+                        </Popconfirm>
+                    </>
+                )
             )
         }
     ];

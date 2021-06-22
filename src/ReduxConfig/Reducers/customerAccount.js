@@ -14,7 +14,7 @@ const initialState = {
 const customerAccountReducer = (state = initialState, action) => {
     switch (action.type) {
         case CUS_LOGIN: {
-            var customerAccount = {
+            let customerAccount = {
                 idTK: action.payload.idTK,
                 idKHD: action.payload.idKHD,
                 email: action.payload.email,
@@ -29,7 +29,7 @@ const customerAccountReducer = (state = initialState, action) => {
             return customerAccount;
         }
         case CUS_LOGOUT: {
-            var customerAccount = {
+            let customerAccount = {
                 idTK: -1,
                 idKHD: -1,
                 email: '',

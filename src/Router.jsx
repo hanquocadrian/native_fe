@@ -11,6 +11,7 @@ import About from './Components/Pages/About/About';
 import Service from './Components/Pages/HotelService/HotelService';
 import Room from './Components/Pages/Room/Room';
 import Basket from './Components/Pages/Basket/Basket';
+import PageProfile from './Components/Pages/Profile/PageProfile';
 
 // Admin
 import { ProtectedRoute } from './Auth/protected.route'; 
@@ -69,6 +70,7 @@ export default class Router extends Component {
                         <Route exact path='/service/' component={ Service } />
                         <Route exact path='/roomtype/:id' component={ Room } />
                         <Route exact path='/your-basket' component={ Basket } />
+                        <Route exact path='/profile/:id' component={ PageProfile } />
 
                         {/* Admin */}
                         <Route exact path='/admin/' component={ AdLogin } />

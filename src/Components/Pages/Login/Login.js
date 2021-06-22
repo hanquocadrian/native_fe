@@ -36,6 +36,7 @@ function Login(props) {
                 //để hàm xử lý onSubmitFirebase
                 //khi đã có tài khoản r sẽ chạy mấy dòng dưới
                 const data1 = {
+                    loaiTaiKhoan: 1,
                     tenKH: user.displayName
                 }
                 const uri1 = url + '/api/khd';
@@ -95,6 +96,7 @@ function Login(props) {
             return;
         }
         const data1 = {
+            loaiTaiKhoan: 2,
             email,
             password,
             displayName: username,

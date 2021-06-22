@@ -9,8 +9,10 @@ import React, { useEffect, useState } from 'react'
 import { GrAdd } from 'react-icons/gr';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
+import { useSelector } from 'react-redux';
 
 function PageRoom(props) {
+    const phanQuyen = useSelector(state => state.adminAccountReducer.phanQuyen);
     const [dataRooms, setdataRooms] = useState([]);
     const [dataRoomtypes, setdataRoomtypes] = useState([]);
     
@@ -89,19 +91,21 @@ function PageRoom(props) {
             )
         },
         {
-            title: 'Actions',
+            title: phanQuyen == 2 ? 'Actions' : '',
             render: (record) => (
-                <>
-                    <Link to={ '/admin/room-upd/' + record.maPhong }><Button className="btn-edit">Edit</Button></Link>
-                    <Popconfirm
-                        title="Are you sure to delete this?"
-                        onConfirm={ () => onDelete(record.maPhong) }
-                        okText="Yes"
-                        cancelText="No"
-                    >
-                        <Button className="btn-delete">Delete</Button>
-                    </Popconfirm>
-                </>
+                phanQuyen == 2 && (
+                    <>
+                        <Link to={ '/admin/room-upd/' + record.maPhong }><Button className="btn-edit">Edit</Button></Link>
+                        <Popconfirm
+                            title="Are you sure to delete this?"
+                            onConfirm={ () => onDelete(record.maPhong) }
+                            okText="Yes"
+                            cancelText="No"
+                        >
+                            <Button className="btn-delete">Delete</Button>
+                        </Popconfirm>
+                    </>
+                )
             )
         }
     ];

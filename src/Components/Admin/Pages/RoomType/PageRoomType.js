@@ -10,8 +10,10 @@ import NavbarTop from '../../Common/Navigation/NavbarTop';
 import { getData, deleteData } from 'Api/api';
 import { urnRoomType, urnRoomTypeID } from 'Api/urn';
 import Search from 'Components/Admin/Common/Search/Search';
+import { useSelector } from 'react-redux';
 
 export default function RoomType(props) {
+    const phanQuyen = useSelector(state => state.adminAccountReducer.phanQuyen);
     const [dataRoomtypes, setdataRoomtypes] = useState([]);
 
     useEffect(() => {
@@ -62,16 +64,24 @@ export default function RoomType(props) {
             title: 'Actions',
             render: (record) => (
                 <>
+                    {/* //  2: R || 3: G, Search */}
                     <Link to={ '/admin/roomtype-detail/' + record.idLP }><Button className="btn-detail">Detail</Button></Link>
-                    <Link to={ '/admin/roomtype-upd/' + record.idLP }><Button className="btn-edit">Edit</Button></Link>
-                    <Popconfirm
-                        title="Are you sure to delete this?"
-                        onConfirm={ () => onDelete(record.idLP) }
-                        okText="Yes"
-                        cancelText="No"
-                    >
-                        <Button className="btn-delete">Delete</Button>
-                    </Popconfirm>
+                    {
+                        (phanQuyen == 2) && (
+                            <>
+                                <Link to={ '/admin/roomtype-upd/' + record.idLP }><Button className="btn-edit">Edit</Button></Link>
+                                <Popconfirm
+                                    title="Are you sure to delete this?"
+                                    onConfirm={ () => onDelete(record.idLP) }
+                                    okText="Yes"
+                                    cancelText="No"
+                                >
+                                    <Button className="btn-delete">Delete</Button>
+                                </Popconfirm>        
+                            </>
+                        )
+                    }
+                    
                 </>
             )
         }
