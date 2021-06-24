@@ -56,6 +56,7 @@ import AdPageRoomUpd from 'Components/Admin/Pages/Room/Update/PageRoomUpd';
 
 // Error 404
 import Error from './Components/Admin/Pages/Error/Error';
+import { ProtectedCusRoute } from 'Auth/protectedCus.route';
 
 export default class Router extends Component {
     render() {
@@ -70,7 +71,10 @@ export default class Router extends Component {
                         <Route exact path='/service/' component={ Service } />
                         <Route exact path='/roomtype/:id' component={ Room } />
                         <Route exact path='/your-basket' component={ Basket } />
-                        <Route exact path='/profile/:id' component={ PageProfile } />
+
+                        {/* Customer Auth */}
+                        <ProtectedCusRoute exact path='/profile/:id' component={ PageProfile } />
+
 
                         {/* Admin */}
                         <Route exact path='/admin/' component={ AdLogin } />

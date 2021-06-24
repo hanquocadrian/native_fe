@@ -11,7 +11,7 @@ export default function Footer() {
     return (
         <>
             <Row>
-                <img src="/assets/images/IMG_footer.png" alt="not found" style={{ width: "100vw" }} />
+                <img src="/assets/images/IMG_footer.png" alt="not found" style={{ width: "98.9vw" }} />
             </Row>
             <Row style={{backgroundColor: 'black', color: 'white', paddingTop: "10vh"}}>
                 <Col xs={1} md={3} lg={3} />

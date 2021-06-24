@@ -101,6 +101,11 @@ a:hover {
   border-color: #ff4d4f !important;
 }
 
+.btn-back:hover{
+  color: #1f1f1f !important;
+  border-color: #8c8c8c !important;
+}
+
 .mt-10{
   margin-top: 10px;
 }
@@ -115,6 +120,22 @@ a:hover {
 
 .mb-15{
   margin-bottom: 15px;
+}
+
+.mt-30{
+  margin-top: 30px;
+}
+
+.mb-30{
+  margin-bottom: 30px;
+}
+
+.mt-50{
+  margin-top: 50px;
+}
+
+.mb-50{
+  margin-bottom: 50px;
 }
 
 .ant-message{

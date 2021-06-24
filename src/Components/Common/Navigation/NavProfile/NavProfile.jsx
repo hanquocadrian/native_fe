@@ -29,7 +29,7 @@ export default function NavProfile() {
     }, []);
 
     function showRoomTypes(){
-        console.log(roomTypes);
+        console.log(roomTypes);                                                                                                               
         const lst = typeof roomTypes !== 'undefined' ? roomTypes.map((item, index) =>
             <Menu.Item key={index} className="LinkNavCus">
                 <Link to={'/roomtype/' + item.idLP}  style={{textDecorationLine:'none', color: 'black'}}>
@@ -71,7 +71,7 @@ export default function NavProfile() {
                 </Col>
                 <Col xs={20} md={12} lg={6} style={{ textAlign: "center", borderBottom: "1px solid #F0F0F0", height: "48px" }}>
                     <span className="LogoNavCus">
-                        <Link to="/">
+                        <Link to="/">   
                             <div style={{ display: "inline-block", fontSize: "3.7vh" }}><b>NATIVE HOTEL</b></div>
                         </Link>                        
                     </span>
