@@ -14,7 +14,7 @@ const initialState = {
 const adminAccountReducer = (state = initialState, action) => {
     switch (action.type){
         case AD_LOGIN: {
-            var adminAccount = {
+            let adminAccount = {
                 idTK: action.payload.idTK,
                 idAdmin: action.payload.idAdmin,
                 email: action.payload.email,
@@ -27,7 +27,7 @@ const adminAccountReducer = (state = initialState, action) => {
             return adminAccount;
         }
         case AD_LOGOUT: {
-            var adminAccount = {
+            let adminAccount = {
                 idTK: -1,
                 idAdmin: -1,
                 email: '',

@@ -33,7 +33,7 @@ export default function CarouselQC(props) {
                             { 
                                 slideQuangCao && slideQuangCao.map((item, index) => 
                                     <div key={ index }>
-                                        <img src={ item.hinhAnh } alt="not found" style={{ width: "100vw", height: "92vh" }} />
+                                        <img src={ item.hinhAnh } alt="not found" style={{ width: "98.9vw", height: "92vh" }} />
                                     </div>
                                 )
                             }
@@ -53,7 +53,7 @@ export default function CarouselQC(props) {
                                             position: "relative",
                                             objectFit: "cover",
                                             verticalAlign: 'middle',
-                                            width: '100vw',
+                                            width: '98.9vw',
                                             height: '72vh'
                                         }} />
                                     </div>
@@ -75,7 +75,7 @@ export default function CarouselQC(props) {
                                             position: "relative",
                                             objectFit: "cover",
                                             verticalAlign: 'middle',
-                                            width: '100vw',
+                                            width: '98.9vw',
                                             height: '67vh'
                                         }} />
                                     </div>

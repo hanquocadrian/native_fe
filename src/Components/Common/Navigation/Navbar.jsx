@@ -18,6 +18,7 @@ const { SubMenu } = Menu;
 
 export default function Navbar() {
     // Redux
+    const idTK = useSelector(state => state.customerAccountReducer.idTK);
     const userisLogin = useSelector(state => state.customerAccountReducer.isLogin);
     const isSocialLogin = useSelector(state => state.customerAccountReducer.isSocialLogin);
     const username = useSelector(state => state.customerAccountReducer.displayName);
@@ -69,9 +70,9 @@ export default function Navbar() {
     const userAccount = (
         <Menu style={{marginTop: '3vh'}}>
         <Menu.Item  className="LinkNavCus">
-            <Link to="/about">
+            <Link to={"/profile/" + idTK}>
             <CgProfile style={{fontSize: '20px', position: 'relative', top: '4px'}} />
-            <span style={{fontSize:"15px"}}> Profile</span>
+                <span style={{fontSize:"15px"}}> Profile</span>
             </Link>
         </Menu.Item>
         <Menu.Item className="LinkNavCus">
@@ -134,7 +135,7 @@ export default function Navbar() {
                         { 
                             userisLogin ? (
                                 <Menu.Item className="LinkNavCus">
-                                    <Dropdown overlay={ userAccount }>
+                                    <Dropdown overlay={ userAccount } trigger={['click']}>
                                         <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                                             <span style={{fontSize:"15px"}}>Hello, {username}</span>
                                         </span>
