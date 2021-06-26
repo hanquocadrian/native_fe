@@ -1,12 +1,10 @@
 import React from 'react'
-import { Row, Col, Image } from 'antd';
+import { Row, Col } from 'antd';
 
 import { GiNewspaper, GiMeal, GiCoffeeCup, GiWineBottle } from "react-icons/gi";
-import { MdSmokeFree, MdRoomService } from "react-icons/md";
-import { FaWheelchair } from "react-icons/fa";
-import { AiOutlinePhone, AiFillCar } from "react-icons/ai";
+import { MdRoomService } from "react-icons/md";
+import { AiOutlinePhone } from "react-icons/ai";
 import { RiHandHeartLine, RiLuggageCartLine } from "react-icons/ri";
-import { CgSmartHomeWashMachine } from "react-icons/cg";
 
 import './Service.css';
 import SliderService from '../SliderService/SliderService';
