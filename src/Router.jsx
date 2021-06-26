@@ -5,6 +5,7 @@ import {
     Switch
 } from 'react-router-dom';
 // Customer
+import { ProtectedCusRoute } from 'Auth/protectedCus.route';
 import Home from './Components/Pages/Home/Home';
 import Login from './Components/Pages/Login/Login';
 import About from './Components/Pages/About/About';
@@ -54,9 +55,10 @@ import AdPageRoom from 'Components/Admin/Pages/Room/PageRoom';
 import AdPageRoomAdd from 'Components/Admin/Pages/Room/Add/PageRoomAdd';
 import AdPageRoomUpd from 'Components/Admin/Pages/Room/Update/PageRoomUpd';
 
+import AdPageCustomerStay from 'Components/Admin/Pages/CustomerStay/PageCustomerStay';
+
 // Error 404
 import Error from './Components/Admin/Pages/Error/Error';
-import { ProtectedCusRoute } from 'Auth/protectedCus.route';
 
 export default class Router extends Component {
     render() {
@@ -115,6 +117,10 @@ export default class Router extends Component {
                         <ProtectedRoute exact path='/admin/room/' component={ AdPageRoom } />
                         <ProtectedRoute exact path='/admin/room-add/' component={ AdPageRoomAdd } />
                         <ProtectedRoute exact path='/admin/room-upd/:id' component={ AdPageRoomUpd } />
+                        
+                        <ProtectedRoute exact path='/admin/customer-stay/' component={ AdPageCustomerStay } />
+                        <ProtectedRoute exact path='/admin/customer-stay-add/' component={ AdPageRoomAdd } />
+                        <ProtectedRoute exact path='/admin/customer-stay-upd/:id' component={ AdPageRoomUpd } />
 
                         {/* 404 Not Found */}
                         <Route path='*' component={ Error } />   

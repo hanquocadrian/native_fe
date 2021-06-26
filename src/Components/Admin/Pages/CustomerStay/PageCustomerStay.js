@@ -2,7 +2,6 @@ import { Button, Col, message, Popconfirm, Row, Table, Tooltip } from 'antd';
 import { deleteData } from 'Api/api';
 import { getData } from 'Api/api';
 import { url } from 'Api/url';
-import { urnRoomType, urnRoom, urnRoomID } from 'Api/urn';
 import NavbarTop from 'Components/Admin/Common/Navigation/NavbarTop';
 import Sidebar from 'Components/Admin/Common/Sidebar/Sidebar';
 import React, { useEffect, useState } from 'react'
@@ -10,61 +9,20 @@ import { GrAdd } from 'react-icons/gr';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-function PageRoom(props) {
+function PageCustomerStay(props) {
     const phanQuyen = useSelector(state => state.adminAccountReducer.phanQuyen);
-    const [dataRooms, setdataRooms] = useState([]);
-    const [dataRoomtypes, setdataRoomtypes] = useState([]);
-    
-    useEffect(() => {
-        var uri = url + urnRoom;
-
-        getData(uri)
-        .then(response => setdataRooms(response.data))
-        .catch(error => console.log(error));
-    },[]);
 
     useEffect(() => {
-        try {
-            var uri = url + urnRoomType;
-
-            getData(uri)
-            .then(res => setdataRoomtypes(res.data))
-            .catch(err => console.error(err));
-        } catch (error) {
-            console.log(error);
-        }
+       
     }, []);
 
     const columns = [
         {
             title: '#',
-            dataIndex: 'maPhong',
-            filters: [
-                {
-                  text: 'Block A',
-                  value: 'A',
-                },
-                {
-                  text: 'Block B',
-                  value: 'B',
-                },
-                {
-                  text: 'Block C',
-                  value: 'C',
-                },
-                {
-                  text: 'Block D',
-                  value: 'D',
-                },
-                {
-                  text: 'Block E',
-                  value: 'E',
-                },
-              ],
-              onFilter: (value, record) => record.maPhong.indexOf(value) === 0,
+            dataIndex: 'idKHO'
         },
         {
-            title: 'Số người',
+            title: 'CMND',
             dataIndex: 'soNguoi',
             sorter: {
                 compare: (a, b) => a.soNguoi - b.soNguoi
@@ -170,5 +128,5 @@ function PageRoom(props) {
     )
 }
 
-export default PageRoom
+export default PageCustomerStay
 
