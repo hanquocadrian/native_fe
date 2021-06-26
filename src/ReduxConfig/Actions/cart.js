@@ -1,17 +1,20 @@
-export const addCart = (roomType) => {
-    return {
-        type: 'ADD_CART',
+import { ADD_CART, DEL_CART } from "ReduxConfig/ActionTypes"
 
-        idLP: roomType.idLP,
-        tenLP: roomType.idLP,
-        hinhAnh: roomType.hinhAnh,
-        giaLP: roomType.giaLP
+export const addCart = (sl) => {
+    return {
+        type: ADD_CART,
+        payload: sl
+
+        // idLP: roomType.idLP,
+        // tenLP: roomType.idLP,
+        // hinhAnh: roomType.hinhAnh,
+        // giaLP: roomType.giaLP
     };
 }
 
-export const deleteItemInCart = (idLP) => {
+export const deleteCart = (sl) => {
     return {
-        type: 'ADD_CART',
-        idLP
+        type: DEL_CART,
+        payload: sl
     };
 }
