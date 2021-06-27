@@ -155,9 +155,9 @@ export default function Sidebar() {
                     //  2: G  || 3: G
                     (phanQuyen == 2 || phanQuyen == 3) && (
                         <Menu.Item className="LinkNavAd">
-                            <Link to='/admin/image-service'>
+                            <Link to='/admin/customer-stay'>
                                 <AiOutlineUsergroupAdd />
-                                Customer
+                                Customer stay
                             </Link>
                         </Menu.Item>
                     )

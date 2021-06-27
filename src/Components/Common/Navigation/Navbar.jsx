@@ -1,4 +1,5 @@
-import { Col, Dropdown, Menu, Row } from 'antd'
+import { Col, Dropdown, Menu, Row, Button, message } from 'antd';
+import Modal from 'antd/lib/modal/Modal';
 import React from 'react'
 import './Navbar.css'
 import { Link } from 'react-router-dom';
@@ -8,7 +9,8 @@ import { FiLogIn } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { url } from '../../../Api/url';
 import axios from 'axios';
-import { search } from './Module/module';
+// import { search } from './Module/module';
+import SearchModal from '../Search/Search';
 import { firAuth } from 'FirebaseConfig';
 import { BiLogOut } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,11 +19,14 @@ import { actLogout } from 'ReduxConfig/Actions/customerAccount';
 const { SubMenu } = Menu;
 
 export default function Navbar() {
+    const [isModalVisible, setIsModalVisible] = useState(false);
     // Redux
     const idTK = useSelector(state => state.customerAccountReducer.idTK);
     const userisLogin = useSelector(state => state.customerAccountReducer.isLogin);
     const isSocialLogin = useSelector(state => state.customerAccountReducer.isSocialLogin);
     const username = useSelector(state => state.customerAccountReducer.displayName);
+
+    var slItemAddCart = useSelector(state => state.cartReducer.sl);
 
     const dispatch = useDispatch();
 
@@ -84,6 +89,18 @@ export default function Navbar() {
         </Menu>
     );
 
+    const showModalSearch = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    const noCartToShow = () => {
+        message.error("You do not have any rooms in cart!!!");
+    }
+
     return (
         <>
             <Row id="fixNav" align="middle" style={{ height: "8vh" }}>
@@ -111,46 +128,75 @@ export default function Navbar() {
                     </span>
                 </Col>
                 <Col xs={0} md={4} lg={0} style={{ borderBottom: "1px solid #F0F0F0", height: "48px" }} />
-                <Col xs={2} md={2} lg={9} style={{ textAlign: "right" }}>
-                    <Menu mode="horizontal">
-                        <Menu.Item className="LinkNavCus">
-                            <Dropdown overlay={ search } trigger={['click']}>
-                                <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                                    <span style={{fontSize:"15px"}}>Search</span>
-                                </span>
-                            </Dropdown>
-                        </Menu.Item>
-                        <Menu.Item className="LinkNavCus">
-                            <Link to="/your-basket">
-                                <CgShoppingCart style={{fontSize: '20px', position: 'relative', top: '4px'}}/>
-                                <span style={{fontSize:"15px"}}>(0)</span>
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item className="LinkNavCus">
-                            <a href='tel: 84789991876'>
-                                <RiPhoneLine style={{fontSize: '20px', position: 'relative', top: '4px'}} />
-                                <span style={{fontSize:"16px"}}> +84 789991876</span>
-                            </a>
-                        </Menu.Item>
-                        { 
-                            userisLogin ? (
-                                <Menu.Item className="LinkNavCus">
-                                    <Dropdown overlay={ userAccount } trigger={['click']}>
-                                        <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                                            <span style={{fontSize:"15px"}}>Hello, {username}</span>
-                                        </span>
-                                    </Dropdown>
-                                </Menu.Item>
-                            ) : (
-                                <Menu.Item className="LinkNavCus">
-                                    <Link to="/login">     
-                                        <FiLogIn style={{fontSize: '20px', position: 'relative', top: '4px'}} />
-                                        <span style={{fontSize:"15px"}}> Signin & Login</span>
+                <Col xs={2} md={2} lg={9}>
+                    <Row justify="end">
+                        <Menu mode="horizontal">
+                            <Menu.Item className="LinkNavCus">
+                                {/* <Dropdown overlay={ search } trigger={['click']}>
+                                    <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                                        <span style={{fontSize:"15px"}}>Search</span>
+                                    </span>
+                                </Dropdown> */}
+                                <Link to="" onClick={ showModalSearch }><span style={{fontSize:"15px"}}>Search</span></Link>
+                                {
+                                    isModalVisible && 
+                                    <Modal 
+                                        className="admin-model-search-room"
+                                        title="Find room type by date (You only can book 5 rooms)" 
+                                        visible={ isModalVisible } 
+                                        onCancel={ handleCancel } 
+                                        footer={[
+                                            <Button onClick={ handleCancel }>
+                                                Close
+                                            </Button>
+                                        ]}
+                                    >
+                                        <SearchModal/>
+                                    </Modal>
+                                }
+                            </Menu.Item>
+                            <Menu.Item className="LinkNavCus">
+                            {
+                                slItemAddCart !== 0 ?
+                                (
+                                    <Link to="/your-basket">
+                                        <CgShoppingCart style={{fontSize: '20px', position: 'relative', top: '4px'}}/>
+                                        <span style={{fontSize:"15px", fontWeight: 'bold'}}>({slItemAddCart ? slItemAddCart : 0})</span>
                                     </Link>
-                                </Menu.Item>
-                            )
-                        }
-                    </Menu>
+                                ) : (
+                                    <Link to="" onClick={ noCartToShow }>
+                                        <CgShoppingCart style={{fontSize: '20px', position: 'relative', top: '4px'}}/>
+                                        <span style={{fontSize:"15px", fontWeight: 'bold'}}>({slItemAddCart ? slItemAddCart : 0})</span>
+                                    </Link>
+                                )
+                            }
+                            </Menu.Item>
+                            <Menu.Item className="LinkNavCus">
+                                <a href='tel: 84789991876'>
+                                    <RiPhoneLine style={{fontSize: '20px', position: 'relative', top: '4px'}} />
+                                    <span style={{fontSize:"16px"}}> +84 789991876</span>
+                                </a>
+                            </Menu.Item>
+                            { 
+                                userisLogin ? (
+                                    <Menu.Item className="LinkNavCus">
+                                        <Dropdown overlay={ userAccount } trigger={['click']}>
+                                            <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                                                <span style={{fontSize:"15px"}}>Hello, {username}</span>
+                                            </span>
+                                        </Dropdown>
+                                    </Menu.Item>
+                                ) : (
+                                    <Menu.Item className="LinkNavCus">
+                                        <Link to="/login">     
+                                            <FiLogIn style={{fontSize: '20px', position: 'relative', top: '4px'}} />
+                                            <span style={{fontSize:"15px"}}> Signin & Login</span>
+                                        </Link>
+                                    </Menu.Item>
+                                )
+                            }
+                        </Menu> 
+                    </Row>
                 </Col>
             </Row>
             <Row style={{ height: '8vh' }}></Row>

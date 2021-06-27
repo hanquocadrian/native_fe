@@ -33,6 +33,9 @@ const urnUserID = id => '/api/user/'+ id;
 const urnKhd = '/api/khd/';
 const urnKhdID = id => '/api/khd/' + id;
 
+const urnCustomerStay = '/api/customer-stay/';
+const urnCustomerStayID = id => '/api/customer-stay/' + id;
+
 export {
     urnRoomType,
     urnRoomTypeID,
@@ -68,4 +71,7 @@ export {
 
     urnKhd,
     urnKhdID,
+
+    urnCustomerStay,
+    urnCustomerStayID,
 };

@@ -5,7 +5,7 @@ import customerAccountReducer from './customerAccount';
 
 
 const allReducers = combineReducers({
-    cartReducer: cartReducer, 
+    cartReducer, 
     customerAccountReducer,
     adminAccountReducer,
 });
