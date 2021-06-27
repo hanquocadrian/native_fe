@@ -1,5 +1,5 @@
 import { Col, Row } from 'antd'
-import DailyRateAdd from 'Components/Admin/Common/DailyRate/DailyRateAdd'
+import CustomerStayAdd from 'Components/Admin/Common/CustomerStay/CustomerStayAdd'
 import NavbarTop from 'Components/Admin/Common/Navigation/NavbarTop'
 import Sidebar from 'Components/Admin/Common/Sidebar/Sidebar'
 import React from 'react'
@@ -14,7 +14,7 @@ function PageCustomerStayAdd(props) {
                 </Col>
                 <Col span={19}>
                     {/* Container */}
-                    <DailyRateAdd />
+                    <CustomerStayAdd />
                 </Col>
             </Row>       
         </>
