@@ -1,6 +1,6 @@
-class auth {
+class authCus {
     constructor() {
-        this.auth = sessionStorage.getItem('adminAccount') ? JSON.parse(sessionStorage.getItem('adminAccount')).isLogin : false;
+        this.auth = sessionStorage.getItem('customerAccount') ? JSON.parse(sessionStorage.getItem('customerAccount')).isLogin : false;
     }
     login(cb) {
         this.auth = true;
@@ -14,4 +14,4 @@ class auth {
         return this.auth;
     }
 }
-export default new auth();
+export default new authCus();

@@ -81,7 +81,7 @@ function Search(props) {
     const onFindRoom = () => {
         setroomTypeCanBooking([]);
         setisLoading(true);
-        
+
         if(dateA == "" || dateB == ""){ 
             setisLoading(false); 
             return message.error("You must choose date!") 
@@ -98,7 +98,7 @@ function Search(props) {
             setisLoading(false);
         })
     }
-  
+
     return (
         <>
             {/* <Button onClick={ showModalSearch }>Search</Button> */}
@@ -154,4 +154,3 @@ function Search(props) {
 }
 
 export default Search
-

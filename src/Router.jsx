@@ -5,12 +5,14 @@ import {
     Switch
 } from 'react-router-dom';
 // Customer
+import { ProtectedCusRoute } from 'Auth/protectedCus.route';
 import Home from './Components/Pages/Home/Home';
 import Login from './Components/Pages/Login/Login';
 import About from './Components/Pages/About/About';
 import Service from './Components/Pages/HotelService/HotelService';
 import Room from './Components/Pages/Room/Room';
 import Basket from './Components/Pages/Basket/Basket';
+import PageProfile from './Components/Pages/Profile/PageProfile';
 
 // Admin
 import { ProtectedRoute } from './Auth/protected.route'; 
@@ -53,6 +55,9 @@ import AdPageRoom from 'Components/Admin/Pages/Room/PageRoom';
 import AdPageRoomAdd from 'Components/Admin/Pages/Room/Add/PageRoomAdd';
 import AdPageRoomUpd from 'Components/Admin/Pages/Room/Update/PageRoomUpd';
 
+import AdPageCustomerStay from 'Components/Admin/Pages/CustomerStay/PageCustomerStay';
+import AdPageCustomerStayAdd from 'Components/Admin/Pages/CustomerStay/CustomerStayAdd/PageCustomerStayAdd';
+
 // Error 404
 import Error from './Components/Admin/Pages/Error/Error';
 
@@ -69,6 +74,10 @@ export default class Router extends Component {
                         <Route exact path='/service/' component={ Service } />
                         <Route exact path='/roomtype/:id' component={ Room } />
                         <Route exact path='/your-basket' component={ Basket } />
+
+                        {/* Customer Auth */}
+                        <ProtectedCusRoute exact path='/profile/:id' component={ PageProfile } />
+
 
                         {/* Admin */}
                         <Route exact path='/admin/' component={ AdLogin } />
@@ -109,6 +118,10 @@ export default class Router extends Component {
                         <ProtectedRoute exact path='/admin/room/' component={ AdPageRoom } />
                         <ProtectedRoute exact path='/admin/room-add/' component={ AdPageRoomAdd } />
                         <ProtectedRoute exact path='/admin/room-upd/:id' component={ AdPageRoomUpd } />
+                        
+                        <ProtectedRoute exact path='/admin/customer-stay/' component={ AdPageCustomerStay } />
+                        <ProtectedRoute exact path='/admin/customer-stay-add/' component={ AdPageCustomerStayAdd } />
+                        <ProtectedRoute exact path='/admin/customer-stay-upd/:id' component={ AdPageRoomUpd } />
 
                         {/* 404 Not Found */}
                         <Route path='*' component={ Error } />   

@@ -19,7 +19,7 @@ export default function AdminUpd(props) {
     const [oldPass, setoldPass] = useState('');
 
     useEffect(() => {
-        var admin = sessionStorage.getItem('objAdmin') ? JSON.parse(sessionStorage.getItem('objAdmin')) : '';
+        var admin = sessionStorage.getItem('adminAccount') ? JSON.parse(sessionStorage.getItem('adminAccount')) : '';
         setidTK(admin.idTK);
     }, []);
 
@@ -123,7 +123,7 @@ export default function AdminUpd(props) {
                         isChangePass: 0
                     }
                 }
-                const uri2 = url + '/api/user/' + idTK;
+                const uri2 = url + '/api/user/update_admin_acc/' + idTK;
                 putData(uri2, data2)
                 .then( res => {
                     if (res.data) {
@@ -132,12 +132,14 @@ export default function AdminUpd(props) {
                             onReset();
                             var objAdmin = {
                                 idTK,
-                                email,
-                                displayName: username,
                                 idAdmin,
-                                loaiTaiKhoan: 3
+                                email,
+                                phanQuyen,
+                                displayName: username,
+                                loaiTaiKhoan: 3,
+                                isLogin: true,
                             }
-                            sessionStorage.setItem('objAdmin',JSON.stringify(objAdmin));
+                            sessionStorage.setItem('adminAccount',JSON.stringify(objAdmin));
                         })
                     }
                     else {

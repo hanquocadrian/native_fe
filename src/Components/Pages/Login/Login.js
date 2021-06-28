@@ -1,4 +1,4 @@
-import { Button, Col, Input, Row, Switch, message } from 'antd'
+import { Button, Col, Input, Row, Switch, message, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { firAuth, firAuthFB, firAuthGG } from 'FirebaseConfig';
 import { StyledFirebaseAuth } from 'react-firebaseui';
@@ -7,6 +7,7 @@ import { actLogin } from 'ReduxConfig/Actions/customerAccount';
 import { useDispatch } from 'react-redux';
 import { postData } from 'Api/api';
 import { url } from 'Api/url';
+import authCus from 'Auth/authCus';
 
 function Login(props) {
     const [useSignin, setuseSignin] = useState(true);
@@ -18,6 +19,8 @@ function Login(props) {
     const [username, setusername] = useState('');
     const [tenKH, setTenKH] = useState('');
     const [phone, setPhone] = useState('');
+
+    const [isLoading, setisLoading] = useState(false);
 
     const uiConfig = {
         signInFlow: "popup",
@@ -33,6 +36,7 @@ function Login(props) {
     useEffect(()=>{
         firAuth.onAuthStateChanged(user => {
             if(!!user){
+                setisLoading(true);
                 //để hàm xử lý onSubmitFirebase
                 //khi đã có tài khoản r sẽ chạy mấy dòng dưới
                 const data1 = {
@@ -68,7 +72,11 @@ function Login(props) {
             
                             const actionLogin = actLogin(customerAccount);
                             dispatch(actionLogin);
-                            return props.history.push('/');
+                            setisLoading(false);
+
+                            authCus.login(() => {
+                                return props.history.push('/');
+                            });
                         })
                     })
                 })
@@ -171,7 +179,10 @@ function Login(props) {
 
                     var action = actLogin(objUser);
                     dispatch(action);
-                    return props.history.push('/');
+                    
+                    authCus.login(() => {
+                        return props.history.push('/');
+                    });
                 })
             }
             else {
@@ -206,10 +217,21 @@ function Login(props) {
                                 <Row justify="center">
                                     <Col xs={2} md={2} lg={2} />
                                     <Col xs={20} md={20} lg={20}>
-                                        <StyledFirebaseAuth
-                                            uiConfig={ uiConfig }
-                                            firebaseAuth={ firAuth }
-                                        />
+                                        {
+                                            isLoading ? (
+                                                <>
+                                                    <div className="mt-15" />
+                                                    <Spin size="large" />
+                                                </>
+                                            ) : (
+                                                <>        
+                                                    <StyledFirebaseAuth
+                                                        uiConfig={ uiConfig }
+                                                        firebaseAuth={ firAuth }
+                                                    />
+                                                </>
+                                            )
+                                        }
                                     </Col>
                                     <Col xs={2} md={2} lg={2} />
                                 </Row>

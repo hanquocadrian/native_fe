@@ -23,7 +23,7 @@ export default function ButtonSearch(props) {
     const [giaLP, setgiaLP] = useState(null);
 
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         setidLP(props.idLP);
         setmaxSLD(props.maxSLD);
