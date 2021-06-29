@@ -56,7 +56,8 @@ import AdPageRoomAdd from 'Components/Admin/Pages/Room/Add/PageRoomAdd';
 import AdPageRoomUpd from 'Components/Admin/Pages/Room/Update/PageRoomUpd';
 
 import AdPageCustomerStay from 'Components/Admin/Pages/CustomerStay/PageCustomerStay';
-import AdPageCustomerStayAdd from 'Components/Admin/Pages/CustomerStay/CustomerStayAdd/PageCustomerStayAdd';
+import AdPageCustomerStayAdd from 'Components/Admin/Pages/CustomerStay/Add/PageCustomerStayAdd';
+import AdPageCustomerStayUpd from 'Components/Admin/Pages/CustomerStay/Update/PageCustomerStayUdp';
 
 // Error 404
 import Error from './Components/Admin/Pages/Error/Error';
@@ -121,7 +122,7 @@ export default class Router extends Component {
                         
                         <ProtectedRoute exact path='/admin/customer-stay/' component={ AdPageCustomerStay } />
                         <ProtectedRoute exact path='/admin/customer-stay-add/' component={ AdPageCustomerStayAdd } />
-                        <ProtectedRoute exact path='/admin/customer-stay-upd/:id' component={ AdPageRoomUpd } />
+                        <ProtectedRoute exact path='/admin/customer-stay-upd/:id' component={ AdPageCustomerStayUpd } />
 
                         {/* 404 Not Found */}
                         <Route path='*' component={ Error } />   

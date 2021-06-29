@@ -1,5 +1,5 @@
-import { Button, Col, Input, Radio, Row, Switch, Popconfirm } from 'antd';
-import { getData } from 'Api/api';
+import { Button, Col, Input, Radio, Row, Switch, Popconfirm, message } from 'antd';
+import { getData, putData } from 'Api/api';
 import { url } from 'Api/url';
 import { urnKhdID } from 'Api/urn';
 import { urnUserID } from 'Api/urn';
@@ -85,28 +85,111 @@ export default function Profile(props) {
     }
 
     const onSubmitUpdate = () => {
-        settenKH(displayName);
+        // settenKH(displayName);
+        // if(!isUpdatePassword || loaiTaiKhoan == 1){  
+        //     console.log('update non pass: ', dataKHD, dataUser);
+        // }
+        // else{
+        //     console.log('update pass: ', dataKHD, dataUser);
+        // }
         
-        var dataKHD = {
-            idKHD,
-            tenKH,
-            sdt
-        };
-
-        var dataUser = {
-            idTK,
-            email,
-            password,
-            displayName,
-            title,
-            loaiTaiKhoan
-        };
-        if(!isUpdatePassword || loaiTaiKhoan == 1){  
-            console.log('update non pass: ', dataKHD, dataUser);
+        if(sdt < 10 || email == "" || displayName == "" ){
+            message.error("Please, fill out all the fields!");
+            return;
         }
-        else{
-            console.log('update pass: ', dataKHD, dataUser);
+        if (oldPassword !== '' && newPassword !== '' && confirmPassword !== '') {
+            var dataKHD = {
+                tenKH,
+                sdt,
+                email,
+                password: oldPassword,
+                newPassword,
+                displayName,
+                isChangePass: 1
+            }
         }
+        else {
+            var dataKHD = {
+                tenKH,
+                sdt,
+                email,
+                displayName,
+                isChangePass: 0
+            }
+        }
+        var uri1 = url + '/api/khd/' + idKHD;
+        putData(uri1, dataKHD)
+        .then(res=>{
+            if (res.data !== undefined) {
+                if (oldPassword !== '' && newPassword !== '' && confirmPassword !== '') {
+                    if (newPassword === confirmPassword) {
+                        var dataUser = {
+                            tenKH,
+                            sdt,
+                            email,
+                            displayName,
+                            title,
+                            password: newPassword,
+                            oldPassword,
+                            loaiTaiKhoan,
+                            idKHD,
+                            isChangePass: 1
+                        }   
+                    }
+                    else {
+                        message.error("Your new password and confirm password fields do not match!!!");
+                        return;
+                    }
+                }
+                else {
+                    var dataUser = {
+                        tenKH,
+                        sdt,
+                        email,
+                        displayName,
+                        title,
+                        password,
+                        loaiTaiKhoan,
+                        idKHD,
+                        isChangePass: 0
+                    }
+                }
+                const uri2 = url + '/api/user/update_cus_acc/' + idTK;
+                putData(uri2, dataUser)
+                .then( res => {
+                    if (res.data) {
+                        console.log("res add: ", res.data);
+                        message.success("Updated successfully, wait a few seconds", 3).then(()=>{
+                            onReset();
+                            // var objCus = {
+                            //     idTK,
+                            //     idKHD,
+                            //     email,
+                            //     displayName,
+                            //     loaiTaiKhoan,
+                            //     isLogin: true,
+                            // }
+                            // sessionStorage.setItem('customerAccount',JSON.stringify(objCus));
+                        })
+                    }
+                    else {
+                        message.error("Update fail, please try again!!!", 3)
+                    }
+                })
+            }
+            else if(typeof res.response.data !== undefined){
+                console.log("res.response.data: ", res.response.data);
+                if(Array.isArray(res.response.data)){
+                    res.response.data.map(err => {
+                        message.error(err.message);
+                    })                    
+                } 
+                else {
+                    message.error(res.response.data);
+                }
+                return;
+            }
+        })
     }
 
     const onLogout = () => {
@@ -140,7 +223,7 @@ export default function Profile(props) {
 
             <Row style={{ backgroundColor: 'white', minHeight: '60vh', paddingTop: '30px'}}>
                 <Col xs={24} md={24} lg={24}>
-                    <h1 className="text-center"><b>INFORMATION CUSTOMER</b></h1> 
+                    <h1 className="text-center"><b>CUSTOMER INFORMATION</b></h1> 
                     <Row className="mb-15 mt-15">
                         <Col xs={6} md={6} lg={6} />
                         <Col xs={12} md={12} lg={12} className="text-center">
@@ -236,7 +319,7 @@ export default function Profile(props) {
                                                                 <b>Old Password:</b>
                                                             </Col>
                                                             <Col xs={9} md={9} lg={9} >
-                                                                <Input value={oldPassword } onChange={(e) => setoldPassword( e.target.value )} placeholder="Enter your old pass" /> 
+                                                                <Input.Password value={oldPassword } onChange={(e) => setoldPassword( e.target.value )} placeholder="Enter your old pass" /> 
                                                             </Col>
                                                             <Col xs={6} md={6} lg={6} />
                                                         </Row> 
@@ -249,7 +332,7 @@ export default function Profile(props) {
                                                     <b>New Password:</b>
                                                 </Col>
                                                 <Col xs={9} md={9} lg={9} >
-                                                    <Input value={newPassword } onChange={(e) => setnewPassword( e.target.value )} placeholder="Enter your new pass" /> 
+                                                    <Input.Password value={newPassword } onChange={(e) => setnewPassword( e.target.value )} placeholder="Enter your new pass" /> 
                                                 </Col>
                                                 <Col xs={6} md={6} lg={6} />
                                             </Row> 
@@ -259,7 +342,7 @@ export default function Profile(props) {
                                                     <b>Confirm password:</b>
                                                 </Col>
                                                 <Col xs={9} md={9} lg={9} >
-                                                    <Input value={ confirmPassword } onChange={(e) => setconfirmPassword( e.target.value )} placeholder="Enter confirm the new pass" /> 
+                                                    <Input.Password value={ confirmPassword } onChange={(e) => setconfirmPassword( e.target.value )} placeholder="Enter confirm the new pass" /> 
                                                 </Col>
                                                 <Col xs={6} md={6} lg={6} />
                                             </Row>                                         
