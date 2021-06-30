@@ -1,4 +1,4 @@
-import { CUS_LOGIN, CUS_LOGOUT } from "ReduxConfig/ActionTypes";
+import { CUS_LOGIN, CUS_LOGOUT, CUS_LOGIN_UPDATE } from "ReduxConfig/ActionTypes";
 
 const initialState = {
     idTK: sessionStorage.getItem('customerAccount') ? JSON.parse(sessionStorage.getItem('customerAccount')).idTK : -1,
@@ -38,6 +38,21 @@ const customerAccountReducer = (state = initialState, action) => {
                 isLogin: false,
                 isSocialLogin: false
             };
+
+            sessionStorage.setItem('customerAccount', JSON.stringify(customerAccount));
+
+            return customerAccount;
+        }
+        case CUS_LOGIN_UPDATE: {
+            let customerAccount = {
+                idTK: state.idTK,
+                idKHD: state.idKHD,
+                email: action.payload.email,
+                displayName: action.payload.displayName,
+                loaiTaiKhoan: action.payload.loaiTaiKhoan,
+                isLogin: state.isLogin,
+                isSocialLogin: action.payload.isSocialLogin
+            }
 
             sessionStorage.setItem('customerAccount', JSON.stringify(customerAccount));
 

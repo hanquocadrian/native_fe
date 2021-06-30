@@ -15,11 +15,13 @@ import { firAuth } from 'FirebaseConfig';
 import { BiLogOut } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { actLogout } from 'ReduxConfig/Actions/customerAccount';
+import ChooseDates from '../ChooseDates/ChooseDates';
 
 const { SubMenu } = Menu;
 
 export default function Navbar() {
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isModalVisibleChooseDates, setIsModalVisibleChooseDates] = useState(false);
     // Redux
     const idTK = useSelector(state => state.customerAccountReducer.idTK);
     const userisLogin = useSelector(state => state.customerAccountReducer.isLogin);
@@ -118,6 +120,25 @@ export default function Navbar() {
                         <Menu.Item className="LinkNavCus">
                             <Link to="/service"><span style={{fontSize:"15px"}}>Service</span></Link>
                         </Menu.Item>
+                        <Menu.Item className="LinkNavCus">
+                            <span onClick={ () => {setIsModalVisibleChooseDates(!isModalVisibleChooseDates)} } style={{fontSize:"15px"}}>Choose dates</span>
+                            {
+                                isModalVisibleChooseDates && 
+                                <Modal 
+                                    className="cus-model-choose-dates"
+                                    title="You should choose your arrival date and end date" 
+                                    visible={ isModalVisibleChooseDates } 
+                                    onCancel={() => { setIsModalVisibleChooseDates(!isModalVisibleChooseDates) }} 
+                                    footer={[
+                                        <Button onClick={() => { setIsModalVisibleChooseDates(!isModalVisibleChooseDates) }}>
+                                            Close
+                                        </Button>
+                                    ]}
+                                >
+                                    <ChooseDates />
+                                </Modal>
+                            }
+                        </Menu.Item>
                     </Menu>
                 </Col>
                 <Col xs={20} md={12} lg={6} style={{ textAlign: "center", borderBottom: "1px solid #F0F0F0", height: "48px" }}>
@@ -132,11 +153,6 @@ export default function Navbar() {
                     <Row justify="end">
                         <Menu mode="horizontal">
                             <Menu.Item className="LinkNavCus">
-                                {/* <Dropdown overlay={ search } trigger={['click']}>
-                                    <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                                        <span style={{fontSize:"15px"}}>Search</span>
-                                    </span>
-                                </Dropdown> */}
                                 <Link to="" onClick={ showModalSearch }><span style={{fontSize:"15px"}}>Search</span></Link>
                                 {
                                     isModalVisible && 

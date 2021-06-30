@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { postData } from 'Api/api';
 import { url } from 'Api/url';
 import authCus from 'Auth/authCus';
+import { getData } from 'Api/api';
 
 function Login(props) {
     const [useSignin, setuseSignin] = useState(true);
@@ -59,24 +60,27 @@ function Login(props) {
                     .then(res => {
                         console.log("res add FB: ", res.data);
                         message.success("Login successfully, wait a few seconds 2", 3).then(() => {
-                            const customerAccount = {
-                                idTK: res.data,
-                                idKHD: data2.idKHD,
-                                email: user.email,
-                                displayName: user.displayName,
-                                loaiTaiKhoan: data2.loaiTaiKhoan,
-
-                                isLogin: true,
-                                isSocialLogin: true
-                            };
-            
-                            const actionLogin = actLogin(customerAccount);
-                            dispatch(actionLogin);
-                            setisLoading(false);
-
-                            authCus.login(() => {
-                                return props.history.push('/');
-                            });
+                            getData(url + '/api/user/' + res.data)
+                            .then (res => {
+                                const customerAccount = {
+                                    idTK: res.data[0].idTK,
+                                    idKHD: res.data[0].idKHD,
+                                    email: res.data[0].email,
+                                    displayName: res.data[0].displayName,
+                                    loaiTaiKhoan: res.data[0].loaiTaiKhoan,
+    
+                                    isLogin: true,
+                                    isSocialLogin: true
+                                };
+                
+                                const actionLogin = actLogin(customerAccount);
+                                dispatch(actionLogin);
+                                setisLoading(false);
+    
+                                authCus.login(() => {
+                                    return props.history.push('/');
+                                });
+                            })
                         })
                     })
                 })

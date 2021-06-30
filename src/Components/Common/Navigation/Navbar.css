@@ -21,3 +21,7 @@
 .LinkNavCus a:hover{
   color: crimson !important;
 }
+
+.cus-model-choose-dates {
+  width: 38.5vw !important;
+}
