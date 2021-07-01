@@ -11,7 +11,7 @@ export default function _About() {
     }, [])
 
     return (
-        <div style={{ overflow: "hidden", width: "98.9vw" }}>
+        <div style={{ overflow: "hidden", width: "100vw" }}>
             <Navbar />
             <CarouselQC height="72"/>
             <AboutHotel/>

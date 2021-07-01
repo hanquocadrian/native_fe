@@ -15,11 +15,13 @@ import { firAuth } from 'FirebaseConfig';
 import { BiLogOut } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { actLogout } from 'ReduxConfig/Actions/customerAccount';
+import ChooseDates from '../ChooseDates/ChooseDates';
 
 const { SubMenu } = Menu;
 
 export default function Navbar() {
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isModalVisibleChooseDates, setIsModalVisibleChooseDates] = useState(false);
     // Redux
     const idTK = useSelector(state => state.customerAccountReducer.idTK);
     const userisLogin = useSelector(state => state.customerAccountReducer.isLogin);
@@ -75,8 +77,8 @@ export default function Navbar() {
     const userAccount = (
         <Menu style={{marginTop: '3vh'}}>
         <Menu.Item  className="LinkNavCus">
-            <Link to={"/profile/" + idTK}>
-            <CgProfile style={{fontSize: '20px', position: 'relative', top: '4px'}} />
+            <Link to={"/user/profile/" + idTK}>
+                <CgProfile style={{fontSize: '20px', position: 'relative', top: '4px'}} />
                 <span style={{fontSize:"15px"}}> Profile</span>
             </Link>
         </Menu.Item>
@@ -104,7 +106,7 @@ export default function Navbar() {
     return (
         <>
             <Row id="fixNav" align="middle" style={{ height: "8vh" }}>
-                <Col xs={2} md={6} lg={9}>
+                <Col xs={2} md={6} lg={10}>
                     <Menu mode="horizontal">
                         <Menu.Item>
                             <Link to="/about"><span style={{fontSize:"15px"}}>About</span></Link>
@@ -118,25 +120,39 @@ export default function Navbar() {
                         <Menu.Item className="LinkNavCus">
                             <Link to="/service"><span style={{fontSize:"15px"}}>Service</span></Link>
                         </Menu.Item>
+                        <Menu.Item className="LinkNavCus">
+                            <span onClick={ () => {setIsModalVisibleChooseDates(!isModalVisibleChooseDates)} } style={{fontSize:"15px"}}>Choose dates</span>
+                            {
+                                isModalVisibleChooseDates && 
+                                <Modal 
+                                    className="cus-model-choose-dates"
+                                    title="You should choose your arrival date and end date" 
+                                    visible={ isModalVisibleChooseDates } 
+                                    onCancel={() => { setIsModalVisibleChooseDates(!isModalVisibleChooseDates) }} 
+                                    footer={[
+                                        <Button onClick={() => { setIsModalVisibleChooseDates(!isModalVisibleChooseDates) }}>
+                                            Close
+                                        </Button>
+                                    ]}
+                                >
+                                    <ChooseDates />
+                                </Modal>
+                            }
+                        </Menu.Item>
                     </Menu>
                 </Col>
-                <Col xs={20} md={12} lg={6} style={{ textAlign: "center", borderBottom: "1px solid #F0F0F0", height: "48px" }}>
+                <Col xs={20} md={12} lg={4} style={{ textAlign: "center", borderBottom: "1px solid #F0F0F0", height: "48px" }}>
                     <span className="LogoNavCus">
-                        <Link to="/">
+                        <Link to="/" className="animation-crimson">
                             <div style={{ display: "inline-block", fontSize: "3.7vh" }}><b>NATIVE HOTEL</b></div>
                         </Link>                        
                     </span>
                 </Col>
                 <Col xs={0} md={4} lg={0} style={{ borderBottom: "1px solid #F0F0F0", height: "48px" }} />
-                <Col xs={2} md={2} lg={9}>
-                    <Row justify="end">
-                        <Menu mode="horizontal">
+                <Col xs={2} md={2} lg={10} >
+                    <Row>
+                        <Menu mode="horizontal" style={{width: '100%', textAlign:'end'}}>
                             <Menu.Item className="LinkNavCus">
-                                {/* <Dropdown overlay={ search } trigger={['click']}>
-                                    <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                                        <span style={{fontSize:"15px"}}>Search</span>
-                                    </span>
-                                </Dropdown> */}
                                 <Link to="" onClick={ showModalSearch }><span style={{fontSize:"15px"}}>Search</span></Link>
                                 {
                                     isModalVisible && 

@@ -1,77 +1,37 @@
-const urnRoomType = '/api/roomtype/';
-const urnRoomTypeID = id => '/api/roomtype/'+ id;
-const urnRoomTypeRateIDLP = id => '/api/roomtype/get-rate-by-idLP/'+ id;
-const urnRoomTypeSearchByDates = '/api/roomtype/search-roomtype-by-days';
+export const urnRoomType = '/api/roomtype/';
+export const urnRoomTypeID = id => '/api/roomtype/'+ id;
+export const urnRoomTypeRateIDLP = id => '/api/roomtype/get-rate-by-idLP/'+ id;
+export const urnRoomTypeSearchByDates = '/api/roomtype/search-roomtype-by-days';
 
-const urnRoomTypeImage = '/api/roomtype-image/';
-const urnRoomTypeImageID = id => '/api/roomtype-image/'+ id;
-const urnRoomTypeImageIDLP = id => '/api/roomtype-image/get_by_idlp/'+ id;
+export const urnRoomTypeImage = '/api/roomtype-image/';
+export const urnRoomTypeImageID = id => '/api/roomtype-image/'+ id;
+export const urnRoomTypeImageIDLP = id => '/api/roomtype-image/get_by_idlp/'+ id;
 
-const urnService = '/api/service/';
-const urnServiceID = id => '/api/service/'+ id;
+export const urnService = '/api/service/';
+export const urnServiceID = id => '/api/service/'+ id;
 
-const urnServiceImage = '/api/service-image/';
-const urnServiceImageID = id => '/api/service-image/'+ id;
+export const urnServiceImage = '/api/service-image/';
+export const urnServiceImageID = id => '/api/service-image/'+ id;
 
-const urnDailyRate = '/api/daily-rate/';
-const urnDailyRateID = id => '/api/daily-rate/' + id;
+export const urnDailyRate = '/api/daily-rate/';
+export const urnDailyRateID = id => '/api/daily-rate/' + id;
 
-const urnSpecialRate = '/api/special-rate/';
-const urnSpecialRateID = id => '/api/special-rate/' + id;
+export const urnSpecialRate = '/api/special-rate/';
+export const urnSpecialRateID = id => '/api/special-rate/' + id;
 
-const urnRoom = '/api/room/';
-const urnRoomID = id => '/api/room/'+ id;
+export const urnRoom = '/api/room/';
+export const urnRoomID = id => '/api/room/'+ id;
 
-const urnChartMoneyBooking = '/api/chart/booking-money-by-quarterlies';
+export const urnChartMoneyBooking = '/api/chart/booking-money-by-quarterlies';
 
-const urnAdmin = '/api/admin/';
-const urnAdminID = id => '/api/admin/'+ id;
+export const urnAdmin = '/api/admin/';
+export const urnAdminID = id => '/api/admin/'+ id;
 
-const urnUser = '/api/user/';
-const urnUserID = id => '/api/user/'+ id;
+export const urnUser = '/api/user/';
+export const urnUserID = id => '/api/user/'+ id;
 
-const urnKhd = '/api/khd/';
-const urnKhdID = id => '/api/khd/' + id;
+export const urnKhd = '/api/khd/';
+export const urnKhdID = id => '/api/khd/' + id;
 
-const urnCustomerStay = '/api/customer-stay/';
-const urnCustomerStayID = id => '/api/customer-stay/' + id;
-
-export {
-    urnRoomType,
-    urnRoomTypeID,
-    urnRoomTypeRateIDLP,
-    urnRoomTypeSearchByDates,
-
-    urnRoomTypeImage,
-    urnRoomTypeImageID,
-    urnRoomTypeImageIDLP,
-
-    urnService,
-    urnServiceID,
-     
-    urnServiceImage,
-    urnServiceImageID,
-
-    urnDailyRate,
-    urnDailyRateID,
-
-    urnSpecialRate,
-    urnSpecialRateID,
-
-    urnRoom,
-    urnRoomID,
-
-    urnChartMoneyBooking,
-
-    urnAdmin,
-    urnAdminID,
-
-    urnUser,
-    urnUserID,
-
-    urnKhd,
-    urnKhdID,
-
-    urnCustomerStay,
-    urnCustomerStayID,
-};
+export const urnCustomerStay = '/api/customer-stay/';
+export const urnCustomerStayID = id => '/api/customer-stay/' + id;

@@ -1,18 +1,21 @@
-import { Button, Col, DatePicker, Input, message, Row, Select, Tooltip } from 'antd'
+import { Button, Col, DatePicker, Input, message, Row, Select, Tooltip, Popconfirm } from 'antd'
 import Form from 'antd/lib/form/Form'
 import { Option } from 'antd/lib/mentions'
-import { postData } from 'Api/api'
+import { putData } from 'Api/api'
+import { getData } from 'Api/api'
 import { url } from 'Api/url'
-import { urnCustomerStay } from 'Api/urn'
+import { urnCustomerStayID } from 'Api/urn'
 import { format } from 'date-fns'
 import moment from 'moment'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ImCancelCircle } from 'react-icons/im'
 import { Link } from 'react-router-dom'
 
-function CustomerStayAdd(props) {
+function CustomerStayUpd(props) {
+    const nationals = ['America', 'Paris', 'Netherlands', 'England', 'Singapore', 'VietNam', 'ThaiLand', 'other'];
     const [selectNational, setSelectNational] = useState('Paris');
-
+    
+    const [idKHO, setIdKHO] = useState(-1);
     const [CMND, setCMND] = useState('');
     const [Passport, setPassport] = useState('');
     const [sdt, setSdt] = useState('');
@@ -20,21 +23,42 @@ function CustomerStayAdd(props) {
     const [title, setTitle] = useState('Mr');
     const [tenKH, setTenKH] = useState('');
     const [ngaySinh, setNgaySinh] = useState(new Date());
+
+    useEffect(() => {
+        var uri = url + urnCustomerStayID(props.idKHO);
+        getData(uri)
+        .then(res => {
+            setIdKHO(res.data.idKHO);
+            setCMND(res.data.CMND);
+            setPassport(res.data.Passport);
+            setSdt(res.data.sdt);
+            setQuocGia(res.data.quocGia);
+            setTitle(res.data.title);
+            setTenKH(res.data.tenKH);
+            setNgaySinh(new Date(res.data.ngaySinh));
+            setSelectNational(nationals.includes(res.data.quocGia) ? res.data.quocGia : 'other');
+        });
+    }, [props.idKHO]);
     
     function onReset() {
-        setSelectNational('Paris');
-
-        setCMND('');
-        setPassport('');
-        setSdt('');
-        setQuocGia('Paris');
-        setTitle('Mr');
-        setTenKH('');
-        setNgaySinh(new Date());
+        var uri = url + urnCustomerStayID(props.idKHO);
+        getData(uri)
+        .then(res => {
+            setIdKHO(res.data.idKHO);
+            setCMND(res.data.CMND);
+            setPassport(res.data.Passport);
+            setSdt(res.data.sdt);
+            setQuocGia(res.data.quocGia);
+            setTitle(res.data.title);
+            setTenKH(res.data.tenKH);
+            setNgaySinh(new Date(res.data.ngaySinh));
+            setSelectNational(res.data)
+        });
     }
 
-    const onCreate = () => {
+    const onUpdate = () => {
         var data = {
+            idKHO,
             CMND,
             Passport,
             sdt,
@@ -44,24 +68,21 @@ function CustomerStayAdd(props) {
             ngaySinh: format(new Date(ngaySinh), 'yyyy-MM-dd'),
         }
         console.log(data);
-        var uri = url + urnCustomerStay;
-        postData(uri, data)
+        var uri = url + urnCustomerStayID(idKHO);
+        putData(uri, data)
         .then(res => {
-            console.log('res: ', res);
             if(res.data !== undefined){
-                message.success("Create successfully #"+res.data);
-                onReset();
-                return;
+                console.log("res upd: ", res);
+                message.success("Update successfully, this page will redirect a few moments later", 3)
+                .then(()=>{
+                    return props.propsParent.history.push('/admin/customer-stay');
+                })
             }
             if(typeof res.response.data !== undefined){
                 console.log("res.response.data: ", res.response.data);
-                if(Array.isArray(res.response.data)){
-                    res.response.data.map(err => {
-                        message.error(err.message);
-                    })
-                } else {
-                    message.error(res.response.data);
-                }
+                res.response.data.map(err => {
+                    message.error(err.message);
+                })
                 return;
             }
         })
@@ -85,14 +106,14 @@ function CustomerStayAdd(props) {
                             </Tooltip>
                         </Col>
                         <Col xs={20} md={20} lg={20}>
-                            <h1 className="text-center"><b>CREATE CUSTOMER STAY</b></h1>
+                            <h1 className="text-center"><b>UPDATE CUSTOMER STAY</b></h1>
                         </Col>
                         <Col xs={2} md={2} lg={2} />
                     </Row>
                     <Form>
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={6}><b>ID customer stay:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input placeholder="ID customer stay" disabled /></Col>
+                            <Col xs={18} md={18} lg={18}><Input value={ idKHO } placeholder="ID customer stay" disabled /></Col>
                         </Row>
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={6}><b>Identity card:</b></Col>
@@ -158,10 +179,17 @@ function CustomerStayAdd(props) {
                         
                         <Row justify="end">
                             <Col xs={2} md={2} lg={2}>
-                                <Button size="large" onClick={ onReset } className="btn-reset">Reset</Button>
+                                <Popconfirm
+                                    title="Are you sure to reset this form?"
+                                    onConfirm={ () => onReset() }
+                                    okText="Yes"
+                                    cancelText="No"
+                                >
+                                    <Button size="large" className="btn-reset">Reset</Button>
+                                </Popconfirm>
                             </Col>
                             <Col xs={2} md={2} lg={2}>
-                                <Button size="large" onClick={ onCreate } className="btn-create">Create</Button>
+                                <Button size="large" onClick={ onUpdate } className="btn-update">Update</Button>
                             </Col>
                         </Row>
                     </Form>
@@ -172,5 +200,5 @@ function CustomerStayAdd(props) {
     )
 }
 
-export default CustomerStayAdd
+export default CustomerStayUpd
 

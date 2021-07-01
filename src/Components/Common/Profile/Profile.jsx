@@ -1,5 +1,5 @@
-import { Button, Col, Input, Radio, Row, Switch, Popconfirm } from 'antd';
-import { getData } from 'Api/api';
+import { Button, Col, Input, Radio, Row, Switch, Popconfirm, message } from 'antd';
+import { getData, putData } from 'Api/api';
 import { url } from 'Api/url';
 import { urnKhdID } from 'Api/urn';
 import { urnUserID } from 'Api/urn';
@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { firAuth } from 'FirebaseConfig';
-import { actLogout } from 'ReduxConfig/Actions/customerAccount';
+import { actLogout, actUpdateLogin } from 'ReduxConfig/Actions/customerAccount';
 
 export default function Profile(props) {
     //  variable support
@@ -32,10 +32,6 @@ export default function Profile(props) {
     const [idKHD, setidKHD] = useState(-1);
     const [tenKH, settenKH] = useState('');
     const [sdt, setsdt] = useState('');
-
-    useEffect(()=>{
-        window.scrollTo(0, 0);
-    },[]);
 
     useEffect(() => {
         var uri = url + urnUserID(idTK);
@@ -85,28 +81,129 @@ export default function Profile(props) {
     }
 
     const onSubmitUpdate = () => {
-        settenKH(displayName);
-        
-        var dataKHD = {
-            idKHD,
-            tenKH,
-            sdt
-        };
+        // settenKH(displayName);
+        // if(!isUpdatePassword || loaiTaiKhoan == 1){  
+        //     console.log('update non pass: ', dataKHD, dataUser);
+        // }
+        // else{
+        //     console.log('update pass: ', dataKHD, dataUser);
+        // }
+        var socialLogin = isSocialLogin;
 
-        var dataUser = {
-            idTK,
-            email,
-            password,
-            displayName,
-            title,
-            loaiTaiKhoan
-        };
-        if(!isUpdatePassword || loaiTaiKhoan == 1){  
-            console.log('update non pass: ', dataKHD, dataUser);
+        if(oldLoaiTaiKhoan !== loaiTaiKhoan && oldLoaiTaiKhoan == 1){
+            if(isSocialLogin){
+                firAuth.signOut();
+            }
+            socialLogin = !socialLogin;
         }
-        else{
-            console.log('update pass: ', dataKHD, dataUser);
+        
+        if(sdt < 10 || email == "" || displayName == "" ){
+            message.error("Please, fill out all the fields!");
+            return;
         }
+        if (oldPassword !== '' && newPassword !== '' && confirmPassword !== '') {
+            var dataKHD = {
+                tenKH,
+                sdt,
+                email,
+                password: oldPassword,
+                newPassword,
+                displayName,
+                isChangePass: 1
+            }
+        }
+        else {
+            var dataKHD = {
+                tenKH,
+                sdt,
+                email,
+                displayName,
+                isChangePass: 0
+            }
+        }
+        var uri1 = url + '/api/khd/' + idKHD;
+        putData(uri1, dataKHD)
+        .then(res=>{
+            if (res.data !== undefined) {
+                if (oldPassword !== '' && newPassword !== '' && confirmPassword !== '') {
+                    if (newPassword === confirmPassword) {
+                        var dataUser = {
+                            tenKH,
+                            sdt,
+                            email,
+                            displayName,
+                            title,
+                            password: newPassword,
+                            oldPassword,
+                            loaiTaiKhoan,
+                            idKHD,
+                            isChangePass: 1
+                        }   
+                    }
+                    else {
+                        message.error("Your new password and confirm password fields do not match!!!");
+                        return;
+                    }
+                }
+                else {
+                    var dataUser = {
+                        tenKH,
+                        sdt,
+                        email,
+                        displayName,
+                        title,
+                        password,
+                        loaiTaiKhoan,
+                        idKHD,
+                        isChangePass: 0
+                    }
+                }
+                const uri2 = url + '/api/user/update_cus_acc/' + idTK;
+                putData(uri2, dataUser)
+                .then( res => {
+                    if (res.data) {
+                        console.log("res add: ", res.data);
+                        message.success("Updated successfully, wait a few seconds", 3).then(()=>{
+                            // Update nav and logout 
+                            let customerAccount = {
+                                email,
+                                displayName,
+                                loaiTaiKhoan,
+                                isSocialLogin: socialLogin
+                            }
+                            const actionUpdateLogin = actUpdateLogin(customerAccount);
+                            dispatch(actionUpdateLogin);
+
+                            onReset();
+                            // var objCus = {
+                            //     idTK,
+                            //     idKHD,
+                            //     email,
+                            //     displayName,
+                            //     loaiTaiKhoan,
+                            //     isLogin: true,
+                            // }
+                            // sessionStorage.setItem('customerAccount',JSON.stringify(objCus));
+                        })
+                    }
+                    else {
+                        message.error("Update fail, please try again!!!", 3)
+                    }
+                })
+            }
+            else if(typeof res.response.data !== undefined){
+                console.log("res.response.data: ", res.response.data);
+                if(Array.isArray(res.response.data)){
+                    res.response.data.map(err => {
+                        message.error(err.message);
+                    })                    
+                } 
+                else {
+                    message.error(res.response.data);
+                }
+                return;
+            }
+        })
     }
 
     const onLogout = () => {
@@ -121,26 +218,9 @@ export default function Profile(props) {
 
     return (
         <>
-            <img 
-                src="https://firebasestorage.googleapis.com/v0/b/fir-nativecity.appspot.com/o/slide%2FIMG_08.jpg?alt=media&token=ba97dcc9-3619-4044-8ad9-c54cce6cedcc" 
-                style={{ position: 'fixed', zIndex: '-1', width: '98.9vw', height: '92vh', filter: 'brightness(50%)' }} 
-            />
-            <div style={{ height: '92vh' }} />
-            <Row style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '98.9vw'}}>
-                <Col xs={6} md={6} lg={6} />
-                <Col xs={12} md={12} lg={12}>
-                    <p className="text-center">
-                        <span style={{ color: 'white', fontSize: '65px' }}>✨ { displayName || 'Dear Customer'} ✨</span>
-                        <hr style={{ color: 'white'}} />
-                        <span style={{ color: 'white', fontSize: '20px' }}>Profile</span>
-                    </p>
-                </Col>
-                <Col xs={6} md={6} lg={6} />
-            </Row>
-
-            <Row style={{ backgroundColor: 'white', minHeight: '60vh', paddingTop: '30px'}}>
+            <Row>
                 <Col xs={24} md={24} lg={24}>
-                    <h1 className="text-center"><b>INFORMATION CUSTOMER</b></h1> 
+                    <h1 className="text-center"><b>CUSTOMER INFORMATION</b></h1> 
                     <Row className="mb-15 mt-15">
                         <Col xs={6} md={6} lg={6} />
                         <Col xs={12} md={12} lg={12} className="text-center">
@@ -151,7 +231,7 @@ export default function Profile(props) {
                     <Row className="mb-15 mt-15">
                         <Col xs={6} md={6} lg={6} />
                         <Col xs={3} md={3} lg={3} style={{ lineHeight: '32px' }}>
-                            <b>Display name:</b>
+                            <b>Your name:</b>
                         </Col>
                         <Col xs={9} md={9} lg={9} >
                             <Row>
@@ -159,9 +239,19 @@ export default function Profile(props) {
                                     <Input placeholder="Mr" value={ title } onChange={(e) => settitle( e.target.value )} />
                                 </Col>
                                 <Col xs={21} md={21} lg={21} >
-                                    <Input value={ displayName } onChange={(e) => setdisplayName( e.target.value )} required/>
+                                    <Input value={ tenKH } onChange={ e => settenKH(e.target.value) } required/>
                                 </Col>
                             </Row>
+                        </Col>
+                        <Col xs={6} md={6} lg={6} />
+                    </Row>
+                    <Row className="mb-15 mt-15">
+                        <Col xs={6} md={6} lg={6} />
+                        <Col xs={3} md={3} lg={3} style={{ lineHeight: '32px' }}>
+                            <b>Display name:</b>
+                        </Col>
+                        <Col xs={9} md={9} lg={9} >
+                            <Input value={ displayName } onChange={(e) => setdisplayName( e.target.value )} required/>
                         </Col>
                         <Col xs={6} md={6} lg={6} />
                     </Row>
@@ -236,7 +326,7 @@ export default function Profile(props) {
                                                                 <b>Old Password:</b>
                                                             </Col>
                                                             <Col xs={9} md={9} lg={9} >
-                                                                <Input value={oldPassword } onChange={(e) => setoldPassword( e.target.value )} placeholder="Enter your old pass" /> 
+                                                                <Input.Password value={oldPassword } onChange={(e) => setoldPassword( e.target.value )} placeholder="Enter your old pass" /> 
                                                             </Col>
                                                             <Col xs={6} md={6} lg={6} />
                                                         </Row> 
@@ -249,7 +339,7 @@ export default function Profile(props) {
                                                     <b>New Password:</b>
                                                 </Col>
                                                 <Col xs={9} md={9} lg={9} >
-                                                    <Input value={newPassword } onChange={(e) => setnewPassword( e.target.value )} placeholder="Enter your new pass" /> 
+                                                    <Input.Password value={newPassword } onChange={(e) => setnewPassword( e.target.value )} placeholder="Enter your new pass" /> 
                                                 </Col>
                                                 <Col xs={6} md={6} lg={6} />
                                             </Row> 
@@ -259,7 +349,7 @@ export default function Profile(props) {
                                                     <b>Confirm password:</b>
                                                 </Col>
                                                 <Col xs={9} md={9} lg={9} >
-                                                    <Input value={ confirmPassword } onChange={(e) => setconfirmPassword( e.target.value )} placeholder="Enter confirm the new pass" /> 
+                                                    <Input.Password value={ confirmPassword } onChange={(e) => setconfirmPassword( e.target.value )} placeholder="Enter confirm the new pass" /> 
                                                 </Col>
                                                 <Col xs={6} md={6} lg={6} />
                                             </Row>                                         
@@ -269,7 +359,7 @@ export default function Profile(props) {
                             </>
                         )
                     }
-                    <Row className="mb-15 mt-50">
+                    <Row className="mb-15 mt-30">
                         <Col xs={6} md={6} lg={6} />
                         <Col xs={4} md={4} lg={4} className="text-center">
                             <Popconfirm

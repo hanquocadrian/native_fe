@@ -13,7 +13,7 @@ export default function Home() {
     }, [])
 
     return (
-        <div style={{ overflow: "hidden", width: "98.9vw" }}>
+        <div style={{ overflow: "hidden", width: "100vw" }}>
             <Navbar />
             <CarouselQC height="92" />
             <Row style={{ marginTop: "8vh", height: "82vh" }}>
