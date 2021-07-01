@@ -27,8 +27,6 @@ export default function Navbar() {
     const username = useSelector(state => state.customerAccountReducer.displayName);
     var slItemAddCart = useSelector(state => state.cartReducer.sl);
 
-    var slItemAddCart = useSelector(state => state.cartReducer.sl);
-
     const dispatch = useDispatch();
 
     console.log('Redux: ', userisLogin);

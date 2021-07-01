@@ -22,7 +22,7 @@ const cartReducer = (state = initialState, action) => {
             let slItemDelCart = {
                 sl: state.sl - action.payload
             }
-            if(slItemDelCart.sl == 0)   
+            if(slItemDelCart.sl === 0)   
                 localStorage.removeItem('slItemsShoppingCart');
             localStorage.setItem('slItemsShoppingCart', JSON.stringify(slItemDelCart));
             return slItemDelCart;

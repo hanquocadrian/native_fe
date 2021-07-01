@@ -1,8 +1,7 @@
 import { Button, Col, Input, Radio, Row, Switch, Popconfirm, message } from 'antd';
 import { getData, putData } from 'Api/api';
 import { url } from 'Api/url';
-import { urnKhdID } from 'Api/urn';
-import { urnUserID } from 'Api/urn';
+import { urnKhdID, urnUserID } from 'Api/urn';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -93,7 +92,7 @@ export default function Profile(props) {
         //     console.log('update pass: ', dataKHD, dataUser);
         // }
         
-        if(sdt < 10 || email == "" || displayName == "" ){
+        if(sdt.length < 10 || email == "" || displayName == "" ){
             message.error("Please, fill out all the fields!");
             return;
         }
@@ -117,7 +116,7 @@ export default function Profile(props) {
                 isChangePass: 0
             }
         }
-        var uri1 = url + '/api/khd/' + idKHD;
+        var uri1 = url + urnKhdID(idKHD);
         putData(uri1, dataKHD)
         .then(res=>{
             if (res.data !== undefined) {

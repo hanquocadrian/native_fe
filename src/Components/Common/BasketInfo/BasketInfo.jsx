@@ -382,7 +382,7 @@ export default function BasketInfo(props) {
                     <Row style={{ paddingTop:'2%', fontSize:'15px', fontFamily:'Georgia', fontWeight:'revert'}} className="button-Continue">
                         <Col xs={0} md={2} lg={8} /> 
                         <Col xs={0} md={20} lg={8} style={{textAlign:'center'}}>
-                            <Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button>
+                            <Link to="/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link>
                         </Col>
                         <Col xs={0} md={2} lg={8} /> 
                     </Row>
@@ -508,7 +508,7 @@ export default function BasketInfo(props) {
                     <Row style={{ paddingTop:'2%', fontSize:'15px', fontFamily:'Georgia', fontWeight:'revert'}} className="button-Continue">
                         <Col xs={2} md={0} lg={0} />
                         <Col xs={20} md={0} lg={0} style={{textAlign:'center'}}>
-                            <Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button>
+                        <Link to="/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link>
                         </Col>
                         <Col xs={2} md={0} lg={0} />
                     </Row>
