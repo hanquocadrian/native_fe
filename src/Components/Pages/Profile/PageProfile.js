@@ -3,11 +3,8 @@ import IntroCus from 'Components/Common/IntroCus/IntroCus'
 import NavProfile from 'Components/Common/Navigation/NavProfile/NavProfile'
 import Profile from 'Components/Common/Profile/Profile'
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 
 function PageProfile(props) {
-    const displayName = useSelector(state => state.customerAccountReducer.displayName);
-
     useEffect(()=>{
         window.scrollTo(0, 0);
     },[]);
