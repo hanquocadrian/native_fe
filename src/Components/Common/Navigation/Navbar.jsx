@@ -77,8 +77,8 @@ export default function Navbar() {
     const userAccount = (
         <Menu style={{marginTop: '3vh'}}>
         <Menu.Item  className="LinkNavCus">
-            <Link to={"/profile/" + idTK}>
-            <CgProfile style={{fontSize: '20px', position: 'relative', top: '4px'}} />
+            <Link to={"/user/profile/" + idTK}>
+                <CgProfile style={{fontSize: '20px', position: 'relative', top: '4px'}} />
                 <span style={{fontSize:"15px"}}> Profile</span>
             </Link>
         </Menu.Item>
@@ -106,7 +106,7 @@ export default function Navbar() {
     return (
         <>
             <Row id="fixNav" align="middle" style={{ height: "8vh" }}>
-                <Col xs={2} md={6} lg={9}>
+                <Col xs={2} md={6} lg={10}>
                     <Menu mode="horizontal">
                         <Menu.Item>
                             <Link to="/about"><span style={{fontSize:"15px"}}>About</span></Link>
@@ -141,17 +141,17 @@ export default function Navbar() {
                         </Menu.Item>
                     </Menu>
                 </Col>
-                <Col xs={20} md={12} lg={6} style={{ textAlign: "center", borderBottom: "1px solid #F0F0F0", height: "48px" }}>
+                <Col xs={20} md={12} lg={4} style={{ textAlign: "center", borderBottom: "1px solid #F0F0F0", height: "48px" }}>
                     <span className="LogoNavCus">
-                        <Link to="/">
+                        <Link to="/" className="animation-crimson">
                             <div style={{ display: "inline-block", fontSize: "3.7vh" }}><b>NATIVE HOTEL</b></div>
                         </Link>                        
                     </span>
                 </Col>
                 <Col xs={0} md={4} lg={0} style={{ borderBottom: "1px solid #F0F0F0", height: "48px" }} />
-                <Col xs={2} md={2} lg={9}>
-                    <Row justify="end">
-                        <Menu mode="horizontal">
+                <Col xs={2} md={2} lg={10} >
+                    <Row>
+                        <Menu mode="horizontal" style={{width: '100%', textAlign:'end'}}>
                             <Menu.Item className="LinkNavCus">
                                 <Link to="" onClick={ showModalSearch }><span style={{fontSize:"15px"}}>Search</span></Link>
                                 {

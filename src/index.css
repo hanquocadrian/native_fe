@@ -150,3 +150,57 @@ a:hover {
 .ant-pagination-item a:hover, .ant-pagination-item a:active, .ant-pagination-item-active a{
   color: crimson !important;
 }
+
+.animation-star .user-name {
+  animation: pulseStar 5s infinite;
+}
+@keyframes pulseStar {
+  0% {
+      color: #ffffff;
+  }
+  11% {
+      color: #F4EBB7;
+  }
+  22% {
+      color: #F9E79F;
+  }
+  33% {
+      color: #F4E081;
+  }
+  43% {
+      color: #F8E04D;
+  }
+  55% {
+      color: #FADF19;
+  }
+  66% {
+      color: #F8E04D;
+  }
+  77% {
+      color: #F4E081;
+  }
+  88% {
+      color: #F4EBB7;
+  }
+  99% {
+      color: #ffffff;
+  }
+}
+
+.animation-crimson b {
+  animation: pulseCrimson 5s infinite;
+}
+@keyframes pulseCrimson {
+  0% {
+      color: black;
+  }
+  30% {
+      color: crimson;
+  }
+  60% {
+      color: crimson;
+  }
+  100% {
+      color: black;
+  }
+}

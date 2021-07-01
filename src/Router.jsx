@@ -1,66 +1,6 @@
 import React, { Component } from 'react';
-import {
-    BrowserRouter as BRouter,
-    Route,
-    Switch
-} from 'react-router-dom';
-// Customer
-import { ProtectedCusRoute } from 'Auth/protectedCus.route';
-import Home from './Components/Pages/Home/Home';
-import Login from './Components/Pages/Login/Login';
-import About from './Components/Pages/About/About';
-import Service from './Components/Pages/HotelService/HotelService';
-import Room from './Components/Pages/Room/Room';
-import Basket from './Components/Pages/Basket/Basket';
-import PageProfile from './Components/Pages/Profile/PageProfile';
-
-// Admin
-import { ProtectedRoute } from './Auth/protected.route'; 
-import AdLogin from './Components/Admin/Pages/Login/Login';
-import AdHome from './Components/Admin/Pages/Home/Home';
-import AdAbout from './Components/Admin/Pages/About/About';
-import AdSlider from './Components/Admin/Pages/Slider/Slider';
-
-import AdPageAdmin from './Components/Admin/Pages/AdminAccount/PageAdmin';
-import AdPageAdminAdd from './Components/Admin/Pages/AdminAccount/Add/PageAdminAdd';
-import AdPageAdminUpd from './Components/Admin/Pages/AdminAccount/Update/PageAdminUpd';
-
-import AdPageRoomType from './Components/Admin/Pages/RoomType/PageRoomType';
-import AdPageRoomTypeDetail from './Components/Admin/Pages/RoomType/Detail/PageRoomTypeDetail';
-import AdPageRoomTypeAdd from 'Components/Admin/Pages/RoomType/Add/PageRoomTypeAdd';
-import AdPageRoomTypeUpd from './Components/Admin/Pages/RoomType/Update/PageRoomTypeUpd';
-
-import AdPageRoomTypeImage from 'Components/Admin/Pages/RoomTypeImage/PageRoomTypeImage';
-import AdPageRoomTypeImageAdd from 'Components/Admin/Pages/RoomTypeImage/Add/PageRoomTypeImageAdd';
-import AdPageRoomTypeImageUpd from 'Components/Admin/Pages/RoomTypeImage/Update/PageRoomTypeImageUpd';
-
-import AdService from './Components/Admin/Pages/Service/PageService';
-import AdPageServiceAdd from 'Components/Admin/Pages/Service/Add/PageServiceAdd';
-import AdPageServiceDetail from 'Components/Admin/Pages/Service/Detail/PageServiceDetail';
-import AdPageServiceUpd from 'Components/Admin/Pages/Service/Update/PageServiceUpd';
-
-import AdPageServiceImage from './Components/Admin/Pages/ServiceImage/PageServiceImage';
-import AdPageServiceImageAdd from './Components/Admin/Pages/ServiceImage/Add/PageServiceImageAdd';
-import AdPageServiceImageUpd from './Components/Admin/Pages/ServiceImage/Update/PageServiceImageUpd';
-
-import AdPageDailyRate from 'Components/Admin/Pages/DailyRate/PageDailyRate';
-import AdPageDailyRateAdd from 'Components/Admin/Pages/DailyRate/Add/PageDailyRateAdd';
-import AdPageDailyRateUpd from 'Components/Admin/Pages/DailyRate/Update/PageDailyRateUpd';
-
-import AdPageSpecialRate from 'Components/Admin/Pages/SpecialRate/PageSpecialRate';
-import AdPageSpecialRateAdd from 'Components/Admin/Pages/SpecialRate/Add/PageSpecialRateAdd';
-import AdPageSpecialRateUpd from 'Components/Admin/Pages/SpecialRate/Update/PageSpecialRateUpd';
-
-import AdPageRoom from 'Components/Admin/Pages/Room/PageRoom';
-import AdPageRoomAdd from 'Components/Admin/Pages/Room/Add/PageRoomAdd';
-import AdPageRoomUpd from 'Components/Admin/Pages/Room/Update/PageRoomUpd';
-
-import AdPageCustomerStay from 'Components/Admin/Pages/CustomerStay/PageCustomerStay';
-import AdPageCustomerStayAdd from 'Components/Admin/Pages/CustomerStay/Add/PageCustomerStayAdd';
-import AdPageCustomerStayUpd from 'Components/Admin/Pages/CustomerStay/Update/PageCustomerStayUdp';
-
-// Error 404
-import Error from './Components/Admin/Pages/Error/Error';
+import { BrowserRouter as BRouter, Route, Switch } from 'react-router-dom';
+import * as Components from "./router.import";
 
 export default class Router extends Component {
     render() {
@@ -69,63 +9,64 @@ export default class Router extends Component {
                 <>
                     <Switch>
                         {/* Customer */}
-                        <Route exact path='/' component={ Home } />
-                        <Route exact path='/login/' component={ Login } />
-                        <Route exact path='/about/' component={ About } />
-                        <Route exact path='/service/' component={ Service } />
-                        <Route exact path='/roomtype/:id' component={ Room } />
-                        <Route exact path='/your-basket' component={ Basket } />
+                        <Route exact path='/' component={ Components.Home } />
+                        <Route exact path='/login/' component={ Components.Login } />
+                        <Route exact path='/about/' component={ Components.About } />
+                        <Route exact path='/service/' component={ Components.Service } />
+                        <Route exact path='/roomtype/:id' component={ Components.Room } />
+                        <Route exact path='/your-basket' component={ Components.Basket } />
 
                         {/* Customer Auth */}
-                        <ProtectedCusRoute exact path='/profile/:id' component={ PageProfile } />
+                        <Components.ProtectedCusRoute exact path='/user/profile/:id' component={ Components.PageProfile } />
+                        <Components.ProtectedCusRoute exact path='/user/bills' component={ Components.PageBill } />
 
 
                         {/* Admin */}
-                        <Route exact path='/admin/' component={ AdLogin } />
-                        <ProtectedRoute exact path="/admin/home/" component={ AdHome } />
-                        <ProtectedRoute exact path='/admin/about/' component={ AdAbout } />
-                        <ProtectedRoute exact path='/admin/slider/' component={ AdSlider } />
+                        <Route exact path='/admin/' component={ Components.AdLogin } />
+                        <Components.ProtectedRoute exact path="/admin/home/" component={ Components.AdHome } />
+                        <Components.ProtectedRoute exact path='/admin/about/' component={ Components.AdAbout } />
+                        <Components.ProtectedRoute exact path='/admin/slider/' component={ Components.AdSlider } />
 
-                        <ProtectedRoute exact path='/admin/adminacc/' component={ AdPageAdmin } />
-                        <ProtectedRoute exact path='/admin/adminacc-add/' component={ AdPageAdminAdd } />
-                        <ProtectedRoute exact path='/admin/adminacc-update/:id' component={ AdPageAdminUpd } />
+                        <Components.ProtectedRoute exact path='/admin/adminacc/' component={ Components.AdPageAdmin } />
+                        <Components.ProtectedRoute exact path='/admin/adminacc-add/' component={ Components.AdPageAdminAdd } />
+                        <Components.ProtectedRoute exact path='/admin/adminacc-update/:id' component={ Components.AdPageAdminUpd } />
 
-                        <ProtectedRoute exact path='/admin/roomtype/' component={ AdPageRoomType } />
-                        <ProtectedRoute exact path='/admin/roomtype-detail/:id' component={ AdPageRoomTypeDetail } />
-                        <ProtectedRoute exact path='/admin/roomtype-add/' component={ AdPageRoomTypeAdd } />
-                        <ProtectedRoute exact path='/admin/roomtype-upd/:id' component={ AdPageRoomTypeUpd } />
+                        <Components.ProtectedRoute exact path='/admin/roomtype/' component={ Components.AdPageRoomType } />
+                        <Components.ProtectedRoute exact path='/admin/roomtype-detail/:id' component={ Components.AdPageRoomTypeDetail } />
+                        <Components.ProtectedRoute exact path='/admin/roomtype-add/' component={ Components.AdPageRoomTypeAdd } />
+                        <Components.ProtectedRoute exact path='/admin/roomtype-upd/:id' component={ Components.AdPageRoomTypeUpd } />
 
-                        <ProtectedRoute exact path='/admin/roomtype-image/' component={ AdPageRoomTypeImage } />
-                        <ProtectedRoute exact path='/admin/roomtype-image-add/' component={ AdPageRoomTypeImageAdd } />
-                        <ProtectedRoute exact path='/admin/roomtype-image-upd/:id' component={ AdPageRoomTypeImageUpd } />
+                        <Components.ProtectedRoute exact path='/admin/roomtype-image/' component={ Components.AdPageRoomTypeImage } />
+                        <Components.ProtectedRoute exact path='/admin/roomtype-image-add/' component={ Components.AdPageRoomTypeImageAdd } />
+                        <Components.ProtectedRoute exact path='/admin/roomtype-image-upd/:id' component={ Components.AdPageRoomTypeImageUpd } />
 
-                        <ProtectedRoute exact path='/admin/service/' component={ AdService } />
-                        <ProtectedRoute exact path='/admin/service-add/' component={ AdPageServiceAdd } />
-                        <ProtectedRoute exact path='/admin/service-detail/:id' component={ AdPageServiceDetail } />
-                        <ProtectedRoute exact path='/admin/service-upd/:id' component={ AdPageServiceUpd } />
+                        <Components.ProtectedRoute exact path='/admin/service/' component={ Components.AdService } />
+                        <Components.ProtectedRoute exact path='/admin/service-add/' component={ Components.AdPageServiceAdd } />
+                        <Components.ProtectedRoute exact path='/admin/service-detail/:id' component={ Components.AdPageServiceDetail } />
+                        <Components.ProtectedRoute exact path='/admin/service-upd/:id' component={ Components.AdPageServiceUpd } />
 
-                        <ProtectedRoute exact path='/admin/service-image/' component={ AdPageServiceImage } />
-                        <ProtectedRoute exact path='/admin/service-image-add/' component={ AdPageServiceImageAdd } />
-                        <ProtectedRoute exact path='/admin/service-image-upd/:id' component={ AdPageServiceImageUpd } />
+                        <Components.ProtectedRoute exact path='/admin/service-image/' component={ Components.AdPageServiceImage } />
+                        <Components.ProtectedRoute exact path='/admin/service-image-add/' component={ Components.AdPageServiceImageAdd } />
+                        <Components.ProtectedRoute exact path='/admin/service-image-upd/:id' component={ Components.AdPageServiceImageUpd } />
 
-                        <ProtectedRoute exact path='/admin/daily-rate/' component={ AdPageDailyRate } />
-                        <ProtectedRoute exact path='/admin/daily-rate-add/' component={ AdPageDailyRateAdd } />
-                        <ProtectedRoute exact path='/admin/daily-rate-upd/:id' component={ AdPageDailyRateUpd } />
+                        <Components.ProtectedRoute exact path='/admin/daily-rate/' component={ Components.AdPageDailyRate } />
+                        <Components.ProtectedRoute exact path='/admin/daily-rate-add/' component={ Components.AdPageDailyRateAdd } />
+                        <Components.ProtectedRoute exact path='/admin/daily-rate-upd/:id' component={ Components.AdPageDailyRateUpd } />
 
-                        <ProtectedRoute exact path='/admin/special-rate/' component={ AdPageSpecialRate } />
-                        <ProtectedRoute exact path='/admin/special-rate-add/' component={ AdPageSpecialRateAdd } />
-                        <ProtectedRoute exact path='/admin/special-rate-upd/:id' component={ AdPageSpecialRateUpd } />
+                        <Components.ProtectedRoute exact path='/admin/special-rate/' component={ Components.AdPageSpecialRate } />
+                        <Components.ProtectedRoute exact path='/admin/special-rate-add/' component={ Components.AdPageSpecialRateAdd } />
+                        <Components.ProtectedRoute exact path='/admin/special-rate-upd/:id' component={ Components.AdPageSpecialRateUpd } />
 
-                        <ProtectedRoute exact path='/admin/room/' component={ AdPageRoom } />
-                        <ProtectedRoute exact path='/admin/room-add/' component={ AdPageRoomAdd } />
-                        <ProtectedRoute exact path='/admin/room-upd/:id' component={ AdPageRoomUpd } />
+                        <Components.ProtectedRoute exact path='/admin/room/' component={ Components.AdPageRoom } />
+                        <Components.ProtectedRoute exact path='/admin/room-add/' component={ Components.AdPageRoomAdd } />
+                        <Components.ProtectedRoute exact path='/admin/room-upd/:id' component={ Components.AdPageRoomUpd } />
                         
-                        <ProtectedRoute exact path='/admin/customer-stay/' component={ AdPageCustomerStay } />
-                        <ProtectedRoute exact path='/admin/customer-stay-add/' component={ AdPageCustomerStayAdd } />
-                        <ProtectedRoute exact path='/admin/customer-stay-upd/:id' component={ AdPageCustomerStayUpd } />
-
+                        <Components.ProtectedRoute exact path='/admin/customer-stay/' component={ Components.AdPageCustomerStay } />
+                        <Components.ProtectedRoute exact path='/admin/customer-stay-add/' component={ Components.AdPageCustomerStayAdd } />
+                        <Components.ProtectedRoute exact path='/admin/customer-stay-upd/:id' component={ Components.AdPageCustomerStayUpd } />
+ 
                         {/* 404 Not Found */}
-                        <Route path='*' component={ Error } />   
+                        <Route path='*' component={ Components.Error } />  
                     </Switch>
                 </>
             </BRouter>

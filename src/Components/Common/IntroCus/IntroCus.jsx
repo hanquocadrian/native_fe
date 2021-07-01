@@ -1,13 +1,12 @@
 import { Col, Row } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 function IntroCus(props) {
-    const [displayName, setdisplayName] = useState('');
-
-    useEffect(() => {
-        setdisplayName(props.displayName);
-    },[props.displayName])
+    const idTK = useSelector(state => state.customerAccountReducer.idTK);
+    const displayName = useSelector(state => state.customerAccountReducer.displayName);
 
     return (
         <>
@@ -20,7 +19,9 @@ function IntroCus(props) {
                 <Col xs={6} md={6} lg={6} />
                 <Col xs={12} md={12} lg={12}>
                     <p className="text-center">
-                        <span style={{ color: 'white', fontSize: '65px' }}>✨ { displayName || 'Dear Customer'} ✨</span>
+                        <Link to={"/user/profile/" + idTK} className="animation-star">
+                            <span className="user-name" style={{ color: 'white', fontSize: '65px' }}>✨ { displayName || 'Dear Customer'} ✨</span>
+                        </Link>
                         <hr style={{ color: 'white'}} />
                         <span style={{ color: 'white', fontSize: '20px' }}>{props.intro}</span>
                     </p>
@@ -37,7 +38,7 @@ IntroCus.propTypes = {
 }
 
 IntroCus.defaultProps = {
-    intro: 'Profile'
+    intro: 'Your Profile'
 }
 
 export default IntroCus
