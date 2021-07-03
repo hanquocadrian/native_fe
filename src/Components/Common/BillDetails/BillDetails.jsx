@@ -4,7 +4,7 @@ import { url } from 'Api/url';
 import { urnBillID } from 'Api/urn';
 import { getData } from 'Api/api';
 import { urnBillDetailsByIdBill } from 'Api/urn';
-import { Col, Row, Table, Descriptions, Progress } from 'antd';
+import { Col, Row, Table, Descriptions, Progress, Button } from 'antd';
 import { columns } from './moduleColumn';
 import CurrencyFormat from 'react-currency-format';
 import { format } from 'date-fns';
@@ -31,6 +31,7 @@ function BillDetails(props) {
     const onRefesh = (rf = false) => {
         // console.log("onRefesh", isRefesh);
         setIsRefesh(rf);
+
     }
 
     return (
@@ -39,7 +40,9 @@ function BillDetails(props) {
             <Row style={{ fontFamily: 'Georgia' }}>
                 <Col xs={4} md={4} lg={4}></Col>
                 <Col xs={16} md={16} lg={16}><h1><b>THE INVOICE</b></h1></Col>
-                <Col xs={4} md={4} lg={4}></Col>
+                <Col xs={4} md={4} lg={4}>
+                    <Button className="btn-back" onClick={ () => {props.propsParent.history.goBack();} } style={{ position: 'fixed' }}><b>Back</b></Button>
+                </Col>
             </Row>
             <Row className="mb-15">
                 <Col xs={5} md={5} lg={5}></Col>
@@ -49,10 +52,12 @@ function BillDetails(props) {
                         bordered
                         column={{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }}
                     >
-                        <Descriptions.Item labelStyle={{fontWeight: 'bolder', width: '150px' }} label="ID bill">{ bill ? bill.idPTT : ''}</Descriptions.Item>
-                        <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="ID Booking">{ bill ? bill.idDDP : ''}</Descriptions.Item>
+                        <Descriptions.Item labelStyle={{fontWeight: 'bolder', width: '150px'}} label="ID bill">{ bill && (bill.idPTT || 'Non') }</Descriptions.Item>
+                        <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="ID Booking">{ bill && (bill.idDDP || 'Non')}</Descriptions.Item>
+                        <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="ID off sale">{ bill && (bill.idKM || 'Non')}</Descriptions.Item>
+                        <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="ID Card">{ bill && (bill.idThe || 'Non')}</Descriptions.Item>
                         <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Date of issue">{ format(new Date(bill && bill.ngayThanhToan), 'dd/MM/yyyy') }</Descriptions.Item>
-                        <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Diff dates">{ bill ? bill.soDem : 0 } Night(s)</Descriptions.Item>
+                        <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Diff dates">{ bill && (bill.soDem || 0)} Night(s)</Descriptions.Item>
                         <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Start date">{ format(new Date(bill && bill.ngayDen), 'dd/MM/yyyy') }</Descriptions.Item>
                         <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="End date">{ format(new Date(bill && bill.ngayDi), 'dd/MM/yyyy')}</Descriptions.Item>
                         <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Status">

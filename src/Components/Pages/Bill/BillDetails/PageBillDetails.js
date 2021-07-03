@@ -18,7 +18,7 @@ function PageBillDetails(props) {
         <div style={{ overflow: 'hidden', width: '100vw' }}>
             <NavProfile />
             <div style={{ backgroundColor: 'white', minHeight: '92vh', paddingTop: '30px'}}>
-                <BillDetails idPTT={ idPTT } />
+                <BillDetails idPTT={idPTT} propsParent={props} />
             </div>
             <Footer />
         </div>

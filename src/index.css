@@ -143,6 +143,10 @@ a:hover {
   margin-left: 34vw;
 }
 
+.ant-notification-notice{
+  margin-top: 8vh;
+}
+
 .ant-pagination-item-active{
   border-color: crimson !important;
 }
