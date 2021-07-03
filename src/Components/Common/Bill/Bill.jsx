@@ -135,7 +135,7 @@ function Bill(props) {
 
     return (
         <>
-            <Row>
+            <Row style={{ fontFamily: 'Georgia' }}>
                 <Col xs={2} md={2} lg={4}></Col>
                 <Col xs={20} md={20} lg={16}><h1><b>THE INVOICES BOOKING ROOM</b></h1></Col>
                 <Col xs={2} md={2} lg={4}></Col>

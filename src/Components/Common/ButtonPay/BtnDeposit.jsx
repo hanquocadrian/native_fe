@@ -17,6 +17,7 @@ function BtnDeposit(props) {
     const [bill, setBill] = useState({});
 
     useEffect(() => {
+        // console.log('record: ',props.bill);
         setBill(props.bill);
     }, [props.bill]);
 
