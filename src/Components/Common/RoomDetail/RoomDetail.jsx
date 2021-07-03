@@ -18,6 +18,7 @@ import './RoomDetail.css'
 import SliderItem from 'Components/Common/SliderItem/SliderItem';
 import { url } from '../../../Api/url';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 export default function RoomDetail(props) {
     const { Option } = Select;
@@ -212,8 +213,10 @@ export default function RoomDetail(props) {
                                             <Col xs={22} md={20} lg={18} style={{textAlign:'center'}}>
                                                 <div className='date-start-picker'>
                                                     <DatePickerHotel
+                                                        value={ useSelector(state => state.chooseDatesReducer.dateA) }
                                                         dateFormat='dd/MM/yyyy'
                                                         placeholderText="Arrive"
+                                                        readOnly
                                                     />
                                                 </div>
                                             </Col>
@@ -224,8 +227,10 @@ export default function RoomDetail(props) {
                                             <Col xs={22} md={20} lg={18} style={{textAlign:'center'}}>
                                                 <div className='date-end-picker'>
                                                     <DatePickerHotel
+                                                        value={ useSelector(state => state.chooseDatesReducer.dateB) }
                                                         dateFormat='dd/MM/yyyy'
                                                         placeholderText="Depart"
+                                                        readOnly
                                                     />
                                                 </div>
                                             </Col>

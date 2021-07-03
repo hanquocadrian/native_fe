@@ -78,8 +78,8 @@ export default function NavProfile() {
                 </Col>
                 <Col xs={0} md={4} lg={0} style={{ borderBottom: "1px solid #F0F0F0", height: "48px" }} />
                 <Col xs={2} md={2} lg={9} style={{ textAlign: "right" }}>
-                    <Row justify='end'>
-                        <Menu mode="horizontal">
+                    <Row>
+                        <Menu mode="horizontal" style={{width: '100%', textAlign:'end'}}>
                             <Menu.Item>
                                 <Dropdown overlay={ dd_booking }>
                                     <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
@@ -88,7 +88,7 @@ export default function NavProfile() {
                                 </Dropdown>
                             </Menu.Item>
                             <Menu.Item>
-                                <Link to="/about"><span style={{fontSize:"15px"}}>Bill</span></Link>
+                                <Link to="/user/bills"><span style={{fontSize:"15px"}}>Bills</span></Link>
                             </Menu.Item>
                             <Menu.Item>
                                 <Link to="/about"><span style={{fontSize:"15px"}}>Room Rental Contract</span></Link>

@@ -17,7 +17,7 @@ export default function Basket() {
     // }
 
     return (
-        <div  style={{ overflow: "hidden", width: "98.9vw" }}>
+        <div  style={{ overflow: "hidden", width: "100vw" }}>
             <Navbar />
             <BasketInfo />
             <Footer />

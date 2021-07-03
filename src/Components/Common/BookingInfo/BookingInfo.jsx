@@ -2,10 +2,11 @@ import React from 'react'
 import { useEffect, useState} from 'react';
 import { Row, Col, Button, Input, message } from 'antd';
 import { Link } from 'react-router-dom';
-import { getData, putData } from 'Api/api';
+import { getData, putData, postData } from 'Api/api';
 import { url } from 'Api/url';
-import { urnKhdID, urnUserID } from 'Api/urn';
-import { format, differenceInDays } from 'date-fns';
+import { urnKhdID, urnUserID, urnBooking, urnBookingDetail } from 'Api/urn';
+import { format } from 'date-fns';
+import { useSelector } from 'react-redux';
 
 import { FaHotel } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
@@ -33,6 +34,10 @@ export default function BookingInfo() {
     const [diff, setDiff] = useState(localStorage.getItem('dateArriveCart') ? JSON.parse(localStorage.getItem('dateArriveCart')).days_diff : 0);
     const [slPhong, setslPhong] = useState(localStorage.getItem('slItemsShoppingCart') ? JSON.parse(localStorage.getItem('slItemsShoppingCart')).sl : 0);
     const [totalPrice, setTotalPrice] = useState(0);
+
+    const dateA = useSelector(state => state.chooseDatesReducer.dateA);
+    const dateB = useSelector(state => state.chooseDatesReducer.dateB);
+    const [daysDiff, setDaysDiff] = useState(useSelector(state => state.chooseDatesReducer.daysDiff));
 
     useEffect(() => {
         var uri = url + urnUserID(idTK);
@@ -72,7 +77,7 @@ export default function BookingInfo() {
         var lst = rooms.map((item, index) =>
             <div style={{fontSize:'20px', fontFamily:'Georgia', fontWeight:'revert'}} key={index}>
                 <span><b>{item.tenLP}</b> X <b>{item.slDat}</b></span><br/>
-                <span>{parseInt(item.giaLP, 10) * parseInt(item.slDat, 10)}</span>
+                <span><b>{item.giaLP}</b> USD/ day</span>
                 <hr/>
             </div>
         );
@@ -106,6 +111,7 @@ export default function BookingInfo() {
     const onSubmitBooking = () => {
         // return console.log('cmnd:', cmnd, tenKH, email, phone);
         // return console.log('idKHD, idTK:', idKHD, idTK);
+        // return console.log('ngayDatPhong:', format(new Date(), "yyyy-MM-dd"));
         if(cmnd == null || tenKH == '' || email == '' || phone.length < 10){
             message.error("Please, fill out all the fields!");
             return;
@@ -113,22 +119,23 @@ export default function BookingInfo() {
         var dataKHD = {
             tenKH,
             sdt: phone,
-            cmnd,
-            passport,
+            CMND: cmnd,
+            Passport: passport,
             displayName,
             email,
-            isChangePass: 0
+            isChangePass: 0,
+            isBooking: true
         }
         // return console.log('dataKHD:', dataKHD);
-        var uri1 = url + urnKhdID(idKHD);
+        const uri1 = url + urnKhdID(idKHD);
         putData(uri1, dataKHD)
-        .then(res => {
-            if (res.data !== undefined) {
+        .then(resKHD => {
+            if (resKHD.data !== undefined) {
                 var dataUser = {
                     tenKH,
                     sdt: phone,
-                    cmnd,
-                    passport,
+                    CMND: cmnd,
+                    Passport: passport,
                     email,
                     password,
                     displayName,
@@ -139,20 +146,46 @@ export default function BookingInfo() {
                 }
                 const uri2 = url + '/api/user/update_cus_acc/' + idTK;
                 putData(uri2, dataUser)
-                .then( res => {
-                    if (res.data) {
-                        console.log("res add: ", res.data);
-                        message.success("Booking successfully, wait a few seconds", 2).then(()=>{
-                            onReset();
-                            // var objCus = {
-                            //     idTK,
-                            //     idKHD,
-                            //     email,
-                            //     displayName,
-                            //     loaiTaiKhoan,
-                            //     isLogin: true,
-                            // }
-                            // sessionStorage.setItem('customerAccount',JSON.stringify(objCus));
+                .then( resUser => {
+                    if (resUser.data) {
+                        console.log("res add: ", resUser.data);
+                        var dataDDP = {
+                            ngayDen: dateA,
+                            ngayDi: dateB,
+                            soDem: daysDiff,
+                            ngayDatPhong: format(new Date(), "yyyy/MM/dd"),
+                            tongThanhTien: totalPrice,
+                            trangThaiDat: 0,
+                            idKHD
+                        }
+                        const uri3 =  url + urnBooking;
+                        postData(uri3, dataDDP)
+                        .then( resDDP => {
+                            if (resDDP.data) {
+                                console.log('resDDP.data: ', resDDP.data);
+                                JSON.parse(localStorage.getItem('itemsShoppingCart')).map(item => {
+                                    let dataCTDDP = {
+                                        donGia: item.giaLP,
+                                        idDDP: resDDP.data,
+                                        idLP: item.idLP,
+                                        soLuong: item.slDat
+                                    }
+                                    let uri4 = url + urnBookingDetail;
+                                    postData(uri4, dataCTDDP)
+                                    .then( resCTDDP  => {
+                                        if (resCTDDP.data) {
+                                            console.log('CT_DDP: ', resCTDDP.data);
+                                        }
+                                        else {
+                                            message.error("Something went wrong, please try again!!!", 3);
+                                            return;
+                                        }
+                                    })
+                                })
+                            }
+                            message.success("Booking successfully, wait a few seconds", 2).then(()=>{
+                                onReset();
+                            })
                         })
                     }
                     else {
@@ -160,15 +193,15 @@ export default function BookingInfo() {
                     }
                 })
             }
-            else if(typeof res.response.data !== undefined){
-                console.log("res.response.data: ", res.response.data);
-                if(Array.isArray(res.response.data)){
-                    res.response.data.map(err => {
+            else if(typeof resKHD.response.data !== undefined){
+                console.log("res.response.data: ", resKHD.response.data);
+                if(Array.isArray(resKHD.response.data)){
+                    resKHD.response.data.map(err => {
                         message.error(err.message);
                     })                    
                 } 
                 else {
-                    message.error(res.response.data);
+                    message.error(resKHD.response.data);
                 }
                 return;
             }
@@ -208,11 +241,9 @@ export default function BookingInfo() {
                         </Col>
                         <Col xs={3} md={3} lg={3} >
                             <Input placeholder="Mr" value={ title } onChange={(e) => setTitle( e.target.value )} />
-                            {/* <Input placeholder="Mr"/> */}
                         </Col>
                         <Col xs={16} md={15} lg={13} >
                             <Input value={ tenKH } onChange={(e) => setTenKH( e.target.value )} placeholder="FULLNAME* (required)" required/>
-                            {/* <Input placeholder="FULLNAME*" required/> */}
                         </Col>
                         <Col xs={1} md={2} lg={4} />
                     </Row>
@@ -222,7 +253,6 @@ export default function BookingInfo() {
                         </Col>
                         <Col xs={19} md={18} lg={16} >
                             <Input value={ cmnd } onChange={(e) => setCMND( e.target.value )} placeholder="ID CARD* (required)" required/>
-                            {/* <Input placeholder="ID CARD*" required/> */}
                         </Col>
                         <Col xs={1} md={2} lg={4} />
                     </Row>
@@ -232,7 +262,6 @@ export default function BookingInfo() {
                         </Col>
                         <Col xs={19} md={18} lg={16} >
                             <Input value={ passport } onChange={(e) => setPassport( e.target.value )} placeholder="PASSPORT* (not required)" required/>
-                            {/* <Input placeholder="PASSPORT*" required/> */}
                         </Col>
                         <Col xs={1} md={2} lg={4} />
                     </Row>
@@ -242,7 +271,6 @@ export default function BookingInfo() {
                         </Col>
                         <Col xs={19} md={18} lg={16} >
                             <Input value={ email } onChange={(e) => setEmail( e.target.value )} placeholder="EMAIL* (required)" /> 
-                            {/* <Input placeholder="EMAIL*" />  */}
                         </Col>
                         <Col xs={1} md={2} lg={4} />
                     </Row>
@@ -252,7 +280,6 @@ export default function BookingInfo() {
                         </Col>
                         <Col xs={19} md={18} lg={16} >
                             <Input value={ phone } onChange={(e) => setPhone( e.target.value )} placeholder="PHONE NUMBER* (required)"/> 
-                            {/* <Input placeholder="PHONE NUMBER"/>  */}
                         </Col>
                         <Col xs={1} md={2} lg={4} />
                     </Row>
@@ -269,11 +296,9 @@ export default function BookingInfo() {
                         </Col>
                         <Col xs={3} md={0} lg={0} >
                             <Input placeholder="Mr" value={ title } onChange={(e) => setTitle( e.target.value )} />
-                            {/* <Input placeholder="Mr"/> */}
                         </Col>
                         <Col xs={21} md={0} lg={0} >
                             <Input value={ tenKH } onChange={(e) => setTenKH( e.target.value )} placeholder="FULLNAME* (required)" required/>
-                            {/* <Input placeholder="FULLNAME*" required/> */}
                         </Col>
                         <Col xs={0} md={0} lg={0} />
                     </Row>
@@ -283,7 +308,6 @@ export default function BookingInfo() {
                         </Col>
                         <Col xs={24} md={18} lg={16} >
                             <Input value={ cmnd } onChange={(e) => setCMND( e.target.value )} placeholder="ID CARD* (required)" required/>
-                            {/* <Input placeholder="ID CARD*" required/> */}
                         </Col>
                         <Col xs={0} md={2} lg={4} />
                     </Row>
@@ -293,7 +317,6 @@ export default function BookingInfo() {
                         </Col>
                         <Col xs={24} md={18} lg={16} >
                             <Input value={ passport } onChange={(e) => setPassport( e.target.value )} placeholder="PASSPORT* (not required)" required/>
-                            {/* <Input placeholder="PASSPORT*" required/> */}
                         </Col>
                         <Col xs={0} md={2} lg={4} />
                     </Row>
@@ -303,7 +326,6 @@ export default function BookingInfo() {
                         </Col>
                         <Col xs={24} md={18} lg={16} >
                             <Input value={ email } onChange={(e) => setEmail( e.target.value )} placeholder="EMAIL* (required)" /> 
-                            {/* <Input placeholder="EMAIL*" />  */}
                         </Col>
                         <Col xs={0} md={2} lg={4} />
                     </Row>
@@ -313,7 +335,6 @@ export default function BookingInfo() {
                         </Col>
                         <Col xs={24} md={18} lg={16} >
                             <Input value={ phone } onChange={(e) => setPhone( e.target.value )} placeholder="PHONE NUMBER* (required)"/> 
-                            {/* <Input placeholder="PHONE NUMBER"/>  */}
                         </Col>
                         <Col xs={0} md={2} lg={4} />
                     </Row>
@@ -348,7 +369,6 @@ export default function BookingInfo() {
                         <Col xs={22} md={22} lg={20}>
                             <span style={{fontSize:'20px', fontFamily:'Georgia', fontWeight:'revert'}}>
                                 <span>Total cost</span><br/>
-                                {/* <span>{this.state.slPhongDat} {this.state.slPhongDat > 1 ? 'rooms' : 'room'} for {this.state.diff} {this.state.diff > 1 ? 'nights' : 'night'}</span> */}
                                 <span>{slPhong} room(s) for {diff} night(s)</span> <br/>
                                 <span style={{fontSize:'25px', fontFamily:'Georgia', fontWeight:'bold'}}>{new Intl.NumberFormat().format(totalPrice)} USD</span>
                             </span>
@@ -364,7 +384,6 @@ export default function BookingInfo() {
                         <Col xs={0} md={2} lg={2} /> 
                         <Col xs={0} md={20} lg={20} style={{textAlign:'center'}}>
                             <span style={{fontWeight:'bold', fontSize:'25px'}}>
-                                {/* { new Intl.NumberFormat().format(totalPrice) } USD */}
                                 {new Intl.NumberFormat().format(totalPrice)} USD
                             </span>
                         </Col>
@@ -390,7 +409,6 @@ export default function BookingInfo() {
                         <Col xs={3} md={6} lg={8} /> 
                         <Col xs={18} md={12} lg={8} style={{textAlign:'center'}}>
                             <span style={{fontSize:'20px', fontFamily:'Georgia', fontWeight:'revert'}}>
-                                {/* <span>{format(this.state.startDate,"dd/MM")} - {format(this.state.endDate,"dd/MM")}, {this.state.diff} {this.state.diff > 1 ? 'nights' : 'night'}</span> */}
                                 <span>01/07 - 04/07, 3 nights</span>
                                 <hr/>
                             </span>
@@ -409,7 +427,6 @@ export default function BookingInfo() {
                         <Col xs={18} md={12} lg={8} >
                             <span style={{fontSize:'20px', fontFamily:'Georgia', fontWeight:'revert'}}>
                                 <span>Total cost</span><br/>
-                                {/* <span>{this.state.slPhongDat} {this.state.slPhongDat > 1 ? 'rooms' : 'room'} for {this.state.diff} {this.state.diff > 1 ? 'nights' : 'night'}</span> */}
                                 <span>{slPhong} room(s) for {diff} night(s)</span><br/>
                                 <span style={{fontSize:'25px', fontFamily:'Georgia', fontWeight:'bold'}}> {new Intl.NumberFormat().format(totalPrice)} USD</span>
                             </span>
@@ -425,7 +442,6 @@ export default function BookingInfo() {
                         <Col xs={2} md={0} lg={0} />
                         <Col xs={20} md={0} lg={0} style={{textAlign:'center'}}>
                             <span style={{fontWeight:'bold', fontSize:'25px'}}>
-                                {/* { new Intl.NumberFormat().format(totalPrice) } USD */}
                                 {new Intl.NumberFormat().format(totalPrice)} USD
                             </span>
                         </Col>

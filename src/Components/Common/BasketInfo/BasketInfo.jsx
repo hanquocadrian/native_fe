@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { format, differenceInDays } from 'date-fns';
 
 import { deleteCart } from 'ReduxConfig/Actions/cart';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosStarOutline } from "react-icons/io";
@@ -23,16 +23,12 @@ import { ImCancelCircle } from 'react-icons/im';
 import './BasketInfo.css';
 
 export default function BasketInfo(props) {
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const dateA = useSelector(state => state.chooseDatesReducer.dateA);
+    const dateB = useSelector(state => state.chooseDatesReducer.dateB);
+    const daysDiff = useSelector(state => state.chooseDatesReducer.daysDiff);
+    const totalAmountInCart = useSelector(state => state.cartReducer.sl);
+
     const [rooms, setRooms] = useState(localStorage.getItem('itemsShoppingCart') ? JSON.parse(localStorage.getItem('itemsShoppingCart')) : []);
-    const [startDate, setStartDate] = useState(localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).startDate): null);
-    const [endDate, setEndDate] = useState(localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).endDate) : null);
-    const [tempSD, setTempSD] = useState(localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).startDate): null);
-    const [tempED, setTempED] = useState(localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).endDate) : null);
-    const [diff, setDiff] = useState(localStorage.getItem('dateArriveCart') ? JSON.parse(localStorage.getItem('dateArriveCart')).days_diff : 0);
-    const [tempDiff, setTempDiff] = useState(localStorage.getItem('dateArriveCart') ? JSON.parse(localStorage.getItem('dateArriveCart')).days_diff : 0);
-    const [slDat, setslDat] = useState(localStorage.getItem('slItemsShoppingCart') ? JSON.parse(localStorage.getItem('slItemsShoppingCart')).sl : 0);
     const [totalPrice, setTotalPrice] = useState(0);
     
     const dispatch = useDispatch();
@@ -41,131 +37,13 @@ export default function BasketInfo(props) {
         if (rooms != null) {
             var ttp = 0;
             rooms.forEach(room => {
-                ttp += parseInt(room.giaLP, 10) * diff * parseInt(room.slDat, 10);
+                ttp += parseInt(room.giaLP, 10) * daysDiff * parseInt(room.slDat, 10);
             });
             setTotalPrice(ttp);
         }
     }, []);
 
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleOk = () => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-            setIsModalVisible(false);
-        }, 3000);
-    };
-
-    function showModalDate(){
-        return (
-            <>
-                <Modal
-                    // className="modalDate"
-                    visible={isModalVisible}
-                    title= {<span style={{fontFamily:'Georgia'}}>Change Date &nbsp;&nbsp;<BsCalendar/></span>}
-                    onOk={handleOk}
-                    onCancel={handleCancel}
-                    footer={[
-                        <Button key="back" onClick={handleCancel}>
-                            Cancel
-                        </Button>,
-                        <Button key="submit" loading={loading} onClick={saveChangeDatePicker}>
-                            Save change
-                        </Button>
-                    ]}
-                >
-                    <Row>
-                        <Col xs="3" style={{fontSize:'2.5vh', fontFamily:'Georgia', paddingTop:'1%'}}>Arrive:</Col>
-                        <Col xs="9">
-                            <div className='date-start-picker'>
-                                <DatePicker
-                                    selected={tempSD}
-                                    onChange={changeStartDate}
-                                    selectsStart
-                                    startDate={startDate}
-                                    endDate={endDate}
-                                    dateFormat='dd/MM/yyyy'
-                                />
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="3" style={{fontSize:'2.5vh', fontFamily:'Georgia', paddingTop:'1%'}}>Depart:</Col>
-                        <Col xs="9">
-                            <div className='date-end-picker'>
-                                <DatePicker
-                                    selected={tempED}
-                                    onChange={changeEndDate}
-                                    selectsEnd
-                                    startDate={startDate}
-                                    endDate={endDate}
-                                    minDate={startDate}
-                                    dateFormat='dd/MM/yyyy'
-                                />
-                            </div>
-                        </Col>
-                    </Row>
-                </Modal>
-            </>
-        );
-    }
-
-    const changeStartDate = (e) => {
-        var date = new Date(e);
-        if(format(new Date(), 'yyyy/MM/dd')>format(date, 'yyyy/MM/dd')){
-            message.error('Chọn nhầm ngày trong quá khứ');
-            return;
-        } 
-        else {
-            setTempSD(date);
-            console.log('sd: ', tempSD);
-            date = format(date, 'yyyy/MM/dd');
-        }
-        
-    }
-
-    const changeEndDate = (e) => {
-        if(startDate === null){
-            message.error('Bạn chưa chọn ngày bắt đầu');
-            return;
-        } 
-        else{
-            var date = new Date(e);
-            setTempED(date);
-            date = format(date, 'yyyy/MM/dd');
-            console.log('start date: ', tempSD);
-            console.log('end date: ', tempED);
-        }
-    }
-
-    const saveChangeDatePicker = () => {
-        var days_diff = differenceInDays(tempED, tempSD);
-        console.log('days diff: ', days_diff);
-        setTempDiff(days_diff);
-        setStartDate(tempSD);
-        setEndDate(tempED);
-        setDiff(days_diff);
-        if (rooms != null) {
-            var ttp = 0;
-            rooms.forEach(room => {
-                ttp += parseInt(room.giaLP, 10) * days_diff * parseInt(room.slDat, 10);
-            });
-            setTotalPrice(ttp);
-        }
-        var date_cart = {
-            startDate: format(tempSD, 'yyyy/MM/dd'),
-            endDate: format(tempED, 'yyyy/MM/dd'),
-            days_diff: days_diff
-        }
-        localStorage.setItem('dateArriveCart', JSON.stringify(date_cart));
-        setIsModalVisible(false);
-    }
-
     function showRooms() {
-        console.log('ko ra: ', startDate, endDate, diff, tempSD, tempED, tempDiff);
         var lst = rooms.map((item, index) =>
             <div style={{paddingTop:'1%'}} key={index}>
                 <hr style={{color:'#E5E5E5', border:'1px solid'}}/>
@@ -228,7 +106,7 @@ export default function BasketInfo(props) {
         console.log('rooms: ', newRooms);
         var ttp = 0;
         newRooms.forEach(room => {
-            ttp += parseInt(room.giaLP, 10) * diff * parseInt(room.slDat, 10);
+            ttp += parseInt(room.giaLP, 10) * daysDiff * parseInt(room.slDat, 10);
         });
         console.log('ttp: ', ttp);
         setTotalPrice(ttp);
@@ -240,7 +118,12 @@ export default function BasketInfo(props) {
         }
     }
 
-    if (slDat === 0) {
+    const showError = () => {
+        message.error('You have to log in account!!!');
+        return;
+    }
+
+    if (totalAmountInCart === 0) {
         return (
             <div style={{ paddingTop:'1%', backgroundColor:'#FFFFFF'}}>
                 <div style={{backgroundColor:'#FFFFFF', paddingBottom:'1%'}}>
@@ -347,22 +230,16 @@ export default function BasketInfo(props) {
                         <Col xs={6} md={7} lg={9} />
                     </Row>
                     <Row>
-                        <Col xs={3} md={6} lg={8} /> 
-                        <Col xs={18} md={12} lg={8} style={{textAlign:'center'}}>
+                        <Col xs={3} md={6} lg={0} /> 
+                        <Col xs={18} md={12} lg={24} style={{textAlign:'center'}}>
                             <span style={{fontSize:'20px', fontFamily:'Georgia', fontWeight:'revert'}}>
-                                Cost rooms for { diff } night(s)<br />
-                                <span 
-                                    className="hover-pointer hover-underline" 
-                                    onClick={ ()=>{ setIsModalVisible(true) } }
-                                >
-                                    from <b>{ format(startDate, 'dd/MM/yyyy') }</b> to <b>{ format(endDate, 'dd/MM/yyyy') }</b>
+                                Cost rooms for { daysDiff } night(s)<br />
+                                <span>
+                                    from <b>{ format(new Date(dateA), 'dd/MM/yyyy') }</b> to <b>{ format(new Date(dateB), 'dd/MM/yyyy') }</b>
                                 </span>
                             </span>
-                            { 
-                                isModalVisible && showModalDate()
-                            }
                         </Col>
-                        <Col xs={3} md={6} lg={8} /> 
+                        <Col xs={3} md={6} lg={0} /> 
                     </Row>
                     { showRooms() }
                     <Row style={{paddingTop:'5%',fontFamily:'Georgia', fontWeight:'revert'}}>
@@ -382,7 +259,11 @@ export default function BasketInfo(props) {
                     <Row style={{ paddingTop:'2%', fontSize:'15px', fontFamily:'Georgia', fontWeight:'revert'}} className="button-Continue">
                         <Col xs={0} md={2} lg={8} /> 
                         <Col xs={0} md={20} lg={8} style={{textAlign:'center'}}>
-                            <Link to="/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link>
+                            {
+                                sessionStorage.getItem('customerAccount') ?
+                                <Link to="/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link> :
+                                <Button size="large" style={{width:'200px'}} onClick={ showError }><b>CONTINUE</b></Button>
+                            }
                         </Col>
                         <Col xs={0} md={2} lg={8} /> 
                     </Row>
@@ -399,11 +280,11 @@ export default function BasketInfo(props) {
                         <Col xs={3} md={6} lg={8} /> 
                         <Col xs={18} md={12} lg={8} style={{textAlign:'center'}}>
                             <span style={{fontSize:'20px', fontFamily:'Georgia', fontWeight:'revert'}}>
-                                Cost rooms for { diff } night(s)<br />
+                                Cost rooms for { daysDiff } night(s)<br />
                                 <span 
                                     className="hover-pointer hover-underline" 
                                 >
-                                    from <b>{ format(startDate, 'dd/MM/yyyy') }</b> to <b>{ format(endDate, 'dd/MM/yyyy') }</b>
+                                    from <b>{ format(new Date(dateA), 'dd/MM/yyyy') }</b> to <b>{ format(new Date(dateB), 'dd/MM/yyyy') }</b>
                                 </span>
                             </span>
                             <Modal 
@@ -508,7 +389,11 @@ export default function BasketInfo(props) {
                     <Row style={{ paddingTop:'2%', fontSize:'15px', fontFamily:'Georgia', fontWeight:'revert'}} className="button-Continue">
                         <Col xs={2} md={0} lg={0} />
                         <Col xs={20} md={0} lg={0} style={{textAlign:'center'}}>
-                        <Link to="/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link>
+                            {
+                                sessionStorage.getItem('customerAccount') ? 
+                                <Link to="/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link> :
+                                <Button size="large" style={{width:'200px'}} onClick={ showError }><b>CONTINUE</b></Button>
+                            }
                         </Col>
                         <Col xs={2} md={0} lg={0} />
                     </Row>

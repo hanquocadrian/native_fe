@@ -7,14 +7,16 @@ import { urnRoomTypeSearchByDates } from 'Api/urn';
 import ButtonSearch from './ButtonSearch/ButtonSearch';
 
 import './Search.css';
+import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 const { RangePicker } = DatePicker;
 
 function Search(props) {
     const [isLoading, setisLoading] = useState(false);
     const [roomTypeCanBooking, setroomTypeCanBooking] = useState([]);
-    const [dateA, setdateA] = useState('');
-    const [dateB, setdateB] = useState('');
+    const dateA = useSelector(state => state.chooseDatesReducer.dateA);
+    const dateB = useSelector(state => state.chooseDatesReducer.dateB);
 
     const columns = [
         {
@@ -73,11 +75,6 @@ function Search(props) {
         }
     ]
 
-    const onChooseDate = (date, dateString) => {
-        setdateA(dateString[0]);
-        setdateB(dateString[1]);
-    }
-
     const onFindRoom = () => {
         setroomTypeCanBooking([]);
         setisLoading(true);
@@ -113,12 +110,20 @@ function Search(props) {
                     </Button>
                 ]}
             > */}
-                <Row>
+                <Row className="mb-15">
                     <Col xs={4} md={4} lg={4} style={{ lineHeight: '32px' }}>
                         <b>Search by date:</b> 
                     </Col>
                     <Col xs={18} md={18} lg={18}>
-                        <RangePicker onChange={ onChooseDate } />
+                        <RangePicker 
+                            value={
+                                [
+                                    moment(new Date(dateA), 'DD/MM/YYYY'), 
+                                    moment(new Date(dateB), 'DD/MM/YYYY')
+                                ]
+                            } 
+                            disabled 
+                        />
                     </Col>
                     <Col xs={2} md={2} lg={2}>
                         <Button onClick={ onFindRoom }>Find now</Button>
