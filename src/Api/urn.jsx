@@ -35,3 +35,14 @@ export const urnKhdID = id => '/api/khd/' + id;
 
 export const urnCustomerStay = '/api/customer-stay/';
 export const urnCustomerStayID = id => '/api/customer-stay/' + id;
+
+export const urnRoomsByDatesIdRoomTypeNumber = '/api/room/get-rooms-by-dates-idlp-number';
+export const urnBookingDetailsByIdBooking = id => '/api/detail-booking/get-booking-detail-by-idDDP/' + id;
+export const urnBillDetailsByIdBill = id => '/api/detail-bill/get-bill-detail-by-idPTT/' + id;
+
+export const urnChangeStatusToDepositBill = id => '/api/bill/change-status-to-deposit-by-id-bill/' + id;
+
+export const urnPayer = '/api/payer/';
+
+export const urnBillID = id => '/api/bill/' + id;
+export const urnBillsByIDKHD = id => '/api/bill/get-bills-by-id-customer-booking/' + id;
