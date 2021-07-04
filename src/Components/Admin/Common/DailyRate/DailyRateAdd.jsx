@@ -61,7 +61,7 @@ function DailyRateAdd(props) {
                 console.log("res.response.data: ", res.response.data);
                 if(Array.isArray(res.response.data)){
                     res.response.data.map(err => {
-                        message.error(err.message);
+                        return message.error(err.message);
                     })
                 } else {
                     message.error(res.response.data);

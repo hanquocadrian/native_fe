@@ -17,7 +17,7 @@ export default function ServiceImageUpd(props) {
     const [isFile, setisFile] = useState(true);
     const [fileHinhAnh, setfileHinhAnh] = useState(null);
 
-    const [idHinhDV, setidHinhDV] = useState(props.idHinhDV);
+    const idHinhDV = props.idHinhDV;
     const [hinhAnhCu, sethinhAnhCu] = useState("");
     const [hinhAnh, sethinhAnh] = useState("");
     const [idDV, setidDV] = useState("");
@@ -44,7 +44,7 @@ export default function ServiceImageUpd(props) {
             setidDV(res.data.idDV);
         })
         .catch(err => console.log(err));
-    }, [])
+    }, [idHinhDV])
 
     function onReset(){
         var uri = url + urnServiceImageID(idHinhDV);
@@ -153,7 +153,7 @@ export default function ServiceImageUpd(props) {
                             </Col>
                         </Row>
                         {
-                            isChangeImage == true && 
+                            isChangeImage === true && 
                                 <Row className="mb-15">
                                     <Col xs={6} md={6} lg={6}><b>Using file upload</b></Col>
                                     <Col xs={18} md={18} lg={18}>
@@ -162,7 +162,7 @@ export default function ServiceImageUpd(props) {
                                 </Row>
                         }
                         {
-                            isChangeImage == true && isFile == true ? (
+                            isChangeImage === true && isFile === true ? (
                                 <Row className="mb-15">
                                     <Col xs={6} md={6} lg={6}><b>Service Image File:</b></Col>
                                     <Col xs={18} md={18} lg={18}>
@@ -193,7 +193,7 @@ export default function ServiceImageUpd(props) {
                             ) : ( <></> )
                         }
                         {
-                            isChangeImage == true &&  !isFile ?
+                            isChangeImage === true &&  !isFile ?
                              (
                                 <Row className="mb-15">
                                     <Col xs={6} md={6} lg={6}><b>Service image URI:</b></Col>

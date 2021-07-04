@@ -74,7 +74,7 @@ function PageRoom(props) {
             title: 'Trạng thái',
             dataIndex: 'trangThai',
             render: trangThai => (
-                <>{trangThai == 1 ? 'Trống' : 'Đang sử dụng'}</>
+                <>{trangThai === 1 ? 'Trống' : 'Đang sử dụng'}</>
             )
         },
         {
@@ -90,9 +90,9 @@ function PageRoom(props) {
             )
         },
         {
-            title: phanQuyen == 2 ? 'Actions' : '',
+            title: phanQuyen === 2 ? 'Actions' : '',
             render: (record) => (
-                phanQuyen == 2 && (
+                phanQuyen === 2 && (
                     <>
                         <Link to={ '/admin/room-upd/' + record.maPhong }><Button className="btn-edit">Edit</Button></Link>
                         <Popconfirm

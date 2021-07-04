@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useEffect, useState} from 'react';
+import { useEffect } from 'react';
 import Navbar from '../../Common/Navigation/Navbar';
 import Footer from '../../Common/Footer/Footer';
 import BasketInfo from '../../Common/BasketInfo/BasketInfo';

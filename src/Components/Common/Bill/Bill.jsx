@@ -14,16 +14,10 @@ function Bill(props) {
     const [dataBillsOfIDCus, setDataBillsOfIDCus] = useState([]);
     const [isRefesh, setIsRefesh] = useState(false);
 
-
     useEffect(() => {
         var uri = url + urnBillsByIDKHD(idKHD);
         getData(uri).then(res => setDataBillsOfIDCus(res.data));
-    },[]);
-
-    useEffect(() => {
-        var uri = url + urnBillsByIDKHD(idKHD);
-        getData(uri).then(res => setDataBillsOfIDCus(res.data));
-    },[isRefesh]);
+    },[isRefesh, idKHD]);
 
 
     const onRefesh = (rf = false) => {
@@ -66,7 +60,7 @@ function Bill(props) {
                 compare: (a, b) => a.tinhTrang - b.tinhTrang
             },
             render: tinhTrang => (
-                <>{tinhTrang == 1 ? 'Unpaid' : tinhTrang == 2 ? 'Deposited' : 'Paid'}</>
+                <>{tinhTrang === 1 ? 'Unpaid' : tinhTrang === 2 ? 'Deposited' : 'Paid'}</>
             ),
             align: 'center',
             width: 140
@@ -107,12 +101,12 @@ function Bill(props) {
             render: (record) => (
                 <>
                     { 
-                        record.tinhTrang == 1 && (
+                        record.tinhTrang === 1 && (
                             <BtnDeposit bill={record} onRefesh={onRefesh} />
                         ) 
                     }
                     {
-                        record.tinhTrang == 2 && (
+                        record.tinhTrang === 2 && (
                             <>
                                 <b><i>Wait pay at hotel</i></b>
                             </>

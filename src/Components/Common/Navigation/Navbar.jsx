@@ -83,10 +83,10 @@ export default function Navbar() {
             </Link>
         </Menu.Item>
         <Menu.Item className="LinkNavCus">
-            <a onClick={ onLogout }>
-            <BiLogOut style={{fontSize: '20px', position: 'relative', top: '4px'}} />
-            <span style={{fontSize:"15px"}}> Logout</span>
-            </a>
+            <span onClick={ onLogout }>
+                <BiLogOut style={{fontSize: '20px', position: 'relative', top: '4px'}} />
+                <span style={{fontSize:"15px"}}> Logout</span>
+            </span>
         </Menu.Item>
         </Menu>
     );

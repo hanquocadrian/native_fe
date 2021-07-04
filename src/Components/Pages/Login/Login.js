@@ -147,7 +147,7 @@ function Login(props) {
             else if(typeof res.response.data !== undefined){
                 console.log("res.response.data: ", res.response.data);
                 res.response.data.map(err => {
-                    message.error(err.message);
+                    return message.error(err.message);
                 })
                 return;
             }
@@ -260,7 +260,7 @@ function Login(props) {
                                         <Row style={{ margin: '15px 0px' }}>
                                             <Col xs={7} md={7} lg={7} style={{ lineHeight: '32px' }}>Password: </Col>
                                             <Col xs={1} md={1} lg={1} />
-                                            <Col xs={16} md={16} lg={16}><Input.Password value={ password } onKeyDown={e => { if(e.key == "Enter" && !useSignin) onSubmitLogin() }} onChange={ e => setpassword(e.target.value)} placeholder="Input your password" /></Col>
+                                            <Col xs={16} md={16} lg={16}><Input.Password value={ password } onKeyDown={e => { if(e.key === "Enter" && !useSignin) onSubmitLogin() }} onChange={ e => setpassword(e.target.value)} placeholder="Input your password" /></Col>
                                         </Row>
                                         {
                                             useSignin ? (

@@ -18,15 +18,12 @@ function BillDetails(props) {
     useEffect(() => {
         var uri = url + urnBillID(props.idPTT);
         getData(uri).then(res => setBill(res.data));
-        
-        uri = url + urnBillDetailsByIdBill(props.idPTT);
-        getData(uri).then(res => setDataBillDetails(res.data));
-    }, [props.idPTT]);
+    },[isRefesh, props.idPTT]);
 
     useEffect(() => {
-        var uri = url + urnBillID(props.idPTT);
-        getData(uri).then(res => setBill(res.data));
-    },[isRefesh]);
+        var uri = url + urnBillDetailsByIdBill(props.idPTT);
+        getData(uri).then(res => setDataBillDetails(res.data));
+    }, [props.idPTT]);
 
     const onRefesh = (rf = false) => {
         // console.log("onRefesh", isRefesh);
@@ -68,13 +65,13 @@ function BillDetails(props) {
                                             '0%': '#108ee9',
                                             '100%': '#87d068',
                                         }}
-                                        percent={ bill && (bill.tinhTrang == 1 ? 30 : (bill.tinhTrang == 2 ? 60 : 90)) }
+                                        percent={ bill && (bill.tinhTrang === 1 ? 30 : (bill.tinhTrang === 2 ? 60 : 90)) }
                                         status="active"
                                         showInfo={false}
                                     />
                                 </Col>
                                 <Col xs={4} md={4} lg={4} style={{textAlign:'center'}}>
-                                    { bill && (bill.tinhTrang == 1 ? 'Unpaid' : bill.tinhTrang == 2 ? 'Deposited' : 'Paid') } 
+                                    { bill && (bill.tinhTrang === 1 ? 'Unpaid' : bill.tinhTrang === 2 ? 'Deposited' : 'Paid') } 
                                 </Col>
                             </Row>
                         
@@ -148,12 +145,12 @@ function BillDetails(props) {
                 <Col xs={5} md={5} lg={5} />
                 <Col xs={14} md={14} lg={14} style={{ textAlign:'center' }}>
                     { 
-                        bill && bill.tinhTrang == 1 && (
+                        bill && bill.tinhTrang === 1 && (
                             <BtnDeposit bill={bill} onRefesh={onRefesh} />
                         ) 
                     }
                     {
-                        bill && bill.tinhTrang == 2 && (
+                        bill && bill.tinhTrang === 2 && (
                             <>
                                 <b><i>Wait pay at hotel</i></b>
                             </>

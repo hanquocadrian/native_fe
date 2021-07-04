@@ -60,7 +60,7 @@ function BtnDeposit(props) {
                         countBD--;
                         arrRoom = arrRoom.concat(resRooms.data);
 
-                        if(countBD == 0) {
+                        if(countBD === 0) {
                             // console.log("Rooms can book: ", arrRoom);
                             
                             // Duyệt các phòng có trong CTPTT để xem có căn nào ko tồn tại trong DS Phòng trống từ DDP vào time hiện tại ko
@@ -84,17 +84,19 @@ function BtnDeposit(props) {
                                                 duration: 7
                                             });
                                         }  
-                                        if(countBillD == 0){ 
+                                        if(countBillD === 0){ 
                                             // console.log('có thể')
                                             setIsLoading(false);
                                             message.success(`You can deposit 30% this bill now!`); 
                                             return setIsClickDeposit(!isClickDeposit);
                                         }
+                                        return 1;
                                     })
                                 }
                             })
                         }
                     });
+                    return 1;
                 })
             }
             
@@ -150,7 +152,7 @@ function BtnDeposit(props) {
     }
 
     return (
-        <>
+        <div style={{height: '32px', lineHeight: '32px'}}>
             {
                 !isClickDeposit ? (
                     <Popconfirm
@@ -163,7 +165,7 @@ function BtnDeposit(props) {
                             !isLoading ? (
                                 <Button className="btn-create">Deposit 30%</Button>
                             ) : (
-                                <Spin>Waiting</Spin>
+                                <Spin size="large">Waiting</Spin>
                             )
                         }
                         
@@ -172,7 +174,7 @@ function BtnDeposit(props) {
                         <Paypal total={ bill.tienCoc } onResultPay={ onResultPay } />
                 )
             }
-        </>
+        </div>
     )
 }
 

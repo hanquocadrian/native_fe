@@ -1,4 +1,4 @@
-import { Button, Col, DatePicker, Input, message, Radio, Row, Select, Tooltip } from 'antd'
+import { Button, Col, Input, message, Radio, Row, Select, Tooltip } from 'antd'
 import Form from 'antd/lib/form/Form'
 import { Option } from 'antd/lib/mentions'
 import { postData } from 'Api/api'
@@ -69,7 +69,7 @@ function RoomAdd(props) {
                 console.log("res.response.data: ", res.response.data);
                 if(Array.isArray(res.response.data)){
                     res.response.data.map(err => {
-                        message.error(err.message);
+                        return message.error(err.message);
                     })
                 } else {
                     message.error(res.response.data);

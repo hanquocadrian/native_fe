@@ -2,7 +2,6 @@ import { Col, Dropdown, Menu, Row } from 'antd'
 import React from 'react'
 import '../Navbar.css'
 import { Link } from 'react-router-dom';
-import { RiPhoneLine } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
 import { url } from 'Api/url';
 import axios from 'axios';

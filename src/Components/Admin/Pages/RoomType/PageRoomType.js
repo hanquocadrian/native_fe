@@ -1,6 +1,6 @@
 import React from 'react'
 import Sidebar from '../../Common/Sidebar/Sidebar';
-import { Row, Col, Table, Button, Rate, Tooltip, Popconfirm, message } from 'antd';
+import { Row, Col, Table, Button, Tooltip, Popconfirm, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { url } from '../../../../Api/url';
 
@@ -67,7 +67,7 @@ export default function RoomType(props) {
                     {/* //  2: R || 3: G, Search */}
                     <Link to={ '/admin/roomtype-detail/' + record.idLP }><Button className="btn-detail">Detail</Button></Link>
                     {
-                        (phanQuyen == 2) && (
+                        (phanQuyen === 2) && (
                             <>
                                 <Link to={ '/admin/roomtype-upd/' + record.idLP }><Button className="btn-edit">Edit</Button></Link>
                                 <Popconfirm

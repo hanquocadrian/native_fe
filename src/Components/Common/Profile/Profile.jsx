@@ -56,7 +56,7 @@ export default function Profile(props) {
                 setsdt(resKHD.data[0].sdt);
             })
         });
-    },[])
+    },[idTK])
 
     const onReset = () => {
         var uri = url + urnUserID(idTK);
@@ -90,19 +90,20 @@ export default function Profile(props) {
         // }
         var socialLogin = isSocialLogin;
 
-        if(oldLoaiTaiKhoan !== loaiTaiKhoan && oldLoaiTaiKhoan == 1){
+        if(oldLoaiTaiKhoan !== loaiTaiKhoan && oldLoaiTaiKhoan === 1){
             if(isSocialLogin){
                 firAuth.signOut();
             }
             socialLogin = !socialLogin;
         }
         
-        if(sdt < 10 || email == "" || displayName == "" ){
+        if(sdt < 10 || email === "" || displayName === "" ){
             message.error("Please, fill out all the fields!");
             return;
         }
+        var dataKHD = null;
         if (oldPassword !== '' && newPassword !== '' && confirmPassword !== '') {
-            var dataKHD = {
+            dataKHD = {
                 tenKH,
                 sdt,
                 email,
@@ -113,7 +114,7 @@ export default function Profile(props) {
             }
         }
         else {
-            var dataKHD = {
+            dataKHD = {
                 tenKH,
                 sdt,
                 email,
@@ -125,9 +126,10 @@ export default function Profile(props) {
         putData(uri1, dataKHD)
         .then(res=>{
             if (res.data !== undefined) {
+                var dataUser = null;
                 if (oldPassword !== '' && newPassword !== '' && confirmPassword !== '') {
                     if (newPassword === confirmPassword) {
-                        var dataUser = {
+                        dataUser = {
                             tenKH,
                             sdt,
                             email,
@@ -146,7 +148,7 @@ export default function Profile(props) {
                     }
                 }
                 else {
-                    var dataUser = {
+                    dataUser = {
                         tenKH,
                         sdt,
                         email,
@@ -195,7 +197,7 @@ export default function Profile(props) {
                 console.log("res.response.data: ", res.response.data);
                 if(Array.isArray(res.response.data)){
                     res.response.data.map(err => {
-                        message.error(err.message);
+                        return message.error(err.message);
                     })                    
                 } 
                 else {
@@ -282,7 +284,7 @@ export default function Profile(props) {
                         </Col>
                         <Col xs={9} md={9} lg={9} >
                             {
-                                loaiTaiKhoan == 1 ? (
+                                loaiTaiKhoan === 1 ? (
                                     <>
                                         <Radio.Group onChange={(e) => setloaiTaiKhoan( e.target.value )} value={ loaiTaiKhoan }>
                                             <Radio value={1}>Social account</Radio>
@@ -302,7 +304,7 @@ export default function Profile(props) {
                         <Col xs={6} md={6} lg={6} />
                     </Row>
                     {
-                        loaiTaiKhoan == 2 && (
+                        loaiTaiKhoan === 2 && (
                             <>
                                 <Row className="mb-15">
                                     <Col xs={6} md={6} lg={6} />
@@ -318,7 +320,7 @@ export default function Profile(props) {
                                     isUpdatePassword && (
                                         <>
                                             {
-                                                oldLoaiTaiKhoan != 1 && (
+                                                oldLoaiTaiKhoan !== 1 && (
                                                     <>
                                                         <Row className="mb-15">
                                                             <Col xs={6} md={6} lg={6} />

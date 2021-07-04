@@ -17,7 +17,7 @@ function RoomTypeImageUpd(props) {
     const [isFile, setisFile] = useState(true);
     const [fileHinhAnh, setfileHinhAnh] = useState(null);
 
-    const [idHinhLP, setidHinhLP] = useState(props.idHinhLP);
+    const idHinhLP = props.idHinhLP;
     const [hinhAnhCu, sethinhAnhCu] = useState("");
     const [hinhAnh, sethinhAnh] = useState("");
     const [idLP, setidLP] = useState("");
@@ -44,7 +44,7 @@ function RoomTypeImageUpd(props) {
             setidLP(res.data.idLP);
         })
         .catch(err => console.log(err));
-    }, [])
+    }, [idHinhLP])
 
     function onReset(){
         var uri = url + urnRoomTypeImageID(idHinhLP);
@@ -151,7 +151,7 @@ function RoomTypeImageUpd(props) {
                             </Col>
                         </Row>
                         {
-                            isChangeImage == true && 
+                            isChangeImage === true && 
                                 <Row className="mb-15">
                                     <Col xs={6} md={6} lg={6}><b>Using file upload</b></Col>
                                     <Col xs={18} md={18} lg={18}>
@@ -160,7 +160,7 @@ function RoomTypeImageUpd(props) {
                                 </Row>
                         }
                         {
-                            isChangeImage == true && isFile == true ? (
+                            isChangeImage === true && isFile === true ? (
                                 <Row className="mb-15">
                                     <Col xs={6} md={6} lg={6}><b>Room type image file:</b></Col>
                                     <Col xs={18} md={18} lg={18}>
@@ -191,7 +191,7 @@ function RoomTypeImageUpd(props) {
                             ) : ( <></> )
                         }
                         {
-                            isChangeImage == true &&  !isFile ?
+                            isChangeImage === true &&  !isFile ?
                              (
                                 <Row className="mb-15">
                                     <Col xs={6} md={6} lg={6}><b>Room type image URI:</b></Col>

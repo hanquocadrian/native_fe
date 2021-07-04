@@ -7,7 +7,6 @@ import axios from 'axios';
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
 import { GrAdd } from 'react-icons/gr';
-import { BiDetail } from 'react-icons/bi';
 
 import './ServiceImage.css'
 import NavbarTop from '../../Common/Navigation/NavbarTop';

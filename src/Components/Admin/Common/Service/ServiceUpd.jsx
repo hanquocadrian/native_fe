@@ -7,7 +7,7 @@ import { url } from '../../../../Api/url';
 import { putData, getData } from 'Api/api';
 
 export default function ServiceUpd(props) {
-    const [idDV, setidDV] = useState(props.idDV);
+    const idDV = props.idDV;
     const [tenDV, settenDV] = useState('');
     const [moTaTD, setmoTaTD] = useState('');
     const [moTaCT, setmoTaCT] = useState('');
@@ -27,7 +27,7 @@ export default function ServiceUpd(props) {
             setdonGia(res.data.donGia);
         })
         .catch(err => console.log(err));
-    }, []);
+    }, [idDV]);
 
     function onReset(){
         var uri = url + "/api/service/" + idDV;
@@ -43,7 +43,7 @@ export default function ServiceUpd(props) {
     }
 
     const onUpdate = () => {
-        if(tenDV == "" || moTaCT == "" || moTaTD == "" ){
+        if(tenDV === "" || moTaCT === "" || moTaTD === "" ){
             message.error("Please, fill out all fields!");
             return;
         }
@@ -110,7 +110,7 @@ export default function ServiceUpd(props) {
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={6}><b>Type:</b></Col>
                             <Col xs={18} md={18} lg={18}>
-                                <Select onChange={ value => sethinhThuc(value) } defaultValue="1" style={{width: 200}} value={hinhThuc == 1 ? 'Per booking' : (hinhThuc == 2 ? 'Per person per date' : 'Free')}>
+                                <Select onChange={ value => sethinhThuc(value) } defaultValue="1" style={{width: 200}} value={hinhThuc === 1 ? 'Per booking' : (hinhThuc === 2 ? 'Per person per date' : 'Free')}>
                                     <Option value="1">Per booking</Option>
                                     <Option value="2">Per person per date</Option>
                                     <Option value="3">Free</Option>

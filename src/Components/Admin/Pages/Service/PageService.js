@@ -2,7 +2,6 @@ import React from 'react'
 import Sidebar from '../../Common/Sidebar/Sidebar';
 import { Row, Col, Table, Button, Tooltip, Popconfirm, message } from 'antd';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
@@ -77,9 +76,9 @@ export default function PageService(props) {
         //     align: 'center'
         // },
         {
-            title: phanQuyen == 2 ? 'Actions' : '',
+            title: phanQuyen === 2 ? 'Actions' : '',
             render: (record) => (
-                phanQuyen == 2 && (
+                phanQuyen === 2 && (
                     <>
                         <Link to={ '/admin/service-detail/' + record.idDV }><Button className="btn-detail"><BiDetail/></Button></Link>
                         <Link to={ '/admin/service-upd/' + record.idDV }><Button className="btn-edit"><FaRegEdit/></Button></Link>

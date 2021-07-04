@@ -8,7 +8,7 @@ import { putData, getData } from 'Api/api';
 
 export default function AdminUpd(props) {
     const [changePass, setChangePass] = useState(false);
-    const [idAdmin, setidAdmin] = useState(props.idAdmin);
+    const idAdmin = props.idAdmin;
     const [idTK, setidTK] = useState('');
     const [tenAdmin, settenAdmin] = useState('');
     const [phanQuyen, setPhanQuyen] = useState(3);
@@ -32,7 +32,7 @@ export default function AdminUpd(props) {
             setPhanQuyen(res.data[0].phanQuyen);
         })
         .catch(err => console.log(err));
-    }, [])
+    }, [props.idAdmin])
 
     useEffect(() => {
         const uri = url + '/api/user/get_by_idadmin/' + props.idAdmin;
@@ -44,7 +44,7 @@ export default function AdminUpd(props) {
             setUsername(res.data[0].displayName);
         })
         .catch(err => console.log(err));
-    }, [])
+    }, [props.idAdmin])
 
     function onReset(){
         var uri =  url + '/api/user/get_by_idadmin/' + props.idAdmin;
@@ -62,7 +62,7 @@ export default function AdminUpd(props) {
     }
 
     const onUpdate = () => {
-        if(tenAdmin == "" || email == "" || username == "" ){
+        if(tenAdmin === "" || email === "" || username === "" ){
             message.error("Please, fill out all the fields!");
             return;
         }
@@ -74,8 +74,9 @@ export default function AdminUpd(props) {
         //     message.error("New password at least 6 characters!");
         //     return;
         // }
+        var data1 = null;
         if (currentPass !== '' && newPass !== '') {
-            var data1 = {
+            data1 = {
                 tenAdmin,
                 phanQuyen,
                 email,
@@ -86,7 +87,7 @@ export default function AdminUpd(props) {
             }
         }
         else {
-            var data1 = {
+            data1 = {
                 tenAdmin,
                 phanQuyen,
                 email,
@@ -98,8 +99,9 @@ export default function AdminUpd(props) {
         putData(uri1, data1)
         .then(res=>{
             if (res.data !== undefined) {
+                var data2 = null;
                 if (currentPass !== '' && newPass !== '') {
-                    var data2 = {
+                    data2 = {
                         tenAdmin,
                         phanQuyen,
                         email,
@@ -112,7 +114,7 @@ export default function AdminUpd(props) {
                     }
                 }
                 else {
-                    var data2 = {
+                    data2 = {
                         tenAdmin,
                         phanQuyen,
                         email,
@@ -151,7 +153,7 @@ export default function AdminUpd(props) {
                 console.log("res.response.data: ", res.response.data);
                 if(Array.isArray(res.response.data)){
                     res.response.data.map(err => {
-                        message.error(err.message);
+                        return message.error(err.message);
                     })                    
                 } 
                 else {

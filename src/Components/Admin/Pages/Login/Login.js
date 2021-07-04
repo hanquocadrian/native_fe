@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import auth from "../../../../Auth/auth";
 import { Form, Input, Button, Row, Col, message } from 'antd';
 import { BsLock } from "react-icons/bs";
@@ -77,6 +77,7 @@ export default function Login(props) {
                                 <img 
                                     style={{ width: 'auto', height: '6vh' }} 
                                     src="../assets/images/NativeLogo.png" 
+                                    alt="logo"
                                 />
                             </Col>
                             <Col xs={11} md={11} lg={11}></Col>
@@ -155,9 +156,9 @@ export default function Login(props) {
                                 <Col xs={1} md={2} lg={2}></Col>
                                 <Col xs={22} md={20} lg={20}>
                                     <Form.Item className="login-form-forgot">
-                                        <a href="">
+                                        <span>
                                             Forgot password
-                                        </a>
+                                        </span>
                                     </Form.Item>
                                 </Col>
                                 <Col xs={1} md={2} lg={2}></Col>

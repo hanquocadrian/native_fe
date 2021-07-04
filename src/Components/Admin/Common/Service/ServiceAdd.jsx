@@ -24,7 +24,7 @@ export default function ServiceAdd() {
     }
 
     const onCreate = () => {
-        if(tenDV == "" || moTaCT == "" || moTaTD == "" ){
+        if(tenDV === "" || moTaCT === "" || moTaTD === "" ){
             message.error("Please, fill out all fields!");
             return;
         }
