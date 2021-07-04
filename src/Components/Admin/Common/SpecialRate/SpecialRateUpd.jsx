@@ -5,7 +5,6 @@ import { putData } from 'Api/api'
 import { getData } from 'Api/api'
 import { url } from 'Api/url'
 import { urnSpecialRateID } from 'Api/urn'
-import { urnSpecialRate } from 'Api/urn'
 import { urnDailyRate } from 'Api/urn'
 import { format } from 'date-fns'
 import React, { useEffect, useState } from 'react'
@@ -16,7 +15,7 @@ function SpecialRateUpd(props) {
     const [dataDailyRates, setdataDailyRates] = useState([]);
     const dayOfWeek = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
 
-    const [idGTT, setidGTT] = useState(props.idGTT);
+    const idGTT = props.idGTT;
     const [thu, setthu] = useState(0);
     const [giaTheoThu, setgiaTheoThu] = useState(0);
     const [idGTN, setidGTN] = useState(0);
@@ -48,7 +47,7 @@ function SpecialRateUpd(props) {
         } catch (error) {
             console.error(error);
         }
-    }, []);
+    }, [idGTT]);
     
     function onReset() {
         try {
@@ -88,7 +87,7 @@ function SpecialRateUpd(props) {
                 console.log("res.response.data: ", res.response.data);
                 if(Array.isArray(res.response.data)){
                     res.response.data.map(err => {
-                        message.error(err.message);
+                        return message.error(err.message);
                     })
                 } else {
                     message.error(res.response.data);

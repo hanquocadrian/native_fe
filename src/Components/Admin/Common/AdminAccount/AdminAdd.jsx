@@ -22,7 +22,7 @@ export default function AdminAdd() {
     }
 
     const onCreate = () => {
-        if(tenAdmin == "" || email == "" || password == "" || username == "" ){
+        if(tenAdmin === "" || email === "" || password === "" || username === "" ){
             message.error("Please, fill out all the fields!");
             return;
         }
@@ -63,7 +63,7 @@ export default function AdminAdd() {
             else if(typeof res.response.data !== undefined){
                 console.log("res.response.data: ", res.response.data);
                 res.response.data.map(err => {
-                    message.error(err.message);
+                    return message.error(err.message);
                 })
                 return;
             }

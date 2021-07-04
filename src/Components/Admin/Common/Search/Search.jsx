@@ -79,7 +79,7 @@ function Search(props) {
         setroomTypeCanBooking([]);
         setisLoading(true);
         
-        if(dateA == "" || dateB == ""){ 
+        if(dateA === "" || dateB === ""){ 
             setisLoading(false); 
             return message.error("You must choose dates!") 
         }

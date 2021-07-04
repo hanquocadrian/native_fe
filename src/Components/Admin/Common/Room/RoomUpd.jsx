@@ -1,12 +1,10 @@
 import { Button, Col, Input, message, Popconfirm, Radio, Row, Select, Tooltip } from 'antd'
 import Form from 'antd/lib/form/Form'
 import { Option } from 'antd/lib/mentions'
-import { postData } from 'Api/api'
 import { putData } from 'Api/api'
 import { getData } from 'Api/api'
 import { url } from 'Api/url'
 import { urnRoomTypeID } from 'Api/urn'
-import { urnRoom } from 'Api/urn'
 import { urnRoomID } from 'Api/urn'
 import { urnRoomType } from 'Api/urn'
 import React, { useEffect, useState } from 'react'
@@ -16,7 +14,7 @@ import { Link } from 'react-router-dom'
 function RoomUpd(props) {
     const [dataRoomTypes, setdataRoomTypes] = useState([]);
 
-    const [maPhong, setmaPhong] = useState(props.maPhong);
+    const maPhong= props.maPhong;
     const [soNguoi, setsoNguoi] = useState(0);
     const [trangThai, settrangThai] = useState(1);
     const [idLP, setidLP] = useState("");
@@ -47,7 +45,7 @@ function RoomUpd(props) {
         } catch (error) {
             console.error(error);
         }
-    },[])
+    },[maPhong])
 
     useEffect(() => {
         var uri = url + urnRoomTypeID(idLP);
@@ -98,7 +96,7 @@ function RoomUpd(props) {
             if(typeof res.response.data !== undefined){
                 console.log("res.response.data: ", res.response.data);
                 res.response.data.map(err => {
-                    message.error(err.message);
+                    return message.error(err.message);
                 })
                 return;
             }

@@ -8,7 +8,7 @@ import { getData } from 'Api/api';
 import { urnRoomTypeID, urnRoomTypeImageIDLP, urnRoomTypeRateIDLP } from 'Api/urn';
 
 function RoomTypeDetail(props) {
-    const [idLP, setidLP] = useState(props.idLP);
+    const idLP = props.idLP;
     const [tenLP, settenLP] = useState('');
     const [moTaCT, setmoTaCT] = useState('');
     const [moTaGT, setmoTaGT] = useState('');
@@ -39,7 +39,7 @@ function RoomTypeDetail(props) {
             setslHienTai(res.data.slHienTai);
         })
         .catch(err => console.log(err));
-    }, []);
+    }, [idLP]);
 
     useEffect(() => {
         try {
@@ -53,7 +53,7 @@ function RoomTypeDetail(props) {
         } catch (error) {
             console.error(error);
         }
-    }, []);
+    }, [idLP]);
 
     useEffect(() => {
         try {
@@ -67,7 +67,7 @@ function RoomTypeDetail(props) {
         } catch (error) {
             console.error(error);
         }
-    },[]);
+    },[idLP]);
 
     return (
         <>
@@ -127,7 +127,7 @@ function RoomTypeDetail(props) {
                             <Col xs={19} md={19} lg={19}>
                                 <Carousel autoplay>
                                     {
-                                        typeof dataRoomTypeImages != null && dataRoomTypeImages.map((item, index) => 
+                                        dataRoomTypeImages.length > 0 && dataRoomTypeImages.map((item, index) => 
                                             <div key={ index }>
                                                 <img src={ item.hinhAnh } alt="not found" style={{ width: "auto", height: "50vh" }} />
                                             </div>

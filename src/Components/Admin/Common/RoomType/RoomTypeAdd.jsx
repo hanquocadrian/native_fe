@@ -16,8 +16,8 @@ export default function RoomTypeAdd() {
     const [soNguoi, setsoNguoi] = useState(1);
     const [giuong, setgiuong] = useState(1);
     const [phongTam, setphongTam] = useState(1);
-    const [soLuong, setsoLuong] = useState(0);
-    const [slHienTai, setslHienTai] = useState(0);
+    const soLuong = 0;
+    const slHienTai = 0;
 
     function onReset(){
         settenLP('');
@@ -31,7 +31,7 @@ export default function RoomTypeAdd() {
     }
 
     const onCreate = () => {
-        if(tenLP == "" || moTaCT == "" || moTaGT == "" || moTaTD == "" ){
+        if(tenLP === "" || moTaCT === "" || moTaGT === "" || moTaTD === "" ){
             message.error("Please, fill out all the fields!");
             return;
         }

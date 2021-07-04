@@ -1,11 +1,10 @@
-import { Button, Col, Input, message, Popconfirm, Row, Space, Table, Tooltip } from 'antd';
+import { Button, Col, message, Popconfirm, Row, Table, Tooltip } from 'antd';
 import { deleteData } from 'Api/api';
 import { getData } from 'Api/api';
 import { url } from 'Api/url';
 import NavbarTop from 'Components/Admin/Common/Navigation/NavbarTop';
 import Sidebar from 'Components/Admin/Common/Sidebar/Sidebar';
 import React, { useEffect, useState } from 'react';
-import { GoSearch } from 'react-icons/go';
 import { GrAdd } from 'react-icons/gr';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -15,10 +14,6 @@ import { format } from 'date-fns';
 
 function PageCustomerStay(props) {
     const phanQuyen = useSelector(state => state.adminAccountReducer.phanQuyen);
-    const [searchText, setsearchText] = useState('');
-    const [searchedColumn, setsearchedColumn] = useState('');
-    const [searchInput, setsearchInput] = useState('');
-
     const [dataCustomerStay, setdataCustomerStay] = useState([]);
 
 
@@ -28,16 +23,6 @@ function PageCustomerStay(props) {
        .then(res => setdataCustomerStay(res.data));
     }, []);
 
-    const handleSearch = (selectedKeys, confirm, dataIndex) => {
-        confirm();
-        setsearchText(selectedKeys[0]);
-        setsearchedColumn(dataIndex);
-    };
-    
-    const handleReset = clearFilters => {
-        clearFilters();
-        setsearchText('');
-    };
 
     const columns = [
         {
@@ -81,9 +66,9 @@ function PageCustomerStay(props) {
             ),
         },
         {
-            title: phanQuyen == 3 ? 'Actions' : '',
+            title: phanQuyen === 3 ? 'Actions' : '',
             render: (record) => (
-                phanQuyen == 3 && (
+                phanQuyen === 3 && (
                     <>
                         <Link to={ '/admin/customer-stay-upd/' + record.idKHO }><Button className="btn-edit">Edit</Button></Link>
                         <Popconfirm

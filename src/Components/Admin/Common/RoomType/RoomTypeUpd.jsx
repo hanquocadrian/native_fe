@@ -9,7 +9,7 @@ import { urnRoomTypeID } from 'Api/urn';
 
 
 function RoomTypeUpd(props) {
-    const [idLP, setidLP] = useState(props.idLP);
+    const idLP = props.idLP;
     const [tenLP, settenLP] = useState('');
     const [moTaCT, setmoTaCT] = useState('');
     const [moTaGT, setmoTaGT] = useState('');
@@ -37,7 +37,7 @@ function RoomTypeUpd(props) {
             setslHienTai(res.data.slHienTai);
         })
         .catch(err => console.log(err));
-    }, [])
+    }, [idLP])
 
     function onReset(){
         var uri = url + urnRoomTypeID(idLP);
@@ -58,7 +58,7 @@ function RoomTypeUpd(props) {
     }
 
     const onUpdate = () => {
-        if(tenLP == "" || moTaCT == "" || moTaGT == "" || moTaTD == "" ){
+        if(tenLP === "" || moTaCT === "" || moTaGT === "" || moTaTD === "" ){
             message.error("Please, fields cannot be left blank!");
             return;
         }

@@ -18,7 +18,7 @@ export default function Sidebar() {
             <Menu theme="light" mode="inline" style={{ width: '21vw', paddingTop: '10px', height: '92vh' }}>
                 {
                     //  2: R || 3: G, Search
-                    (phanQuyen == 2 || phanQuyen == 3) && (
+                    (phanQuyen === 2 || phanQuyen === 3) && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/roomtype' >
                                 <FaHotel />
@@ -29,7 +29,7 @@ export default function Sidebar() {
                 }
                 {
                     //  2: R
-                    phanQuyen == 2 && (
+                    phanQuyen === 2 && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/roomtype-image'>
                                 <IoIosImages />
@@ -40,7 +40,7 @@ export default function Sidebar() {
                 }
                 {
                     //  2: R || 3: G
-                    (phanQuyen == 2 || phanQuyen == 3) && (
+                    (phanQuyen === 2 || phanQuyen === 3) && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/room'>
                                 <MdHotel />
@@ -52,7 +52,7 @@ export default function Sidebar() {
                 {
 
                     //  2: R || 3: G
-                    (phanQuyen == 2 || phanQuyen == 3) && (
+                    (phanQuyen === 2 || phanQuyen === 3) && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/service'>
                                 <BiPackage />
@@ -63,7 +63,7 @@ export default function Sidebar() {
                 }
                 {
                     //  2: R
-                    phanQuyen == 2 && (
+                    phanQuyen === 2 && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/service-image'>
                                 <IoIosImages />
@@ -75,7 +75,7 @@ export default function Sidebar() {
                 {
 
                     //  2: R
-                    phanQuyen == 2 && (
+                    phanQuyen === 2 && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/daily-rate'>
                                 <GiPriceTag />
@@ -87,7 +87,7 @@ export default function Sidebar() {
                 {
 
                     //  2: R
-                    phanQuyen == 2 && (
+                    phanQuyen === 2 && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/special-rate'>
                                 <GiPriceTag />
@@ -98,7 +98,7 @@ export default function Sidebar() {
                 }
                 {
                     //  2: U, G  || 3: G
-                    (phanQuyen == 2 || phanQuyen == 3) && (
+                    (phanQuyen === 2 || phanQuyen === 3) && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/image-service'>
                                 <FaReceipt />
@@ -109,7 +109,7 @@ export default function Sidebar() {
                 }
                 {
                     //  2: U, G  || 3: U, G
-                    (phanQuyen == 2 || phanQuyen == 3) && (
+                    (phanQuyen === 2 || phanQuyen === 3) && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/image-service'>
                                 <FaMoneyBill />
@@ -120,7 +120,7 @@ export default function Sidebar() {
                 }
                 {
                     //  2: G  || 3: Po, Pu, D
-                    (phanQuyen == 2 || phanQuyen == 3) && (
+                    (phanQuyen === 2 || phanQuyen === 3) && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/image-service'>
                                 <BiReceipt />
@@ -131,7 +131,7 @@ export default function Sidebar() {
                 }
                 {
                     //  2: G  || 3: G
-                    (phanQuyen == 2 || phanQuyen == 3) && (
+                    (phanQuyen === 2 || phanQuyen === 3) && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/image-service'>
                                 <AiOutlineUserAdd />
@@ -142,7 +142,7 @@ export default function Sidebar() {
                 }
                 {
                     //  2: G  || 3: G
-                    (phanQuyen == 2 || phanQuyen == 3) && (
+                    (phanQuyen === 2 || phanQuyen === 3) && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/image-service'>
                                 <AiOutlineUserAdd />
@@ -153,7 +153,7 @@ export default function Sidebar() {
                 }
                 {
                     //  2: G  || 3: G
-                    (phanQuyen == 2 || phanQuyen == 3) && (
+                    (phanQuyen === 2 || phanQuyen === 3) && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/customer-stay'>
                                 <AiOutlineUsergroupAdd />
@@ -164,7 +164,7 @@ export default function Sidebar() {
                 }
                 {
                     //  1: R
-                    phanQuyen == 1 && (
+                    phanQuyen === 1 && (
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/adminacc'>
                                 <FaUsers />
