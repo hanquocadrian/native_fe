@@ -41,27 +41,27 @@ function PageRoom(props) {
             dataIndex: 'maPhong',
             filters: [
                 {
-                  text: 'Block A',
-                  value: 'A',
+                text: 'Block A',
+                value: 'A',
                 },
                 {
-                  text: 'Block B',
-                  value: 'B',
+                text: 'Block B',
+                value: 'B',
                 },
                 {
-                  text: 'Block C',
-                  value: 'C',
+                text: 'Block C',
+                value: 'C',
                 },
                 {
-                  text: 'Block D',
-                  value: 'D',
+                text: 'Block D',
+                value: 'D',
                 },
                 {
-                  text: 'Block E',
-                  value: 'E',
+                text: 'Block E',
+                value: 'E',
                 },
-              ],
-              onFilter: (value, record) => record.maPhong.indexOf(value) === 0,
+            ],
+            onFilter: (value, record) => record.maPhong.indexOf(value) === 0,
         },
         {
             title: 'Số người',

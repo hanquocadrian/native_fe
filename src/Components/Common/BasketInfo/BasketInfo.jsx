@@ -261,7 +261,7 @@ export default function BasketInfo(props) {
                         <Col xs={0} md={20} lg={8} style={{textAlign:'center'}}>
                             {
                                 sessionStorage.getItem('customerAccount') ?
-                                <Link to="/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link> :
+                                <Link to="/user/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link> :
                                 <Button size="large" style={{width:'200px'}} onClick={ showError }><b>CONTINUE</b></Button>
                             }
                         </Col>
@@ -391,7 +391,7 @@ export default function BasketInfo(props) {
                         <Col xs={20} md={0} lg={0} style={{textAlign:'center'}}>
                             {
                                 sessionStorage.getItem('customerAccount') ? 
-                                <Link to="/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link> :
+                                <Link to="/user/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link> :
                                 <Button size="large" style={{width:'200px'}} onClick={ showError }><b>CONTINUE</b></Button>
                             }
                         </Col>

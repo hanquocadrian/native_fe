@@ -33,7 +33,6 @@ function IntroCus(props) {
 }
 
 IntroCus.propTypes = {
-    displayName: PropTypes.string.isRequired,
     intro: PropTypes.string,
 }
 

@@ -168,13 +168,13 @@ a:hover {
       color: #F4E081;
   }
   43% {
-      color: #F8E04D;
-  }
-  55% {
       color: #FADF19;
   }
+  55% {
+      color: #FAE914;
+  }
   66% {
-      color: #F8E04D;
+      color: #FADF19;
   }
   77% {
       color: #F4E081;
@@ -182,7 +182,7 @@ a:hover {
   88% {
       color: #F4EBB7;
   }
-  99% {
+  100% {
       color: #ffffff;
   }
 }

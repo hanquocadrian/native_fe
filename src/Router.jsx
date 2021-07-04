@@ -16,11 +16,15 @@ export default class Router extends Component {
                         <Route exact path='/service/' component={ Components.Service } />
                         <Route exact path='/roomtype/:id' component={ Components.Room } />
                         <Route exact path='/your-basket' component={ Components.Basket } />
-                        <Route exact path='/your-booking' component={ Components.Booking } />
+                        {/* <Route exact path='/your-booking' component={ Components.PageBooking } /> */}
 
                         {/* Customer Auth */}
                         <Components.ProtectedCusRoute exact path='/user/profile/:id' component={ Components.PageProfile } />
+                        <Components.ProtectedCusRoute exact path='/user/your-booking' component={ Components.PageBooking } />
+                        <Components.ProtectedCusRoute exact path='/user/your-booking-room' component={ Components.PageBookingRoomProfile } />
+                        <Components.ProtectedCusRoute exact path='/user/your-booking-room-detail/:id' component={ Components.PageBookingRoomProfile_Detail } />
                         <Components.ProtectedCusRoute exact path='/user/bills' component={ Components.PageBill } />
+                        <Components.ProtectedCusRoute exact path='/user/bill-details/:id' component={ Components.PageBillDetails } />
 
 
                         {/* Admin */}

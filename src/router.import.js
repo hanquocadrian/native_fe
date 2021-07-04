@@ -8,7 +8,10 @@ import Room from './Components/Pages/Room/Room';
 import Basket from './Components/Pages/Basket/Basket';
 import PageProfile from './Components/Pages/Profile/PageProfile';
 import PageBill from 'Components/Pages/Bill/PageBill';
-import Booking from './Components/Pages/Booking/Booking';
+import PageBooking from './Components/Pages/Booking/Booking';
+import PageBookingRoomProfile from './Components/Pages/BookingRoomProfile/PageBookingRoomProfile';
+import PageBookingRoomProfile_Detail from './Components/Pages/BookingRoomProfile/BookingRoomProfileDetail/PageBookingRoomProfile_Detail';
+import PageBillDetails from 'Components/Pages/Bill/BillDetails/PageBillDetails';
 
 // Admin
 import { ProtectedRoute } from './Auth/protected.route'; 
@@ -59,7 +62,8 @@ import AdPageCustomerStayUpd from 'Components/Admin/Pages/CustomerStay/Update/Pa
 import Error from './Components/Admin/Pages/Error/Error';
 
 export { 
-    ProtectedCusRoute, Home, Login, About, Service, Room, Basket, PageProfile, PageBill,  
-    ProtectedRoute, AdLogin, AdHome, AdAbout, AdSlider, AdPageAdmin, AdPageAdminAdd, AdPageAdminUpd, AdPageRoomType, AdPageRoomTypeDetail, AdPageRoomTypeAdd, AdPageRoomTypeUpd, AdPageRoomTypeImage, AdPageRoomTypeImageAdd, AdPageRoomTypeImageUpd, AdService, AdPageServiceAdd, AdPageServiceDetail, AdPageServiceUpd, AdPageServiceImage, AdPageServiceImageAdd, AdPageServiceImageUpd, AdPageDailyRate, AdPageDailyRateAdd, AdPageDailyRateUpd, AdPageSpecialRate, AdPageSpecialRateAdd, AdPageSpecialRateUpd, AdPageRoom, AdPageRoomAdd, AdPageRoomUpd, AdPageCustomerStay, AdPageCustomerStayAdd , AdPageCustomerStayUpd, Booking,
+    ProtectedCusRoute, Home, Login, About, Service, Room, Basket, PageProfile, PageBill, PageBooking, PageBookingRoomProfile, PageBookingRoomProfile_Detail, PageBillDetails,
+    ProtectedRoute, AdLogin, AdHome, AdAbout, AdSlider, AdPageAdmin, AdPageAdminAdd, AdPageAdminUpd, AdPageRoomType, AdPageRoomTypeDetail, AdPageRoomTypeAdd, AdPageRoomTypeUpd, AdPageRoomTypeImage, AdPageRoomTypeImageAdd, AdPageRoomTypeImageUpd, AdService, AdPageServiceAdd, AdPageServiceDetail, AdPageServiceUpd, AdPageServiceImage, AdPageServiceImageAdd, AdPageServiceImageUpd, AdPageDailyRate, AdPageDailyRateAdd, AdPageDailyRateUpd, AdPageSpecialRate, AdPageSpecialRateAdd, AdPageSpecialRateUpd, AdPageRoom, AdPageRoomAdd, AdPageRoomUpd, AdPageCustomerStay, AdPageCustomerStayAdd , AdPageCustomerStayUpd,
+
     Error,
 };
