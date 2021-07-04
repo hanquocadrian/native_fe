@@ -1,12 +1,12 @@
-import { Row, Col, Table, Button, Tooltip, Popconfirm, message, Tag } from 'antd';
+import { Row, Col, Table, Button, Tooltip, Popconfirm, Tag } from 'antd';
 import { SyncOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import { getData, putData } from 'Api/api';
+import { getData } from 'Api/api';
 import { url } from 'Api/url';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { firAuth } from 'FirebaseConfig';
-import { actLogout, actUpdateLogin } from 'ReduxConfig/Actions/customerAccount';
+import { actLogout } from 'ReduxConfig/Actions/customerAccount';
 import { urnBookingIDKHD } from 'Api/urn';
 import { format } from 'date-fns';
 import CurrencyFormat from 'react-currency-format';
@@ -18,7 +18,7 @@ import { IoCreateOutline } from 'react-icons/io5';
 export default function BookingRoomProfile(props) {
     const dispatch = useDispatch();
     const isSocialLogin = useSelector(state => state.customerAccountReducer.isSocialLogin);
-    const [idKHD, setidKHD] = useState(sessionStorage.getItem('customerAccount') ? JSON.parse(sessionStorage.getItem('customerAccount')).idKHD : '');
+    const idKHD = sessionStorage.getItem('customerAccount') ? JSON.parse(sessionStorage.getItem('customerAccount')).idKHD : '';
     const [dataDDP, setdataDDP] = useState([]);
 
     useEffect(() => {

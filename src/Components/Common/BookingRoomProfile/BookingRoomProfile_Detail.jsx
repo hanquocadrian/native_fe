@@ -1,6 +1,6 @@
-import { Row, Col, Button, Tooltip, Popconfirm, message, Tag, Descriptions } from 'antd';
+import { Row, Col, Button, Tag, Descriptions } from 'antd';
 import { SyncOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import { getData, putData } from 'Api/api';
+import { getData } from 'Api/api';
 import { url } from 'Api/url';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,7 @@ import ShowRoomtypeName from './ShowRoomtypeName/ShowRoomtypeName';
 
 export default function BookingRoomProfile_Detail(props) {
 
-    const [idDDP, setidDDP] = useState(props.idDDP);
+    const idDDP = props.idDDP;
     const [ngayDen, setngayDen] = useState(null);
     const [ngayDi, setngayDi] = useState(null);
     const [soDem, setSoDem] = useState(0);

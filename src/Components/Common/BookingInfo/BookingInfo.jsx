@@ -15,29 +15,29 @@ import './BookingInfo.css';
 
 export default function BookingInfo() {
     //KHD
-    const [idKHD, setidKHD] = useState(sessionStorage.getItem('customerAccount') ? JSON.parse(sessionStorage.getItem('customerAccount')).idKHD : '');
+    const idKHD = sessionStorage.getItem('customerAccount') ? JSON.parse(sessionStorage.getItem('customerAccount')).idKHD : '';
     const [tenKH, setTenKH] = useState('');
     const [phone, setPhone] = useState('');
     const [cmnd, setCMND] = useState('');
     const [passport, setPassport] = useState('');
     //USER
-    const [idTK, setidTK] = useState(sessionStorage.getItem('customerAccount') ? JSON.parse(sessionStorage.getItem('customerAccount')).idTK : '');
+    const idTK = sessionStorage.getItem('customerAccount') ? JSON.parse(sessionStorage.getItem('customerAccount')).idTK : '';
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [title, setTitle] = useState('');
     const [loaiTaiKhoan, setLoaiTaiKhoan] = useState(0);
     //CART
-    const [rooms, setRooms] = useState(localStorage.getItem('itemsShoppingCart') ? JSON.parse(localStorage.getItem('itemsShoppingCart')) : []);
-    const [startDate, setStartDate] = useState(localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).startDate): null);
-    const [endDate, setEndDate] = useState(localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).endDate) : null);
-    const [diff, setDiff] = useState(localStorage.getItem('dateArriveCart') ? JSON.parse(localStorage.getItem('dateArriveCart')).days_diff : 0);
-    const [slPhong, setslPhong] = useState(localStorage.getItem('slItemsShoppingCart') ? JSON.parse(localStorage.getItem('slItemsShoppingCart')).sl : 0);
+    const rooms = localStorage.getItem('itemsShoppingCart') ? JSON.parse(localStorage.getItem('itemsShoppingCart')) : [];
+    const startDate = localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).startDate): null;
+    const endDate = localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).endDate) : null;
+    const diff = localStorage.getItem('dateArriveCart') ? JSON.parse(localStorage.getItem('dateArriveCart')).days_diff : 0;
+    const slPhong = localStorage.getItem('slItemsShoppingCart') ? JSON.parse(localStorage.getItem('slItemsShoppingCart')).sl : 0;
     const [totalPrice, setTotalPrice] = useState(0);
 
     const dateA = useSelector(state => state.chooseDatesReducer.dateA);
     const dateB = useSelector(state => state.chooseDatesReducer.dateB);
-    const [daysDiff, setDaysDiff] = useState(useSelector(state => state.chooseDatesReducer.daysDiff));
+    const daysDiff = useState(useSelector(state => state.chooseDatesReducer.daysDiff));
 
     useEffect(() => {
         var uri = url + urnUserID(idTK);
@@ -112,7 +112,7 @@ export default function BookingInfo() {
         // return console.log('cmnd:', cmnd, tenKH, email, phone);
         // return console.log('idKHD, idTK:', idKHD, idTK);
         // return console.log('ngayDatPhong:', format(new Date(), "yyyy-MM-dd"));
-        if(cmnd == null || tenKH == '' || email == '' || phone.length < 10){
+        if(cmnd === null || tenKH === '' || email === '' || phone.length < 10){
             message.error("Please, fill out all the fields!");
             return;
         }
@@ -409,7 +409,7 @@ export default function BookingInfo() {
                         <Col xs={3} md={6} lg={8} /> 
                         <Col xs={18} md={12} lg={8} style={{textAlign:'center'}}>
                             <span style={{fontSize:'20px', fontFamily:'Georgia', fontWeight:'revert'}}>
-                                <span>01/07 - 04/07, 3 nights</span>
+                                <span>{format(startDate, 'dd/MM')} - {format(endDate, 'dd/MM')}, {diff} night(s)</span>
                                 <hr/>
                             </span>
                         </Col>

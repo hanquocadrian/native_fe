@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import { Row, Col, Modal, Button, Image } from 'antd';
+import { Row, Col, Modal, Button, Image, message } from 'antd';
 import { Link } from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';

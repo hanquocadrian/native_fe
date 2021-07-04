@@ -7,7 +7,7 @@ import CurrencyFormat from 'react-currency-format';
 
 export default function ShowRoomtypeName(props) {
     const [tenLP, settenLP] = useState('');
-    const [CTDDP, setCTDDP] = useState(props.CTDDP || null);
+    const CTDDP = props.CTDDP || null;
 
     useEffect(() => {
         var uri = url + urnRoomTypeID(props.CTDDP.idLP);
