@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Paypal from 'Components/Common/Paypal/Paypal'
-import { Button, Popconfirm, message } from 'antd'
+import { Button, Popconfirm, message, Spin, notification } from 'antd'
 import { getData } from 'Api/api';
 import { urnBookingDetailsByIdBooking } from 'Api/urn';
 import { url } from 'Api/url';
@@ -11,16 +11,20 @@ import { urnChangeStatusToDepositBill } from 'Api/urn';
 import { urnPayer } from 'Api/urn';
 import { urnBillID } from 'Api/urn';
 import { putData } from 'Api/api';
+import { format } from 'date-fns';
 
 function BtnDeposit(props) {
     const [isClickDeposit, setIsClickDeposit] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [bill, setBill] = useState({});
 
     useEffect(() => {
+        // console.log('record: ',props.bill);
         setBill(props.bill);
     }, [props.bill]);
 
     const canPaid = () => {
+        setIsLoading(true);
         // Check: Can use rooms on this bill?
         var idPTT = bill.idPTT;
         var idDDP = bill.idDDP;
@@ -33,7 +37,10 @@ function BtnDeposit(props) {
         //  Xem xem mình có thễ giữ chân Phòng ấy ko, lỡ có ai nhanh chân giữ chân nó trc lúc mình gom tiền để mình deposit phòng
         let uri = url + urnBookingDetailsByIdBooking(idDDP);
         getData(uri).then((resBookingDetails) => {
-            if(typeof resBookingDetails.data === 'undefined'){ return message.error("Server Error"); }
+            if(typeof resBookingDetails.data === 'undefined'){ 
+                setIsLoading(false);
+                return message.error("Server Error"); 
+            }
             // console.log('booking details by idDDP: ', resBookingDetails.data);
             if(resBookingDetails.data.length > 0){
                 var countBD = resBookingDetails.data.length;
@@ -53,31 +60,43 @@ function BtnDeposit(props) {
                         countBD--;
                         arrRoom = arrRoom.concat(resRooms.data);
 
-                        if(countBD == 0) {
+                        if(countBD === 0) {
                             // console.log("Rooms can book: ", arrRoom);
                             
                             // Duyệt các phòng có trong CTPTT để xem có căn nào ko tồn tại trong DS Phòng trống từ DDP vào time hiện tại ko
                             let uri = url + urnBillDetailsByIdBill(idPTT);
                             getData(uri).then((resBillDetails) => {
-                                if(typeof resBillDetails.data === 'undefined'){ return message.error("Server Error"); }
+                                if(typeof resBillDetails.data === 'undefined'){ 
+                                    setIsLoading(false);
+                                    return message.error("Server Error"); 
+                                }
                                 if(resBillDetails.data.length > 0) {
                                     var countBillD = resBillDetails.data.length;
                                     resBillDetails.data.map((billDetail) => {
                                         countBillD--;
                                         // console.log('Room in bill detail: ', billDetail);
                                         if(!arrRoom.includes(billDetail.maPhong)) { 
-                                            return message.error(`Sorry! You can't deposit this bill, because some rooms in this bill had been someone deposit!`); 
+                                            setIsLoading(false);
+                                            return notification['warning']({
+                                                message: `Can't deposit!`,
+                                                description:
+                                                    `Sorry! You can't deposit this bill, because some rooms in this bill had been someone deposit!`,
+                                                duration: 7
+                                            });
                                         }  
-                                        if(countBillD == 0){ 
+                                        if(countBillD === 0){ 
                                             // console.log('có thể')
+                                            setIsLoading(false);
                                             message.success(`You can deposit 30% this bill now!`); 
                                             return setIsClickDeposit(!isClickDeposit);
                                         }
+                                        return 1;
                                     })
                                 }
                             })
                         }
                     });
+                    return 1;
                 })
             }
             
@@ -109,9 +128,17 @@ function BtnDeposit(props) {
                 let uri = url + urnPayer;
                 postData(uri, dataPayer).then(resPayer => {
                     var dataBill = bill;
+                    dataBill.ngayDen = format(new Date(bill.ngayDen), 'yyyy/MM/dd');
+                    dataBill.ngayDi = format(new Date(bill.ngayDi), 'yyyy/MM/dd');
+                    dataBill.ngayThanhToan = format(new Date(bill.ngayThanhToan), 'yyyy/MM/dd');
                     dataBill.tinhTrang = 2;
-                    dataBill.idThe = resPayer.data;
 
+                    if(resPayer.response.data !== undefined)
+                        dataBill.idThe = payment.payerID;
+                    else
+                        dataBill.idThe = resPayer.data;
+
+                    console.log(dataBill);
                     let uri = url + urnBillID(dataBill.idPTT);
                     putData(uri, dataBill).then(resBill => {
                         message.success('You deposited 30%, thank you!');
@@ -125,7 +152,7 @@ function BtnDeposit(props) {
     }
 
     return (
-        <>
+        <div style={{height: '32px', lineHeight: '32px'}}>
             {
                 !isClickDeposit ? (
                     <Popconfirm
@@ -134,13 +161,20 @@ function BtnDeposit(props) {
                         okText="Yes"
                         cancelText="No"
                     >
-                        <Button className="btn-create">Deposit 30%</Button>
+                        {
+                            !isLoading ? (
+                                <Button className="btn-create">Deposit 30%</Button>
+                            ) : (
+                                <Spin size="large">Waiting</Spin>
+                            )
+                        }
+                        
                     </Popconfirm>   
                 ) : (
                         <Paypal total={ bill.tienCoc } onResultPay={ onResultPay } />
                 )
             }
-        </>
+        </div>
     )
 }
 

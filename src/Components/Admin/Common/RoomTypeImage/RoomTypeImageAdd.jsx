@@ -15,7 +15,6 @@ function RoomTypeImageAdd(props) {
     const [isFile, setisFile] = useState(true);
     const [fileHinhAnh, setfileHinhAnh] = useState(null);
 
-    const [idHinhLP, setidHinhLP] = useState("");
     const [hinhAnh, sethinhAnh] = useState("");
     const [idLP, setidLP] = useState("");
 
@@ -44,7 +43,7 @@ function RoomTypeImageAdd(props) {
     }
 
     const onCreate = () => {
-        if(idLP == "")
+        if(idLP === "")
         {
             message.error("Please, fill out all the fields!");
             return;
@@ -73,7 +72,7 @@ function RoomTypeImageAdd(props) {
                 return;
             }
         } else {
-            if(hinhAnh == ""){
+            if(hinhAnh === ""){
                 message.error("Please, input Image!");
                 return;
             }
@@ -127,7 +126,7 @@ function RoomTypeImageAdd(props) {
                             </Col>
                         </Row>
                         {
-                            isFile == true ? (
+                            isFile === true ? (
                                 <Row className="mb-15">
                                     <Col xs={6} md={6} lg={6}><b>Room type image file:</b></Col>
                                     <Col xs={18} md={18} lg={18}>

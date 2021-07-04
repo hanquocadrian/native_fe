@@ -29,7 +29,7 @@ function ItemService(props) {
         } catch (error) {
             console.log(error);
         }
-    },[])
+    },[props.idDV])
 
     useEffect(() => {
         try {
@@ -45,7 +45,7 @@ function ItemService(props) {
         } catch (error) {
             console.log(error);
         }
-    }, []);
+    }, [props.idDV]);
 
     useEffect(() => {
         try {
@@ -55,13 +55,13 @@ function ItemService(props) {
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
                 setHinhAnhDV(result);
-                console.log('hinh Anh dv:',hinhAnhDV);
+                // console.log('hinh Anh dv:',hinhAnhDV);
             }
             getHinhAnhDV();
         } catch (error) {
             console.log(error);
         }
-    }, []);
+    }, [props.idDV]);
 
     const x = visible;
 

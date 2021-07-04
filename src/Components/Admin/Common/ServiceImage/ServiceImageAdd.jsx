@@ -33,7 +33,7 @@ export default function ServiceImageAdd() {
 
     useEffect(()=>{
         setidDV(typeof services[0] !== 'undefined' ? services[0].idDV : "");
-        console.log('idDV: ', idDV)
+        // console.log('idDV: ', idDV)
     }, [services])
 
     function onReset() {
@@ -44,7 +44,7 @@ export default function ServiceImageAdd() {
     }
 
     const onCreate = () => {
-        if(idDV == "")
+        if(idDV === "")
         {
             message.error("Please, fill out all the fields!");
             return;
@@ -75,7 +75,7 @@ export default function ServiceImageAdd() {
             }
         } 
         else {
-            if(hinhAnh == ""){
+            if(hinhAnh === ""){
                 message.error("Please, input Image!");
                 return;
             }
@@ -124,7 +124,7 @@ export default function ServiceImageAdd() {
                             </Col>
                         </Row>
                         {
-                            isFile == true ? (
+                            isFile === true ? (
                                 <Row className="mb-15">
                                     <Col xs={6} md={6} lg={6}><b>Service Image File:</b></Col>
                                     <Col xs={18} md={18} lg={18}>

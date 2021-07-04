@@ -13,6 +13,7 @@ function IntroCus(props) {
             <img 
                 src="https://firebasestorage.googleapis.com/v0/b/fir-nativecity.appspot.com/o/slide%2FIMG_08.jpg?alt=media&token=ba97dcc9-3619-4044-8ad9-c54cce6cedcc" 
                 style={{ position: 'fixed', zIndex: '-1', width: '100vw', height: '92vh', filter: 'brightness(50%)' }} 
+                alt="bg"
             />
             <div style={{ height: '92vh' }} />
             <Row style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '98.9vw'}}>

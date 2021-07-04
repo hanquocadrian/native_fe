@@ -16,11 +16,8 @@ export default function ButtonSearch(props) {
     const [maxSLD, setmaxSLD] = useState(props.maxSLD);
     const [soLuongDat, setSoLuongDat] = useState(0);
     const [idLP, setidLP] = useState(props.idLP);
-    const [startDate, setStartDate] = useState(new Date(props.ngayDen));
-    const [endDate, setEndDate] = useState(new Date(props.ngayDi));
-    const [roomType, setRoomType] = useState([]);
-    const [roomTypeImages, setRoomTypeImages] = useState([]);
-    const [giaLP, setgiaLP] = useState(null);
+    const startDate = new Date(props.ngayDen);
+    const endDate = new Date(props.ngayDi);
 
     const dispatch = useDispatch();
 
@@ -28,10 +25,10 @@ export default function ButtonSearch(props) {
         setidLP(props.idLP);
         setmaxSLD(props.maxSLD);
         setSoLuongDat(0);
-    }, [props.idLP])
+    }, [props.idLP, props.maxSLD])
 
     const onSubmitAddToCart = () => { 
-        if(soLuongDat == 0) {
+        if(soLuongDat === 0) {
             return message.error("You only book over 0 rooms!!!");
         }
         console.log('combo: ', soLuongDat, idLP);
@@ -40,19 +37,16 @@ export default function ButtonSearch(props) {
         .then(LP => {
             if (LP.data) {
                 console.log('LP: ', LP.data)
-                setRoomType(LP.data);
                 var uri = url + urnRoomTypeImageIDLP(idLP);
                 getData(uri)
                 .then(hinhanhLP => {
                     if (hinhanhLP.data) {
                         console.log('Hinh anh LP: ', hinhanhLP.data);
-                        setRoomTypeImages(hinhanhLP.data);
                         var uri = url + urnRoomTypeRateIDLP(idLP);
                         getData(uri)
                         .then(rateLP => {
                             if (rateLP.data) {
                                 console.log(rateLP);
-                                setgiaLP(rateLP.data);
                                 var date_cart = {
                                     startDate: format(startDate, 'yyyy/MM/dd'),
                                     endDate: format(endDate, 'yyyy/MM/dd'),
@@ -69,13 +63,14 @@ export default function ButtonSearch(props) {
                                     slDat: parseInt(soLuongDat, 10)
                                 }
                                 console.log('objLP: ', obj);
+                                var arrItems = [];
+                                var actionSL = null;
                                 if (!localStorage.getItem('itemsShoppingCart')) {
                                     localStorage.setItem('dateArriveCart', JSON.stringify(date_cart));
-                                    var arrItems = [];
                                     arrItems.push(obj);
                                     localStorage.setItem('itemsShoppingCart', JSON.stringify(arrItems));
                                     // localStorage.setItem('slItemsShoppingCart', JSON.stringify(sl));
-                                    var actionSL = addCart(sl);
+                                    actionSL = addCart(sl);
                                     dispatch(actionSL);
                                     message.success("Added to cart successfully!!!");
                                     setSoLuongDat(0);
@@ -84,8 +79,8 @@ export default function ButtonSearch(props) {
                                     var test = sl + parseInt(JSON.parse(localStorage.getItem('slItemsShoppingCart')).sl, 10);
                                     if (test <= 5) {
                                         localStorage.setItem('dateArriveCart', JSON.stringify(date_cart));
-                                        var arrItems = JSON.parse(localStorage.getItem('itemsShoppingCart'));
-                                        var found = arrItems.find((object) => object.tenLP == obj.tenLP);
+                                        arrItems = JSON.parse(localStorage.getItem('itemsShoppingCart'));
+                                        var found = arrItems.find((object) => object.tenLP === obj.tenLP);
                                         if (found) {
                                             var index = arrItems.findIndex((object) => object.tenLP = obj.tenLP);
                                             obj.slDat += parseInt(arrItems[index].slDat,10);
@@ -98,7 +93,7 @@ export default function ButtonSearch(props) {
                                         sl += parseInt(JSON.parse(localStorage.getItem('slItemsShoppingCart')).sl, 10);
                                         console.log('soluong: ', sl);
                                         // localStorage.setItem('slItemsShoppingCart', JSON.stringify(sl));
-                                        var actionSL = addCart(sl);
+                                        actionSL = addCart(sl);
                                         dispatch(actionSL);
                                         message.success("Added to cart successfully!!!");
                                         setSoLuongDat(0);

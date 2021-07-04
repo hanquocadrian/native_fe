@@ -57,7 +57,7 @@ function CustomerStayAdd(props) {
                 console.log("res.response.data: ", res.response.data);
                 if(Array.isArray(res.response.data)){
                     res.response.data.map(err => {
-                        message.error(err.message);
+                        return message.error(err.message);
                     })
                 } else {
                     message.error(res.response.data);
@@ -130,7 +130,7 @@ function CustomerStayAdd(props) {
                                 </Select>
                             </Col>
                             {
-                                (selectNational == "other") && (
+                                (selectNational === "other") && (
                                     <>
                                         <Col xs={14} md={14} lg={14}>
                                             <Input value={ quocGia } onChange={ e => setQuocGia(e.target.value) } placeholder="National of customer stay" />

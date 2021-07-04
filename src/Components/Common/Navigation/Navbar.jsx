@@ -82,10 +82,10 @@ export default function Navbar() {
             </Link>
         </Menu.Item>
         <Menu.Item className="LinkNavCus">
-            <a onClick={ onLogout }>
-            <BiLogOut style={{fontSize: '20px', position: 'relative', top: '4px'}} />
-            <span style={{fontSize:"15px"}}> Logout</span>
-            </a>
+            <span onClick={ onLogout }>
+                <BiLogOut style={{fontSize: '20px', position: 'relative', top: '4px'}} />
+                <span style={{fontSize:"15px"}}> Logout</span>
+            </span>
         </Menu.Item>
         </Menu>
     );
@@ -143,7 +143,7 @@ export default function Navbar() {
                 <Col xs={20} md={12} lg={4} style={{ textAlign: "center", borderBottom: "1px solid #F0F0F0", height: "48px" }}>
                     <span className="LogoNavCus">
                         <Link to="/" className="animation-crimson">
-                            <div style={{ display: "inline-block", fontSize: "3.7vh" }}><b>NATIVE HOTEL</b></div>
+                            <div style={{ display: "inline-block", fontSize: "3.5vh", fontFamily: 'Georgia' }}><b>NATIVE HOTEL</b></div>
                         </Link>                        
                     </span>
                 </Col>

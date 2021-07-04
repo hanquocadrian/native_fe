@@ -16,7 +16,7 @@ function DailyRateUpd(props) {
     const [dataRoomTypes, setdataRoomTypes] = useState([]);     
 
 
-    const [idGTN, setidGTN] = useState(props.idGTN);
+    const idGTN = props.idGTN;
     const [ngayBatDau, setngayBatDau] = useState(new Date());
     const [giaMoiTuan, setgiaMoiTuan] = useState(0);
     const [idLP, setidLP] = useState('');
@@ -47,7 +47,7 @@ function DailyRateUpd(props) {
         } catch (error) {
             console.error(error);
         }
-    }, []);
+    }, [idGTN]);
     
     function onReset() {
         try {
@@ -88,7 +88,7 @@ function DailyRateUpd(props) {
             if(typeof res.response.data !== undefined){
                 console.log("res.response.data: ", res.response.data);
                 res.response.data.map(err => {
-                    message.error(err.message);
+                    return message.error(err.message);
                 })
                 return;
             }

@@ -12,9 +12,7 @@ import { ImCancelCircle } from 'react-icons/im'
 import { Link } from 'react-router-dom'
 
 function CustomerStayUpd(props) {
-    const nationals = ['America', 'Paris', 'Netherlands', 'England', 'Singapore', 'VietNam', 'ThaiLand', 'other'];
     const [selectNational, setSelectNational] = useState('Paris');
-    
     const [idKHO, setIdKHO] = useState(-1);
     const [CMND, setCMND] = useState('');
     const [Passport, setPassport] = useState('');
@@ -25,6 +23,7 @@ function CustomerStayUpd(props) {
     const [ngaySinh, setNgaySinh] = useState(new Date());
 
     useEffect(() => {
+        const nationals = ['America', 'Paris', 'Netherlands', 'England', 'Singapore', 'VietNam', 'ThaiLand', 'other'];
         var uri = url + urnCustomerStayID(props.idKHO);
         getData(uri)
         .then(res => {
@@ -81,7 +80,7 @@ function CustomerStayUpd(props) {
             if(typeof res.response.data !== undefined){
                 console.log("res.response.data: ", res.response.data);
                 res.response.data.map(err => {
-                    message.error(err.message);
+                    return message.error(err.message);
                 })
                 return;
             }
@@ -151,7 +150,7 @@ function CustomerStayUpd(props) {
                                 </Select>
                             </Col>
                             {
-                                (selectNational == "other") && (
+                                (selectNational === "other") && (
                                     <>
                                         <Col xs={14} md={14} lg={14}>
                                             <Input value={ quocGia } onChange={ e => setQuocGia(e.target.value) } placeholder="National of customer stay" />

@@ -2,7 +2,6 @@ import { Col, Dropdown, Menu, Row } from 'antd'
 import React from 'react'
 import '../Navbar.css'
 import { Link } from 'react-router-dom';
-import { RiPhoneLine } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
 import { url } from 'Api/url';
 import axios from 'axios';
@@ -72,7 +71,7 @@ export default function NavProfile() {
                 <Col xs={20} md={12} lg={6} style={{ textAlign: "center", borderBottom: "1px solid #F0F0F0", height: "48px" }}>
                     <span className="LogoNavCus">
                         <Link to="/">   
-                            <div style={{ display: "inline-block", fontSize: "3.7vh" }}><b>NATIVE HOTEL</b></div>
+                            <div style={{ display: "inline-block", fontSize: "3.7vh", fontFamily: 'Georgia' }}><b>NATIVE HOTEL</b></div>
                         </Link>                        
                     </span>
                 </Col>

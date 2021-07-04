@@ -7,7 +7,7 @@ import { url } from '../../../../Api/url';
 import { getData } from 'Api/api';
 
 export default function ServiceDetail(props) {
-    const [idDV, setidDV] = useState(props.idDV);
+    const idDV = props.idDV;
     const [tenDV, settenDV] = useState('');
     const [moTaTD, setmoTaTD] = useState('');
     const [moTaCT, setmoTaCT] = useState('');
@@ -26,7 +26,7 @@ export default function ServiceDetail(props) {
             setdonGia(res.data.donGia);
         })
         .catch(err => console.log(err));
-    }, []);
+    }, [idDV]);
 
     useEffect(() => {
         var uri = url + "/api/service-image/get_by_iddv/" + idDV;
@@ -35,7 +35,7 @@ export default function ServiceDetail(props) {
             setimageService(res.data);
         })
         .catch(err => console.log(err));
-    }, []);
+    }, [idDV]);
 
     return (
         <>
@@ -69,7 +69,7 @@ export default function ServiceDetail(props) {
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Service title">{tenDV}</Descriptions.Item>
                                 <br/>
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Price">{donGia} $</Descriptions.Item>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Type">{hinhThuc == 1 ? "Per booking" : (hinhThuc == 2 ? "Per person per date" : "Free")}</Descriptions.Item>
+                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Type">{hinhThuc === 1 ? "Per booking" : (hinhThuc === 2 ? "Per person per date" : "Free")}</Descriptions.Item>
                                 <br/>
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Title description " span={3}>{moTaTD}</Descriptions.Item>
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Detail description" span={3}>{moTaCT}</Descriptions.Item>

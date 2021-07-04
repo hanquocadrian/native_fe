@@ -25,7 +25,7 @@ function ItemSlick(props) {
         } catch (error) {
             console.log(error);
         }
-    },[])
+    },[props.idLP])
 
     return (
         <div style={{ margin: '30px', width: '300px', marginLeft: '50px' }}>

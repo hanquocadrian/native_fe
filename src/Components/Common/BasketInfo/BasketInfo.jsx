@@ -1,10 +1,9 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import { Row, Col, Modal, Button, Image, message } from 'antd';
+import { Row, Col, Modal, Button, Image } from 'antd';
 import { Link } from 'react-router-dom';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { format, differenceInDays } from 'date-fns';
+import { format } from 'date-fns';
 
 import { deleteCart } from 'ReduxConfig/Actions/cart';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +16,6 @@ import { TiShoppingCart } from "react-icons/ti";
 import { GrDocumentLocked } from "react-icons/gr";
 import { RiShoppingBasket2Line, RiPercentLine } from "react-icons/ri";
 import { AiOutlineWifi } from "react-icons/ai";
-import { BsCalendar } from 'react-icons/bs';
 import { ImCancelCircle } from 'react-icons/im';
 
 import './BasketInfo.css';
@@ -41,7 +39,7 @@ export default function BasketInfo(props) {
             });
             setTotalPrice(ttp);
         }
-    }, []);
+    }, [daysDiff, rooms]);
 
     function showRooms() {
         var lst = rooms.map((item, index) =>
@@ -86,7 +84,7 @@ export default function BasketInfo(props) {
 
     const deleteItemsShoppingCart = (n) => {
         console.log(rooms);
-        var index = rooms.findIndex(r => r.idLP == n);
+        var index = rooms.findIndex(r => r.idLP === n);
         // setslDat(parseInt(slDat, 10) - parseInt(rooms[index].slDat, 10));
         // return console.log('soluongphong: ', rooms[index].slDat);
         
@@ -101,8 +99,8 @@ export default function BasketInfo(props) {
         // }
         var actionDelSL = deleteCart(rooms[index].slDat);
         dispatch(actionDelSL);
-        var newRooms = rooms.filter(room => room.idLP != n);
-        setRooms(rooms.filter(room => room.idLP != n))
+        var newRooms = rooms.filter(room => room.idLP !== n);
+        setRooms(rooms.filter(room => room.idLP !== n))
         console.log('rooms: ', newRooms);
         var ttp = 0;
         newRooms.forEach(room => {
@@ -110,7 +108,7 @@ export default function BasketInfo(props) {
         });
         console.log('ttp: ', ttp);
         setTotalPrice(ttp);
-        if (rooms.length == 0) {
+        if (rooms.length === 0) {
             localStorage.removeItem('itemsShoppingCart');
         }
         else {

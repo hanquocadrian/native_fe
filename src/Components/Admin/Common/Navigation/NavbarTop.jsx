@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from 'react'
+import React from 'react'
 import { Col, Dropdown, Menu, Row } from 'antd'
 import { BiUser } from "react-icons/bi";
 import { RiLogoutBoxLine, RiAccountPinBoxLine  } from "react-icons/ri";
@@ -54,10 +54,10 @@ export default function NavbarTop(props) {
                         <Menu mode="horizontal">
                             <Menu.Item>
                                 <Dropdown overlay={user}>
-                                    <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                                    <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                                         <span style={{fontSize:"18px", fontWeight: "bolder"}}>Hello, {username} </span>
                                         <BiUser style={{fontSize: '20px', position: 'relative', top: '4px', fontWeight: "bolder"}}/>
-                                    </a>
+                                    </span>
                                 </Dropdown>
                             </Menu.Item>
                         </Menu>
