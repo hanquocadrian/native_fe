@@ -11,7 +11,12 @@ import React, { useEffect, useState } from 'react'
 import { ImCancelCircle } from 'react-icons/im'
 import { Link } from 'react-router-dom'
 
+const initialization = {
+    nationals: ['America', 'Paris', 'Netherlands', 'England', 'Singapore', 'VietNam', 'ThaiLand', 'other']
+}
+
 function CustomerStayUpd(props) {
+    const nationals = initialization.nationals;
     const [selectNational, setSelectNational] = useState('Paris');
     const [idKHO, setIdKHO] = useState(-1);
     const [CMND, setCMND] = useState('');
@@ -23,7 +28,6 @@ function CustomerStayUpd(props) {
     const [ngaySinh, setNgaySinh] = useState(new Date());
 
     useEffect(() => {
-        const nationals = ['America', 'Paris', 'Netherlands', 'England', 'Singapore', 'VietNam', 'ThaiLand', 'other'];
         var uri = url + urnCustomerStayID(props.idKHO);
         getData(uri)
         .then(res => {
@@ -37,7 +41,7 @@ function CustomerStayUpd(props) {
             setNgaySinh(new Date(res.data.ngaySinh));
             setSelectNational(nationals.includes(res.data.quocGia) ? res.data.quocGia : 'other');
         });
-    }, [props.idKHO]);
+    }, [nationals ,props.idKHO]);
     
     function onReset() {
         var uri = url + urnCustomerStayID(props.idKHO);
