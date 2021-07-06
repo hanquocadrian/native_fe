@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import CurrencyFormat from 'react-currency-format';
-import BtnDeposit from '../ButtonPay/BtnDeposit';
+import BtnDeposit from '../Button/BtnDeposit';
 import { Link } from 'react-router-dom';
 
 function Bill(props) {
@@ -102,7 +102,7 @@ function Bill(props) {
                 <>
                     { 
                         record.tinhTrang === 1 && (
-                            <BtnDeposit bill={record} onRefesh={onRefesh} />
+                            <BtnDeposit bill={record} onRefesh={onRefesh} onCanUpdateRooms={()=>{}} />
                         ) 
                     }
                     {

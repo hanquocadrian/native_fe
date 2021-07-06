@@ -54,3 +54,5 @@ export const urnPayer = '/api/payer/';
 
 export const urnBillID = id => '/api/bill/' + id;
 export const urnBillsByIDKHD = id => '/api/bill/get-bills-by-id-customer-booking/' + id;
+
+export const urnBillDetailID = id => '/api/detail-bill/' + id;

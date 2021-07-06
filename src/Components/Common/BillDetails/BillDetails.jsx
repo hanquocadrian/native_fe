@@ -8,12 +8,14 @@ import { Col, Row, Table, Descriptions, Progress, Button } from 'antd';
 import { columns } from './moduleColumn';
 import CurrencyFormat from 'react-currency-format';
 import { format } from 'date-fns';
-import BtnDeposit from '../ButtonPay/BtnDeposit';
+import BtnDeposit from '../Button/BtnDeposit';
+import BtnUpdateRooms from '../Button/BtnUpdateRooms';
 
 function BillDetails(props) {
     const [bill, setBill] = useState(null);
     const [dataBillDetails, setDataBillDetails] = useState([]);
     const [isRefesh, setIsRefesh] = useState(false);
+    const [isCanUpdateRoom, setIsCanUpdateRoom] = useState(false);
 
     useEffect(() => {
         var uri = url + urnBillID(props.idPTT);
@@ -22,18 +24,28 @@ function BillDetails(props) {
 
     useEffect(() => {
         var uri = url + urnBillDetailsByIdBill(props.idPTT);
-        getData(uri).then(res => setDataBillDetails(res.data));
+        getData(uri).then(res =>{ console.log("load:", res.data); setDataBillDetails(res.data); });
     }, [props.idPTT]);
 
     const onRefesh = (rf = false) => {
         // console.log("onRefesh", isRefesh);
         setIsRefesh(rf);
+    }
 
+    const onCanUpdateRooms = (can = false) => {
+        setIsCanUpdateRoom(can);
+    }
+
+    const onRefeshUpdate = (rf = false) => {
+        // console.log("new data: ", data);
+        if(rf === true){
+            props.propsParent.history.push('/user/bills');
+            setIsCanUpdateRoom(false);            
+        }
     }
 
     return (
         <div>
-            { console.log(bill) }
             <Row style={{ fontFamily: 'Georgia' }}>
                 <Col xs={4} md={4} lg={4}></Col>
                 <Col xs={16} md={16} lg={16}><h1><b>THE INVOICE</b></h1></Col>
@@ -47,7 +59,7 @@ function BillDetails(props) {
                     <Descriptions
                         // title={tenLP}
                         bordered
-                        column={{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }}
+                        column={{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }}
                     >
                         <Descriptions.Item labelStyle={{fontWeight: 'bolder', width: '150px'}} label="ID bill">{ bill && (bill.idPTT || 'Non') }</Descriptions.Item>
                         <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="ID Booking">{ bill && (bill.idDDP || 'Non')}</Descriptions.Item>
@@ -59,7 +71,10 @@ function BillDetails(props) {
                         <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="End date">{ format(new Date(bill && bill.ngayDi), 'dd/MM/yyyy')}</Descriptions.Item>
                         <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Status">
                             <Row>
-                                <Col xs={20} md={20} lg={20}>
+                                <Col xs={10} md={0} lg={0}>
+                                    <Progress percent={75} steps={3} showInfo={false} />
+                                </Col>
+                                <Col xs={0} md={14} lg={20}>
                                     <Progress
                                         strokeColor={{
                                             '0%': '#108ee9',
@@ -70,7 +85,7 @@ function BillDetails(props) {
                                         showInfo={false}
                                     />
                                 </Col>
-                                <Col xs={4} md={4} lg={4} style={{textAlign:'center'}}>
+                                <Col xs={14} md={10} lg={4} style={{textAlign:'center'}}>
                                     { bill && (bill.tinhTrang === 1 ? 'Unpaid' : bill.tinhTrang === 2 ? 'Deposited' : 'Paid') } 
                                 </Col>
                             </Row>
@@ -142,22 +157,42 @@ function BillDetails(props) {
                 <Col xs={5} md={5} lg={5} />
             </Row>
             <Row className="mb-30">
-                <Col xs={5} md={5} lg={5} />
-                <Col xs={14} md={14} lg={14} style={{ textAlign:'center' }}>
-                    { 
-                        bill && bill.tinhTrang === 1 && (
-                            <BtnDeposit bill={bill} onRefesh={onRefesh} />
-                        ) 
-                    }
-                    {
-                        bill && bill.tinhTrang === 2 && (
-                            <>
-                                <b><i>Wait pay at hotel</i></b>
-                            </>
-                        )
-                    }
-                </Col>
-                <Col xs={5} md={5} lg={5} />
+                <Col xs={6} md={6} lg={9} />
+                {
+                    bill && bill.tinhTrang === 2 && (
+                        <Col xs={12} md={12} lg={6} style={{ textAlign:'center' }}>
+                            <b><i>Wait pay at hotel</i></b>
+                        </Col>
+                    )
+                }
+                {
+                    bill && bill.tinhTrang === 1 && (
+                        <>
+                            {
+                                isCanUpdateRoom ? (
+                                    <>
+                                        <Col xs={6} md={6} lg={3} style={{ textAlign:'center' }}>
+                                            <BtnDeposit bill={bill} onRefesh={onRefesh} onCanUpdateRooms={onCanUpdateRooms} />
+                                        </Col>
+                                        <Col xs={6} md={6} lg={3} style={{ textAlign:'center' }}>
+                                            <BtnUpdateRooms bill={bill} billDetails={ dataBillDetails } onRefeshUpdate={onRefeshUpdate} />
+                                        </Col>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Col xs={12} md={12} lg={6} style={{ textAlign:'center' }}>
+                                            <BtnDeposit bill={bill} onRefesh={onRefesh} onCanUpdateRooms={onCanUpdateRooms} />
+                                        </Col>
+                                    </>
+                                )
+                            }
+                            
+                        </>
+
+                    )
+                }
+                
+                <Col xs={6} md={6} lg={9} />
             </Row>
         </div>
     )
