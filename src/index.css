@@ -122,6 +122,14 @@ a:hover {
   margin-bottom: 15px;
 }
 
+.pt-15{
+  padding-top: 15px;
+}
+
+.pb-15{
+  padding-bottom: 15px;
+}
+
 .mt-30{
   margin-top: 30px;
 }
