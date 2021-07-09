@@ -12,7 +12,7 @@ export default function PageBookingRoomProfile_Detail(props) {
         <div style={{ overflow: 'hidden', width: '100vw' }}>
             <NavProfile />
             <div style={{ backgroundColor: 'white', minHeight: '60vh', paddingTop: '30px'}}>
-                <BookingRoomProfile_Detail idDDP={props.match.params.id}/>
+                <BookingRoomProfile_Detail propsParent={props} idDDP={props.match.params.id}/>
             </div>
             <Footer />
         </div>

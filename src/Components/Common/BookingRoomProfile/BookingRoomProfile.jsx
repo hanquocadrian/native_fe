@@ -89,7 +89,7 @@ export default function BookingRoomProfile(props) {
             render: (record) => (
                 <>
                     <Link to={ '/user/your-booking-room-detail/' + record.idDDP }><Tooltip placement="top" title="Detail"><Button className="btn-detail"><BiDetail/></Button></Tooltip></Link>
-                    {
+                    {/* {
                         record.trangThaiDat === 0 && <Link to={ '/about' + record.idDDP }><Tooltip placement="top" title="Create bill"><Button className="btn-edit"><IoCreateOutline/></Button></Tooltip></Link>
                     }
                     {
@@ -102,7 +102,7 @@ export default function BookingRoomProfile(props) {
                         >
                             <Tooltip placement="top" title="Cancel"><Button className="btn-delete"><ImCancelCircle/></Button></Tooltip>
                         </Popconfirm>
-                    }
+                    } */}
                 </>
             )
         }
@@ -122,7 +122,7 @@ export default function BookingRoomProfile(props) {
         <>
             <Row>
                 <Col xs={24} md={24} lg={24}>
-                    <h1 className="text-center"><b>BOOKING ROOM INFORMATION</b></h1> 
+                    <h1 className="text-center" style={{ fontFamily: 'Georgia' }}><b>BOOKING ROOM INFORMATION</b></h1> 
                     <Row className="mb-15 mt-15">
                         <Col xs={3} md={3} lg={3} />
                         <Col xs={18} md={18} lg={18} className="text-center">

@@ -6,14 +6,15 @@ import { getData, putData, postData } from 'Api/api';
 import { url } from 'Api/url';
 import { urnKhdID, urnUserID, urnBooking, urnBookingDetail } from 'Api/urn';
 import { format } from 'date-fns';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteCart } from 'ReduxConfig/Actions/cart';
 
 import { FaHotel } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 
 import './BookingInfo.css';
 
-export default function BookingInfo() {
+export default function BookingInfo(props) {
     //KHD
     const idKHD = sessionStorage.getItem('customerAccount') ? JSON.parse(sessionStorage.getItem('customerAccount')).idKHD : '';
     const [tenKH, setTenKH] = useState('');
@@ -38,6 +39,8 @@ export default function BookingInfo() {
     const dateA = useSelector(state => state.chooseDatesReducer.dateA);
     const dateB = useSelector(state => state.chooseDatesReducer.dateB);
     const daysDiff = useState(useSelector(state => state.chooseDatesReducer.daysDiff));
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         var uri = url + urnUserID(idTK);
@@ -152,7 +155,7 @@ export default function BookingInfo() {
                         var dataDDP = {
                             ngayDen: dateA,
                             ngayDi: dateB,
-                            soDem: daysDiff,
+                            soDem: diff,
                             ngayDatPhong: format(new Date(), "yyyy/MM/dd"),
                             tongThanhTien: totalPrice,
                             trangThaiDat: 0,
@@ -184,7 +187,12 @@ export default function BookingInfo() {
                                 })
                             }
                             message.success("Booking successfully, wait a few seconds", 2).then(()=>{
+                                localStorage.removeItem('itemsShoppingCart');
+                                localStorage.removeItem('dateArriveCart');
+                                var actionDelSL = deleteCart(slPhong);
+                                dispatch(actionDelSL);
                                 onReset();
+                                return props.propsParent.history.push('/user/your-booking-room');
                             })
                         })
                     }

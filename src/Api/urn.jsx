@@ -52,5 +52,9 @@ export const urnChangeStatusToDepositBill = id => '/api/bill/change-status-to-de
 
 export const urnPayer = '/api/payer/';
 
+export const urnBill = '/api/bill/';
 export const urnBillID = id => '/api/bill/' + id;
 export const urnBillsByIDKHD = id => '/api/bill/get-bills-by-id-customer-booking/' + id;
+export const urnBillByIDDDP = id => '/api/bill/get-bill-by-idDDP/' + id;
+
+export const urnBillDetail = '/api/detail-bill';

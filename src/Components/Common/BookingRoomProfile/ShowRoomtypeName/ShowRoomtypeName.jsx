@@ -21,7 +21,7 @@ export default function ShowRoomtypeName(props) {
     return (
         <>
             <Descriptions
-                title={tenLP}
+                title={<span style={{ fontFamily: 'Georgia' }}>{tenLP}</span>}
                 bordered
                 column={{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }}
             >

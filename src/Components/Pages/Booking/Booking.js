@@ -5,7 +5,7 @@ import Navbar from '../../Common/Navigation/Navbar';
 import Footer from '../../Common/Footer/Footer';
 import BookingInfo from '../../Common/BookingInfo/BookingInfo';
 
-export default function Booking() {
+export default function Booking(props) {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])
@@ -13,7 +13,7 @@ export default function Booking() {
     return (
         <div  style={{ overflow: "hidden", width: "98.9vw" }}>
             <Navbar />
-            <BookingInfo />
+            <BookingInfo propsParent={props}/>
             <Footer />
         </div>
     )
