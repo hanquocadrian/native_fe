@@ -36,6 +36,14 @@ export const urnKhdID = id => '/api/khd/' + id;
 export const urnCustomerStay = '/api/customer-stay/';
 export const urnCustomerStayID = id => '/api/customer-stay/' + id;
 
+export const urnBooking = '/api/booking/';
+export const urnBookingID = id => '/api/booking/' + id;
+export const urnBookingIDKHD = id => '/api/booking/get_by_idKHD/' + id;
+
+export const urnBookingDetail = '/api/detail-booking/';
+export const urnBookingDetailID = id => '/api/detail-booking/' + id;
+export const urnBookingDetailIDDDP = id => '/api/detail-booking/get-booking-detail-by-idDDP/' + id;
+
 export const urnRoomsByDatesIdRoomTypeNumber = '/api/room/get-rooms-by-dates-idlp-number';
 export const urnBookingDetailsByIdBooking = id => '/api/detail-booking/get-booking-detail-by-idDDP/' + id;
 export const urnBillDetailsByIdBill = id => '/api/detail-bill/get-bill-detail-by-idPTT/' + id;
@@ -46,3 +54,5 @@ export const urnPayer = '/api/payer/';
 
 export const urnBillID = id => '/api/bill/' + id;
 export const urnBillsByIDKHD = id => '/api/bill/get-bills-by-id-customer-booking/' + id;
+
+export const urnBillDetailID = id => '/api/detail-bill/' + id;

@@ -23,7 +23,10 @@ function IntroCus(props) {
                         <Link to={"/user/profile/" + idTK} className="animation-star">
                             <span className="user-name" style={{ color: 'white', fontSize: '65px' }}>✨ { displayName || 'Dear Customer'} ✨</span>
                         </Link>
-                        <hr style={{ color: 'white'}} />
+
+                    </p>
+                    <hr style={{ color: 'white'}} />
+                    <p className="text-center">
                         <span style={{ color: 'white', fontSize: '20px' }}>{props.intro}</span>
                     </p>
                 </Col>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import { Row, Col, Modal, Button, Image } from 'antd';
+import { Row, Col, Modal, Button, Image, message } from 'antd';
 import { Link } from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
@@ -114,6 +114,11 @@ export default function BasketInfo(props) {
         else {
             localStorage.setItem('itemsShoppingCart', JSON.stringify(newRooms));
         }
+    }
+
+    const showError = () => {
+        message.error('You have to log in account!!!');
+        return;
     }
 
     if (totalAmountInCart === 0) {
@@ -252,7 +257,11 @@ export default function BasketInfo(props) {
                     <Row style={{ paddingTop:'2%', fontSize:'15px', fontFamily:'Georgia', fontWeight:'revert'}} className="button-Continue">
                         <Col xs={0} md={2} lg={8} /> 
                         <Col xs={0} md={20} lg={8} style={{textAlign:'center'}}>
-                            <Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button>
+                            {
+                                sessionStorage.getItem('customerAccount') ?
+                                <Link to="/user/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link> :
+                                <Button size="large" style={{width:'200px'}} onClick={ showError }><b>CONTINUE</b></Button>
+                            }
                         </Col>
                         <Col xs={0} md={2} lg={8} /> 
                     </Row>
@@ -378,7 +387,11 @@ export default function BasketInfo(props) {
                     <Row style={{ paddingTop:'2%', fontSize:'15px', fontFamily:'Georgia', fontWeight:'revert'}} className="button-Continue">
                         <Col xs={2} md={0} lg={0} />
                         <Col xs={20} md={0} lg={0} style={{textAlign:'center'}}>
-                            <Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button>
+                            {
+                                sessionStorage.getItem('customerAccount') ? 
+                                <Link to="/user/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link> :
+                                <Button size="large" style={{width:'200px'}} onClick={ showError }><b>CONTINUE</b></Button>
+                            }
                         </Col>
                         <Col xs={2} md={0} lg={0} />
                     </Row>

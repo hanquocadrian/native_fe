@@ -42,7 +42,7 @@ export default function NavProfile() {
     const dd_booking = (
         <Menu style={{marginTop: '3vh'}}>
             <Menu.Item  className="LinkNavCus">
-                <Link to="/about"><span style={{fontSize:"15px"}}>Booking Room</span></Link>
+                <Link to="/user/your-booking-room"><span style={{fontSize:"15px"}}>Booking Room</span></Link>
             </Menu.Item>
             <Menu.Item className="LinkNavCus">
                 <Link to="/about"><span style={{fontSize:"15px"}}>Booking Service</span></Link>
