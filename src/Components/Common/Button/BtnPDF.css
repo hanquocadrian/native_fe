@@ -1,0 +1,54 @@
+.clearfix:after {
+    display: inline-block;
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#company a, #client a {
+  color: crimson;
+  text-decoration: none;
+}
+
+#company a:hover, #client a:hover  {
+  color: black !important;
+  text-decoration: none;
+}
+
+header {
+  padding: 10px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #aaaaaa;
+}
+
+#logo {
+  float: left;
+  margin-top: 8px;
+}
+
+#logo img {
+  height: 70px;
+}
+
+#company {
+  float: right;
+  text-align: right;
+}
+
+h2.name {
+  font-size: 1.4em;
+  font-weight: normal;
+  margin: 0;
+}
+
+#client {
+  padding-left: 6px;
+  border-left: 6px solid crimson;
+  float: left;
+}
+
+#client .to, #company .to{
+  color: #777777;
+}
