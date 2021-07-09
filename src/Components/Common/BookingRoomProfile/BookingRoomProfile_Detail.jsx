@@ -40,7 +40,7 @@ export default function BookingRoomProfile_Detail(props) {
             settrangThaiDat(resDDP.data.trangThaiDat);
             setidKHD(resDDP.data.idKHD);
         })
-    }, []);
+    }, [idDDP]);
 
     useEffect(() => {
         var uri1 = url + urnBookingDetailIDDDP(idDDP);
@@ -55,6 +55,7 @@ export default function BookingRoomProfile_Detail(props) {
                     setarrLP(arrLP.push(resLP.data));
                     // array.push(resLP.data);
                 })
+                return 1;
             })
         })
     }, []);
@@ -69,7 +70,7 @@ export default function BookingRoomProfile_Detail(props) {
             }
             console.log('created bill: ', createdBill);
         })
-    }, []);
+    }, [idDDP]);
 
     function showBookingDetail() {
         console.log('dataCTDDP: ', dataCTDDP);
@@ -152,8 +153,8 @@ export default function BookingRoomProfile_Detail(props) {
                         })
                     }
                 })
+                return 1;
             })
-            return 1;
         })
     }
 

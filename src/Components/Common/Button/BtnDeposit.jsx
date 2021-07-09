@@ -77,12 +77,15 @@ function BtnDeposit(props) {
                                         // console.log('Room in bill detail: ', billDetail);
                                         if(!arrRoom.includes(billDetail.maPhong)) { 
                                             setIsLoading(false);
-                                            return notification['warning']({
-                                                message: `Can't deposit!`,
-                                                description:
-                                                    `Sorry! You can't deposit this bill, because some rooms in this bill had been someone deposit!`,
-                                                duration: 7
-                                            });
+                                            props.onCanUpdateRooms(true);
+                                            return notification['warning'](
+                                                {
+                                                    message: `Can't deposit!`,
+                                                    description:
+                                                        `Sorry! You can't deposit this bill, because some rooms in this bill had been someone deposit!`,
+                                                    duration: 7
+                                                }
+                                            );
                                         }  
                                         if(countBillD === 0){ 
                                             // console.log('có thể')

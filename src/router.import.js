@@ -7,10 +7,12 @@ import Service from './Components/Pages/HotelService/HotelService';
 import Room from './Components/Pages/Room/Room';
 import Basket from './Components/Pages/Basket/Basket';
 import PageProfile from './Components/Pages/Profile/PageProfile';
-import PageBill from 'Components/Pages/Bill/PageBill';
+
 import PageBooking from './Components/Pages/Booking/Booking';
 import PageBookingRoomProfile from './Components/Pages/BookingRoomProfile/PageBookingRoomProfile';
 import PageBookingRoomProfile_Detail from './Components/Pages/BookingRoomProfile/BookingRoomProfileDetail/PageBookingRoomProfile_Detail';
+
+import PageBill from 'Components/Pages/Bill/PageBill';
 import PageBillDetails from 'Components/Pages/Bill/BillDetails/PageBillDetails';
 
 // Admin
@@ -62,8 +64,7 @@ import AdPageCustomerStayUpd from 'Components/Admin/Pages/CustomerStay/Update/Pa
 import Error from './Components/Admin/Pages/Error/Error';
 
 export { 
-    ProtectedCusRoute, Home, Login, About, Service, Room, Basket, PageProfile, PageBill, PageBooking, PageBookingRoomProfile, PageBookingRoomProfile_Detail, PageBillDetails,
+    ProtectedCusRoute, Home, Login, About, Service, Room, Basket, PageProfile, PageBill, PageBillDetails, PageBooking, PageBookingRoomProfile, PageBookingRoomProfile_Detail,
     ProtectedRoute, AdLogin, AdHome, AdAbout, AdSlider, AdPageAdmin, AdPageAdminAdd, AdPageAdminUpd, AdPageRoomType, AdPageRoomTypeDetail, AdPageRoomTypeAdd, AdPageRoomTypeUpd, AdPageRoomTypeImage, AdPageRoomTypeImageAdd, AdPageRoomTypeImageUpd, AdService, AdPageServiceAdd, AdPageServiceDetail, AdPageServiceUpd, AdPageServiceImage, AdPageServiceImageAdd, AdPageServiceImageUpd, AdPageDailyRate, AdPageDailyRateAdd, AdPageDailyRateUpd, AdPageSpecialRate, AdPageSpecialRateAdd, AdPageSpecialRateUpd, AdPageRoom, AdPageRoomAdd, AdPageRoomUpd, AdPageCustomerStay, AdPageCustomerStayAdd , AdPageCustomerStayUpd,
-
     Error,
 };

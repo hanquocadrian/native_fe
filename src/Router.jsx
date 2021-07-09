@@ -20,9 +20,11 @@ export default class Router extends Component {
 
                         {/* Customer Auth */}
                         <Components.ProtectedCusRoute exact path='/user/profile/:id' component={ Components.PageProfile } />
+
                         <Components.ProtectedCusRoute exact path='/user/your-booking' component={ Components.PageBooking } />
                         <Components.ProtectedCusRoute exact path='/user/your-booking-room' component={ Components.PageBookingRoomProfile } />
                         <Components.ProtectedCusRoute exact path='/user/your-booking-room-detail/:id' component={ Components.PageBookingRoomProfile_Detail } />
+                        
                         <Components.ProtectedCusRoute exact path='/user/bills' component={ Components.PageBill } />
                         <Components.ProtectedCusRoute exact path='/user/bill-details/:id' component={ Components.PageBillDetails } />
 

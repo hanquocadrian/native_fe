@@ -14,6 +14,10 @@ import { IoIosArrowForward } from "react-icons/io";
 
 import './BookingInfo.css';
 
+const initialization = {
+    rooms: localStorage.getItem('itemsShoppingCart') ? JSON.parse(localStorage.getItem('itemsShoppingCart')) : [],
+};
+
 export default function BookingInfo(props) {
     //KHD
     const idKHD = sessionStorage.getItem('customerAccount') ? JSON.parse(sessionStorage.getItem('customerAccount')).idKHD : '';
@@ -29,7 +33,7 @@ export default function BookingInfo(props) {
     const [title, setTitle] = useState('');
     const [loaiTaiKhoan, setLoaiTaiKhoan] = useState(0);
     //CART
-    const rooms = localStorage.getItem('itemsShoppingCart') ? JSON.parse(localStorage.getItem('itemsShoppingCart')) : [];
+    const rooms = initialization.rooms;
     const startDate = localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).startDate): null;
     const endDate = localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).endDate) : null;
     const diff = localStorage.getItem('dateArriveCart') ? JSON.parse(localStorage.getItem('dateArriveCart')).days_diff : 0;
@@ -38,7 +42,7 @@ export default function BookingInfo(props) {
 
     const dateA = useSelector(state => state.chooseDatesReducer.dateA);
     const dateB = useSelector(state => state.chooseDatesReducer.dateB);
-    const daysDiff = useState(useSelector(state => state.chooseDatesReducer.daysDiff));
+    // const daysDiff = useState(useSelector(state => state.chooseDatesReducer.daysDiff));
 
     const dispatch = useDispatch();
 
@@ -64,7 +68,7 @@ export default function BookingInfo(props) {
                 setPassport(resKHD.data[0].Passport);
             })
         });
-    }, []);
+    }, [idTK, idKHD]);
 
     useEffect(() => {
         if (rooms != null) {
@@ -74,7 +78,7 @@ export default function BookingInfo(props) {
             });
             setTotalPrice(ttp);
         }
-    }, []);
+    }, [rooms, diff]);
 
     function showRooms() {
         var lst = rooms.map((item, index) =>
@@ -184,6 +188,7 @@ export default function BookingInfo(props) {
                                             return;
                                         }
                                     })
+                                    return 1;
                                 })
                             }
                             message.success("Booking successfully, wait a few seconds", 2).then(()=>{
@@ -205,7 +210,7 @@ export default function BookingInfo(props) {
                 console.log("res.response.data: ", resKHD.response.data);
                 if(Array.isArray(resKHD.response.data)){
                     resKHD.response.data.map(err => {
-                        message.error(err.message);
+                        return message.error(err.message);
                     })                    
                 } 
                 else {

@@ -58,3 +58,4 @@ export const urnBillsByIDKHD = id => '/api/bill/get-bills-by-id-customer-booking
 export const urnBillByIDDDP = id => '/api/bill/get-bill-by-idDDP/' + id;
 
 export const urnBillDetail = '/api/detail-bill';
+export const urnBillDetailID = id => '/api/detail-bill/' + id;
