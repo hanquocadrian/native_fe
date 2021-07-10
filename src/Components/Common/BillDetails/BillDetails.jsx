@@ -41,7 +41,9 @@ function BillDetails(props) {
     const onRefeshUpdate = (rf = false) => {
         // console.log("new data: ", data);
         if(rf === true){
-            props.propsParent.history.push('/user/bills');
+            var uri = url + urnBillDetailsByIdBill(props.idPTT);
+            getData(uri).then(res =>{ console.log("load:", res.data); setDataBillDetails(res.data); });
+            // props.propsParent.history.push('/user/bills');
             setIsCanUpdateRoom(false);            
         }
     }

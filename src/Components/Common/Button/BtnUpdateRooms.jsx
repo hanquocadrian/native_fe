@@ -1,4 +1,4 @@
-import { Button, Spin, Popconfirm, message } from 'antd'
+import { Button, Spin, Popconfirm } from 'antd'
 import { putData } from 'Api/api';
 import { postData } from 'Api/api';
 import { getData } from 'Api/api';
@@ -61,16 +61,16 @@ function BtnUpdateRooms(props) {
 
                     if(count1 === arrCTDDP.length){
                         console.log('kq cuối: ', arrCTPTTnew);
-                        var count2 = 0;
+                        // var count2 = 0;
                         arrCTPTTnew.map((item)=>{
                             uri = url + urnBillDetailID(item.idCTPTT);
                             putData(uri, item).then(res => {
-                                count2++;
-                                if(count2 === arrCTPTTnew.length){
-                                    message.success(`You can deposited 30% again for idBill: ${idPTT}, thank you!`, 5);
+                                // count2++;
+                                // if(count2 === arrCTPTTnew.length){
+                                    // message.success(`You can deposited 30% again for idBill: ${idPTT}, thank you!`, 5);
                                     props.onRefeshUpdate(true);
                                     setIsLoading(false);                                    
-                                }
+                                // }
                             });
                             return 1;
                         })
