@@ -89,20 +89,6 @@ export default function BookingRoomProfile(props) {
             render: (record) => (
                 <>
                     <Link to={ '/user/your-booking-room-detail/' + record.idDDP }><Tooltip placement="top" title="Detail"><Button className="btn-detail"><BiDetail/></Button></Tooltip></Link>
-                    {
-                        record.trangThaiDat === 0 && <Link to={ '/about' + record.idDDP }><Tooltip placement="top" title="Create bill"><Button className="btn-edit"><IoCreateOutline/></Button></Tooltip></Link>
-                    }
-                    {
-                        record.trangThaiDat === 0 && 
-                        <Popconfirm
-                            title="Are you sure?"
-                            // onConfirm={ () => onDelete(record.idDV) }
-                            okText="Yes"
-                            cancelText="No"
-                        >
-                            <Tooltip placement="top" title="Cancel"><Button className="btn-delete"><ImCancelCircle/></Button></Tooltip>
-                        </Popconfirm>
-                    }
                 </>
             )
         }
