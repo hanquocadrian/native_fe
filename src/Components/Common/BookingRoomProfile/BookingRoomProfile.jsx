@@ -12,8 +12,6 @@ import { format } from 'date-fns';
 import CurrencyFormat from 'react-currency-format';
 
 import { BiDetail } from 'react-icons/bi';
-import { ImCancelCircle } from 'react-icons/im';
-import { IoCreateOutline } from 'react-icons/io5';
 
 export default function BookingRoomProfile(props) {
     const dispatch = useDispatch();
@@ -108,7 +106,7 @@ export default function BookingRoomProfile(props) {
         <>
             <Row>
                 <Col xs={24} md={24} lg={24}>
-                    <h1 className="text-center"><b>BOOKING ROOM INFORMATION</b></h1> 
+                    <h1 className="text-center" style={{ fontFamily: 'Georgia' }}><b>BOOKING ROOM INFORMATION</b></h1> 
                     <Row className="mb-15 mt-15">
                         <Col xs={3} md={3} lg={3} />
                         <Col xs={18} md={18} lg={18} className="text-center">
