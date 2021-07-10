@@ -15,7 +15,6 @@ import PageBookingRoomProfile_Detail from './Components/Pages/BookingRoomProfile
 import PageBill from 'Components/Pages/Bill/PageBill';
 import PageBillDetails from 'Components/Pages/Bill/BillDetails/PageBillDetails';
 
-
 // Admin
 import { ProtectedRoute } from './Auth/protected.route'; 
 import AdLogin from './Components/Admin/Pages/Login/Login';
