@@ -21,6 +21,7 @@ export const urnSpecialRateID = id => '/api/special-rate/' + id;
 
 export const urnRoom = '/api/room/';
 export const urnRoomID = id => '/api/room/'+ id;
+export const urnRoomByIdBooking = id => '/api/room/get-rooms-by-idbooking-with-bill/'+ id;
 
 export const urnChartMoneyBooking = '/api/chart/booking-money-by-quarterlies';
 
@@ -39,6 +40,7 @@ export const urnCustomerStayID = id => '/api/customer-stay/' + id;
 export const urnBooking = '/api/booking/';
 export const urnBookingID = id => '/api/booking/' + id;
 export const urnBookingIDKHD = id => '/api/booking/get_by_idKHD/' + id;
+export const urnBookingWasDepositOrPaid = '/api/booking/was-deposit-or-paid-in-bill/';
 
 export const urnBookingDetail = '/api/detail-booking/';
 export const urnBookingDetailID = id => '/api/detail-booking/' + id;
@@ -48,14 +50,17 @@ export const urnRoomsByDatesIdRoomTypeNumber = '/api/room/get-rooms-by-dates-idl
 export const urnBookingDetailsByIdBooking = id => '/api/detail-booking/get-booking-detail-by-idDDP/' + id;
 export const urnBillDetailsByIdBill = id => '/api/detail-bill/get-bill-detail-by-idPTT/' + id;
 
-export const urnChangeStatusToDepositBill = id => '/api/bill/change-status-to-deposit-by-id-bill/' + id;
-
-export const urnPayer = '/api/payer/';
+// export const urnPayer = '/api/payer/';
 
 export const urnBill = '/api/bill/';
 export const urnBillID = id => '/api/bill/' + id;
 export const urnBillsByIDKHD = id => '/api/bill/get-bills-by-id-customer-booking/' + id;
 export const urnBillByIDDDP = id => '/api/bill/get-bill-by-idDDP/' + id;
+export const urnChangeStatusToDepositBill = id => '/api/bill/change-status-to-deposit-by-id-bill/' + id;
+export const urnChangeStatusToPaidBill = id => '/api/bill/change-status-to-paid-by-id-bill/' + id;
 
 export const urnBillDetail = '/api/detail-bill';
 export const urnBillDetailID = id => '/api/detail-bill/' + id;
+
+export const urnRRC = '/api/rrc/';
+export const urnRRCID = id => '/api/rrc/' + id;
