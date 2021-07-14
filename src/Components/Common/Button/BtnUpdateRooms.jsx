@@ -1,4 +1,4 @@
-import { Button, Spin, Popconfirm } from 'antd'
+import { Button, Spin, Popconfirm, message } from 'antd'
 import { putData } from 'Api/api';
 import { postData } from 'Api/api';
 import { getData } from 'Api/api';
@@ -47,33 +47,46 @@ function BtnUpdateRooms(props) {
                 console.log('tài nguyên: dataA, dateB, combo SL vs idLP trong arrCTDDP: ', data);
                 uri = url + urnRoomsByDatesIdRoomTypeNumber;
                 postData(uri, data).then(resRoom => {
-                    count1++;
-                    arrRooms = resRoom.data;
-                    var i = 0;
-                    arrCTPTTnew.map((item) => {
-                        if(item.idLP === data.idLP){
-                            // console.log('idCTPTT: ', item.idCTPTT);
-                            arrCTPTTnew[arrCTPTTnew.findIndex(i => i.idCTPTT === item.idCTPTT)].maPhong = arrRooms[i++];
-                            // console.log('new: ', arrCTPTTnew);
-                        }
-                        return 1;
-                    })
-
-                    if(count1 === arrCTDDP.length){
-                        console.log('kq cuối: ', arrCTPTTnew);
-                        // var count2 = 0;
-                        arrCTPTTnew.map((item)=>{
-                            uri = url + urnBillDetailID(item.idCTPTT);
-                            putData(uri, item).then(res => {
-                                // count2++;
-                                // if(count2 === arrCTPTTnew.length){
-                                    // message.success(`You can deposited 30% again for idBill: ${idPTT}, thank you!`, 5);
-                                    props.onRefeshUpdate(true);
-                                    setIsLoading(false);                                    
-                                // }
-                            });
+                    if(resRoom.data !== undefined){
+                        count1++;
+                        arrRooms = resRoom.data;
+                        var i = 0;
+                        arrCTPTTnew.map((item) => {
+                            if(item.idLP === data.idLP){
+                                // console.log('idCTPTT: ', item.idCTPTT);
+                                arrCTPTTnew[arrCTPTTnew.findIndex(i => i.idCTPTT === item.idCTPTT)].maPhong = arrRooms[i++];
+                                // console.log('new: ', arrCTPTTnew);
+                            }
                             return 1;
                         })
+
+                        if(count1 === arrCTDDP.length){
+                            console.log('kq cuối: ', arrCTPTTnew);
+                            // var count2 = 0;
+                            arrCTPTTnew.map((item)=>{
+                                uri = url + urnBillDetailID(item.idCTPTT);
+                                putData(uri, item).then(res => {
+                                    // count2++;
+                                    // if(count2 === arrCTPTTnew.length){
+                                        // message.success(`You can deposited 30% again for idBill: ${idPTT}, thank you!`, 5);
+                                        props.onRefeshUpdate(true);
+                                        setIsLoading(false);                                    
+                                    // }
+                                });
+                                return 1;
+                            })
+                        }
+                    }
+                    if(typeof resRoom.response.data !== undefined){
+                        console.log("res.response.data: ", resRoom.response.data);
+                        if(Array.isArray(resRoom.response.data)){
+                            resRoom.response.data.map(err => {
+                                return message.error(err.message);
+                            })
+                        } else {
+                            message.error(resRoom.response.data);
+                        }
+                        return 1;
                     }
                 })
                 return 1;

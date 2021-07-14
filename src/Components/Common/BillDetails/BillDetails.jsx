@@ -92,10 +92,7 @@ function BillDetails(props) {
                                     <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="End date">{ format(new Date(bill && bill.ngayDi), 'dd/MM/yyyy')}</Descriptions.Item>
                                     <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Status">
                                         <Row>
-                                            <Col xs={10} md={0} lg={0}>
-                                                <Progress percent={bill && (bill.tinhTrang === 1 ? 30 : (bill.tinhTrang === 2 ? 75 : 100))} steps={3} showInfo={false} />
-                                            </Col>
-                                            <Col xs={0} md={14} lg={20}>
+                                            <Col xs={10} md={14} lg={20}>
                                                 <Progress
                                                     strokeColor={{
                                                         '0%': '#108ee9',
