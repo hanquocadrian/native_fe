@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { url } from 'Api/url';
-import { urnBillID, urnKhdID } from 'Api/urn';
+import { urnBillID, urnKhdID, urnBookingDetailsByIdBooking } from 'Api/urn';
 import { getData } from 'Api/api';
 import { urnBillDetailsByIdBill } from 'Api/urn';
-import { Col, Row, Table, Descriptions, Progress, Button, Tooltip, notification } from 'antd';
+import { Col, Row, Table, Descriptions, Progress, Button, Tooltip, Spin, message, notification } from 'antd';
 import CurrencyFormat from 'react-currency-format';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { ImCancelCircle } from 'react-icons/im';
 import { useSelector } from 'react-redux';
-import { urnChangeStatusToPaidBill } from 'Api/urn';
+// import { urnChangeStatusToPaidBill } from 'Api/urn';
+import BtnDeposit from 'Components/Admin/Common/Button/BtnDeposit';
+import BtnCheckout from '../../Button/BtnCheckout';
+import { urnRoomsByDatesIdRoomTypeNumber } from 'Api/urn';
+import { postData } from 'Api/api';
 
 function BillDetail(props) {
     const phanQuyen = useSelector(state => state.adminAccountReducer.phanQuyen);
     const [bill, setBill] = useState(null);
     const [dataBillDetails, setDataBillDetails] = useState([]);
     const [dataKHD, setDataKHD] = useState(null);
+
+    const [isClickDeposit, setIsClickDeposit] = useState(false);
+    const [isClickCheckout, setIsClickCheckout] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isRefesh, setIsRefesh] = useState(false);
 
     useEffect(() => {
         var uri = url + urnBillID(props.idPTT);
@@ -24,7 +33,7 @@ function BillDetail(props) {
             uri = url + urnKhdID(res.data.idKHD);
             getData(uri).then(res => setDataKHD(res.data[0]));
         });
-    },[props.idPTT]);
+    },[props.idPTT, isRefesh]);
 
     useEffect(() => {
         var uri = url + urnBillDetailsByIdBill(props.idPTT);
@@ -51,20 +60,92 @@ function BillDetail(props) {
         }
     ];
 
-    const onCheckout = () => {
-        if(bill.tinhTrang === 1) {
-            return notification.warning({
-                message: `Can't checkout`,
-                description:
-                  `This bill must be deposited by Customer before checkout`,
-                duration: 0,
-              });
+    const checkToPay = (isDeposit) => {
+            setIsLoading(true);
+            // Check: Can use rooms on this bill?
+            var idPTT = bill.idPTT;
+            var idDDP = bill.idDDP;
+            var dateA = bill.ngayDen;
+            var dateB = bill.ngayDi;
+            var arrRoom = [];
+    
+            //  Lấy DS Phòng có thể ở vào ngày ấy vs các LP ấy vs số lượng cho từng loại ấy
+            //  Để so sánh vs Phía chi tiết Phiếu TT 
+            //  Xem xem mình có thễ giữ chân Phòng ấy ko, lỡ có ai nhanh chân giữ chân nó trc lúc mình gom tiền để mình deposit phòng
+            let uri = url + urnBookingDetailsByIdBooking(idDDP);
+            getData(uri).then((resBookingDetails) => {
+                if(typeof resBookingDetails.data === 'undefined'){ 
+                    setIsLoading(false);
+                    return message.error("Server Error"); 
+                }
+                // console.log('booking details by idDDP: ', resBookingDetails.data);
+                if(resBookingDetails.data.length > 0){
+                    var countBD = resBookingDetails.data.length;
+                    resBookingDetails.data.map((bookingDetail) => {
+                        let idLP = bookingDetail.idLP;
+                        let soLuong = bookingDetail.soLuong;
+    
+                        let data = {
+                            dateA,
+                            dateB,
+                            idLP,
+                            soLuong
+                        };
+                        let uri = url + urnRoomsByDatesIdRoomTypeNumber;
+                        postData(uri, data)
+                        .then((resRooms) => {
+                            countBD--;
+                            arrRoom = arrRoom.concat(resRooms.data);
+    
+                            if(countBD === 0) {
+                                // console.log("Rooms can book: ", arrRoom);
+                                
+                                // Duyệt các phòng có trong CTPTT để xem có căn nào ko tồn tại trong DS Phòng trống từ DDP vào time hiện tại ko
+                                let uri = url + urnBillDetailsByIdBill(idPTT);
+                                getData(uri).then((resBillDetails) => {
+                                    if(typeof resBillDetails.data === 'undefined'){ 
+                                        setIsLoading(false);
+                                        return message.error("Server Error"); 
+                                    }
+                                    if(resBillDetails.data.length > 0) {
+                                        var countBillD = resBillDetails.data.length;
+                                        resBillDetails.data.map((billDetail) => {
+                                            countBillD--;
+                                            // console.log('Room in bill detail: ', billDetail);
+                                            if(!arrRoom.includes(billDetail.maPhong)) { 
+                                                setIsLoading(false);
+                                                return notification['warning'](
+                                                    {
+                                                        message: `Can't deposit!`,
+                                                        description:
+                                                            `Sorry! You can't deposit this bill, because some rooms in this bill had been someone deposit!`,
+                                                        duration: 7
+                                                    }
+                                                );
+                                            }  
+                                            if(countBillD === 0){ 
+                                                // console.log('có thể')
+                                                setIsLoading(false);
+                                                message.success(`You can deposit 30% this bill now!`); 
+                                                return isDeposit ? setIsClickDeposit(true) : setIsClickCheckout(true);
+                                            }
+                                            return 1;
+                                        })
+                                    }
+                                })
+                            }
+                        });
+                        return 1;
+                    })
+                }
+                
+            })
+    }
+
+    const onRefesh = (rf) => {
+        if(rf === true) {
+            setIsRefesh(!isRefesh);
         }
-        //Chuyển hướng đến tạo PTP
-        var uri = url + urnChangeStatusToPaidBill(bill.idPTT);
-        getData(uri).then((res) => {
-            return props.propsParent.history.push('/admin/bill/');
-        });
     }
 
     return (
@@ -196,11 +277,58 @@ function BillDetail(props) {
                             {
                                 phanQuyen === 3 && (
                                     <>
-                                        <Row className="mb-30">
-                                            <Col xs={24} md={24} lg={24} style={{ textAlign:'center' }}>
-                                                <Button className="btn-create" onClick={ onCheckout }>CHECKOUT</Button>
-                                            </Col>
-                                        </Row>
+                                        {
+                                            isLoading ? (<>
+                                                <Spin size="large" />
+                                            </>) : (<>
+                                                <Row className="mb-30">
+                                                    <Col xs={24} md={24} lg={24} style={{ textAlign:'center' }}>
+                                                        { 
+                                                            bill && (bill.tinhTrang === 1 ? (
+                                                                <>
+                                                                    <Row>
+                                                                        <Col xs={12} md={12} lg={12}>
+                                                                        { 
+                                                                            isClickDeposit ? (
+                                                                                <BtnDeposit bill={bill} onRefesh={onRefesh}/>
+                                                                            ) : (
+                                                                                <Button className="btn-create" onClick={ () => checkToPay(true) }>DEPOSIT</Button>
+                                                                            )
+                                                                        }
+                                                                        </Col>
+                                                                        <Col xs={12} md={12} lg={12}>
+                                                                        { 
+                                                                            isClickCheckout ? (
+                                                                                <BtnCheckout bill={bill} onRefesh={onRefesh}/>
+                                                                            ) : (
+                                                                                <Button className="btn-create" onClick={ () => checkToPay(false) }>CHECKOUT</Button>
+                                                                            ) 
+                                                                        }
+                                                                        </Col>
+                                                                    </Row>
+                                                                </>
+                                                            ) : bill.tinhTrang === 2 && (
+                                                                <>
+                                                                    <Row>
+                                                                        <Col xs={24} md={24} lg={24}>
+                                                                        { 
+                                                                            isClickCheckout ? (
+                                                                                <BtnCheckout bill={bill} onRefesh={onRefesh}/>
+                                                                            ) : (
+                                                                                <Button className="btn-create" onClick={ () => setIsClickCheckout(true) }>CHECKOUT</Button>
+                                                                            )
+                                                                        }
+                                                                        </Col>
+                                                                    </Row>
+                                                                </>
+                                                            ))
+                                                        }
+
+                                                    </Col>
+                                                </Row>
+                                            </>)
+                                        }
+                                        
                                     </>
                                 )
                             }

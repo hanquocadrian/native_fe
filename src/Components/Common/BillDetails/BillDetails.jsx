@@ -17,6 +17,7 @@ function BillDetails(props) {
     const [dataBillDetails, setDataBillDetails] = useState([]);
     const [dataKHD, setDataKHD] = useState(null);
     const [isRefesh, setIsRefesh] = useState(false);
+    const [isRefeshDetail, setIsRefeshDetail] = useState(false);
     const [isCanUpdateRoom, setIsCanUpdateRoom] = useState(false);
     const [isExportPDF, setIsExportPDF] = useState(false);
 
@@ -32,7 +33,7 @@ function BillDetails(props) {
     useEffect(() => {
         var uri = url + urnBillDetailsByIdBill(props.idPTT);
         getData(uri).then(res =>{ console.log("load:", res.data); setDataBillDetails(res.data); });
-    }, [props.idPTT]);
+    }, [isRefeshDetail, props.idPTT,]);
 
     const onRefesh = (rf = false) => {
         // console.log("onRefesh", isRefesh);
@@ -47,7 +48,8 @@ function BillDetails(props) {
         // console.log("new data: ", data);
         if(rf === true){
             // props.propsParent.history.push('/user/bills');
-            setIsCanUpdateRoom(false);            
+            setIsCanUpdateRoom(false);  
+            setIsRefeshDetail(true);
         }
     }
 

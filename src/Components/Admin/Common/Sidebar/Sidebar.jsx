@@ -124,18 +124,7 @@ export default function Sidebar() {
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/rrc'>
                                 <BiReceipt />
-                                Room rental contract
-                            </Link>
-                        </Menu.Item>
-                    )
-                }
-                {
-                    //  2: G  || 3: G
-                    (phanQuyen === 2 || phanQuyen === 3) && (
-                        <Menu.Item className="LinkNavAd">
-                            <Link to='/admin/image-service'>
-                                <AiOutlineUserAdd />
-                                Customer payment
+                                Rental contract
                             </Link>
                         </Menu.Item>
                     )

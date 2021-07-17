@@ -8,9 +8,6 @@ import { urnRoomsByDatesIdRoomTypeNumber } from 'Api/urn';
 import { postData } from 'Api/api';
 import { urnBillDetailsByIdBill } from 'Api/urn';
 import { urnChangeStatusToDepositBill } from 'Api/urn';
-import { urnBillID } from 'Api/urn';
-import { putData } from 'Api/api';
-import { format } from 'date-fns';
 
 function BtnDeposit(props) {
     const [isClickDeposit, setIsClickDeposit] = useState(false);
@@ -117,20 +114,9 @@ function BtnDeposit(props) {
         } else {
             let uri = url + urnChangeStatusToDepositBill(bill.idPTT);
             getData(uri).then((res) => {
-                var dataBill = bill;
-                dataBill.ngayDen = format(new Date(bill.ngayDen), 'yyyy/MM/dd');
-                dataBill.ngayDi = format(new Date(bill.ngayDi), 'yyyy/MM/dd');
-                dataBill.ngayThanhToan = format(new Date(bill.ngayThanhToan), 'yyyy/MM/dd');
-                dataBill.tinhTrang = 2;
-
-                console.log(dataBill);
-                let uri = url + urnBillID(dataBill.idPTT);
-                putData(uri, dataBill).then(resBill => {
-                    message.success('You deposited 30%, thank you!');
-                    setIsClickDeposit(!isClickDeposit);
-                    props.onRefesh(true);
-                    return;
-                })
+                message.success('You deposited 30%, thank you!');
+                setIsClickDeposit(!isClickDeposit);
+                return props.onRefesh(true);
             })
         }
     }

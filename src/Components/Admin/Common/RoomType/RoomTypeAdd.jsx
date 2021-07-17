@@ -17,7 +17,6 @@ export default function RoomTypeAdd() {
     const [giuong, setgiuong] = useState(1);
     const [phongTam, setphongTam] = useState(1);
     const soLuong = 0;
-    const slHienTai = 0;
 
     function onReset(){
         settenLP('');
@@ -45,7 +44,6 @@ export default function RoomTypeAdd() {
             giuong,
             phongTam,
             soLuong,
-            slHienTai
         }
         console.log(data);
         var uri = url + urnRoomType;

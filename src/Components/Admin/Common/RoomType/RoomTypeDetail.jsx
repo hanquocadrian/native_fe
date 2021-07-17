@@ -18,7 +18,6 @@ function RoomTypeDetail(props) {
     const [giuong, setgiuong] = useState(1);
     const [phongTam, setphongTam] = useState(1);
     const [soLuong, setsoLuong] = useState(0);
-    const [slHienTai, setslHienTai] = useState(0);
     const [giaLP, setgiaLP] = useState(null);
 
     const [dataRoomTypeImages, setdataRoomTypeImages] = useState([]);
@@ -36,7 +35,6 @@ function RoomTypeDetail(props) {
             setgiuong(res.data.giuong);
             setphongTam(res.data.phongTam);
             setsoLuong(res.data.soLuong);
-            setslHienTai(res.data.slHienTai);
         })
         .catch(err => console.log(err));
     }, [idLP]);
@@ -107,7 +105,6 @@ function RoomTypeDetail(props) {
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Number of bed(s)">{giuong}</Descriptions.Item>
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Number of bathroom(s)">{phongTam}</Descriptions.Item>
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Number of room(s)">{soLuong}</Descriptions.Item>
-                                <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Number of rooms available">{slHienTai}</Descriptions.Item>
                                 <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Room rate">{ giaLP ? `$` + giaLP + ` USD` : `Havn't rate`}</Descriptions.Item>
                             </Descriptions>
                         </Row>

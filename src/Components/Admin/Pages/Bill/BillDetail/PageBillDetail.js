@@ -1,5 +1,5 @@
 import { Col,  Row } from 'antd';
-import BillDetail from 'Components/Admin/Common/Bill/BillDetail';
+import BillDetail from 'Components/Admin/Common/Bill/BillDetail/BillDetail';
 import NavbarTop from 'Components/Admin/Common/Navigation/NavbarTop';
 import Sidebar from 'Components/Admin/Common/Sidebar/Sidebar';
 import React from 'react';

@@ -23,6 +23,9 @@ function Login(props) {
 
     const [isLoading, setisLoading] = useState(false);
 
+    const [wasLoginSocial, setWasLoginSocial] = useState(false);
+    const [user, setUser] = useState(null);
+
     const uiConfig = {
         signInFlow: "popup",
         signInOptions: [
@@ -34,60 +37,67 @@ function Login(props) {
         }
     }
 
-    useEffect(()=>{
-        firAuth.onAuthStateChanged(user => {
-            if(!!user){
-                setisLoading(true);
-                //để hàm xử lý onSubmitFirebase
-                //khi đã có tài khoản r sẽ chạy mấy dòng dưới
-                const data1 = {
+    useEffect(() => {
+        if(wasLoginSocial){
+            console.log(user);
+            //để hàm xử lý onSubmitFirebase
+            //khi đã có tài khoản r sẽ chạy mấy dòng dưới
+            const data1 = {
+                loaiTaiKhoan: 1,
+                tenKH: user.displayName
+            }
+            const uri1 = url + '/api/khd';
+            postData(uri1, data1)
+            .then( res => {
+                console.log("res add KHD: ", res.data);
+                const data2 ={
+                    email: user.email,
+                    displayName: user.displayName,
                     loaiTaiKhoan: 1,
-                    tenKH: user.displayName
+                    idKHD: res.data
                 }
-                const uri1 = url + '/api/khd';
-                postData(uri1, data1)
-                .then( res => {
-                    console.log("res add KHD: ", res.data);
-                    const data2 ={
-                        email: user.email,
-                        displayName: user.displayName,
-                        loaiTaiKhoan: 1,
-                        idKHD: res.data
-                    }
-                    const uri2 = url + '/api/user/register';
-                    // console.log('data2:', data2);
-                    postData(uri2, data2)
-                    .then(res => {
-                        console.log("res add FB: ", res.data);
-                        message.success("Login successfully, wait a few seconds 2", 3).then(() => {
-                            getData(url + '/api/user/' + res.data)
-                            .then (res => {
-                                const customerAccount = {
-                                    idTK: res.data[0].idTK,
-                                    idKHD: res.data[0].idKHD,
-                                    email: res.data[0].email,
-                                    displayName: res.data[0].displayName,
-                                    loaiTaiKhoan: res.data[0].loaiTaiKhoan,
-    
-                                    isLogin: true,
-                                    isSocialLogin: true
-                                };
-                
-                                const actionLogin = actLogin(customerAccount);
-                                dispatch(actionLogin);
-                                setisLoading(false);
-    
-                                authCus.login(() => {
-                                    return props.history.push('/');
-                                });
-                            })
+                const uri2 = url + '/api/user/register';
+                // console.log('data2:', data2);
+                postData(uri2, data2)
+                .then(res => {
+                    console.log("res add FB: ", res.data);
+                    message.success("Login successfully, wait a few seconds 2", 3).then(() => {
+                        getData(url + '/api/user/' + res.data)
+                        .then (res => {
+                            const customerAccount = {
+                                idTK: res.data[0].idTK,
+                                idKHD: res.data[0].idKHD,
+                                email: res.data[0].email,
+                                displayName: res.data[0].displayName,
+                                loaiTaiKhoan: res.data[0].loaiTaiKhoan,
+
+                                isLogin: true,
+                                isSocialLogin: true
+                            };
+            
+                            const actionLogin = actLogin(customerAccount);
+                            dispatch(actionLogin);
+                            setisLoading(false);
+
+                            authCus.login(() => {
+                                return props.history.push('/');
+                            });
                         })
                     })
                 })
-                
+            })
+        }
+    },[wasLoginSocial, dispatch, props.history, user])
+
+    useEffect(()=>{
+        firAuth.onAuthStateChanged(user => {
+            if(!!user){
+                setUser(user);
+                if(!wasLoginSocial)
+                    setWasLoginSocial(!!user);
             }
         })
-    })
+    },[wasLoginSocial])
 
     function onReset() {
         setemail('');

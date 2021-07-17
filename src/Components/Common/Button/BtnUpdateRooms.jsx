@@ -47,6 +47,7 @@ function BtnUpdateRooms(props) {
                 console.log('tài nguyên: dataA, dateB, combo SL vs idLP trong arrCTDDP: ', data);
                 uri = url + urnRoomsByDatesIdRoomTypeNumber;
                 postData(uri, data).then(resRoom => {
+                    console.log(resRoom);
                     if(resRoom.data !== undefined){
                         count1++;
                         arrRooms = resRoom.data;
@@ -76,8 +77,7 @@ function BtnUpdateRooms(props) {
                                 return 1;
                             })
                         }
-                    }
-                    if(typeof resRoom.response.data !== undefined){
+                    } else if(typeof resRoom.response.data !== undefined) {
                         console.log("res.response.data: ", resRoom.response.data);
                         if(Array.isArray(resRoom.response.data)){
                             resRoom.response.data.map(err => {

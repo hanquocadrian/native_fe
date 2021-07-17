@@ -1,4 +1,4 @@
-import { Button, Col, Input, message, Radio, Row, Select, Tooltip } from 'antd'
+import { Button, Col, Input, message, Row, Select, Tooltip } from 'antd'
 import Form from 'antd/lib/form/Form'
 import { Option } from 'antd/lib/mentions'
 import { postData } from 'Api/api'
@@ -16,7 +16,6 @@ function RoomAdd(props) {
 
     const [maPhong, setmaPhong] = useState("");
     const [soNguoi, setsoNguoi] = useState(0);
-    const [trangThai, settrangThai] = useState(1);
     const [idLP, setidLP] = useState("");
     
     useEffect(() => {
@@ -43,7 +42,6 @@ function RoomAdd(props) {
     }, [dataRoomTypes])
 
     function onReset() {
-        settrangThai(1);
         setsoNguoi(typeof dataRoomTypes[0] !== 'undefined' ? dataRoomTypes[0].soNguoi : 2)
         setidLP(typeof dataRoomTypes[0] !== 'undefined' ? dataRoomTypes[0].idLP : "");
     }
@@ -52,7 +50,6 @@ function RoomAdd(props) {
         var data = {
             maPhong,
             soNguoi,
-            trangThai,
             idLP
         }
         console.log(data);
@@ -121,15 +118,6 @@ function RoomAdd(props) {
                                         </>)
                                     }
                                 </Select>
-                            </Col>
-                        </Row>
-                        <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Status room:</b></Col>
-                            <Col xs={18} md={18} lg={18}>
-                                <Radio.Group onChange={ e => settrangThai(e.target.value) } value={trangThai}>
-                                    <Radio value={1}>Empty</Radio>
-                                    <Radio value={2}>Non Empty</Radio>
-                                </Radio.Group>
                             </Col>
                         </Row>
                         <Row justify="end">

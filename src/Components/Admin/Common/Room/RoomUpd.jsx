@@ -1,4 +1,4 @@
-import { Button, Col, Input, message, Popconfirm, Radio, Row, Select, Tooltip } from 'antd'
+import { Button, Col, Input, message, Popconfirm, Row, Select, Tooltip } from 'antd'
 import Form from 'antd/lib/form/Form'
 import { Option } from 'antd/lib/mentions'
 import { putData } from 'Api/api'
@@ -16,7 +16,6 @@ function RoomUpd(props) {
 
     const maPhong= props.maPhong;
     const [soNguoi, setsoNguoi] = useState(0);
-    const [trangThai, settrangThai] = useState(1);
     const [idLP, setidLP] = useState("");
     
     useEffect(() => {
@@ -38,7 +37,6 @@ function RoomUpd(props) {
             getData(uri)
             .then(res => {
                 setsoNguoi(res.data.soNguoi);
-                settrangThai(res.data.trangThai);
                 setidLP(res.data.idLP);
             })
             .catch(err => console.error(err));
@@ -65,7 +63,6 @@ function RoomUpd(props) {
             getData(uri)
             .then(res => {
                 setsoNguoi(res.data.soNguoi);
-                settrangThai(res.data.trangThai);
                 setidLP(res.data.idLP);
             })
             .catch(err => console.error(err));
@@ -78,7 +75,6 @@ function RoomUpd(props) {
         var data = {
             maPhong,
             soNguoi,
-            trangThai,
             idLP
         }
         console.log(data);
@@ -145,15 +141,6 @@ function RoomUpd(props) {
                                         </>)
                                     }
                                 </Select>
-                            </Col>
-                        </Row>
-                        <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Status room:</b></Col>
-                            <Col xs={18} md={18} lg={18}>
-                                <Radio.Group onChange={ e => settrangThai(e.target.value) } value={trangThai}>
-                                    <Radio value={1}>Empty</Radio>
-                                    <Radio value={2}>Non Empty</Radio>
-                                </Radio.Group>
                             </Col>
                         </Row>
                         <Row justify="end">
