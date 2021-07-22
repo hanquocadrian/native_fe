@@ -49,10 +49,21 @@ export default function RoomTypeAdd() {
         var uri = url + urnRoomType;
         postData(uri, data)
         .then(res=>{
-            console.log("res add: ", res.data);
-            message.success("Create successfully, wait a few seconds", 3).then(()=>{
-                onReset();
-            })
+            if(res.data){
+                console.log("res add: ", res.data);
+                message.success("Create successfully, wait a few seconds", 3).then(()=>{
+                    onReset();
+                })  
+            } else if(res.response.data) {
+                console.log("error: ", res.response.data);
+                if(Array.isArray(res.response.data)){
+                    res.response.data.map(err => { 
+                        return alert(err.message);
+                    })
+                } else {
+                    return alert(res.response.data);
+                }
+            }
         })
     }
 
