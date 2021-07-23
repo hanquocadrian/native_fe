@@ -59,3 +59,7 @@ export const urnBillByIDDDP = id => '/api/bill/get-bill-by-idDDP/' + id;
 
 export const urnBillDetail = '/api/detail-bill';
 export const urnBillDetailID = id => '/api/detail-bill/' + id;
+
+export const urnRoomRentalContract = '/api/room-rental-contract';
+export const urnRoomRentalContractByIDDDP = id => '/api/room-rental-contract/get-by-idDDP/' + id;
+

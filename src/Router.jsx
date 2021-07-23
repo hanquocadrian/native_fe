@@ -12,6 +12,8 @@ export default class Router extends Component {
                         {/* Customer */}
                         <Route exact path='/' component={ Components.Home } />
                         <Route exact path='/login/' component={ Components.Login } />
+                        <Route exact path='/forgot-password/' component={ Components.ForgotPassword } />
+                        <Route exact path='/reset-password/:id' component={ Components.ResetPassword } />
                         <Route exact path='/about/' component={ Components.About } />
                         <Route exact path='/service/' component={ Components.Service } />
                         <Route exact path='/roomtype/:id' component={ Components.Room } />
@@ -27,6 +29,8 @@ export default class Router extends Component {
                         
                         <Components.ProtectedCusRoute exact path='/user/bills' component={ Components.PageBill } />
                         <Components.ProtectedCusRoute exact path='/user/bill-details/:id' component={ Components.PageBillDetails } />
+                        
+                        <Components.ProtectedCusRoute exact path='/user/room-rental-contract' component={ Components.PageRoomRentalContract } />
 
 
                         {/* Admin */}
@@ -72,7 +76,9 @@ export default class Router extends Component {
                         <Components.ProtectedRoute exact path='/admin/customer-stay/' component={ Components.AdPageCustomerStay } />
                         <Components.ProtectedRoute exact path='/admin/customer-stay-add/' component={ Components.AdPageCustomerStayAdd } />
                         <Components.ProtectedRoute exact path='/admin/customer-stay-upd/:id' component={ Components.AdPageCustomerStayUpd } />
- 
+                        
+                        <Components.ProtectedRoute exact path='/admin/booking/' component={ Components.AdPageBooking } />
+                        <Components.ProtectedRoute exact path='/admin/booking-detail/:id' component={ Components.AdPageBookingDetail } />
                         {/* 404 Not Found */}
                         <Route path='*' component={ Components.Error } />  
                     </Switch>
