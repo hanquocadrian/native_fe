@@ -1,11 +1,10 @@
 import React from 'react'
 import { useEffect } from 'react';
-import AboutHotel from '../../Common/AboutHotel/AboutHotel';
 import Navbar from '../../Common/Navigation/Navbar';
-import CarouselQC from '../../Common/CarouselQC/CarouselQC';
 import Footer from '../../Common/Footer/Footer';
+import Rates from 'Components/Common/Rates/Rates';
 
-export default function About() {
+export default function PageRates(props) {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])
@@ -13,8 +12,7 @@ export default function About() {
     return (
         <div style={{ overflow: "hidden", width: "100vw" }}>
             <Navbar />
-            <CarouselQC height="72"/>
-            <AboutHotel/>
+            <Rates propsParent={props}/>
             <Footer/>
         </div>
     )
