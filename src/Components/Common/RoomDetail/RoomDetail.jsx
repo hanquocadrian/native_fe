@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import { Row, Col, Rate, Image, Collapse, Tooltip } from 'antd';
+import { Row, Col, Rate, Image, Collapse, Tooltip, Carousel } from 'antd';
 import DatePickerHotel from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -26,7 +26,7 @@ import CurrencyFormat from 'react-currency-format';
 export default function RoomDetail(props) {
     const { Panel } = Collapse;
     const [roomType, setRoomType]  = useState([]);
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState([]);
     const [price, setPrice] = useState(0);
 
     useEffect(() => {
@@ -53,7 +53,7 @@ export default function RoomDetail(props) {
                 .then((res) => res.data)
                 .catch((err) => console.log(err));
                 // console.log('useEff 2: ',result[0].hinhAnh);
-                setImage(typeof result !== 'undefined' ? ( typeof result[0] !== 'undefined'? result[0].hinhAnh : "" ): "");
+                setImage(result);
             }
             getImage();
         } catch (error) {
@@ -95,27 +95,71 @@ export default function RoomDetail(props) {
                             </Col>
                         </Row>
                         <Row style={{paddingBottom:'3%'}}>
-                            {/* <Col xs={24} md={24} lg={0}>
-                                
-                            </Col> */}
-
-                            <Col xs={0} md={0} lg={8}>
-                                <Image
-                                    style={{width: "23vw"}}
-                                    src={image}
-                                />
+                            <Col className="item-room" xs={0} md={0} lg={8} style={{ overflow: 'hidden', width: '23vw', height: '23vh' }}>
+                                <Carousel autoplay>
+                                    { 
+                                        image.map((item, i) => (
+                                            <div key={i}>
+                                                <Image
+                                                    style={{ 
+                                                        display: 'block',
+                                                        top: '50%', 
+                                                        position: "relative",
+                                                        objectFit: "cover",
+                                                        verticalAlign: 'middle',
+                                                        width: '23vw',
+                                                        height: '23vh'
+                                                    }}
+                                                    src={item.hinhAnh}
+                                                />
+                                            </div>
+                                        )
+                                    ) }
+                                </Carousel>
                             </Col>
-                            <Col xs={0} md={11} lg={0}>
-                                <Image
-                                    style={{width: "37vw"}}
-                                    src={image}
-                                />
+                            <Col className="item-room" xs={0} md={11} lg={0} style={{ overflow: 'hidden', width: '50vw', height: '23vh' }}>
+                                <Carousel autoplay>
+                                    { 
+                                        image.map((item, i) => (
+                                            <div key={i}>
+                                                <Image
+                                                    style={{ 
+                                                        display: 'block',
+                                                        top: '50%', 
+                                                        position: "relative",
+                                                        objectFit: "cover",
+                                                        verticalAlign: 'middle',
+                                                        width: '50vw',
+                                                        height: '23vh'
+                                                    }}
+                                                    src={item.hinhAnh}
+                                                />
+                                            </div>
+                                        )
+                                    ) }
+                                </Carousel>
                             </Col>
-                            <Col xs={24} md={0} lg={0}>
-                                <Image
-                                    style={{width: "83vw"}}
-                                    src={image}
-                                />
+                            <Col className="item-room-xs" xs={24} md={0} lg={0} style={{ overflow: 'hidden', width: '100vw', height: '23vh' }}>
+                                <Carousel autoplay>
+                                    { 
+                                        image.map((item, i) => (
+                                            <div key={i}>
+                                                <Image
+                                                    style={{ 
+                                                        display: 'block',
+                                                        top: '50%', 
+                                                        position: "relative",
+                                                        objectFit: "cover",
+                                                        verticalAlign: 'middle',
+                                                        width: '100vw',
+                                                        height: '23vh'
+                                                    }}
+                                                    src={item.hinhAnh}
+                                                />
+                                            </div>
+                                        )
+                                    ) }
+                                </Carousel>
                             </Col>
                             <Col xs={24} md={1} lg={0} style={{height: '15px'}} />
                             <Col xs={24} md={12} lg={8}>
