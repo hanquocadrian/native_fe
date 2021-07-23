@@ -7,5 +7,6 @@ export const AD_LOGOUT = 'AD_LOGOUT';
 
 export const ADD_CART = 'ADD_CART';
 export const DEL_CART = 'DEL_CART';
+export const REMOVE_CART = 'REMOVE_CART';
 
 export const UPD_DATES = 'UPD_DATES';

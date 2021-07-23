@@ -70,6 +70,12 @@ export default class Router extends Component {
                         <Components.ProtectedRoute exact path='/admin/customer-stay/' component={ Components.AdPageCustomerStay } />
                         <Components.ProtectedRoute exact path='/admin/customer-stay-add/' component={ Components.AdPageCustomerStayAdd } />
                         <Components.ProtectedRoute exact path='/admin/customer-stay-upd/:id' component={ Components.AdPageCustomerStayUpd } />
+                        
+                        <Components.ProtectedRoute exact path='/admin/bill/' component={ Components.AdPageBill } />
+                        <Components.ProtectedRoute exact path='/admin/bill-detail/:id' component={ Components.AdPageBillDetail } />
+                        
+                        <Components.ProtectedRoute exact path='/admin/rrc/' component={ Components.AdPageRRC } />
+                        <Components.ProtectedRoute exact path='/admin/rrc-add/' component={ Components.AdPageRRCAdd } />
  
                         {/* 404 Not Found */}
                         <Route path='*' component={ Components.Error } />  

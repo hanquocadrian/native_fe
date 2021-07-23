@@ -1,0 +1,6 @@
+section {
+    scroll-snap-align: start;
+}
+.container {
+    scroll-snap-type: y mandatory;
+}

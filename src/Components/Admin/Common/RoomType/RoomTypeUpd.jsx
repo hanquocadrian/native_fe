@@ -19,7 +19,6 @@ function RoomTypeUpd(props) {
     const [giuong, setgiuong] = useState(1);
     const [phongTam, setphongTam] = useState(1);
     const [soLuong, setsoLuong] = useState(0);
-    const [slHienTai, setslHienTai] = useState(0);
 
     useEffect(() => {
         var uri = url + urnRoomTypeID(idLP);
@@ -34,7 +33,6 @@ function RoomTypeUpd(props) {
             setgiuong(res.data.giuong);
             setphongTam(res.data.phongTam);
             setsoLuong(res.data.soLuong);
-            setslHienTai(res.data.slHienTai);
         })
         .catch(err => console.log(err));
     }, [idLP])
@@ -52,7 +50,6 @@ function RoomTypeUpd(props) {
             setgiuong(res.data.giuong);
             setphongTam(res.data.phongTam);
             setsoLuong(res.data.soLuong);
-            setslHienTai(res.data.slHienTai);
         })
         .catch(err => console.log(err));
     }
@@ -73,7 +70,6 @@ function RoomTypeUpd(props) {
             giuong,
             phongTam,
             soLuong,
-            slHienTai
         }
         console.log(data);
         var uri = url + urnRoomTypeID(idLP);
@@ -161,10 +157,6 @@ function RoomTypeUpd(props) {
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={6}><b>Number of room(s):</b></Col>
                             <Col xs={18} md={18} lg={18}><Input type="number" min={0} name="soLuong" value={soLuong} onChange={ e => setsoLuong(e.target.value) } disabled /></Col>
-                        </Row>
-                        <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Number of rooms available:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input type="number" min={0} name="slHienTai" value={slHienTai} onChange={ e => setslHienTai(e.target.value) } disabled /></Col>
                         </Row>
                         <Row justify="end">
                             <Col xs={2} md={2} lg={2}>

@@ -15,7 +15,6 @@ import PageBookingRoomProfile_Detail from './Components/Pages/BookingRoomProfile
 import PageBill from 'Components/Pages/Bill/PageBill';
 import PageBillDetails from 'Components/Pages/Bill/BillDetails/PageBillDetails';
 
-
 // Admin
 import { ProtectedRoute } from './Auth/protected.route'; 
 import AdLogin from './Components/Admin/Pages/Login/Login';
@@ -61,11 +60,17 @@ import AdPageCustomerStay from 'Components/Admin/Pages/CustomerStay/PageCustomer
 import AdPageCustomerStayAdd from 'Components/Admin/Pages/CustomerStay/Add/PageCustomerStayAdd';
 import AdPageCustomerStayUpd from 'Components/Admin/Pages/CustomerStay/Update/PageCustomerStayUdp';
 
+import AdPageBill from 'Components/Admin/Pages/Bill/PageBill';
+import AdPageBillDetail from 'Components/Admin/Pages/Bill/BillDetail/PageBillDetail';
+
+import AdPageRRC from 'Components/Admin/Pages/RoomRentalContract/PageRRC';
+import AdPageRRCAdd from 'Components/Admin/Pages/RoomRentalContract/Add/PageRRCAdd';
+
 // Error 404
 import Error from './Components/Admin/Pages/Error/Error';
 
 export { 
     ProtectedCusRoute, Home, Login, About, Service, Room, Basket, PageProfile, PageBill, PageBillDetails, PageBooking, PageBookingRoomProfile, PageBookingRoomProfile_Detail,
-    ProtectedRoute, AdLogin, AdHome, AdAbout, AdSlider, AdPageAdmin, AdPageAdminAdd, AdPageAdminUpd, AdPageRoomType, AdPageRoomTypeDetail, AdPageRoomTypeAdd, AdPageRoomTypeUpd, AdPageRoomTypeImage, AdPageRoomTypeImageAdd, AdPageRoomTypeImageUpd, AdService, AdPageServiceAdd, AdPageServiceDetail, AdPageServiceUpd, AdPageServiceImage, AdPageServiceImageAdd, AdPageServiceImageUpd, AdPageDailyRate, AdPageDailyRateAdd, AdPageDailyRateUpd, AdPageSpecialRate, AdPageSpecialRateAdd, AdPageSpecialRateUpd, AdPageRoom, AdPageRoomAdd, AdPageRoomUpd, AdPageCustomerStay, AdPageCustomerStayAdd , AdPageCustomerStayUpd,
+    ProtectedRoute, AdLogin, AdHome, AdAbout, AdSlider, AdPageAdmin, AdPageAdminAdd, AdPageAdminUpd, AdPageRoomType, AdPageRoomTypeDetail, AdPageRoomTypeAdd, AdPageRoomTypeUpd, AdPageRoomTypeImage, AdPageRoomTypeImageAdd, AdPageRoomTypeImageUpd, AdService, AdPageServiceAdd, AdPageServiceDetail, AdPageServiceUpd, AdPageServiceImage, AdPageServiceImageAdd, AdPageServiceImageUpd, AdPageDailyRate, AdPageDailyRateAdd, AdPageDailyRateUpd, AdPageSpecialRate, AdPageSpecialRateAdd, AdPageSpecialRateUpd, AdPageRoom, AdPageRoomAdd, AdPageRoomUpd, AdPageCustomerStay, AdPageCustomerStayAdd , AdPageCustomerStayUpd, AdPageBill, AdPageBillDetail, AdPageRRC, AdPageRRCAdd,
     Error,
 };

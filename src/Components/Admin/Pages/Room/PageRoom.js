@@ -71,13 +71,6 @@ function PageRoom(props) {
             },
         },
         {
-            title: 'Trạng thái',
-            dataIndex: 'trangThai',
-            render: trangThai => (
-                <>{trangThai === 1 ? 'Trống' : 'Đang sử dụng'}</>
-            )
-        },
-        {
             title: 'Title room type',
             dataIndex: 'idLP',
             sorter: {
