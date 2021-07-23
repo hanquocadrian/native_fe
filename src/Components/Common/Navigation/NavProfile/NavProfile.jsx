@@ -90,7 +90,7 @@ export default function NavProfile() {
                                 <Link to="/user/bills"><span style={{fontSize:"15px"}}>Bills</span></Link>
                             </Menu.Item>
                             <Menu.Item>
-                                <Link to="/about"><span style={{fontSize:"15px"}}>Room Rental Contract</span></Link>
+                                <Link to="/user/room-rental-contract"><span style={{fontSize:"15px"}}>Room Rental Contract</span></Link>
                             </Menu.Item>
                         </Menu>
                     </Row>

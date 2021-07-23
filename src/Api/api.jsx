@@ -36,6 +36,16 @@ async function putData(uri, data) {
     }
 }   
 
+async function patchData(uri, data) {
+    try {
+        const resp = await axios.patch(uri, data);
+        return resp;
+    } catch (error) {
+        console.error(error);
+        return error;
+    }
+} 
+
 async function deleteData(uri) {
     try {
         const resp = await axios.delete(uri);
@@ -50,5 +60,6 @@ export {
     getData, 
     postData,
     putData,
+    patchData,
     deleteData
 };

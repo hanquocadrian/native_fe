@@ -100,7 +100,7 @@ export default function Sidebar() {
                     //  2: U, G  || 3: G
                     (phanQuyen === 2 || phanQuyen === 3) && (
                         <Menu.Item className="LinkNavAd">
-                            <Link to='/admin/image-service'>
+                            <Link to='/admin/booking'>
                                 <FaReceipt />
                                 Booking
                             </Link>

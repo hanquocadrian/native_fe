@@ -1,8 +1,7 @@
 import { Button, Col, Input, Radio, Row, Switch, Popconfirm, message } from 'antd';
 import { getData, putData } from 'Api/api';
 import { url } from 'Api/url';
-import { urnKhdID } from 'Api/urn';
-import { urnUserID } from 'Api/urn';
+import { urnKhdID, urnUserID } from 'Api/urn';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -96,13 +95,31 @@ export default function Profile(props) {
             }
             socialLogin = !socialLogin;
         }
+
+        if (oldLoaiTaiKhoan === 1) {
+            if (newPassword === '' || confirmPassword === '') {
+                message.error("Please, fill out password field!")
+            }
+        }
         
         if(sdt < 10 || email === "" || displayName === "" ){
             message.error("Please, fill out all the fields!");
             return;
         }
         var dataKHD = null;
-        if (oldPassword !== '' && newPassword !== '' && confirmPassword !== '') {
+        if (oldLoaiTaiKhoan === 1) {
+            dataKHD = {
+                tenKH,
+                sdt,
+                email,
+                password: newPassword,
+                newPassword,
+                displayName,
+                isChangePass: 1,
+                isBooking: false
+            }
+        }
+        else if (oldPassword !== '' && newPassword !== '' && confirmPassword !== '') {
             dataKHD = {
                 tenKH,
                 sdt,
@@ -110,7 +127,8 @@ export default function Profile(props) {
                 password: oldPassword,
                 newPassword,
                 displayName,
-                isChangePass: 1
+                isChangePass: 1,
+                isBooking: false
             }
         }
         else {
@@ -119,14 +137,60 @@ export default function Profile(props) {
                 sdt,
                 email,
                 displayName,
-                isChangePass: 0
+                isChangePass: 0,
+                isBooking: false
             }
         }
-        var uri1 = url + '/api/khd/' + idKHD;
+        var uri1 = url + urnKhdID(idKHD);
         putData(uri1, dataKHD)
         .then(res=>{
             if (res.data !== undefined) {
                 var dataUser = null;
+                if (oldLoaiTaiKhoan === 1) {
+                    if (newPassword !== '' && confirmPassword !== '') {
+                        if (newPassword === confirmPassword) {
+                            dataUser = {
+                                tenKH,
+                                sdt,
+                                email,
+                                displayName,
+                                title,
+                                password: newPassword,
+                                oldPassword: '',
+                                loaiTaiKhoan,
+                                idKHD,
+                                isChangePass: 1
+                            }   
+                        }
+                        else {
+                            message.error("Your new password and confirm password fields do not match!!!");
+                            return;
+                        }
+                        const uri2 = url + '/api/user/update_cus_acc/' + idTK;
+                        putData(uri2, dataUser)
+                        .then( res => {
+                            if (res.data) {
+                                console.log("res add: ", res.data);
+                                message.success("Updated successfully, wait a few seconds", 3).then(()=>{
+                                    // Update nav and logout 
+                                    let customerAccount = {
+                                        email,
+                                        displayName,
+                                        loaiTaiKhoan,
+                                        isSocialLogin: socialLogin
+                                    }
+                                    const actionUpdateLogin = actUpdateLogin(customerAccount);
+                                    dispatch(actionUpdateLogin);
+
+                                    onReset();
+                                })
+                            }
+                            else {
+                                message.error("Update fail, please try again!!!", 3)
+                            }
+                        })
+                    }
+                }
                 if (oldPassword !== '' && newPassword !== '' && confirmPassword !== '') {
                     if (newPassword === confirmPassword) {
                         dataUser = {
@@ -160,8 +224,8 @@ export default function Profile(props) {
                         isChangePass: 0
                     }
                 }
-                const uri2 = url + '/api/user/update_cus_acc/' + idTK;
-                putData(uri2, dataUser)
+                const uri3 = url + '/api/user/update_cus_acc/' + idTK;
+                putData(uri3, dataUser)
                 .then( res => {
                     if (res.data) {
                         console.log("res add: ", res.data);
@@ -177,15 +241,6 @@ export default function Profile(props) {
                             dispatch(actionUpdateLogin);
 
                             onReset();
-                            // var objCus = {
-                            //     idTK,
-                            //     idKHD,
-                            //     email,
-                            //     displayName,
-                            //     loaiTaiKhoan,
-                            //     isLogin: true,
-                            // }
-                            // sessionStorage.setItem('customerAccount',JSON.stringify(objCus));
                         })
                     }
                     else {
@@ -328,7 +383,7 @@ export default function Profile(props) {
                                                                 <b>Old Password:</b>
                                                             </Col>
                                                             <Col xs={9} md={9} lg={9} >
-                                                                <Input.Password value={oldPassword } onChange={(e) => setoldPassword( e.target.value )} placeholder="Enter your old pass" /> 
+                                                                <Input.Password value={ oldPassword } onChange={(e) => setoldPassword( e.target.value )} placeholder="Enter your old pass" /> 
                                                             </Col>
                                                             <Col xs={6} md={6} lg={6} />
                                                         </Row> 

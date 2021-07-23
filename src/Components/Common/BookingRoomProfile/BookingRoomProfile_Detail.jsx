@@ -48,11 +48,17 @@ export default function BookingRoomProfile_Detail(props) {
         .then((resCTDDP) => {
             // return console.log('CTDDP: ', resCTDDP.data);
             setdataCTDDP(resCTDDP.data);
+            var setdata = [];
+            var i = 0;
             resCTDDP.data.map((item) => {
                 var uri2 = url + urnRoomTypeID(item.idLP);
                 getData(uri2)
                 .then((resLP) => {
-                    setarrLP(arrLP.push(resLP.data));
+                    i++;
+                    console.log('bla', resLP.data);
+                    setdata.push(resLP.data);
+                    if(i === resCTDDP.data.length)
+                        setarrLP(setdata);
                     // array.push(resLP.data);
                 })
                 return 1;
