@@ -206,12 +206,10 @@ function BillDetails(props) {
                                                 </>
                                             )
                                         }
-                                        
                                     </>
 
                                 )
                             }
-                            
                             <Col xs={6} md={6} lg={9} />
                         </Row>
                     </>
