@@ -14,6 +14,7 @@ export default class Router extends Component {
                         <Route exact path='/forgot-password/' component={ Components.ForgotPassword } />
                          <Route exact path='/reset-password/:id' component={ Components.ResetPassword } />
                         <Route exact path='/about/' component={ Components.About } />
+                        <Route exact path='/rates/' component={ Components.PageRates } />
                         <Route exact path='/service/' component={ Components.Service } />
                         <Route exact path='/roomtype/:id' component={ Components.Room } />
                         <Route exact path='/your-basket' component={ Components.Basket } />
