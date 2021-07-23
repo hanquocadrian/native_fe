@@ -121,6 +121,13 @@ export default function BasketInfo(props) {
         return;
     }
 
+    const onContinue = () => {
+        if(new Date(dateA) <= new Date()){
+            return message.error("Date invalid!");
+        }
+        return props.propsParent.history.push('/user/your-booking');
+    }
+
     if (totalAmountInCart === 0) {
         return (
             <div style={{ paddingTop:'1%', backgroundColor:'#FFFFFF'}}>
@@ -259,7 +266,7 @@ export default function BasketInfo(props) {
                         <Col xs={0} md={20} lg={8} style={{textAlign:'center'}}>
                             {
                                 sessionStorage.getItem('customerAccount') ?
-                                <Link to="/user/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link> :
+                                <Button size="large" style={{width:'200px'}} onClick={ onContinue }><b>CONTINUE</b></Button> :
                                 <Button size="large" style={{width:'200px'}} onClick={ showError }><b>CONTINUE</b></Button>
                             }
                         </Col>
@@ -390,7 +397,7 @@ export default function BasketInfo(props) {
                         <Col xs={20} md={0} lg={0} style={{textAlign:'center'}}>
                             {
                                 sessionStorage.getItem('customerAccount') ? 
-                                <Link to="/user/your-booking"><Button size="large" style={{width:'200px'}}><b>CONTINUE</b></Button></Link> :
+                                <Button size="large" style={{width:'200px'}} onClick={ onContinue }><b>CONTINUE</b></Button> :
                                 <Button size="large" style={{width:'200px'}} onClick={ showError }><b>CONTINUE</b></Button>
                             }
                         </Col>

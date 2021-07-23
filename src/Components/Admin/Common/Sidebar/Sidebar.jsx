@@ -111,7 +111,7 @@ export default function Sidebar() {
                     //  2: U, G  || 3: U, G
                     (phanQuyen === 2 || phanQuyen === 3) && (
                         <Menu.Item className="LinkNavAd">
-                            <Link to='/admin/image-service'>
+                            <Link to='/admin/bill'>
                                 <FaMoneyBill />
                                 Bill
                             </Link>
@@ -122,20 +122,9 @@ export default function Sidebar() {
                     //  2: G  || 3: Po, Pu, D
                     (phanQuyen === 2 || phanQuyen === 3) && (
                         <Menu.Item className="LinkNavAd">
-                            <Link to='/admin/image-service'>
+                            <Link to='/admin/rrc'>
                                 <BiReceipt />
-                                Receipt
-                            </Link>
-                        </Menu.Item>
-                    )
-                }
-                {
-                    //  2: G  || 3: G
-                    (phanQuyen === 2 || phanQuyen === 3) && (
-                        <Menu.Item className="LinkNavAd">
-                            <Link to='/admin/image-service'>
-                                <AiOutlineUserAdd />
-                                Customer payment
+                                Rental contract
                             </Link>
                         </Menu.Item>
                     )

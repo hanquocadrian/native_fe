@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { url } from 'Api/url';
-import { urnBillID } from 'Api/urn';
+import { urnBillID, urnKhdID } from 'Api/urn';
 import { getData } from 'Api/api';
 import { urnBillDetailsByIdBill } from 'Api/urn';
 import { Col, Row, Table, Descriptions, Progress, Button } from 'antd';
@@ -15,19 +15,25 @@ import BtnPDFBill from '../Button/BtnPDFBill';
 function BillDetails(props) {
     const [bill, setBill] = useState(null);
     const [dataBillDetails, setDataBillDetails] = useState([]);
+    const [dataKHD, setDataKHD] = useState(null);
     const [isRefesh, setIsRefesh] = useState(false);
+    const [isRefeshDetail, setIsRefeshDetail] = useState(false);
     const [isCanUpdateRoom, setIsCanUpdateRoom] = useState(false);
     const [isExportPDF, setIsExportPDF] = useState(false);
 
     useEffect(() => {
         var uri = url + urnBillID(props.idPTT);
-        getData(uri).then(res => setBill(res.data));
+        getData(uri).then(res => {
+            setBill(res.data);
+            uri = url + urnKhdID(res.data.idKHD);
+            getData(uri).then(res => setDataKHD(res.data[0]));
+        });
     },[isRefesh, props.idPTT]);
 
     useEffect(() => {
         var uri = url + urnBillDetailsByIdBill(props.idPTT);
         getData(uri).then(res =>{ console.log("load:", res.data); setDataBillDetails(res.data); });
-    }, [props.idPTT]);
+    }, [isRefeshDetail, props.idPTT,]);
 
     const onRefesh = (rf = false) => {
         // console.log("onRefesh", isRefesh);
@@ -41,8 +47,9 @@ function BillDetails(props) {
     const onRefeshUpdate = (rf = false) => {
         // console.log("new data: ", data);
         if(rf === true){
-            props.propsParent.history.push('/user/bills');
-            setIsCanUpdateRoom(false);            
+            // props.propsParent.history.push('/user/bills');
+            setIsCanUpdateRoom(false);  
+            setIsRefeshDetail(true);
         }
     }
 
@@ -78,25 +85,22 @@ function BillDetails(props) {
                                     column={{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }}
                                 >
                                     <Descriptions.Item labelStyle={{fontWeight: 'bolder', width: '150px'}} label="ID bill">{ bill && (bill.idPTT || 'Non') }</Descriptions.Item>
-                                    <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="ID Booking">{ bill && (bill.idDDP || 'Non')}</Descriptions.Item>
-                                    <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="ID off sale">{ bill && (bill.idKM || 'Non')}</Descriptions.Item>
-                                    <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="ID Card">{ bill && (bill.idThe || 'Non')}</Descriptions.Item>
+                                    <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="ID Booking">{ bill && (bill.idDDP || 'Non') }</Descriptions.Item>
+                                    <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="ID off sale">{ bill && (bill.idKM || 'Non') }</Descriptions.Item>
+                                    <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="ID Customer">{ dataKHD && (dataKHD.tenKH || 'Non') }</Descriptions.Item>
                                     <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Date of issue">{ format(new Date(bill && bill.ngayThanhToan), 'dd/MM/yyyy') }</Descriptions.Item>
                                     <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Diff dates">{ bill && (bill.soDem || 0)} Night(s)</Descriptions.Item>
                                     <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Start date">{ format(new Date(bill && bill.ngayDen), 'dd/MM/yyyy') }</Descriptions.Item>
                                     <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="End date">{ format(new Date(bill && bill.ngayDi), 'dd/MM/yyyy')}</Descriptions.Item>
                                     <Descriptions.Item labelStyle={{fontWeight: 'bolder'}} label="Status">
                                         <Row>
-                                            <Col xs={10} md={0} lg={0}>
-                                                <Progress percent={75} steps={3} showInfo={false} />
-                                            </Col>
-                                            <Col xs={0} md={14} lg={20}>
+                                            <Col xs={10} md={14} lg={20}>
                                                 <Progress
                                                     strokeColor={{
                                                         '0%': '#108ee9',
                                                         '100%': '#87d068',
                                                     }}
-                                                    percent={ bill && (bill.tinhTrang === 1 ? 30 : (bill.tinhTrang === 2 ? 60 : 90)) }
+                                                    percent={ bill && (bill.tinhTrang === 1 ? 30 : (bill.tinhTrang === 2 ? 60 : 100)) }
                                                     status="active"
                                                     showInfo={false}
                                                 />

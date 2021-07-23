@@ -1,4 +1,4 @@
-import React, { createRef } from 'react'
+import React, { createRef, useEffect, useState } from 'react'
 import ReactToPdf from 'react-to-pdf'
 import { Col, Row, Table, Descriptions, Progress, Button } from 'antd';
 import { columns } from '../BillDetails/moduleColumn';
@@ -14,6 +14,11 @@ function BtnPDFBill(props) {
     const dataBillDetails = props.dataBillDetails;
 
     const ref = createRef();
+    const [fileName, setFileName] = useState("");
+
+    useEffect(() => {
+        setFileName("invoice-" + props.bill.idPTT + ".pdf");
+    },[props.bill])
 
     const options = {
         format: 'a2'
@@ -181,7 +186,7 @@ function BtnPDFBill(props) {
             </div>
             <Row>
                 <Col span={24} style={{ textAlign: 'center' }}>
-                    <ReactToPdf targetRef={ref} filename="div-blue.pdf" options={options}>
+                    <ReactToPdf targetRef={ref} filename={ fileName } options={options}>
                         {({toPdf}) => (
                             <Button onClick={toPdf}>Create PDF</Button>
                         )}

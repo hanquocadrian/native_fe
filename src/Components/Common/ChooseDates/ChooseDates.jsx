@@ -4,6 +4,7 @@ import { differenceInDays } from 'date-fns';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { updDates } from 'ReduxConfig/Actions/chooseDates';
+import { removeCart } from 'ReduxConfig/Actions/cart';
 
 const { RangePicker } = DatePicker;
 
@@ -31,7 +32,16 @@ function ChooseDates(props) {
         const actionChosenDates = updDates(chooseDates);
         dispatch(actionChosenDates);
 
+        localStorage.setItem('itemsShoppingCart',[]);
+        const actionRemoveCart = removeCart();
+        dispatch(actionRemoveCart);
+
         message.success('Choose date successfully!');
+    }
+
+    function disabledDate(current) {
+        // Can not select days before today and today
+        return current && current < moment().endOf('day');
     }
 
     return (
@@ -41,7 +51,7 @@ function ChooseDates(props) {
                     <b>Search by date:</b> 
                 </Col>
                 <Col xs={19} md={19} lg={19} style={{ textAlign:'end' }}>
-                    <RangePicker defaultValue={[moment(new Date(dateA), 'DD/MM/YYYY'), moment(new Date(dateB), 'DD/MM/YYYY')]} onChange={ onChooseDate } />
+                    <RangePicker defaultValue={[moment(new Date(dateA), 'DD/MM/YYYY'), moment(new Date(dateB), 'DD/MM/YYYY')]} disabledDate={disabledDate} onChange={ onChooseDate } />
                 </Col>
             </Row>
             <Row className="mb-30">

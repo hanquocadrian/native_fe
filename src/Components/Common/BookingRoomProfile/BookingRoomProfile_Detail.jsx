@@ -58,7 +58,7 @@ export default function BookingRoomProfile_Detail(props) {
                 return 1;
             })
         })
-    }, []);
+    }, [idDDP, arrLP]);
 
     useEffect(() => {
         var uri = url + urnBillByIDDDP(idDDP);

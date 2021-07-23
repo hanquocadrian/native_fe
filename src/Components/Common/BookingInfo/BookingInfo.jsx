@@ -33,10 +33,15 @@ export default function BookingInfo(props) {
     const [title, setTitle] = useState('');
     const [loaiTaiKhoan, setLoaiTaiKhoan] = useState(0);
     //CART
+    // const rooms = localStorage.getItem('itemsShoppingCart') ? JSON.parse(localStorage.getItem('itemsShoppingCart')) : [];
+    // const startDate = localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).startDate): null;
+    // const endDate = localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).endDate) : null;
+    // const diff = localStorage.getItem('dateArriveCart') ? JSON.parse(localStorage.getItem('dateArriveCart')).days_diff : 0;
+
     const rooms = localStorage.getItem('itemsShoppingCart') ? JSON.parse(localStorage.getItem('itemsShoppingCart')) : [];
-    const startDate = localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).startDate): null;
-    const endDate = localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).endDate) : null;
-    const diff = localStorage.getItem('dateArriveCart') ? JSON.parse(localStorage.getItem('dateArriveCart')).days_diff : 0;
+    const startDate = new Date(useSelector(state => state.chooseDatesReducer.dateA));
+    const endDate = new Date(useSelector(state => state.chooseDatesReducer.dateB));
+    const diff = parseInt(useSelector(state => state.chooseDatesReducer.daysDiff));
     const slPhong = localStorage.getItem('slItemsShoppingCart') ? JSON.parse(localStorage.getItem('slItemsShoppingCart')).sl : 0;
     const [totalPrice, setTotalPrice] = useState(0);
 

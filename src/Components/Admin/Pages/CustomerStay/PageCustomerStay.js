@@ -1,5 +1,4 @@
-import { Button, Col, message, Popconfirm, Row, Table, Tooltip } from 'antd';
-import { deleteData } from 'Api/api';
+import { Button, Col, Row, Table, Tooltip } from 'antd';
 import { getData } from 'Api/api';
 import { url } from 'Api/url';
 import NavbarTop from 'Components/Admin/Common/Navigation/NavbarTop';
@@ -9,7 +8,6 @@ import { GrAdd } from 'react-icons/gr';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { urnCustomerStay } from 'Api/urn';
-import { urnCustomerStayID } from 'Api/urn';
 import { format } from 'date-fns';
 
 function PageCustomerStay(props) {
@@ -71,38 +69,11 @@ function PageCustomerStay(props) {
                 phanQuyen === 3 && (
                     <>
                         <Link to={ '/admin/customer-stay-upd/' + record.idKHO }><Button className="btn-edit">Edit</Button></Link>
-                        <Popconfirm
-                            title="Are you sure to delete this?"
-                            onConfirm={ () => onDelete(record.idKHO) }
-                            okText="Yes"
-                            cancelText="No"
-                        >
-                            <Button className="btn-delete">Delete</Button>
-                        </Popconfirm>
                     </>
                 )
             )
         }
     ];
-
-    function onDelete(id) {
-        var uri = url + urnCustomerStayID(id);
-        deleteData(uri)
-        .then((res) => {
-            if(typeof res.data !== 'undefined'){
-                console.log(res.data);
-                message.success("Delete successfully !");
-
-                uri = url + urnCustomerStay;
-                getData(uri)
-                .then(res => setdataCustomerStay(res.data))
-                .catch(err => console.error(err));
-            } else if (typeof res.response !== 'undefined'){
-                console.log(res.response.data);
-                message.error("Delete fail. " + res.response.data);
-            }
-        })
-    }
 
     return (
         <>
@@ -118,13 +89,17 @@ function PageCustomerStay(props) {
                         <Col xs={20} md={20} lg={20}>
                         <Row>
                             <Col xs={2} md={2} lg={2}>
-                                <Tooltip placement="right" title="Create new one">
-                                    <Link to="/admin/customer-stay-add">
-                                        <Button className="btn-add" id="btnAdd">
-                                            <GrAdd className="icon-top" />
-                                        </Button>
-                                    </Link>
-                                </Tooltip>
+                            {
+                                phanQuyen === 3 && (
+                                    <Tooltip placement="right" title="Create new one">
+                                        <Link to="/admin/customer-stay-add">
+                                            <Button className="btn-add" id="btnAdd">
+                                                <GrAdd className="icon-top" />
+                                            </Button>
+                                        </Link>
+                                    </Tooltip>
+                                )
+                            }
                             </Col>
                             <Col xs={20} md={20} lg={20}>
                                 <h1 className="text-center"><b>LIST OF CUSTOMER STAY</b></h1>

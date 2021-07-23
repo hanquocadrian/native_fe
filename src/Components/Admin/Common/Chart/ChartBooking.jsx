@@ -4,35 +4,40 @@ import { url } from 'Api/url';
 import { urnChartMoneyBooking } from 'Api/urn';
 import { getData } from 'Api/api';
 import { Col, Row } from 'antd';
+import { urnChartMoneyBookingService } from 'Api/urn';
 
 function ChartBooking(props) {
+    const year = (new Date()).getFullYear();
     const [dataMoneyBookingChart, setdataMoneyBookingChart] = useState([]);
+    const [dataMoneyBookingServiceChart, setdataMoneyBookingServiceChart] = useState([]);
 
     useEffect(() => {
-        const uri = url + urnChartMoneyBooking;
+        var uri = "";
+        
+        uri = url + urnChartMoneyBooking;
         getData(uri)
         .then(res => {setdataMoneyBookingChart(res.data)});
+
+        uri = url + urnChartMoneyBookingService;
+        getData(uri)
+        .then(res => {setdataMoneyBookingServiceChart(res.data)});
     }, []);
+
     return (
-        <>
-            <Row>
-                <Col xs={11} md={11} lg={11}>
-                    <b>BOOKING CHART</b>
-                </Col>
-                <Col xs={2} md={2} lg={2} />
-                <Col xs={11} md={11} lg={11}>
-                    <b>BOOKING SERVICE CHART</b>
+        <div style={{height: '90vh'}}>
+            <Row className="mb-15">
+                <Col xs={24} md={24} lg={24}>
+                    <h3 style={{ fontSize: '20px' }}><b>BOOKING & SERVICES CHART {year}</b></h3>
                 </Col>
             </Row>
             <Row>
-                <Col xs={11} md={11} lg={11}>
-                    <Bar 
-                        style={{ maxHeight: '35vh' }}
+                <Col xs={24} md={24} lg={24}>
+                    <Bar
                         data={{
                             labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
                             datasets: [
                                 {
-                                    label: `Booking chart 2021`,
+                                    label: `Booking roomtype`,
                                     data: dataMoneyBookingChart,
                                     backgroundColor: [
                                         'rgba(220, 20, 60, 0.2)',
@@ -47,21 +52,9 @@ function ChartBooking(props) {
                                         'rgba(75, 192, 192, 1)',
                                     ],
                                     borderWidth: 1,
-                                },
-                            ],
-                        }}
-                    />  
-                </Col>
-                <Col xs={2} md={2} lg={2} />
-                <Col xs={11} md={11} lg={11}>
-                    <Bar 
-                        style={{ maxHeight: '35vh' }}
-                        data={{
-                            labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
-                            datasets: [
-                                {
-                                    label: `Booking service chart 2021`,
-                                    data: dataMoneyBookingChart,
+                                },{
+                                    label: `Booking service`,
+                                    data: dataMoneyBookingServiceChart,
                                     backgroundColor: [
                                         'rgba(220, 20, 60, 0.2)',
                                         'rgba(54, 162, 235, 0.2)',
@@ -82,7 +75,7 @@ function ChartBooking(props) {
                 </Col>
             </Row>
             
-        </>
+        </div>
     )
 }
 

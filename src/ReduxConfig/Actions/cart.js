@@ -1,4 +1,4 @@
-import { ADD_CART, DEL_CART } from "ReduxConfig/ActionTypes"
+import { ADD_CART, DEL_CART, REMOVE_CART } from "ReduxConfig/ActionTypes"
 
 export const addCart = (sl) => {
     return {
@@ -17,4 +17,10 @@ export const deleteCart = (sl) => {
         type: DEL_CART,
         payload: sl
     };
+}
+
+export const removeCart = () => {
+    return {
+        type: REMOVE_CART,
+    }
 }

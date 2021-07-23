@@ -37,7 +37,8 @@ function Login(props) {
     }
 
     useEffect(() => {
-        if (wasLoginSocial) {
+        if(wasLoginSocial){
+            console.log(user);
             //để hàm xử lý onSubmitFirebase
             //khi đã có tài khoản r sẽ chạy mấy dòng dưới
             const data1 = {
