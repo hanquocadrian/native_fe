@@ -10,6 +10,7 @@ import { getData } from 'Api/api';
 import { urnAdminID } from 'Api/urn';
 import { actLogin } from 'ReduxConfig/Actions/adminAccount';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export default function Login(props) {
     const dispatch = useDispatch();
@@ -156,9 +157,7 @@ export default function Login(props) {
                                 <Col xs={1} md={2} lg={2}></Col>
                                 <Col xs={22} md={20} lg={20}>
                                     <Form.Item className="login-form-forgot">
-                                        <span>
-                                            Forgot password
-                                        </span>
+                                        <Link to="/forgot-password/"><span>Forgot password</span></Link>
                                     </Form.Item>
                                 </Col>
                                 <Col xs={1} md={2} lg={2}></Col>

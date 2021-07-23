@@ -76,10 +76,22 @@ function RoomTypeUpd(props) {
 
         putData(uri, data)
         .then(res => {
-            console.log("res upd: ", res);
-            message.success("Update successfully, this page will redirect a few moments later", 3).then(()=>{
-                props.propsParent.history.push('/admin/roomtype/');
-            })
+            if(res.data){
+                console.log("res upd: ", res);
+                message.success("Update successfully, this page will redirect a few moments later", 3).then(()=>{
+                    props.propsParent.history.push('/admin/roomtype/');
+                })
+            } else if(res.response.data) {
+                console.log(res.response.data);
+                if(Array.isArray(res.response.data)){
+                    res.response.data.map(err => { 
+                        // console.log(err.message);
+                        return alert(err.message);
+                    })
+                } else {
+                    alert(res.response.data);
+                }
+            }
         });
     }
     return (

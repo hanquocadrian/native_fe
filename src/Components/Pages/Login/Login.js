@@ -308,6 +308,11 @@ function Login(props) {
                                                             <Button shape="round" onClick={ onSubmitLogin }>LOG IN</Button>
                                                         </Col>
                                                     </Row>
+                                                    <Row>
+                                                        <Col xs={24} md={24} lg={24} className="text-center mt-10">
+                                                            <Link to="/forgot-password/"><span style={{color: 'black'}}>Forgot password</span></Link>
+                                                        </Col>
+                                                    </Row>
                                                 </>
                                             )
                                         }

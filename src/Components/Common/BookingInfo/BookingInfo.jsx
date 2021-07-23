@@ -13,9 +13,9 @@ import { IoIosArrowForward } from "react-icons/io";
 
 import './BookingInfo.css';
 
-const initialization = {
-    rooms: localStorage.getItem('itemsShoppingCart') ? JSON.parse(localStorage.getItem('itemsShoppingCart')) : [],
-};
+// const initialization = {
+//     rooms: localStorage.getItem('itemsShoppingCart') ? JSON.parse(localStorage.getItem('itemsShoppingCart')) : [],
+// };
 
 export default function BookingInfo() {
     //KHD
@@ -32,7 +32,7 @@ export default function BookingInfo() {
     const [title, setTitle] = useState('');
     const [loaiTaiKhoan, setLoaiTaiKhoan] = useState(0);
     //CART
-    const rooms = initialization.rooms;
+    const rooms = localStorage.getItem('itemsShoppingCart') ? JSON.parse(localStorage.getItem('itemsShoppingCart')) : [];
     const startDate = new Date(useSelector(state => state.chooseDatesReducer.dateA));
     const endDate = new Date(useSelector(state => state.chooseDatesReducer.dateB));
     const diff = parseInt(useSelector(state => state.chooseDatesReducer.daysDiff));

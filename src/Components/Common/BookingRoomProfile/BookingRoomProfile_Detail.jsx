@@ -48,11 +48,17 @@ export default function BookingRoomProfile_Detail(props) {
         .then((resCTDDP) => {
             // return console.log('CTDDP: ', resCTDDP.data);
             setdataCTDDP(resCTDDP.data);
+            var setdata = [];
+            var i = 0;
             resCTDDP.data.map((item) => {
                 var uri2 = url + urnRoomTypeID(item.idLP);
                 getData(uri2)
                 .then((resLP) => {
-                    setarrLP(arrLP.push(resLP.data));
+                    i++;
+                    console.log('bla', resLP.data);
+                    setdata.push(resLP.data);
+                    if(i === resCTDDP.data.length)
+                        setarrLP(setdata);
                     // array.push(resLP.data);
                 })
                 return 1;
@@ -92,14 +98,16 @@ export default function BookingRoomProfile_Detail(props) {
         var arrRooms = [];
         var arrCTPTTnew = [];
 
+        var phanTramGiam = 0;
+
         var dataPTTP = {
             ngayThanhToan: format(new Date(), "yyyy/MM/dd"),
             tinhTrang: 1,
             tongThanhTien,
-            tienPhaiTra: tongThanhTien,
-            tienCoc: (tongThanhTien * 30) / 100,
-            tienConLai: tongThanhTien - ((tongThanhTien * 30) / 100),
-            phanTramGiam: 0,
+            tienPhaiTra: tongThanhTien - ((tongThanhTien * phanTramGiam) / 100),
+            tienCoc: ((tongThanhTien - ((tongThanhTien * phanTramGiam) / 100)) * 30) / 100,
+            tienConLai: (tongThanhTien - ((tongThanhTien * phanTramGiam) / 100)) - (((tongThanhTien - ((tongThanhTien * phanTramGiam) / 100)) * 30) / 100),
+            phanTramGiam,
             idKHD,
             idDDP,
             ngayDen: format(new Date(ngayDen), "yyyy/MM/dd"),

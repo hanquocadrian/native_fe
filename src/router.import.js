@@ -2,7 +2,10 @@
 import { ProtectedCusRoute } from 'Auth/protectedCus.route';
 import Home from './Components/Pages/Home/Home';
 import Login from './Components/Pages/Login/Login';
+import ForgotPassword from './Components/Pages/ForgotPassword/ForgotPassword';
+import ResetPassword from './Components/Pages/ResetPassword/ResetPassword';
 import About from './Components/Pages/About/About';
+import PageRates from 'Components/Pages/PageRates/PageRates';
 import Service from './Components/Pages/HotelService/HotelService';
 import Room from './Components/Pages/Room/Room';
 import Basket from './Components/Pages/Basket/Basket';
@@ -14,6 +17,8 @@ import PageBookingRoomProfile_Detail from './Components/Pages/BookingRoomProfile
 
 import PageBill from 'Components/Pages/Bill/PageBill';
 import PageBillDetails from 'Components/Pages/Bill/BillDetails/PageBillDetails';
+
+import PageRoomRentalContract from 'Components/Pages/RoomRentalContract/PageRoomRentalContract';
 
 // Admin
 import { ProtectedRoute } from './Auth/protected.route'; 
@@ -60,6 +65,9 @@ import AdPageCustomerStay from 'Components/Admin/Pages/CustomerStay/PageCustomer
 import AdPageCustomerStayAdd from 'Components/Admin/Pages/CustomerStay/Add/PageCustomerStayAdd';
 import AdPageCustomerStayUpd from 'Components/Admin/Pages/CustomerStay/Update/PageCustomerStayUdp';
 
+import AdPageBooking from 'Components/Admin/Pages/Booking/PageBooking';
+import AdPageBookingDetail from 'Components/Admin/Pages/Booking/Detail/PageBookingDetail';
+
 import AdPageBill from 'Components/Admin/Pages/Bill/PageBill';
 import AdPageBillDetail from 'Components/Admin/Pages/Bill/BillDetail/PageBillDetail';
 
@@ -70,7 +78,7 @@ import AdPageRRCAdd from 'Components/Admin/Pages/RoomRentalContract/Add/PageRRCA
 import Error from './Components/Admin/Pages/Error/Error';
 
 export { 
-    ProtectedCusRoute, Home, Login, About, Service, Room, Basket, PageProfile, PageBill, PageBillDetails, PageBooking, PageBookingRoomProfile, PageBookingRoomProfile_Detail,
-    ProtectedRoute, AdLogin, AdHome, AdAbout, AdSlider, AdPageAdmin, AdPageAdminAdd, AdPageAdminUpd, AdPageRoomType, AdPageRoomTypeDetail, AdPageRoomTypeAdd, AdPageRoomTypeUpd, AdPageRoomTypeImage, AdPageRoomTypeImageAdd, AdPageRoomTypeImageUpd, AdService, AdPageServiceAdd, AdPageServiceDetail, AdPageServiceUpd, AdPageServiceImage, AdPageServiceImageAdd, AdPageServiceImageUpd, AdPageDailyRate, AdPageDailyRateAdd, AdPageDailyRateUpd, AdPageSpecialRate, AdPageSpecialRateAdd, AdPageSpecialRateUpd, AdPageRoom, AdPageRoomAdd, AdPageRoomUpd, AdPageCustomerStay, AdPageCustomerStayAdd , AdPageCustomerStayUpd, AdPageBill, AdPageBillDetail, AdPageRRC, AdPageRRCAdd,
+    ProtectedCusRoute, Home, Login, About, PageRates, Service, Room, Basket, PageProfile, PageBill, PageBillDetails, PageBooking, PageBookingRoomProfile, PageBookingRoomProfile_Detail, PageRoomRentalContract, ForgotPassword, ResetPassword,
+    ProtectedRoute, AdLogin, AdHome, AdAbout, AdSlider, AdPageAdmin, AdPageAdminAdd, AdPageAdminUpd, AdPageRoomType, AdPageRoomTypeDetail, AdPageRoomTypeAdd, AdPageRoomTypeUpd, AdPageRoomTypeImage, AdPageRoomTypeImageAdd, AdPageRoomTypeImageUpd, AdService, AdPageServiceAdd, AdPageServiceDetail, AdPageServiceUpd, AdPageServiceImage, AdPageServiceImageAdd, AdPageServiceImageUpd, AdPageDailyRate, AdPageDailyRateAdd, AdPageDailyRateUpd, AdPageSpecialRate, AdPageSpecialRateAdd, AdPageSpecialRateUpd, AdPageRoom, AdPageRoomAdd, AdPageRoomUpd, AdPageCustomerStay, AdPageCustomerStayAdd , AdPageCustomerStayUpd, AdPageBill, AdPageBillDetail, AdPageRRC, AdPageRRCAdd, AdPageBooking, AdPageBookingDetail,
     Error,
 };
