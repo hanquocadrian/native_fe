@@ -9,21 +9,21 @@ import { getData } from 'Api/api';
 
 function BtnDeposit(props) {
     const bill = props.bill;
-    const [cast, setCast] = useState(0);
+    const [cash, setCash] = useState(0);
 
     useEffect(() => {
         var money = 0;
 
         if(bill){
             if(bill.tinhTrang === 1){
-                money = bill.tienPhaiTra
+                money = bill.tienCoc
                 console.log('cast: ', money);
-                setCast(money);
+                setCash(money);
             }
             if(bill.tinhTrang === 2){
                 money = bill.tienConLai;
                 console.log('cast: ', money);
-                setCast(money);
+                setCash(money);
             }  
         }
         
@@ -58,18 +58,18 @@ function BtnDeposit(props) {
             <Row className="mb-15">
                 <Col xs={24} md={24} lg={24}>
                     <Popconfirm
-                        title={"Customer accept paid for this bill with $" + cast}
+                        title={"Customer accept paid for this bill with $" + cash}
                         onConfirm={ paidCastSettlement }
                         okText="Yes"
                         cancelText="No"
                     >
-                        <Button className="btn-create">CAST SETTLE</Button>
+                        <Button className="btn-create">CASH SETTLE</Button>
                     </Popconfirm>
                 </Col>
             </Row> 
             <Row>
                 <Col xs={24} md={24} lg={24}>
-                    <Paypal total={ cast } onResultPay={ onResultPay } />
+                    <Paypal total={ cash } onResultPay={ onResultPay } />
                 </Col>
             </Row>  
         </>
