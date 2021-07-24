@@ -153,7 +153,7 @@ export default function Navbar() {
                     <Row>
                         <Menu mode="horizontal" style={{width: '100%', textAlign:'end'}}>
                             <Menu.Item className="LinkNavCus">
-                                <Link to="" onClick={ showModalSearch }><span style={{fontSize:"15px"}}>Search</span></Link>
+                                <span onClick={ showModalSearch }><span style={{fontSize:"15px"}}>Search</span></span>
                                 {
                                     isModalVisible && 
                                     <Modal 
