@@ -25,6 +25,9 @@ function ChooseDates(props) {
     }
 
     const onAcceptDate = () => {
+        if(!dateA || !dateB || new Date(dateA) < new Date()){
+            return message.error(`Times isn't choose or this time was past`);
+        }
         var chooseDates = {
             dateA,
             dateB,

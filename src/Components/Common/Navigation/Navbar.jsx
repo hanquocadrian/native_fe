@@ -16,6 +16,8 @@ import { BiLogOut } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { actLogout } from 'ReduxConfig/Actions/customerAccount';
 import ChooseDates from '../ChooseDates/ChooseDates';
+import { updDates } from 'ReduxConfig/Actions/chooseDates';
+import { removeCart } from 'ReduxConfig/Actions/cart';
 
 const { SubMenu } = Menu;
 
@@ -69,6 +71,17 @@ export default function Navbar() {
         if(isSocialLogin){
             firAuth.signOut();
         }
+
+        var chooseDates = {
+            dateA: new Date(),
+            dateB: new Date(),
+        };
+        const actionChosenDates = updDates(chooseDates);
+        dispatch(actionChosenDates);
+
+        localStorage.setItem('itemsShoppingCart',[]);
+        const actionRemoveCart = removeCart();
+        dispatch(actionRemoveCart);
 
         var actionLogout = actLogout();
         dispatch(actionLogout);
