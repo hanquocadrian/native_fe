@@ -96,7 +96,7 @@ function Rates(props) {
                     <Table
                         columns={ columns } 
                         dataSource={ dataRoomTypes } 
-                        pagination={{ pageSize: 7, position: ['topRight', 'none'] }} 
+                        pagination={{ pageSize: 6, position: ['topRight', 'none'] }} 
                         scroll={{ x: 1080 }}
                     />
                 </Col>

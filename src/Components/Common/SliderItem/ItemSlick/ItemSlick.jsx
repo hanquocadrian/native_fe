@@ -33,7 +33,17 @@ function ItemSlick(props) {
                 hoverable
                 cover={
                     <div style={{width: '300px', height: '230px', overflow: 'hidden'}}>
-                        <img alt="not found" src={ image } style={{width: '300px', height: '230px'}} />
+                        <img alt="not found" src={ image }
+                            style={{ 
+                                display: 'block',
+                                top: '0%', 
+                                position: "relative",
+                                objectFit: "cover",
+                                verticalAlign: 'middle',
+                                width: 'auto',
+                                height: '230px'
+                            }}
+                        />
                     </div>
                 }
             >

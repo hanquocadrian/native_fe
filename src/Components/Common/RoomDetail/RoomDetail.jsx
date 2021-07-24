@@ -196,7 +196,7 @@ export default function RoomDetail(props) {
                                         </Row>
                                         <Row style={{ backgroundColor:'#F3F1EF', padding:'3%' }}>
                                             <Col>
-                                                <span style={{fontFamily:'Cambria', fontSize:'20px', fontWeight:'bold'}}>Price: { price != 0 ? <CurrencyFormat value={price || 0} displayType={'text'} thousandSeparator={true} prefix={'$'} /> : `Havn't rate`}</span>
+                                                <span style={{fontFamily:'Cambria', fontSize:'20px', fontWeight:'bold'}}>Price: { price !== 0 ? <CurrencyFormat value={price || 0} displayType={'text'} thousandSeparator={true} prefix={'$'} /> : `Havn't rate`}</span>
                                             </Col>
                                         </Row>
                                     </Col>
