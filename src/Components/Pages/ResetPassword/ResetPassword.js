@@ -68,7 +68,6 @@ export default function ResetPassword(props) {
                                 </Row>
                             </Col>
                         </Row>
-                        
                     </div>
                 </Col>
                 <Col xs={3} md={5} lg={7}></Col>

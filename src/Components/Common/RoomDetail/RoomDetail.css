@@ -1,6 +1,10 @@
-.ant-carousel .slick-dots li button{
+.item-room .ant-carousel .slick-dots li button{
     position: relative;
-    left: -15vw;
+    left: -5vw;
+}
+.item-room-xs .ant-carousel .slick-dots li button{
+    position: relative;
+    left: -10vw;
 }
 
 .date-start-picker input, .date-end-picker input{

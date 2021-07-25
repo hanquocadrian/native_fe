@@ -111,7 +111,7 @@ export default function Navbar() {
                             <Link to="/about"><span style={{fontSize:"15px"}}>About</span></Link>
                         </Menu.Item>
                         <Menu.Item>
-                            <span style={{fontSize:"15px"}}>Rates</span>
+                            <Link to="/rates"><span style={{fontSize:"15px"}}>Rates</span></Link>
                         </Menu.Item>
                         <SubMenu  style={{fontSize:"15px"}} title="Room Type">
                             { showRoomTypes() }

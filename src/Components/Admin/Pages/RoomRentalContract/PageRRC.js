@@ -1,4 +1,4 @@
-import { Button, Col,  Row, Table, Tooltip } from 'antd';
+import { Button, Col, Row, Table, Tooltip, Popconfirm, message } from 'antd';
 import { getData } from 'Api/api';
 import { url } from 'Api/url';
 import NavbarTop from 'Components/Admin/Common/Navigation/NavbarTop';
@@ -9,6 +9,8 @@ import { urnRRC } from 'Api/urn';
 import { Link } from 'react-router-dom';
 import { GrAdd } from 'react-icons/gr';
 import { urnCustomerStayID } from 'Api/urn';
+import { urnRRCID } from 'Api/urn';
+import { putData } from 'Api/api';
 
 function ShowCus(props) {
     const [KHO, setKHO] = useState(null);
@@ -25,12 +27,13 @@ function ShowCus(props) {
 
 function PageRRC(props) {
     const [dataRRC, setDataRRC] = useState([]);
+    const [reloading, setReloading] = useState(0);
 
     useEffect(() => {
-       var uri = url + urnRRC;
-       getData(uri)
-       .then(res => setDataRRC(res.data));
-    }, []);
+        var uri = url + urnRRC;
+        getData(uri)
+        .then(res => setDataRRC(res.data));
+    }, [reloading]);
     
     const columns = [
         {
@@ -103,11 +106,37 @@ function PageRRC(props) {
             title: 'Action',
             width: 200,
             align: 'center',
-            render: (record) => (
-                <>
-                    <Button className="btn-edit">Change Status</Button>
+            render: (record) => {
+                const onUpdate = (record) => {
+                    if(record.trangThai === 2) {
+                        return message.warning('Customer must checkout in bill!');
+                    }
+                    var data = record;
+                    data.trangThai = 3;
+                    data.ngayDen = format(new Date(record.ngayDen),'yyyy/MM/dd');
+                    data.ngayDi = format(new Date(),'yyyy/MM/dd');
+                    let uri = url + urnRRCID(record.idPTP);
+                    putData(uri, data).then(res => {
+                        if(res.data){
+                            message.success("Change status successful.");
+                            setReloading(!reloading);
+                        } else if(res.response.data){
+                            message.error("Change status failed.");
+                        }
+                    })
+                }
+
+                return <>
+                    <Popconfirm
+                        title="Are you sure change status to went in this room rental contract?"
+                        onConfirm={ () => onUpdate(record) }
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Button className="btn-edit">Change Status</Button>
+                    </Popconfirm>
                 </>
-            )
+            }
         },
     ];
 

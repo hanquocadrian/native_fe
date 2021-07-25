@@ -111,10 +111,10 @@ function Search(props) {
                 ]}
             > */}
                 <Row className="mb-15">
-                    <Col xs={4} md={4} lg={4} style={{ lineHeight: '32px' }}>
+                    <Col xs={24} md={5} lg={4} style={{ lineHeight: '32px' }}>
                         <b>Search by date:</b> 
                     </Col>
-                    <Col xs={18} md={18} lg={18}>
+                    <Col xs={24} md={15} lg={18}>
                         <RangePicker 
                             value={
                                 [
@@ -125,7 +125,7 @@ function Search(props) {
                             disabled 
                         />
                     </Col>
-                    <Col xs={2} md={2} lg={2}>
+                    <Col xs={24} md={4} lg={2} style={{ textAlign: 'center' }}>
                         <Button onClick={ onFindRoom }>Find now</Button>
                     </Col>
                 </Row>

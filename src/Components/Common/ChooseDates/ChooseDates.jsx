@@ -47,18 +47,18 @@ function ChooseDates(props) {
     return (
         <>
             <Row className="mb-30">
-                <Col xs={5} md={5} lg={5} style={{ lineHeight: '32px' }}>
+                <Col xs={24} md={8} lg={8} style={{ lineHeight: '32px' }}>
                     <b>Search by date:</b> 
                 </Col>
-                <Col xs={19} md={19} lg={19} style={{ textAlign:'end' }}>
+                <Col xs={24} md={16} lg={16} style={{ textAlign:'end' }}>
                     <RangePicker defaultValue={[moment(new Date(dateA), 'DD/MM/YYYY'), moment(new Date(dateB), 'DD/MM/YYYY')]} disabledDate={disabledDate} onChange={ onChooseDate } />
                 </Col>
             </Row>
             <Row className="mb-30">
-                <Col xs={8} md={8} lg={8} style={{ lineHeight: '32px' }}>
+                <Col xs={24} md={8} lg={11} style={{ lineHeight: '32px' }}>
                     <b>Night:</b> 
                 </Col>
-                <Col xs={16} md={16} lg={16} style={{ textAlign:'end' }}>
+                <Col xs={24} md={16} lg={13} style={{ textAlign:'end' }}>
                     <Input type="number" value={daysDiff} disabled />
                 </Col>
             </Row>

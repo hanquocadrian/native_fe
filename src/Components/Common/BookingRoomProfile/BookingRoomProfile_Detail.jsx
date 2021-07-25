@@ -1,4 +1,4 @@
-import { Row, Col, Button, Tag, Descriptions, message } from 'antd';
+import { Row, Col, Button, Tag, Descriptions, message, Popconfirm } from 'antd';
 import { SyncOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { getData, postData, putData } from 'Api/api';
 import { url } from 'Api/url';
@@ -48,17 +48,23 @@ export default function BookingRoomProfile_Detail(props) {
         .then((resCTDDP) => {
             // return console.log('CTDDP: ', resCTDDP.data);
             setdataCTDDP(resCTDDP.data);
+            var setdata = [];
+            var i = 0;
             resCTDDP.data.map((item) => {
                 var uri2 = url + urnRoomTypeID(item.idLP);
                 getData(uri2)
                 .then((resLP) => {
-                    setarrLP(arrLP.push(resLP.data));
+                    i++;
+                    console.log('bla', resLP.data);
+                    setdata.push(resLP.data);
+                    if(i === resCTDDP.data.length)
+                        setarrLP(setdata);
                     // array.push(resLP.data);
                 })
                 return 1;
             })
         })
-    }, [idDDP, arrLP]);
+    }, []);
 
     useEffect(() => {
         var uri = url + urnBillByIDDDP(idDDP);
@@ -92,14 +98,16 @@ export default function BookingRoomProfile_Detail(props) {
         var arrRooms = [];
         var arrCTPTTnew = [];
 
+        var phanTramGiam = 0;
+
         var dataPTTP = {
             ngayThanhToan: format(new Date(), "yyyy/MM/dd"),
             tinhTrang: 1,
             tongThanhTien,
-            tienPhaiTra: tongThanhTien,
-            tienCoc: (tongThanhTien * 30) / 100,
-            tienConLai: tongThanhTien - ((tongThanhTien * 30) / 100),
-            phanTramGiam: 0,
+            tienPhaiTra: tongThanhTien - ((tongThanhTien * phanTramGiam) / 100),
+            tienCoc: ((tongThanhTien - ((tongThanhTien * phanTramGiam) / 100)) * 30) / 100,
+            tienConLai: (tongThanhTien - ((tongThanhTien * phanTramGiam) / 100)) - (((tongThanhTien - ((tongThanhTien * phanTramGiam) / 100)) * 30) / 100),
+            phanTramGiam,
             idKHD,
             idDDP,
             ngayDen: format(new Date(ngayDen), "yyyy/MM/dd"),
@@ -270,7 +278,15 @@ export default function BookingRoomProfile_Detail(props) {
                                     <Link to="/user/your-booking-room"><Button size="large" shape="round"><b>BACK</b></Button></Link>
                                 </Col>
                                 <Col xs={4} md={4} lg={4} className="text-center">
-                                    <Button size="large" shape="round" onClick={ onSubmitCancelBooking }><b>CANCEL BOOKING</b></Button>
+                                    <Popconfirm
+                                        title="Are you sure to cancel booking, if you click yes your booking room will cancel permanently?"
+                                        onConfirm={ onSubmitCancelBooking }
+                                        okText="Yes"
+                                        cancelText="No"
+                                    >
+                                        <Button size="large" shape="round"><b>CANCEL BOOKING</b></Button>
+                                    </Popconfirm>
+                                    {/* <Button size="large" shape="round" onClick={ onSubmitCancelBooking }><b>CANCEL BOOKING</b></Button> */}
                                 </Col>
                                 <Col xs={4} md={4} lg={4} className="text-center">
                                     <Button size="large" shape="round" onClick={ onSubmitCreateBill }><b>CREATE BILL</b></Button>

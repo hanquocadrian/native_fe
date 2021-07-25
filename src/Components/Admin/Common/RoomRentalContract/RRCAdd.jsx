@@ -42,8 +42,8 @@ function RRCAdd(props) {
         var booking = dataBooking.find(item => item.idDDP === idDDP);
         // console.log(booking);
         if(typeof booking !== 'undefined'){
-            setDateA(format(new Date(booking.ngayDen), 'dd/MM/yyyy'));
-            setDateB(format(new Date(booking.ngayDi), 'dd/MM/yyyy'));
+            setDateA(new Date(booking.ngayDen));
+            setDateB(new Date(booking.ngayDi));
             setTrangThai(booking.tinhTrang === 2 ? 2 : 1);
         }
 
@@ -88,7 +88,11 @@ function RRCAdd(props) {
         var uri = url + urnRRC;
         postData(uri, data)
         .then(res => {
-            message.success("Add completed, wait a few seconds the fields are reset");
+            if(res.data){
+                message.success("Add completed, wait a few seconds the fields are reset");
+            } else if(res.response.data) {
+                message.error(res.response.data);
+            }
             onReset();
         })
     }

@@ -279,18 +279,18 @@ export default function Profile(props) {
                 <Col xs={24} md={24} lg={24}>
                     <h1 className="text-center"><b>CUSTOMER INFORMATION</b></h1> 
                     <Row className="mb-15 mt-15">
-                        <Col xs={6} md={6} lg={6} />
-                        <Col xs={12} md={12} lg={12} className="text-center">
+                        <Col xs={1} md={6} lg={6} />
+                        <Col xs={22} md={12} lg={12} className="text-center">
                             <hr style={{ color: 'black'}} />
                         </Col>
-                        <Col xs={6} md={6} lg={6} />
+                        <Col xs={1} md={6} lg={6} />
                     </Row>
                     <Row className="mb-15 mt-15">
                         <Col xs={6} md={6} lg={6} />
-                        <Col xs={3} md={3} lg={3} style={{ lineHeight: '32px' }}>
+                        <Col xs={24} md={3} lg={3} style={{ lineHeight: '32px' }}>
                             <b>Your name:</b>
                         </Col>
-                        <Col xs={9} md={9} lg={9} >
+                        <Col xs={24} md={9} lg={9} >
                             <Row>
                                 <Col xs={3} md={3} lg={3} >
                                     <Input placeholder="Mr" value={ title } onChange={(e) => settitle( e.target.value )} />
@@ -304,40 +304,40 @@ export default function Profile(props) {
                     </Row>
                     <Row className="mb-15 mt-15">
                         <Col xs={6} md={6} lg={6} />
-                        <Col xs={3} md={3} lg={3} style={{ lineHeight: '32px' }}>
+                        <Col xs={24} md={3} lg={3} style={{ lineHeight: '32px' }}>
                             <b>Display name:</b>
                         </Col>
-                        <Col xs={9} md={9} lg={9} >
+                        <Col xs={24} md={9} lg={9} >
                             <Input value={ displayName } onChange={(e) => setdisplayName( e.target.value )} required/>
                         </Col>
                         <Col xs={6} md={6} lg={6} />
                     </Row>
                     <Row className="mb-15">
                         <Col xs={6} md={6} lg={6} />
-                        <Col xs={3} md={3} lg={3} style={{ lineHeight: '32px' }}>
+                        <Col xs={24} md={3} lg={3} style={{ lineHeight: '32px' }}>
                             <b>Email:</b>
                         </Col>
-                        <Col xs={9} md={9} lg={9} >
+                        <Col xs={24} md={9} lg={9} >
                             <Input value={ email } onChange={(e) => setemail( e.target.value )} /> 
                         </Col>
                         <Col xs={6} md={6} lg={6} />
                     </Row>
                     <Row className="mb-15">
                         <Col xs={6} md={6} lg={6} />
-                        <Col xs={3} md={3} lg={3} style={{ lineHeight: '32px' }}>
+                        <Col xs={24} md={3} lg={3} style={{ lineHeight: '32px' }}>
                             <b>Phone number:</b>
                         </Col>
-                        <Col xs={9} md={9} lg={9} >
+                        <Col xs={24} md={9} lg={9} >
                             <Input value={ sdt } onChange={(e) => setsdt( e.target.value )} placeholder="Enter your phone number"/> 
                         </Col>
                         <Col xs={6} md={6} lg={6} />
                     </Row>
                     <Row className="mb-15">
                         <Col xs={6} md={6} lg={6} />
-                        <Col xs={3} md={3} lg={3} style={{ lineHeight: '32px' }}>
+                        <Col xs={24} md={3} lg={3} style={{ lineHeight: '32px' }}>
                             <b>Account type:</b>
                         </Col>
-                        <Col xs={9} md={9} lg={9} >
+                        <Col xs={24} md={9} lg={9} >
                             {
                                 loaiTaiKhoan === 1 ? (
                                     <>
@@ -362,14 +362,14 @@ export default function Profile(props) {
                         loaiTaiKhoan === 2 && (
                             <>
                                 <Row className="mb-15">
-                                    <Col xs={6} md={6} lg={6} />
-                                    <Col xs={3} md={3} lg={3} style={{ lineHeight: '32px' }}>
+                                    <Col xs={0} md={6} lg={6} />
+                                    <Col xs={8} md={3} lg={3} style={{ lineHeight: '32px' }}>
                                         <b>Update password:</b>
                                     </Col>
-                                    <Col xs={9} md={9} lg={9} >
+                                    <Col xs={12} md={9} lg={9} >
                                         <Switch checkedChildren="Yes" unCheckedChildren="No" onChange={(checked)=>{ setisUpdatePassword(checked) }} />
                                     </Col>
-                                    <Col xs={6} md={6} lg={6} />
+                                    <Col xs={0} md={6} lg={6} />
                                 </Row>
                                 {
                                     isUpdatePassword && (
@@ -379,10 +379,10 @@ export default function Profile(props) {
                                                     <>
                                                         <Row className="mb-15">
                                                             <Col xs={6} md={6} lg={6} />
-                                                            <Col xs={3} md={3} lg={3} style={{ lineHeight: '32px' }}>
+                                                            <Col xs={24} md={3} lg={3} style={{ lineHeight: '32px' }}>
                                                                 <b>Old Password:</b>
                                                             </Col>
-                                                            <Col xs={9} md={9} lg={9} >
+                                                            <Col xs={24} md={9} lg={9} >
                                                                 <Input.Password value={ oldPassword } onChange={(e) => setoldPassword( e.target.value )} placeholder="Enter your old pass" /> 
                                                             </Col>
                                                             <Col xs={6} md={6} lg={6} />
@@ -392,20 +392,20 @@ export default function Profile(props) {
                                             }
                                             <Row className="mb-15">
                                                 <Col xs={6} md={6} lg={6} />
-                                                <Col xs={3} md={3} lg={3} style={{ lineHeight: '32px' }}>
+                                                <Col xs={24} md={3} lg={3} style={{ lineHeight: '32px' }}>
                                                     <b>New Password:</b>
                                                 </Col>
-                                                <Col xs={9} md={9} lg={9} >
+                                                <Col xs={24} md={9} lg={9} >
                                                     <Input.Password value={newPassword } onChange={(e) => setnewPassword( e.target.value )} placeholder="Enter your new pass" /> 
                                                 </Col>
                                                 <Col xs={6} md={6} lg={6} />
                                             </Row> 
                                             <Row className="mb-50">
                                                 <Col xs={6} md={6} lg={6} />
-                                                <Col xs={3} md={3} lg={3} style={{ lineHeight: '32px' }}>
+                                                <Col xs={24} md={3} lg={3} style={{ lineHeight: '32px' }}>
                                                     <b>Confirm password:</b>
                                                 </Col>
-                                                <Col xs={9} md={9} lg={9} >
+                                                <Col xs={24} md={9} lg={9} >
                                                     <Input.Password value={ confirmPassword } onChange={(e) => setconfirmPassword( e.target.value )} placeholder="Enter confirm the new pass" /> 
                                                 </Col>
                                                 <Col xs={6} md={6} lg={6} />
@@ -417,8 +417,8 @@ export default function Profile(props) {
                         )
                     }
                     <Row className="mb-15 mt-30">
-                        <Col xs={6} md={6} lg={6} />
-                        <Col xs={4} md={4} lg={4} className="text-center">
+                        <Col xs={0} md={6} lg={6} />
+                        <Col xs={8} md={4} lg={4} className="text-center">
                             <Popconfirm
                                 title="Are you sure to reload form?"
                                 onConfirm={ onReset }
@@ -428,22 +428,22 @@ export default function Profile(props) {
                                 <Button size="large" shape="round" className="btn-reset"><b>Reset data</b></Button>
                             </Popconfirm>
                         </Col>
-                        <Col xs={4} md={4} lg={4} className="text-center">
+                        <Col xs={8} md={4} lg={4} className="text-center">
                             <Button onClick={ onSubmitUpdate } size="large" shape="round" className="btn-update"><b>Update data</b></Button>
                         </Col>
-                        <Col xs={4} md={4} lg={4} className="text-center">
+                        <Col xs={8} md={4} lg={4} className="text-center">
                             <Link to="/">
                                 <Button size="large" shape="round" className="btn-back"><b>Home Page</b></Button>
                             </Link>
                         </Col>
-                        <Col xs={6} md={6} lg={6} />
+                        <Col xs={0} md={6} lg={6} />
                     </Row>
                     <Row className="mb-15">
-                        <Col xs={6} md={6} lg={6} />
-                        <Col xs={12} md={12} lg={12} className="text-center">
+                        <Col xs={1} md={6} lg={6} />
+                        <Col xs={22} md={12} lg={12} className="text-center">
                             <hr />
                         </Col>
-                        <Col xs={6} md={6} lg={6} />
+                        <Col xs={1} md={6} lg={6} />
                     </Row>
                     <Row className="mb-15">
                         <Col xs={6} md={6} lg={6} />
