@@ -1,14 +1,13 @@
-import { Row, Col, Button, Tag, Descriptions, message } from 'antd';
+import { Row, Col, Button, Tag, Descriptions, message, Popconfirm } from 'antd';
 import { SyncOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { getData, postData, putData } from 'Api/api';
 import { url } from 'Api/url';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { urnBookingID, urnBookingDetailIDDDP, urnRoomTypeID, urnBill, urnBillByIDDDP, urnRoomsByDatesIdRoomTypeNumber, urnBillDetail, urnBillID } from 'Api/urn';
+import { urnBookingID, urnBookingDetailIDDDP, urnRoomTypeID, urnBill, urnBillByIDDDP, urnRoomsByDatesIdRoomTypeNumber, urnBillDetail } from 'Api/urn';
 import { format } from 'date-fns';
 import CurrencyFormat from 'react-currency-format';
 import ShowRoomtypeName from './ShowRoomtypeName/ShowRoomtypeName';
-import { deleteData } from 'Api/api';
 
 export default function BookingRoomProfile_Detail(props) {
 
@@ -41,7 +40,7 @@ export default function BookingRoomProfile_Detail(props) {
             settrangThaiDat(resDDP.data.trangThaiDat);
             setidKHD(resDDP.data.idKHD);
         })
-    }, []);
+    }, [idDDP]);
 
     useEffect(() => {
         var uri1 = url + urnBookingDetailIDDDP(idDDP);
@@ -75,9 +74,9 @@ export default function BookingRoomProfile_Detail(props) {
             if (resBill.data) {
                 setcreatedBill(true);
             }
-            // console.log('created bill: ', createdBill);
+            console.log('created bill: ', createdBill);
         })
-    }, []);
+    }, [idDDP]);
 
     function showBookingDetail() {
         console.log('dataCTDDP: ', dataCTDDP);
@@ -136,39 +135,31 @@ export default function BookingRoomProfile_Detail(props) {
                 postData(uri2, dataSearchRoooms)
                 .then((resSearchRooms) => {
                     count1++;
-                    if(resSearchRooms.data){
-                        arrRooms = resSearchRooms.data;
-                        var i = 0;
+                    arrRooms = resSearchRooms.data;
+                    var i = 0;
+                    arrCTPTTnew.map((item) => {
+                        if (item.idLP === dataSearchRoooms.idLP) {
+                            arrCTPTTnew[arrCTPTTnew.findIndex(x => x === item)].maPhong = arrRooms[i++];
+                        }
+                        return 1;
+                    })
+                    if (count1 === dataCTDDP.length) {
+                        var count2 = 0;
                         arrCTPTTnew.map((item) => {
-                            if (item.idLP === dataSearchRoooms.idLP) {
-                                arrCTPTTnew[arrCTPTTnew.findIndex(x => x === item)].maPhong = arrRooms[i++];
-                            }
+                            const uri3 = url + urnBillDetail;
+                            postData(uri3, item)
+                            .then((res) => {
+                                count2++;
+                                if (count2 === arrCTPTTnew.length) {
+                                    message.success("Created successfully.", 2).then(() => {
+                                        message.success("Please check your bill!!!");
+                                        return props.propsParent.history.push('/user/bills');
+                                    });
+                                }
+                            })
                             return 1;
                         })
-                        if (count1 === dataCTDDP.length) {
-                            var count2 = 0;
-                            arrCTPTTnew.map((item) => {
-                                const uri3 = url + urnBillDetail;
-                                postData(uri3, item)
-                                .then((res) => {
-                                    count2++;
-                                    if (count2 === arrCTPTTnew.length) {
-                                        message.success("Created successfully.", 2).then(() => {
-                                            message.success("Please check your bill!!!");
-                                            return props.propsParent.history.push('/user/bills');
-                                        });
-                                    }
-                                })
-                                return 1;
-                            })
-                        }
-                    } else if(resSearchRooms.response.data) {
-                        let uriDelete = url + urnBillID(resPTTP.data);
-                        deleteData(uriDelete).then(resDeleteBill => { 
-                            return message.error(resSearchRooms.response.data);
-                        })
                     }
-                    
                 })
                 return 1;
             })
@@ -287,7 +278,15 @@ export default function BookingRoomProfile_Detail(props) {
                                     <Link to="/user/your-booking-room"><Button size="large" shape="round"><b>BACK</b></Button></Link>
                                 </Col>
                                 <Col xs={4} md={4} lg={4} className="text-center">
-                                    <Button size="large" shape="round" onClick={ onSubmitCancelBooking }><b>CANCEL BOOKING</b></Button>
+                                    <Popconfirm
+                                        title="Are you sure to cancel booking, if you click yes your booking room will cancel permanently?"
+                                        onConfirm={ onSubmitCancelBooking }
+                                        okText="Yes"
+                                        cancelText="No"
+                                    >
+                                        <Button size="large" shape="round"><b>CANCEL BOOKING</b></Button>
+                                    </Popconfirm>
+                                    {/* <Button size="large" shape="round" onClick={ onSubmitCancelBooking }><b>CANCEL BOOKING</b></Button> */}
                                 </Col>
                                 <Col xs={4} md={4} lg={4} className="text-center">
                                     <Button size="large" shape="round" onClick={ onSubmitCreateBill }><b>CREATE BILL</b></Button>
