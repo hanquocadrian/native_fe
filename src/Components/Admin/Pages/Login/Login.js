@@ -31,7 +31,7 @@ export default function Login(props) {
             email,
             password
         }
-        const uri = url + '/api/user/login';
+        const uri = url + '/api/user/login-admin';
         postData(uri, data)
         .then( res => {
             if (res.data) {
