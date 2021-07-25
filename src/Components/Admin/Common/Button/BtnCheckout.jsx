@@ -5,31 +5,35 @@ import { useState, useEffect } from 'react';
 import { urnChangeStatusToPaidBill } from 'Api/urn';
 import { url } from 'Api/url';
 import { getData } from 'Api/api';
+import { urnUpdateStatusPaidByIDDDP } from 'Api/urn';
 
 function BtnCheckout(props) {
     const bill = props.bill;
-    const [cast, setCast] = useState(0);
+    const [cash, setcash] = useState(0);
 
     useEffect(() => {
         var money = 0;
 
         if(bill.tinhTrang === 1){
             money = bill.tienPhaiTra
-            console.log('cast: ', money);
-            setCast(money);
+            console.log('cash: ', money);
+            setcash(money);
         }
         if(bill.tinhTrang === 2){
             money = bill.tienConLai;
-            console.log('cast: ', money);
-            setCast(money);
+            console.log('cash: ', money);
+            setcash(money);
         }
     },[bill])
 
-    const paidCastSettlement = () => {
+    const paidcashSettlement = () => {
         let uri = url + urnChangeStatusToPaidBill(bill.idPTT);
         getData(uri).then((res) => {
-            message.success('You deposited 30%, thank you!');
-            return props.onRefesh(true);
+            message.success('You was checkout, thank you!');
+            var uri = url + urnUpdateStatusPaidByIDDDP(bill.idDDP);
+            getData(uri).then((res) => {
+                return props.onRefesh(true);
+            });
         })
     }
 
@@ -38,13 +42,16 @@ function BtnCheckout(props) {
             message.error('Server Paypal has problem! Can you come back later?');
             return;
         } else if (cancel){
-            message.warning('You was cancelled deposit 30%');
+            message.warning('You was cancelled checkout');
             return;
         } else {
             let uri = url + urnChangeStatusToPaidBill(bill.idPTT);
             getData(uri).then((res) => {
-                message.success('You deposited 30%, thank you!');
-                return props.onRefesh(true);
+                message.success('You was checkout, thank you!');
+                var uri = url + urnUpdateStatusPaidByIDDDP(bill.idDDP);
+                getData(uri).then((res) => {
+                    return props.onRefesh(true);
+                });
             })
         }
     }
@@ -54,18 +61,18 @@ function BtnCheckout(props) {
             <Row className="mb-15">
                 <Col xs={24} md={24} lg={24}>
                     <Popconfirm
-                        title={"Customer accept paid for this bill with $" + cast}
-                        onConfirm={ paidCastSettlement }
+                        title={"Customer accept paid for this bill with $" + cash}
+                        onConfirm={ paidcashSettlement }
                         okText="Yes"
                         cancelText="No"
                     >
-                        <Button className="btn-create">CAST SETTLE</Button>
+                        <Button className="btn-create">CASH SETTLE</Button>
                     </Popconfirm>
                 </Col>
             </Row> 
             <Row>
                 <Col xs={24} md={24} lg={24}>
-                    <Paypal total={ cast } onResultPay={ onResultPay } />
+                    <Paypal total={ cash } onResultPay={ onResultPay } />
                 </Col>
             </Row> 
         </>

@@ -68,3 +68,4 @@ export const urnBillDetailID = id => '/api/detail-bill/' + id;
 export const urnRRC = '/api/rrc/';
 export const urnRRCID = id => '/api/rrc/' + id;
 export const urnRoomRentalContractByIDDDP = id => '/api/rrc/get-by-idDDP/' + id;
+export const urnUpdateStatusPaidByIDDDP = id => '/api/rrc/update-status-paid-by-idddp/' + id;

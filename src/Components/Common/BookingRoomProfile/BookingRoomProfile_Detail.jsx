@@ -4,10 +4,11 @@ import { getData, postData, putData } from 'Api/api';
 import { url } from 'Api/url';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { urnBookingID, urnBookingDetailIDDDP, urnRoomTypeID, urnBill, urnBillByIDDDP, urnRoomsByDatesIdRoomTypeNumber, urnBillDetail } from 'Api/urn';
+import { urnBookingID, urnBookingDetailIDDDP, urnRoomTypeID, urnBill, urnBillByIDDDP, urnRoomsByDatesIdRoomTypeNumber, urnBillDetail, urnBillID } from 'Api/urn';
 import { format } from 'date-fns';
 import CurrencyFormat from 'react-currency-format';
 import ShowRoomtypeName from './ShowRoomtypeName/ShowRoomtypeName';
+import { deleteData } from 'Api/api';
 
 export default function BookingRoomProfile_Detail(props) {
 
@@ -40,7 +41,7 @@ export default function BookingRoomProfile_Detail(props) {
             settrangThaiDat(resDDP.data.trangThaiDat);
             setidKHD(resDDP.data.idKHD);
         })
-    }, [idDDP]);
+    }, []);
 
     useEffect(() => {
         var uri1 = url + urnBookingDetailIDDDP(idDDP);
@@ -64,7 +65,7 @@ export default function BookingRoomProfile_Detail(props) {
                 return 1;
             })
         })
-    }, [idDDP, arrLP]);
+    }, []);
 
     useEffect(() => {
         var uri = url + urnBillByIDDDP(idDDP);
@@ -76,7 +77,7 @@ export default function BookingRoomProfile_Detail(props) {
             }
             // console.log('created bill: ', createdBill);
         })
-    }, [idDDP]);
+    }, []);
 
     function showBookingDetail() {
         console.log('dataCTDDP: ', dataCTDDP);
@@ -135,31 +136,39 @@ export default function BookingRoomProfile_Detail(props) {
                 postData(uri2, dataSearchRoooms)
                 .then((resSearchRooms) => {
                     count1++;
-                    arrRooms = resSearchRooms.data;
-                    var i = 0;
-                    arrCTPTTnew.map((item) => {
-                        if (item.idLP === dataSearchRoooms.idLP) {
-                            arrCTPTTnew[arrCTPTTnew.findIndex(x => x === item)].maPhong = arrRooms[i++];
-                        }
-                        return 1;
-                    })
-                    if (count1 === dataCTDDP.length) {
-                        var count2 = 0;
+                    if(resSearchRooms.data){
+                        arrRooms = resSearchRooms.data;
+                        var i = 0;
                         arrCTPTTnew.map((item) => {
-                            const uri3 = url + urnBillDetail;
-                            postData(uri3, item)
-                            .then((res) => {
-                                count2++;
-                                if (count2 === arrCTPTTnew.length) {
-                                    message.success("Created successfully.", 2).then(() => {
-                                        message.success("Please check your bill!!!");
-                                        return props.propsParent.history.push('/user/bills');
-                                    });
-                                }
-                            })
+                            if (item.idLP === dataSearchRoooms.idLP) {
+                                arrCTPTTnew[arrCTPTTnew.findIndex(x => x === item)].maPhong = arrRooms[i++];
+                            }
                             return 1;
                         })
+                        if (count1 === dataCTDDP.length) {
+                            var count2 = 0;
+                            arrCTPTTnew.map((item) => {
+                                const uri3 = url + urnBillDetail;
+                                postData(uri3, item)
+                                .then((res) => {
+                                    count2++;
+                                    if (count2 === arrCTPTTnew.length) {
+                                        message.success("Created successfully.", 2).then(() => {
+                                            message.success("Please check your bill!!!");
+                                            return props.propsParent.history.push('/user/bills');
+                                        });
+                                    }
+                                })
+                                return 1;
+                            })
+                        }
+                    } else if(resSearchRooms.response.data) {
+                        let uriDelete = url + urnBillID(resPTTP.data);
+                        deleteData(uriDelete).then(resDeleteBill => { 
+                            return message.error(resSearchRooms.response.data);
+                        })
                     }
+                    
                 })
                 return 1;
             })
