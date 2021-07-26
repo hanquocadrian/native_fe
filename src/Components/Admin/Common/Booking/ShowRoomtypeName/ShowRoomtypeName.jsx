@@ -15,7 +15,6 @@ export default function ShowRoomtypeName(props) {
         .then((res) => {
             settenLP(res.data.tenLP);
         })
-
     }, [props.CTDDP.idLP]);
 
     return (
