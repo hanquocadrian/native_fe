@@ -54,7 +54,12 @@ function BtnDeposit(props) {
                     postData(uri, data)
                     .then((resRooms) => {
                         countBD--;
-                        arrRoom = arrRoom.concat(resRooms.data);
+                        if(resRooms.data){
+                            arrRoom = arrRoom.concat(resRooms.data);
+                        } else if(resRooms.response.data) {
+                            setIsLoading(false);
+                            return message.error(resRooms.response.data);
+                        }
 
                         if(countBD === 0) {
                             // console.log("Rooms can book: ", arrRoom);

@@ -60,7 +60,7 @@ function Bill(props) {
                 compare: (a, b) => a.tinhTrang - b.tinhTrang
             },
             render: tinhTrang => (
-                <>{tinhTrang === 1 ? 'Unpaid' : tinhTrang === 2 ? 'Deposited' : 'Paid'}</>
+                <>{tinhTrang === 1 ? 'Unpaid' : tinhTrang === 2 ? 'Deposited' : tinhTrang === 3 ? 'Paid' : 'Canceled'}</>
             ),
             align: 'center',
             width: 140

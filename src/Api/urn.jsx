@@ -61,6 +61,8 @@ export const urnBillsByIDKHD = id => '/api/bill/get-bills-by-id-customer-booking
 export const urnBillByIDDDP = id => '/api/bill/get-bill-by-idDDP/' + id;
 export const urnChangeStatusToDepositBill = id => '/api/bill/change-status-to-deposit-by-id-bill/' + id;
 export const urnChangeStatusToPaidBill = id => '/api/bill/change-status-to-paid-by-id-bill/' + id;
+export const urnBillCusCancel = id => '/api/bill/cus-cancel/' + id;
+export const urnBillAdminCancel = id => '/api/bill/admin-cancel/' + id;
 
 export const urnBillDetail = '/api/detail-bill';
 export const urnBillDetailID = id => '/api/detail-bill/' + id;
@@ -68,5 +70,4 @@ export const urnBillDetailID = id => '/api/detail-bill/' + id;
 export const urnRRC = '/api/rrc/';
 export const urnRRCID = id => '/api/rrc/' + id;
 export const urnRRCByIDDDP = id => '/api/rrc/get-by-idDDP/' + id;
-
-export const urnRoomRentalContract = '/api/room-rental-contract';
+export const urnUpdateStatusPaidByIDDDP = id => '/api/rrc/update-status-paid-by-idddp/' + id;
