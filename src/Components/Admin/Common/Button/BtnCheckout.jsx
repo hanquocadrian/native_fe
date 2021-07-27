@@ -80,4 +80,3 @@ function BtnCheckout(props) {
 }
 
 export default BtnCheckout
-
