@@ -61,6 +61,8 @@ export const urnBillsByIDKHD = id => '/api/bill/get-bills-by-id-customer-booking
 export const urnBillByIDDDP = id => '/api/bill/get-bill-by-idDDP/' + id;
 export const urnChangeStatusToDepositBill = id => '/api/bill/change-status-to-deposit-by-id-bill/' + id;
 export const urnChangeStatusToPaidBill = id => '/api/bill/change-status-to-paid-by-id-bill/' + id;
+export const urnBillCusCancel = id => '/api/bill/cus-cancel/' + id;
+export const urnBillAdminCancel = id => '/api/bill/admin-cancel/' + id;
 
 export const urnBillDetail = '/api/detail-bill';
 export const urnBillDetailID = id => '/api/detail-bill/' + id;
