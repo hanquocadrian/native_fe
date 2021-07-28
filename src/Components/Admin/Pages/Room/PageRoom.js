@@ -19,7 +19,10 @@ function PageRoom(props) {
         var uri = url + urnRoom;
 
         getData(uri)
-        .then(response => setdataRooms(response.data))
+        .then(response => {
+            console.log(response.data);
+            setdataRooms(response.data);
+        })
         .catch(error => console.log(error));
     },[]);
 
@@ -64,11 +67,24 @@ function PageRoom(props) {
             onFilter: (value, record) => record.maPhong.indexOf(value) === 0,
         },
         {
-            title: 'Số người',
+            title: 'Number of guest',
             dataIndex: 'soNguoi',
             sorter: {
                 compare: (a, b) => a.soNguoi - b.soNguoi
             },
+            width: 180
+        },
+        {
+            title: 'Status',
+            dataIndex: 'trangThai',
+            sorter: {
+                compare: (a, b) => a.trangThai - b.trangThai
+            },
+            render: (trangThai) => (
+                <>
+                    { trangThai === 2 ? "Can use" : "Busy" }
+                </>
+            )
         },
         {
             title: 'Title room type',

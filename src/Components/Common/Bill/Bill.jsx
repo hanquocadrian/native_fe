@@ -67,12 +67,14 @@ function Bill(props) {
         },
         {
             title: 'Total Price',
-            dataIndex: 'tongThanhTien',
-            render: tongThanhTien => (
-                <>
-                    <CurrencyFormat value={tongThanhTien} displayType={'text'} thousandSeparator={true} prefix={'$'} />
-                </>
-            ),
+            render: record => {
+                var money = record.tongTienConLai + record.tienCoc;
+                return (
+                    <>
+                        <CurrencyFormat value={money} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                    </>
+                )
+            },
             align: 'center',
             width: 250
         },

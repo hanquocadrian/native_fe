@@ -14,13 +14,13 @@ function BtnCheckout(props) {
     useEffect(() => {
         var money = 0;
 
-        if(bill.tinhTrang === 1){
-            money = bill.tienPhaiTra
-            console.log('cash: ', money);
-            setcash(money);
-        }
+        // if(bill.tinhTrang === 1){
+        //     money = bill.tongTienConLai
+        //     console.log('cash: ', money);
+        //     setcash(money);
+        // }
         if(bill.tinhTrang === 2){
-            money = bill.tienConLai;
+            money = bill.tongTienConLai;
             console.log('cash: ', money);
             setcash(money);
         }
