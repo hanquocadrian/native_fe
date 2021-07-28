@@ -13,9 +13,12 @@ function PageBill(props) {
     const [dataBills, setDataBills] = useState([]);
 
     useEffect(() => {
-       var uri = url + urnBill;
-       getData(uri)
-       .then(res => setDataBills(res.data));
+        var uri = url + urnBill;
+        getData(uri)
+        .then(res => {
+            console.log(res.data);
+            setDataBills(res.data); 
+        });
     }, []);
     
     const columns = [
@@ -62,19 +65,21 @@ function PageBill(props) {
                 compare: (a, b) => a.tinhTrang - b.tinhTrang
             },
             render: tinhTrang => (
-                <>{tinhTrang === 1 ? 'Unpaid' : tinhTrang === 2 ? 'Deposited' : 'Paid'}</>
+                <>{tinhTrang === 1 ? 'Unpaid' : tinhTrang === 2 ? 'Deposited' : tinhTrang === 3 ? 'Paid' : 'Canceled'}</>
             ),
             align: 'center',
             width: 140
         },
         {
             title: 'Total Price',
-            dataIndex: 'tongThanhTien',
-            render: tongThanhTien => (
-                <>
-                    <CurrencyFormat value={tongThanhTien} displayType={'text'} thousandSeparator={true} prefix={'$'} />
-                </>
-            ),
+            render: record => {
+                var money = record.tongTienConLai + record.tienCoc;
+                return (
+                    <>
+                        <CurrencyFormat value={money} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                    </>
+                )
+            },
             align: 'center',
             width: 250
         },

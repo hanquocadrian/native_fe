@@ -55,12 +55,15 @@ export const urnBillDetailsByIdBill = id => '/api/detail-bill/get-bill-detail-by
 
 // export const urnPayer = '/api/payer/';
 
+export const urnSaleOffByCost = 'api/sale-off/find-with-total-cost';
 export const urnBill = '/api/bill/';
 export const urnBillID = id => '/api/bill/' + id;
 export const urnBillsByIDKHD = id => '/api/bill/get-bills-by-id-customer-booking/' + id;
 export const urnBillByIDDDP = id => '/api/bill/get-bill-by-idDDP/' + id;
 export const urnChangeStatusToDepositBill = id => '/api/bill/change-status-to-deposit-by-id-bill/' + id;
 export const urnChangeStatusToPaidBill = id => '/api/bill/change-status-to-paid-by-id-bill/' + id;
+export const urnBillCusCancel = id => '/api/bill/cus-cancel/' + id;
+export const urnBillAdminCancel = id => '/api/bill/admin-cancel/' + id;
 
 export const urnBillDetail = '/api/detail-bill';
 export const urnBillDetailID = id => '/api/detail-bill/' + id;

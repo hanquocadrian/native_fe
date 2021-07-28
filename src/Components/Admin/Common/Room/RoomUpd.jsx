@@ -1,4 +1,4 @@
-import { Button, Col, Input, message, Popconfirm, Row, Select, Tooltip } from 'antd'
+import { Button, Col, Input, message, Popconfirm, Row, Select, Tooltip, Switch } from 'antd'
 import Form from 'antd/lib/form/Form'
 import { Option } from 'antd/lib/mentions'
 import { putData } from 'Api/api'
@@ -16,6 +16,7 @@ function RoomUpd(props) {
 
     const maPhong= props.maPhong;
     const [soNguoi, setsoNguoi] = useState(0);
+    const [trangThai, settrangThai] = useState(1);
     const [idLP, setidLP] = useState("");
     
     useEffect(() => {
@@ -37,6 +38,7 @@ function RoomUpd(props) {
             getData(uri)
             .then(res => {
                 setsoNguoi(res.data.soNguoi);
+                settrangThai(res.data.trangThai);
                 setidLP(res.data.idLP);
             })
             .catch(err => console.error(err));
@@ -75,6 +77,7 @@ function RoomUpd(props) {
         var data = {
             maPhong,
             soNguoi,
+            trangThai,
             idLP
         }
         console.log(data);
@@ -129,6 +132,13 @@ function RoomUpd(props) {
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={6}><b>Number of guest(s):</b></Col>
                             <Col xs={18} md={18} lg={18}><Input min={0} type="number" name="giaMoiTuan" value={soNguoi} disabled /></Col>
+                        </Row>
+
+                        <Row className="mb-15">
+                            <Col xs={6} md={6} lg={6}><b>Status:</b></Col>
+                            <Col xs={18} md={18} lg={18}>
+                                <Switch checkedChildren="Can use" unCheckedChildren="Busy" checked={trangThai === 2 ? true: false} onChange={ (checked) => {settrangThai(checked ? 2 : 1)} } />
+                            </Col>
                         </Row>
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={6}><b>Room type:</b></Col>

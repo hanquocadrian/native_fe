@@ -3,7 +3,7 @@ import { url } from 'Api/url';
 import { urnBillID, urnKhdID, urnBookingDetailsByIdBooking } from 'Api/urn';
 import { getData } from 'Api/api';
 import { urnBillDetailsByIdBill } from 'Api/urn';
-import { Col, Row, Table, Descriptions, Progress, Button, Tooltip, Spin, message, notification } from 'antd';
+import { Col, Row, Table, Descriptions, Progress, Button, Tooltip, Spin, message, notification, Popconfirm } from 'antd';
 import CurrencyFormat from 'react-currency-format';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
@@ -14,6 +14,7 @@ import BtnDeposit from 'Components/Admin/Common/Button/BtnDeposit';
 import BtnCheckout from '../../Button/BtnCheckout';
 import { urnRoomsByDatesIdRoomTypeNumber } from 'Api/urn';
 import { postData } from 'Api/api';
+import { urnBillAdminCancel } from 'Api/urn';
 
 function BillDetail(props) {
     const phanQuyen = useSelector(state => state.adminAccountReducer.phanQuyen);
@@ -148,6 +149,32 @@ function BillDetail(props) {
         }
     }
 
+    const onSubmitCancelBill = () => {
+        var uri = url + urnBillAdminCancel(bill.idPTT);
+        getData(uri).then(resCancel => {
+            console.log("kiemtra: ", resCancel.data);
+            if (resCancel.data) {
+                if (resCancel.data.flag === true) {
+                    message.success(resCancel.data.message, 2).then(()=>{
+                        setIsRefesh(true);
+                        return;
+                    });
+                }
+                else {
+                    message.warning(resCancel.data.message, 5).then(()=>{
+                        setIsRefesh(true);
+                        return;
+                    });
+                }
+            }
+            else {
+                message.error("Something went wrong, please try again!");
+                return;
+            }
+        })
+    }
+
+
     return (
         <>
             <div style={{ height: '3vh' }} />
@@ -199,13 +226,13 @@ function BillDetail(props) {
                                                             '0%': '#108ee9',
                                                             '100%': '#87d068',
                                                         }}
-                                                        percent={ bill && (bill.tinhTrang === 1 ? 30 : (bill.tinhTrang === 2 ? 60 : 100)) }
+                                                        percent={ bill && (bill.tinhTrang === 1 ? 30 : (bill.tinhTrang === 2 ? 60 : (bill.tinhTrang === 3 ? 100 : 0))) }
                                                         status="active"
                                                         showInfo={false}
                                                     />
                                                 </Col>
                                                 <Col xs={14} md={10} lg={4} style={{textAlign:'center'}}>
-                                                    { bill && (bill.tinhTrang === 1 ? 'Unpaid' : bill.tinhTrang === 2 ? 'Deposited' : 'Paid') } 
+                                                    { bill && (bill.tinhTrang === 1 ? 'Unpaid' : bill.tinhTrang === 2 ? 'Deposited' :  bill.tinhTrang === 3 ? 'Paid' : <span style={{color:'#E3143C', fontWeight: 'bolder'}}>Canceled</span>) } 
                                                 </Col>
                                             </Row>
                                         </Descriptions.Item>
@@ -229,7 +256,6 @@ function BillDetail(props) {
                                         scroll={{ x: 350 }}
                                         footer={() => 
                                             <>
-
                                                 <Row>
                                                     <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Night(s): </Col>
                                                     <Col xs={2} md={2} lg={2} />
@@ -238,10 +264,10 @@ function BillDetail(props) {
                                                     </Col>
                                                 </Row>
                                                 <Row>
-                                                    <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Total cost rooms: </Col>
+                                                    <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Total rooms cost: </Col>
                                                     <Col xs={2} md={2} lg={2} />
                                                     <Col xs={4} md={4} lg={4}>
-                                                        <CurrencyFormat value={bill ? bill.tongThanhTien : 0} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                                                        <CurrencyFormat value={bill ? bill.tongTienPhong : 0} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                                                     </Col>
                                                 </Row>
                                                 <Row>
@@ -252,6 +278,13 @@ function BillDetail(props) {
                                                     </Col>
                                                 </Row>
                                                 <Row>
+                                                    <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Extra cost: </Col>
+                                                    <Col xs={2} md={2} lg={2} />
+                                                    <Col xs={4} md={4} lg={4}>
+                                                        <CurrencyFormat value={bill ? bill.phiPhatSinh : 0} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                                                    </Col>
+                                                </Row>
+                                                <Row>
                                                     <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Off sale: </Col>
                                                     <Col xs={2} md={2} lg={2} />
                                                     <Col xs={4} md={4} lg={4}>
@@ -259,12 +292,11 @@ function BillDetail(props) {
                                                     </Col>
                                                 </Row>
                                                 <hr />
-
                                                 <Row>
-                                                    <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Total cost: </Col>
+                                                    <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Total amount remaining: </Col>
                                                     <Col xs={2} md={2} lg={2} />
                                                     <Col xs={4} md={4} lg={4}>
-                                                        <CurrencyFormat value={bill ? bill.tienConLai : 0} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                                                        <CurrencyFormat value={bill ? bill.tongTienConLai : 0} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                                                     </Col>
                                                 </Row>
                                             </>
@@ -296,7 +328,7 @@ function BillDetail(props) {
                                                                             )
                                                                         }
                                                                         </Col>
-                                                                        <Col xs={12} md={12} lg={12}>
+                                                                        {/* <Col xs={8} md={8} lg={8}>
                                                                         { 
                                                                             isClickCheckout ? (
                                                                                 <BtnCheckout bill={bill} onRefesh={onRefesh}/>
@@ -304,13 +336,23 @@ function BillDetail(props) {
                                                                                 <Button className="btn-create" onClick={ () => checkToPay(false) }>CHECKOUT</Button>
                                                                             ) 
                                                                         }
+                                                                        </Col> */}
+                                                                        <Col xs={12} md={12} lg={12}>
+                                                                            <Popconfirm
+                                                                                title="Are you sure to cancel bill"
+                                                                                onConfirm={ onSubmitCancelBill }
+                                                                                okText="Yes"
+                                                                                cancelText="No"
+                                                                            >
+                                                                                <Button>Cancel bill</Button>
+                                                                            </Popconfirm>
                                                                         </Col>
                                                                     </Row>
                                                                 </>
                                                             ) : bill.tinhTrang === 2 && (
                                                                 <>
                                                                     <Row>
-                                                                        <Col xs={24} md={24} lg={24}>
+                                                                        <Col xs={12} md={12} lg={12}>
                                                                         { 
                                                                             isClickCheckout ? (
                                                                                 <BtnCheckout bill={bill} onRefesh={onRefesh}/>
@@ -318,6 +360,16 @@ function BillDetail(props) {
                                                                                 <Button className="btn-create" onClick={ () => setIsClickCheckout(true) }>CHECKOUT</Button>
                                                                             )
                                                                         }
+                                                                        </Col>
+                                                                        <Col xs={12} md={12} lg={12}>
+                                                                            <Popconfirm
+                                                                                title="Are you sure to cancel bill"
+                                                                                onConfirm={ onSubmitCancelBill }
+                                                                                okText="Yes"
+                                                                                cancelText="No"
+                                                                            >
+                                                                                <Button>Cancel bill</Button>
+                                                                            </Popconfirm>
                                                                         </Col>
                                                                     </Row>
                                                                 </>
@@ -343,4 +395,3 @@ function BillDetail(props) {
 }
 
 export default BillDetail
-

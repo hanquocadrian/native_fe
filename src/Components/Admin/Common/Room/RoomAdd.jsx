@@ -1,4 +1,4 @@
-import { Button, Col, Input, message, Row, Select, Tooltip } from 'antd'
+import { Button, Col, Input, message, Row, Select, Tooltip, Switch } from 'antd'
 import Form from 'antd/lib/form/Form'
 import { Option } from 'antd/lib/mentions'
 import { postData } from 'Api/api'
@@ -16,9 +16,10 @@ function RoomAdd(props) {
 
     const [maPhong, setmaPhong] = useState("");
     const [soNguoi, setsoNguoi] = useState(0);
+    const [trangThai, settrangThai] = useState(2);
     const [idLP, setidLP] = useState("");
     
-    useEffect(() => {
+    useEffect(() => {   
         try {
             var uri = url + urnRoomType;
 
@@ -44,12 +45,14 @@ function RoomAdd(props) {
     function onReset() {
         setsoNguoi(typeof dataRoomTypes[0] !== 'undefined' ? dataRoomTypes[0].soNguoi : 2)
         setidLP(typeof dataRoomTypes[0] !== 'undefined' ? dataRoomTypes[0].idLP : "");
+        settrangThai(2);
     }
 
     const onCreate = () => {
         var data = {
             maPhong,
             soNguoi,
+            trangThai,
             idLP
         }
         console.log(data);
@@ -106,6 +109,12 @@ function RoomAdd(props) {
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={6}><b>Number of guest(s):</b></Col>
                             <Col xs={18} md={18} lg={18}><Input min={0} type="number" name="giaMoiTuan" value={soNguoi} disabled /></Col>
+                        </Row>
+                        <Row className="mb-15">
+                            <Col xs={6} md={6} lg={6}><b>Status:</b></Col>
+                            <Col xs={18} md={18} lg={18}>
+                                <Switch checkedChildren="Can use" unCheckedChildren="Busy" defaultChecked onChange={ (checked) => {settrangThai(checked ? 2 : 1)} } />
+                            </Col>
                         </Row>
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={6}><b>Room type:</b></Col>
