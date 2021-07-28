@@ -4,7 +4,7 @@ import { getData, postData, putData } from 'Api/api';
 import { url } from 'Api/url';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { urnBookingID, urnBookingDetailIDDDP, urnRoomTypeID, urnBill, urnBillByIDDDP, urnRoomsByDatesIdRoomTypeNumber, urnBillDetail, urnBillID } from 'Api/urn';
+import { urnBookingID, urnBookingDetailIDDDP, urnRoomTypeID, urnBill, urnBillByIDDDP, urnRoomsByDatesIdRoomTypeNumber, urnBillDetail, urnBillID, urnSaleOffByCost } from 'Api/urn';
 import { format } from 'date-fns';
 import CurrencyFormat from 'react-currency-format';
 import ShowRoomtypeName from './ShowRoomtypeName/ShowRoomtypeName';
@@ -99,79 +99,88 @@ export default function BookingRoomProfile_Detail(props) {
         var arrRooms = [];
         var arrCTPTTnew = [];
 
-        var phanTramGiam = 0;
+        var tongTienPhong = tongThanhTien;
+        var tienCoc = tongTienPhong * (30/100);
+        var phiPhatSinh = 0;
+        const uri0 = url + urnSaleOffByCost;
+        postData(uri0,{tongTienPhong, phiPhatSinh})
+        .then(resSaleOff => {
+            var phanTramGiam = resSaleOff.phanTramGiam;
+            var tongTienConLai = ((tongTienPhong - tienCoc) - (tongTienPhong - tienCoc) * (phanTramGiam / 100)) + (tienCoc - tienCoc * (phanTramGiam / 100)) + (phiPhatSinh - phiPhatSinh * (phanTramGiam / 100));
 
-        var dataPTTP = {
-            ngayThanhToan: format(new Date(), "yyyy/MM/dd"),
-            tinhTrang: 1,
-            tongThanhTien,
-            tienPhaiTra: tongThanhTien - ((tongThanhTien * phanTramGiam) / 100),
-            tienCoc: ((tongThanhTien - ((tongThanhTien * phanTramGiam) / 100)) * 30) / 100,
-            tienConLai: (tongThanhTien - ((tongThanhTien * phanTramGiam) / 100)) - (((tongThanhTien - ((tongThanhTien * phanTramGiam) / 100)) * 30) / 100),
-            phanTramGiam,
-            idKHD,
-            idDDP,
-            ngayDen: format(new Date(ngayDen), "yyyy/MM/dd"),
-            ngayDi: format(new Date(ngayDi), "yyyy/MM/dd"),
-            soDem
-        }
-        const uri1 = url + urnBill;
-        postData(uri1, dataPTTP)
-        .then((resPTTP) => {
-            dataCTDDP.map((item) => {
-                for (let j = 0; j < item.soLuong; j++) {
-                    arrCTPTTnew.push({ donGia: item.donGia, idPTT: resPTTP.data, maPhong: "", idLP: item.idLP });
-                }
-                return 1;
-            })
-            var count1 = 0;
-            dataCTDDP.map((item) => {
-                var dataSearchRoooms = { 
-                    dateA, 
-                    dateB, 
-                    idLP: item.idLP, 
-                    soLuong: item.soLuong 
-                };
-                const uri2 = url + urnRoomsByDatesIdRoomTypeNumber;
-                postData(uri2, dataSearchRoooms)
-                .then((resSearchRooms) => {
-                    count1++;
-                    if(resSearchRooms.data){
-                        arrRooms = resSearchRooms.data;
-                        var i = 0;
-                        arrCTPTTnew.map((item) => {
-                            if (item.idLP === dataSearchRoooms.idLP) {
-                                arrCTPTTnew[arrCTPTTnew.findIndex(x => x === item)].maPhong = arrRooms[i++];
-                            }
-                            return 1;
-                        })
-                        if (count1 === dataCTDDP.length) {
-                            var count2 = 0;
+            var dataPTTP = {
+                ngayThanhToan: format(new Date(), "yyyy/MM/dd"),
+                tinhTrang: 1,
+                tongTienPhong,
+                tienCoc,
+                phiPhatSinh,
+                phanTramGiam,
+                tongTienConLai,
+                idKM: resSaleOff.idKM,
+                idKHD,
+                idDDP,
+                ngayDen: format(new Date(ngayDen), "yyyy/MM/dd"),
+                ngayDi: format(new Date(ngayDi), "yyyy/MM/dd"),
+                soDem
+            }
+            const uri1 = url + urnBill;
+            postData(uri1, dataPTTP)
+            .then((resPTTP) => {
+                dataCTDDP.map((item) => {
+                    for (let j = 0; j < item.soLuong; j++) {
+                        arrCTPTTnew.push({ donGia: item.donGia, idPTT: resPTTP.data, maPhong: "", idLP: item.idLP });
+                    }
+                    return 1;
+                })
+                var count1 = 0;
+                dataCTDDP.map((item) => {
+                    var dataSearchRoooms = { 
+                        dateA, 
+                        dateB, 
+                        idLP: item.idLP, 
+                        soLuong: item.soLuong 
+                    };
+                    const uri2 = url + urnRoomsByDatesIdRoomTypeNumber;
+                    postData(uri2, dataSearchRoooms)
+                    .then((resSearchRooms) => {
+                        count1++;
+                        if(resSearchRooms.data){
+                            arrRooms = resSearchRooms.data;
+                            var i = 0;
                             arrCTPTTnew.map((item) => {
-                                const uri3 = url + urnBillDetail;
-                                postData(uri3, item)
-                                .then((res) => {
-                                    count2++;
-                                    if (count2 === arrCTPTTnew.length) {
-                                        message.success("Created successfully.", 2).then(() => {
-                                            message.success("Please check your bill!!!");
-                                            return props.propsParent.history.push('/user/bills');
-                                        });
-                                    }
-                                })
+                                if (item.idLP === dataSearchRoooms.idLP) {
+                                    arrCTPTTnew[arrCTPTTnew.findIndex(x => x === item)].maPhong = arrRooms[i++];
+                                }
                                 return 1;
                             })
+                            if (count1 === dataCTDDP.length) {
+                                var count2 = 0;
+                                arrCTPTTnew.map((item) => {
+                                    const uri3 = url + urnBillDetail;
+                                    postData(uri3, item)
+                                    .then((res) => {
+                                        count2++;
+                                        if (count2 === arrCTPTTnew.length) {
+                                            message.success("Created successfully.", 2).then(() => {
+                                                message.success("Please check your bill!!!");
+                                                return props.propsParent.history.push('/user/bills');
+                                            });
+                                        }
+                                    })
+                                    return 1;
+                                })
+                            }
+                        } else if(resSearchRooms.response.data) {
+                            let uriDelete = url + urnBillID(resPTTP.data);
+                            deleteData(uriDelete).then(resDeleteBill => { 
+                                return message.error(resSearchRooms.response.data);
+                            })
                         }
-                    } else if(resSearchRooms.response.data) {
-                        let uriDelete = url + urnBillID(resPTTP.data);
-                        deleteData(uriDelete).then(resDeleteBill => { 
-                            return message.error(resSearchRooms.response.data);
-                        })
-                    }
-                    
+                        
+                    })
+                    return 1;
                 })
-                return 1;
-            })
+            })            
         })
     }
 

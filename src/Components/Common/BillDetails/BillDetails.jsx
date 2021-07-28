@@ -148,8 +148,7 @@ function BillDetails(props) {
                                     scroll={{ x: 350 }}
                                     footer={() => 
                                         <>
-
-                                            <Row>
+                                           <Row>
                                                 <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Night(s): </Col>
                                                 <Col xs={2} md={2} lg={2} />
                                                 <Col xs={4} md={4} lg={4}>
@@ -157,10 +156,10 @@ function BillDetails(props) {
                                                 </Col>
                                             </Row>
                                             <Row>
-                                                <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Total cost rooms: </Col>
+                                                <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Total rooms cost: </Col>
                                                 <Col xs={2} md={2} lg={2} />
                                                 <Col xs={4} md={4} lg={4}>
-                                                    <CurrencyFormat value={bill ? bill.tongThanhTien : 0} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                                                    <CurrencyFormat value={bill ? bill.tongTienPhong : 0} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                                                 </Col>
                                             </Row>
                                             <Row>
@@ -171,6 +170,13 @@ function BillDetails(props) {
                                                 </Col>
                                             </Row>
                                             <Row>
+                                                <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Extra cost: </Col>
+                                                <Col xs={2} md={2} lg={2} />
+                                                <Col xs={4} md={4} lg={4}>
+                                                    <CurrencyFormat value={bill ? bill.phiPhatSinh : 0} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                                                </Col>
+                                            </Row>
+                                            <Row>
                                                 <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Off sale: </Col>
                                                 <Col xs={2} md={2} lg={2} />
                                                 <Col xs={4} md={4} lg={4}>
@@ -178,12 +184,11 @@ function BillDetails(props) {
                                                 </Col>
                                             </Row>
                                             <hr />
-
                                             <Row>
-                                                <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Total cost: </Col>
+                                                <Col xs={18} md={18} lg={18} style={{textAlign:'end', fontWeight:'bolder'}}>Total amount remaining: </Col>
                                                 <Col xs={2} md={2} lg={2} />
                                                 <Col xs={4} md={4} lg={4}>
-                                                    <CurrencyFormat value={bill ? bill.tienConLai : 0} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                                                    <CurrencyFormat value={bill ? bill.tongTienConLai : 0} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                                                 </Col>
                                             </Row>
                                         </>
@@ -193,15 +198,50 @@ function BillDetails(props) {
                             </Col>
                             <Col xs={5} md={5} lg={5} />
                         </Row>
+                        <Row className="mb-15">
+                            <Col xs={6} md={6} lg={9} />
+                            {
+                                bill && bill.tinhTrang === 2 && (
+                                    <>
+                                        <Col xs={6} md={6} lg={6} style={{ textAlign:'center' }}>
+                                            <b><i>Wait pay at hotel</i></b>
+                                        </Col>
+                                    </>
+                                )
+                            }
+                            {
+                                bill && bill.tinhTrang === 1 && (
+                                    <>
+                                        {
+                                            isCanUpdateRoom ? (
+                                                <>
+                                                    <Col xs={4} md={4} lg={4} style={{ textAlign:'center' }}>
+                                                        <BtnDeposit bill={bill} onRefesh={onRefesh} onCanUpdateRooms={onCanUpdateRooms} />
+                                                    </Col>
+                                                    <Col xs={4} md={4} lg={4} style={{ textAlign:'center' }}>
+                                                        <BtnUpdateRooms bill={bill} billDetails={ dataBillDetails } onRefeshUpdate={onRefeshUpdate} />
+                                                    </Col>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Col xs={6} md={6} lg={6} style={{ textAlign:'center' }}>
+                                                        <BtnDeposit bill={bill} onRefesh={onRefesh} onCanUpdateRooms={onCanUpdateRooms} />
+                                                    </Col>
+                                                </>
+                                            )
+                                        }
+                                    </>
+
+                                )
+                            }
+                            <Col xs={6} md={6} lg={9} />
+                        </Row>
                         <Row className="mb-30">
                             <Col xs={6} md={6} lg={9} />
                             {
                                 bill && bill.tinhTrang === 2 && (
                                     <>
-                                        <Col xs={6} md={6} lg={3} style={{ textAlign:'center' }}>
-                                            <b><i>Wait pay at hotel</i></b>
-                                        </Col>
-                                        <Col xs={6} md={6} lg={3} style={{ textAlign:'center' }}>
+                                        <Col xs={6} md={6} lg={6} style={{ textAlign:'center' }}>
                                             <Popconfirm
                                                 title="Are you sure to cancel bill, if you click yes, your deposit money will not be refunded (except: you are staying at hotel)"
                                                 onConfirm={ onSubmitCancelBill }
@@ -217,30 +257,9 @@ function BillDetails(props) {
                             {
                                 bill && bill.tinhTrang === 1 && (
                                     <>
-                                        {
-                                            isCanUpdateRoom ? (
-                                                <>
-                                                    <Col xs={4} md={4} lg={2} style={{ textAlign:'center' }}>
-                                                        <BtnDeposit bill={bill} onRefesh={onRefesh} onCanUpdateRooms={onCanUpdateRooms} />
-                                                    </Col>
-                                                    <Col xs={4} md={4} lg={2} style={{ textAlign:'center' }}>
-                                                        <BtnUpdateRooms bill={bill} billDetails={ dataBillDetails } onRefeshUpdate={onRefeshUpdate} />
-                                                    </Col>
-                                                    <Col xs={4} md={4} lg={2} style={{ textAlign:'center' }}>
-                                                        <Button onClick={ onSubmitCancelBill }>Cancel bill</Button>
-                                                    </Col>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <Col xs={6} md={6} lg={3} style={{ textAlign:'center' }}>
-                                                        <BtnDeposit bill={bill} onRefesh={onRefesh} onCanUpdateRooms={onCanUpdateRooms} />
-                                                    </Col>
-                                                    <Col xs={6} md={6} lg={3} style={{ textAlign:'center' }}>
-                                                        <Button onClick={ onSubmitCancelBill }>Cancel bill</Button>
-                                                    </Col>
-                                                </>
-                                            )
-                                        }
+                                        <Col xs={6} md={6} lg={6} style={{ textAlign:'center' }}>
+                                            <Button onClick={ onSubmitCancelBill }>Cancel bill</Button>
+                                        </Col>
                                     </>
 
                                 )
