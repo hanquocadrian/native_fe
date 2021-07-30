@@ -9,7 +9,7 @@ import { BiDetail } from 'react-icons/bi';
 import NavbarTop from '../../Common/Navigation/NavbarTop';
 import { Link } from 'react-router-dom';
 
-import { url } from '../../../../Api/url';
+import { url } from 'Api/url';
 import { getData } from 'Api/api';
 import { urnBooking } from 'Api/urn';
 import { format } from 'date-fns';

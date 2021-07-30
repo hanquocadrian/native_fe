@@ -43,7 +43,8 @@ function PageRRC(props) {
                 compare: (a, b) => a.idPTP - b.idPTP
             },
             align: 'center',
-            width: 150
+            fixed: 'left',
+            width: 50
         },
         {
             title: 'id booking',
@@ -106,6 +107,7 @@ function PageRRC(props) {
             title: 'Action',
             width: 200,
             align: 'center',
+            fixed: 'right',
             render: (record) => {
                 const onUpdate = (record) => {
                     if(record.trangThai === 2) {
@@ -127,14 +129,18 @@ function PageRRC(props) {
                 }
 
                 return <>
-                    <Popconfirm
-                        title="Are you sure change status to went in this room rental contract?"
-                        onConfirm={ () => onUpdate(record) }
-                        okText="Yes"
-                        cancelText="No"
-                    >
-                        <Button className="btn-edit">Change Status</Button>
-                    </Popconfirm>
+                    {
+                        (record.trangThai === 2 || record.trangThai === 1) && (
+                            <Popconfirm
+                                title="Are you sure change status to went in this room rental contract?"
+                                onConfirm={ () => onUpdate(record) }
+                                okText="Yes"
+                                cancelText="No"
+                            >
+                                <Button className="btn-edit">Change Status</Button>
+                            </Popconfirm>
+                        )
+                    }
                 </>
             }
         },
