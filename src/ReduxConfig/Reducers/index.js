@@ -3,6 +3,7 @@ import adminAccountReducer from './adminAccount';
 import cartReducer from './cart';
 import chooseDatesReducer from './chooseDates';
 import customerAccountReducer from './customerAccount';
+import cartServiceReducer from './cartService';
 
 
 const allReducers = combineReducers({
@@ -10,6 +11,7 @@ const allReducers = combineReducers({
     customerAccountReducer,
     adminAccountReducer,
     chooseDatesReducer,
+    cartServiceReducer,
 });
 
 export default allReducers;

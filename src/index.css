@@ -130,6 +130,22 @@ a:hover {
   padding-bottom: 15px;
 }
 
+.pt-30{
+  padding-top: 30px;
+}
+
+.pb-30{
+  padding-bottom: 30px;
+}
+
+.mt-20{
+  margin-top: 20px;
+}
+
+.mb-20{
+  margin-bottom: 20px;
+}
+
 .mt-30{
   margin-top: 30px;
 }
@@ -215,4 +231,10 @@ a:hover {
   100% {
       color: black;
   }
+}
+
+.tbl-choose-service-admin .ant-table-thead tr:first-child .ant-table-cell:first-child{
+  font-family: Georgia; 
+  font-size: 28px;
+  font-weight: bolder;
 }

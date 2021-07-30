@@ -26,6 +26,9 @@ export default class Router extends Component {
                         <Components.ProtectedCusRoute exact path='/user/your-booking-room' component={ Components.PageBookingRoomProfile } />
                         <Components.ProtectedCusRoute exact path='/user/your-booking-room-detail/:id' component={ Components.PageBookingRoomProfile_Detail } />
                         
+                        <Components.ProtectedCusRoute exact path='/user/your-booking-service' component={ Components.PageBookingService } />
+                        <Components.ProtectedCusRoute exact path='/user/your-booking-service-detail/:id' component={ Components.PageBookingServiceDetail } />
+
                         <Components.ProtectedCusRoute exact path='/user/bills' component={ Components.PageBill } />
                         <Components.ProtectedCusRoute exact path='/user/bill-details/:id' component={ Components.PageBillDetails } />
 
@@ -75,6 +78,10 @@ export default class Router extends Component {
                         <Components.ProtectedRoute exact path='/admin/customer-stay/' component={ Components.AdPageCustomerStay } />
                         <Components.ProtectedRoute exact path='/admin/customer-stay-add/' component={ Components.AdPageCustomerStayAdd } />
                         <Components.ProtectedRoute exact path='/admin/customer-stay-upd/:id' component={ Components.AdPageCustomerStayUpd } />
+
+                        <Components.ProtectedRoute exact path='/admin/booking-service/' component={ Components.AdPageBookingService } />
+                        <Components.ProtectedRoute exact path='/admin/booking-service-add/' component={ Components.AdPageBookingServiceAdd } />
+                        <Components.ProtectedRoute exact path='/admin/booking-service-detail/:id' component={ Components.AdPageBookingServiceDetail } />
 
                         <Components.ProtectedRoute exact path='/admin/booking/' component={ Components.AdPageBooking } />
                          <Components.ProtectedRoute exact path='/admin/booking-detail/:id' component={ Components.AdPageBookingDetail } />

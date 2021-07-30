@@ -29,7 +29,8 @@ function PageBill(props) {
                 compare: (a, b) => a.idPTT - b.idPTT
             },
             align: 'center',
-            width: 150
+            fixed: 'left',
+            width: 50
         },
         {
             title: 'id booking',
@@ -103,8 +104,9 @@ function PageBill(props) {
         }, 
         {
             title: 'Action',
-            width: 200,
+            width: 150,
             align: 'center',
+            fixed: 'right',
             render: (record) => (
                 <>
                     <Link to={ '/admin/bill-detail/' + record.idPTT }><Button className="btn-detail">Detail</Button></Link>
