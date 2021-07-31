@@ -76,6 +76,8 @@ export default class Router extends Component {
                         <Components.ProtectedRoute exact path='/admin/room-add/' component={ Components.AdPageRoomAdd } />
                         <Components.ProtectedRoute exact path='/admin/room-upd/:id' component={ Components.AdPageRoomUpd } />
                         
+                        <Components.ProtectedRoute exact path='/admin/customer-booking/' component={ Components.AdPageCustomerBooking } />
+
                         <Components.ProtectedRoute exact path='/admin/customer-stay/' component={ Components.AdPageCustomerStay } />
                         <Components.ProtectedRoute exact path='/admin/customer-stay-add/' component={ Components.AdPageCustomerStayAdd } />
                         <Components.ProtectedRoute exact path='/admin/customer-stay-upd/:id' component={ Components.AdPageCustomerStayUpd } />
@@ -91,7 +93,13 @@ export default class Router extends Component {
                         
                         <Components.ProtectedRoute exact path='/admin/rrc/' component={ Components.AdPageRRC } />
                         <Components.ProtectedRoute exact path='/admin/rrc-add/' component={ Components.AdPageRRCAdd } />
+                        
+                        <Components.ProtectedRoute exact path='/admin/surcharge-price/' component={ Components.AdPageSurchargePrice } />
+                        <Components.ProtectedRoute exact path='/admin/surcharge-price-add/' component={ Components.AdPageSurchargePriceAdd } />
+                        <Components.ProtectedRoute exact path='/admin/surcharge-price-upd/:id' component={ Components.AdPageSurchargePriceUpd } />
  
+                        <Components.ProtectedRoute exact path='/admin/surcharge/' component={ Components.AdPageSurcharge } />
+
                         {/* 404 Not Found */}
                         <Route path='*' component={ Components.Error } />  
                     </Switch>

@@ -57,8 +57,12 @@ export default function RoomType(props) {
         },
         {
             title: 'Number of rooms',
-            dataIndex: 'soLuong',
-            align: 'center'
+            align: 'center',
+            render: (record) => (
+                <>
+                    {record.soLuongHT}/{record.soLuong} can use
+                </>
+            )
         },
         {
             title: 'Actions',
