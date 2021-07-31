@@ -36,14 +36,27 @@ export const urnUserID = id => '/api/user/'+ id;
 
 export const urnKhd = '/api/khd/';
 export const urnKhdID = id => '/api/khd/' + id;
+export const urnKhdWithStatusRRCIsUsing = '/api/khd/get-khd-with-status-rrc-is-using';
 
 export const urnCustomerStay = '/api/customer-stay/';
 export const urnCustomerStayID = id => '/api/customer-stay/' + id;
+
+
+export const urnBookingService = '/api/booking-service/';
+export const urnBookingServiceID = id => '/api/booking-service/' + id;
+export const urnChangeStatusToCompletedByIddddv = id => '/api/booking-service/update-status-by-idDDDV-to-completed/' + id;
+export const urnBookingServiceIDKHD = id => '/api/booking-service/get-dddv-by-idkhd/' + id;
+
+export const urnDetailBookingService = '/api/detail-book-service/';
+export const urnDetailBookingServiceID = id => '/api/detail-book-service/' + id;
+export const urnDetailBookingServiceIDDDDV = id => '/api/detail-book-service/get-ctdddv-by-iddddv/' + id;
 
 export const urnBooking = '/api/booking/';
 export const urnBookingID = id => '/api/booking/' + id;
 export const urnBookingIDKHD = id => '/api/booking/get_by_idKHD/' + id;
 export const urnBookingWasDepositOrPaid = '/api/booking/was-deposit-or-paid-in-bill/';
+export const urnBookingIdKHDWithRRCIsUsing = id => '/api/booking/get-ddp-by-idkhd-with-rrc-is-using/' + id;
+
 
 export const urnBookingDetail = '/api/detail-booking/';
 export const urnBookingDetailID = id => '/api/detail-booking/' + id;
@@ -72,3 +85,5 @@ export const urnRRC = '/api/rrc/';
 export const urnRRCID = id => '/api/rrc/' + id;
 export const urnRoomRentalContractByIDDDP = id => '/api/rrc/get-by-idDDP/' + id;
 export const urnUpdateStatusPaidByIDDDP = id => '/api/rrc/update-status-paid-by-idddp/' + id;
+export const urnRRCByIDKHDWithRCCIsUsing = id => '/api/rrc/get-rrc-by-idkhd-with-status-rrc-is-using/' + id;
+export const urnRRCByIDKHDIDDDPWithRCCIsUsing = '/api/rrc/get-rrc-by-idkhd-idddp-with-status-rrc-is-using';

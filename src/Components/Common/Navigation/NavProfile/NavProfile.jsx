@@ -45,7 +45,7 @@ export default function NavProfile() {
                 <Link to="/user/your-booking-room"><span style={{fontSize:"15px"}}>Booking Room</span></Link>
             </Menu.Item>
             <Menu.Item className="LinkNavCus">
-                <Link to="/about"><span style={{fontSize:"15px"}}>Booking Service</span></Link>
+                <Link to="/user/your-booking-service"><span style={{fontSize:"15px"}}>Booking Service</span></Link>
             </Menu.Item>
         </Menu>
     );
