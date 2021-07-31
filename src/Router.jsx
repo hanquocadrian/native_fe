@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { BrowserRouter as BRouter, Route, Switch } from 'react-router-dom';
 import * as Components from "./router.import";
 
@@ -12,12 +13,13 @@ export default class Router extends Component {
                         <Route exact path='/' component={ Components.Home } />
                         <Route exact path='/login/' component={ Components.Login } />
                         <Route exact path='/forgot-password/' component={ Components.ForgotPassword } />
-                         <Route exact path='/reset-password/:id' component={ Components.ResetPassword } />
+                        <Route exact path='/reset-password/:id' component={ Components.ResetPassword } />
                         <Route exact path='/about/' component={ Components.About } />
                         <Route exact path='/rates/' component={ Components.PageRates } />
                         <Route exact path='/service/' component={ Components.Service } />
                         <Route exact path='/roomtype/:id' component={ Components.Room } />
                         <Route exact path='/your-basket' component={ Components.Basket } />
+                        {/* <Route exact path='/your-booking' component={ Components.PageBooking } /> */}
 
                         {/* Customer Auth */}
                         <Components.ProtectedCusRoute exact path='/user/profile/:id' component={ Components.PageProfile } />
@@ -31,6 +33,8 @@ export default class Router extends Component {
 
                         <Components.ProtectedCusRoute exact path='/user/bills' component={ Components.PageBill } />
                         <Components.ProtectedCusRoute exact path='/user/bill-details/:id' component={ Components.PageBillDetails } />
+                        
+                        <Components.ProtectedCusRoute exact path='/user/room-rental-contract' component={ Components.PageRoomRentalContract } />
 
                         <Components.ProtectedCusRoute exact path='/user/room-rental-contract' component={ Components.PageRoomRentalContract } />
 
@@ -75,6 +79,8 @@ export default class Router extends Component {
                         <Components.ProtectedRoute exact path='/admin/room-add/' component={ Components.AdPageRoomAdd } />
                         <Components.ProtectedRoute exact path='/admin/room-upd/:id' component={ Components.AdPageRoomUpd } />
                         
+                        <Components.ProtectedRoute exact path='/admin/customer-booking/' component={ Components.AdPageCustomerBooking } />
+
                         <Components.ProtectedRoute exact path='/admin/customer-stay/' component={ Components.AdPageCustomerStay } />
                         <Components.ProtectedRoute exact path='/admin/customer-stay-add/' component={ Components.AdPageCustomerStayAdd } />
                         <Components.ProtectedRoute exact path='/admin/customer-stay-upd/:id' component={ Components.AdPageCustomerStayUpd } />
@@ -86,12 +92,21 @@ export default class Router extends Component {
                         <Components.ProtectedRoute exact path='/admin/booking/' component={ Components.AdPageBooking } />
                          <Components.ProtectedRoute exact path='/admin/booking-detail/:id' component={ Components.AdPageBookingDetail } />
                         
+                        <Components.ProtectedRoute exact path='/admin/booking/' component={ Components.AdPageBooking } />
+                        <Components.ProtectedRoute exact path='/admin/booking-detail/:id' component={ Components.AdPageBookingDetail } />
+                        
                         <Components.ProtectedRoute exact path='/admin/bill/' component={ Components.AdPageBill } />
                         <Components.ProtectedRoute exact path='/admin/bill-detail/:id' component={ Components.AdPageBillDetail } />
                         
                         <Components.ProtectedRoute exact path='/admin/rrc/' component={ Components.AdPageRRC } />
                         <Components.ProtectedRoute exact path='/admin/rrc-add/' component={ Components.AdPageRRCAdd } />
+                        
+                        <Components.ProtectedRoute exact path='/admin/surcharge-price/' component={ Components.AdPageSurchargePrice } />
+                        <Components.ProtectedRoute exact path='/admin/surcharge-price-add/' component={ Components.AdPageSurchargePriceAdd } />
+                        <Components.ProtectedRoute exact path='/admin/surcharge-price-upd/:id' component={ Components.AdPageSurchargePriceUpd } />
  
+                        <Components.ProtectedRoute exact path='/admin/surcharge/' component={ Components.AdPageSurcharge } />
+
                         {/* 404 Not Found */}
                         <Route path='*' component={ Components.Error } />  
                     </Switch>

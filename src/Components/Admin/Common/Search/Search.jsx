@@ -67,7 +67,7 @@ function Search(props) {
     };
 
     const handleCancel = () => {
-    setIsModalVisible(false);
+        setIsModalVisible(false);
     };
 
     const onChooseDate = (date, dateString) => {

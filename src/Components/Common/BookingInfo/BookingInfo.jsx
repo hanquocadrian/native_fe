@@ -7,12 +7,12 @@ import { url } from 'Api/url';
 import { urnKhdID, urnUserID, urnBooking, urnBookingDetail } from 'Api/urn';
 import { format } from 'date-fns';
 import { useSelector, useDispatch } from 'react-redux';
+import { deleteCart } from 'ReduxConfig/Actions/cart';
 
 import { FaHotel } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 
 import './BookingInfo.css';
-import { deleteCart } from 'ReduxConfig/Actions/cart';
 
 // const initialization = {
 //     rooms: localStorage.getItem('itemsShoppingCart') ? JSON.parse(localStorage.getItem('itemsShoppingCart')) : [],
@@ -33,6 +33,11 @@ export default function BookingInfo(props) {
     const [title, setTitle] = useState('');
     const [loaiTaiKhoan, setLoaiTaiKhoan] = useState(0);
     //CART
+    // const rooms = localStorage.getItem('itemsShoppingCart') ? JSON.parse(localStorage.getItem('itemsShoppingCart')) : [];
+    // const startDate = localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).startDate): null;
+    // const endDate = localStorage.getItem('dateArriveCart') ? new Date(JSON.parse(localStorage.getItem('dateArriveCart')).endDate) : null;
+    // const diff = localStorage.getItem('dateArriveCart') ? JSON.parse(localStorage.getItem('dateArriveCart')).days_diff : 0;
+
     const rooms = localStorage.getItem('itemsShoppingCart') ? JSON.parse(localStorage.getItem('itemsShoppingCart')) : [];
     const startDate = new Date(useSelector(state => state.chooseDatesReducer.dateA));
     const endDate = new Date(useSelector(state => state.chooseDatesReducer.dateB));
@@ -42,7 +47,7 @@ export default function BookingInfo(props) {
 
     const dateA = useSelector(state => state.chooseDatesReducer.dateA);
     const dateB = useSelector(state => state.chooseDatesReducer.dateB);
-    const daysDiff = useState(useSelector(state => state.chooseDatesReducer.daysDiff));
+    // const daysDiff = useState(useSelector(state => state.chooseDatesReducer.daysDiff));
 
     const dispatch = useDispatch();
 

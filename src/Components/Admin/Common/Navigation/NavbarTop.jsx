@@ -12,7 +12,6 @@ export default function NavbarTop(props) {
     const dispatch = useDispatch();
     const idAdmin = useSelector(state => state.adminAccountReducer.idAdmin);
     const username = useSelector(state => state.adminAccountReducer.displayName);
-    
 
     const onLogout = () => {
         const action = actLogout();

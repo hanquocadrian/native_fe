@@ -105,7 +105,7 @@ export default function BookingRoomProfile_Detail(props) {
         const uri0 = url + urnSaleOffByCost;
         postData(uri0,{tongTienPhong, phiPhatSinh})
         .then(resSaleOff => {
-            var phanTramGiam = resSaleOff.phanTramGiam;
+            var phanTramGiam = resSaleOff.data.phanTramGiam;
             var tongTienConLai = ((tongTienPhong - tienCoc) - (tongTienPhong - tienCoc) * (phanTramGiam / 100)) + (tienCoc - tienCoc * (phanTramGiam / 100)) + (phiPhatSinh - phiPhatSinh * (phanTramGiam / 100));
 
             var dataPTTP = {
@@ -116,7 +116,7 @@ export default function BookingRoomProfile_Detail(props) {
                 phiPhatSinh,
                 phanTramGiam,
                 tongTienConLai,
-                idKM: resSaleOff.idKM,
+                idKM: resSaleOff.data.idKM,
                 idKHD,
                 idDDP,
                 ngayDen: format(new Date(ngayDen), "yyyy/MM/dd"),

@@ -3,12 +3,9 @@ import Sidebar from '../../Common/Sidebar/Sidebar';
 import { Row, Col, Table, Button, Tooltip, Tag } from 'antd';
 import { SyncOutlined, CloseCircleOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-
 import { BiDetail } from 'react-icons/bi';
-
 import NavbarTop from '../../Common/Navigation/NavbarTop';
 import { Link } from 'react-router-dom';
-
 import { url } from 'Api/url';
 import { getData } from 'Api/api';
 import { urnBooking } from 'Api/urn';
@@ -25,7 +22,7 @@ export default function PageBooking(props) {
             setdataBooking(resBooking.data);
         });
     }, []);
-
+    
     const columns = [
         {
             title: 'id',
