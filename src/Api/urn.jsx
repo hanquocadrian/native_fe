@@ -68,7 +68,7 @@ export const urnBillDetailsByIdBill = id => '/api/detail-bill/get-bill-detail-by
 
 // export const urnPayer = '/api/payer/';
 
-export const urnSaleOffByCost = 'api/sale-off/find-with-total-cost';
+export const urnSaleOffByCost = '/api/sale-off/find-with-total-cost';
 export const urnBill = '/api/bill/';
 export const urnBillID = id => '/api/bill/' + id;
 export const urnBillsByIDKHD = id => '/api/bill/get-bills-by-id-customer-booking/' + id;
