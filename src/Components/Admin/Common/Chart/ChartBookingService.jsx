@@ -4,22 +4,23 @@ import { url } from 'Api/url';
 import { urnChartMoneyBooking } from 'Api/urn';
 import { getData } from 'Api/api';
 import { Col, Row } from 'antd';
+import { urnChartMoneyBookingService } from 'Api/urn';
 
-function ChartBooking(props) {
+function ChartBookingService(props) {    
     const year = (new Date()).getFullYear();
-    const [dataMoneyBookingChart, setdataMoneyBookingChart] = useState([]);
-    
+    const [dataMoneyBookingServiceChart, setdataMoneyBookingServiceChart] = useState([]);
+
     useEffect(() => {
-        var uri = url + urnChartMoneyBooking;
+        var uri = url + urnChartMoneyBookingService;
         getData(uri)
-        .then(res => {setdataMoneyBookingChart(res.data)});
+        .then(res => {console.log("service: ", res.data);setdataMoneyBookingServiceChart(res.data)});
     }, []);
 
     return (
         <div style={{height: '90vh'}}>
-            <Row className="pb-50">
+            <Row className="pb-50 pt-50">
                 <Col xs={24} md={24} lg={24}>
-                    <h3 style={{ fontSize: '28px' }}><b>BOOKING ROOMS CHART {year}</b></h3>
+                    <h3 style={{ fontSize: '28px' }}><b>BOOKING SERVICES CHART {year}</b></h3>
                 </Col>
             </Row>
             <Row>
@@ -29,8 +30,8 @@ function ChartBooking(props) {
                             labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
                             datasets: [
                                 {
-                                    label: `Booking roomtype`,
-                                    data: dataMoneyBookingChart,
+                                    label: `Booking service`,
+                                    data: [0,0,200,0],
                                     backgroundColor: [
                                         'rgba(220, 20, 60, 0.2)',
                                         'rgba(54, 162, 235, 0.2)',
@@ -44,7 +45,7 @@ function ChartBooking(props) {
                                         'rgba(75, 192, 192, 1)',
                                     ],
                                     borderWidth: 1,
-                                }
+                                },
                             ],
                         }}
                     />  
@@ -55,4 +56,5 @@ function ChartBooking(props) {
     )
 }
 
-export default ChartBooking
+export default ChartBookingService
+
