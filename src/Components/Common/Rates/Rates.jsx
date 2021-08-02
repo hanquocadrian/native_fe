@@ -22,7 +22,7 @@ function DisplayRate(props) {
      
     return (
         <>
-            { giaLP ? <CurrencyFormat value={giaLP ? giaLP : 0} displayType={'text'} thousandSeparator={true} prefix={'$'} /> : `Havn't rate`}
+            { giaLP ? <CurrencyFormat value={giaLP ? giaLP : 0} displayType={'text'} thousandSeparator={true} prefix={'$'} /> : `Haven't rate`}
         </>
     );
 }

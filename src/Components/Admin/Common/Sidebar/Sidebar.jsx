@@ -141,10 +141,32 @@ export default function Sidebar() {
                     )
                 }
                 {
+                    //  2: G  || 3: Po, Pu, D
+                    (phanQuyen === 2 || phanQuyen === 3) && (
+                        <Menu.Item className="LinkNavAd">
+                            <Link to='/admin/surcharge'>
+                                <FaMoneyBill />
+                                Surcharge
+                            </Link>
+                        </Menu.Item>
+                    )
+                }
+                {
+                    //  2: G  || 3: Po, Pu, D
+                    (phanQuyen === 2 || phanQuyen === 3) && (
+                        <Menu.Item className="LinkNavAd">
+                            <Link to='/admin/surcharge-price'>
+                                <BiReceipt />
+                                Surcharge Price
+                            </Link>
+                        </Menu.Item>
+                    )
+                }
+                {
                     //  2: G  || 3: G
                     (phanQuyen === 2 || phanQuyen === 3) && (
                         <Menu.Item className="LinkNavAd">
-                            <Link to='/admin/image-service'>
+                            <Link to='/admin/customer-booking'>
                                 <AiOutlineUserAdd />
                                 Customer booking
                             </Link>

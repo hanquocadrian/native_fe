@@ -34,9 +34,9 @@ function ChartNumRTBooking(props) {
 
     return (
         <div style={{height: '90vh'}}>
-            <Row className="mb-30 mt-30">
+            <Row className="pb-50 pt-50" style={{lineHeight: '28px'}}>
                 <Col xs={20} md={20} lg={20}>
-                    <h3 style={{ fontSize: '20px' }}><b>CHART ROOMTYPES TO BE BOOKING IN {month}/{year}</b></h3>
+                    <h3 style={{ fontSize: '28px' }}><b>CHART ROOMTYPES TO BE BOOKING IN {month}/{year}</b></h3>
                 </Col>
             {
                 isLoading ? (
@@ -61,16 +61,22 @@ function ChartNumRTBooking(props) {
                                     label: 'Roomtypes to be booking',
                                     data: numbersBooked,
                                     backgroundColor: [
-                                        'rgba(220, 20, 60, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)',
+                                        'rgba(255, 205, 86, 0.2)',
                                         'rgba(75, 192, 192, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(201, 203, 207, 0.2)'
                                     ],
                                     borderColor: [
-                                        'rgba(220, 20, 60, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
+                                        'rgb(255, 99, 132)',
+                                        'rgb(255, 159, 64)',
+                                        'rgb(255, 205, 86)',
+                                        'rgb(75, 192, 192)',
+                                        'rgb(54, 162, 235)',
+                                        'rgb(153, 102, 255)',
+                                        'rgb(201, 203, 207)'
                                     ],
                                 },
                             ],

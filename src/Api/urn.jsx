@@ -68,7 +68,7 @@ export const urnBillDetailsByIdBill = id => '/api/detail-bill/get-bill-detail-by
 
 // export const urnPayer = '/api/payer/';
 
-export const urnSaleOffByCost = 'api/sale-off/find-with-total-cost';
+export const urnSaleOffByCost = '/api/sale-off/find-with-total-cost';
 export const urnBill = '/api/bill/';
 export const urnBillID = id => '/api/bill/' + id;
 export const urnBillsByIDKHD = id => '/api/bill/get-bills-by-id-customer-booking/' + id;
@@ -77,13 +77,22 @@ export const urnChangeStatusToDepositBill = id => '/api/bill/change-status-to-de
 export const urnChangeStatusToPaidBill = id => '/api/bill/change-status-to-paid-by-id-bill/' + id;
 export const urnBillCusCancel = id => '/api/bill/cus-cancel/' + id;
 export const urnBillAdminCancel = id => '/api/bill/admin-cancel/' + id;
+export const urnBillUpdateMoneyInBill = id => '/api/bill/update-money-in-bill/' + id;
 
 export const urnBillDetail = '/api/detail-bill';
 export const urnBillDetailID = id => '/api/detail-bill/' + id;
 
 export const urnRRC = '/api/rrc/';
 export const urnRRCID = id => '/api/rrc/' + id;
+export const urnRRCByIDDDP = id => '/api/rrc/get-by-idDDP/' + id;
 export const urnRoomRentalContractByIDDDP = id => '/api/rrc/get-by-idDDP/' + id;
 export const urnUpdateStatusPaidByIDDDP = id => '/api/rrc/update-status-paid-by-idddp/' + id;
 export const urnRRCByIDKHDWithRCCIsUsing = id => '/api/rrc/get-rrc-by-idkhd-with-status-rrc-is-using/' + id;
 export const urnRRCByIDKHDIDDDPWithRCCIsUsing = '/api/rrc/get-rrc-by-idkhd-idddp-with-status-rrc-is-using';
+
+export const urnExtraFee = '/api/extra-fee/';
+export const urnExtraFeeID = id => '/api/extra-fee/' + id;
+export const urnExtraFeeByIDPTT = id => '/api/extra-fee/get-extra-fee-by-idPTT/' + id;
+
+export const urnSurchargePrice = '/api/surcharge-price/';
+export const urnSurchargePriceID = id => '/api/surcharge-price/' + id;

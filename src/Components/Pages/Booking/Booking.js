@@ -13,7 +13,7 @@ export default function Booking(props) {
     return (
         <div  style={{ overflow: "hidden", width: "98.9vw" }}>
             <Navbar />
-            <BookingInfo propsParent={props} />
+            <BookingInfo propsParent={props}/>
             <Footer />
         </div>
     )

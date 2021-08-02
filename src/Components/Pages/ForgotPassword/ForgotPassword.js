@@ -25,7 +25,7 @@ export default function ForgotPassword() {
             }
         })
     }
-
+    
     if (emailSent) {
         return (
             <div  className="bg-hotel" style={{ overflow: "hidden", width: "100vw" }}>
@@ -66,7 +66,6 @@ export default function ForgotPassword() {
                                 </Row>
                             </Col>
                         </Row>
-
                     </div>
                 </Col>
                 <Col xs={3} md={5} lg={7}></Col>
@@ -109,7 +108,6 @@ export default function ForgotPassword() {
                                 </Row>
                             </Col>
                         </Row>
-
                     </div>
                 </Col>
                 <Col xs={3} md={5} lg={7}></Col>

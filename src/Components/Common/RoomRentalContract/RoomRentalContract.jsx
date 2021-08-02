@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { firAuth } from 'FirebaseConfig';
 import { actLogout } from 'ReduxConfig/Actions/customerAccount';
-import { urnBookingIDKHD, urnRoomRentalContractByIDDDP } from 'Api/urn';
+import { urnBookingIDKHD, urnRRCByIDDDP } from 'Api/urn';
 import { format } from 'date-fns';
 
 export default function RoomRentalContract(props) {
@@ -25,7 +25,7 @@ export default function RoomRentalContract(props) {
             var setdata = [];
             var i =  0;
             resDDP.data.map(item => {
-                var uri2 = url + urnRoomRentalContractByIDDDP(item.idDDP);
+                var uri2 = url + urnRRCByIDDDP(item.idDDP);
                 getData(uri2)
                 .then(resRRC => {
                     i++;

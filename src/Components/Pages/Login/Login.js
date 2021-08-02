@@ -5,10 +5,9 @@ import { StyledFirebaseAuth } from 'react-firebaseui';
 import { Link } from 'react-router-dom';
 import { actLogin } from 'ReduxConfig/Actions/customerAccount';
 import { useDispatch } from 'react-redux';
-import { postData } from 'Api/api';
+import { postData, getData } from 'Api/api';
 import { url } from 'Api/url';
 import authCus from 'Auth/authCus';
-import { getData } from 'Api/api';
 
 function Login(props) {
     const [useSignin, setuseSignin] = useState(true);
@@ -61,7 +60,7 @@ function Login(props) {
                 postData(uri2, data2)
                 .then(res => {
                     console.log("res add FB: ", res.data);
-                    message.success("Login successfully, wait a few seconds 2", 3).then(() => {
+                    message.success("Login successfully, wait a few seconds", 3).then(() => {
                         getData(url + '/api/user/' + res.data)
                         .then (res => {
                             const customerAccount = {
@@ -87,14 +86,15 @@ function Login(props) {
                 })
             })
         }
-    },[wasLoginSocial, dispatch, props.history, user])
+    }, [wasLoginSocial, dispatch, props.history, user]);
 
     useEffect(()=>{
         firAuth.onAuthStateChanged(user => {
             if(!!user){
                 setUser(user);
-                if(!wasLoginSocial)
+                if (!wasLoginSocial) {
                     setWasLoginSocial(!!user);
+                }
             }
         })
     },[wasLoginSocial])

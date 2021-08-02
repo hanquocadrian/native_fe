@@ -329,6 +329,7 @@ export default function BasketInfo(props) {
                                                     outline color="red" 
                                                     className="btn-del-spin"
                                                     style={{padding: 0, marginTop: '5vh', marginLeft: '2.5vw', border:'none'}} 
+                                                    onClick={ ()=>deleteItemsShoppingCart(item.idLP) }
                                                 >
                                                     <ImCancelCircle style={{fontSize: '3vh'}} color="black" className="icon-spin" /> <span style={{fontSize: '2.5vh', paddingLeft: '1vw', paddingBottom:'2vw'}}>Remove</span>
                                                 </Button>

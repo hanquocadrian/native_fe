@@ -196,7 +196,7 @@ export default function RoomDetail(props) {
                                         </Row>
                                         <Row style={{ backgroundColor:'#F3F1EF', padding:'3%' }}>
                                             <Col>
-                                                <span style={{fontFamily:'Cambria', fontSize:'20px', fontWeight:'bold'}}>Price: { price !== 0 ? <CurrencyFormat value={price || 0} displayType={'text'} thousandSeparator={true} prefix={'$'} /> : `Havn't rate`}</span>
+                                                <span style={{fontFamily:'Cambria', fontSize:'20px', fontWeight:'bold'}}>Price: { price !== 0 ? <CurrencyFormat value={price || 0} displayType={'text'} thousandSeparator={true} prefix={'$'} /> : `Haven't rate`}</span>
                                             </Col>
                                         </Row>
                                     </Col>
@@ -250,6 +250,13 @@ export default function RoomDetail(props) {
                                             <Col xs={1} md={2} lg={3}></Col>
                                         </Row>
                                         <Row style={{ marginTop: '10px', fontFamily:'Cambria', fontSize:'15px', fontWeight:'normal'}}>
+                                            {/* <Col xs={1} md={2} lg={3}></Col>
+                                            <Col xs={22} md={20} lg={18} style={{textAlign:'center'}}>
+                                                <button style={{backgroundColor:'#B27440', border:'none', width:'auto', height:'25px'}}>
+                                                    <b style={{color:'white'}}>Add to cart</b>
+                                                </button>
+                                            </Col>
+                                            <Col xs={1} md={2} lg={3}></Col> */}
                                             <Col xs={3} md={6} lg={1}></Col>
                                             <Col xs={9} md={6} lg={11}>
                                                 <Row>
@@ -295,6 +302,199 @@ export default function RoomDetail(props) {
                     </Col>
                     <Col xs={2} md={2} lg={3} />
                 </Row>
+                {/* <Row>
+                    <Col xs={1} md={2} lg={3}></Col>
+                    <Col xs={11} md={8} lg={6}>
+                        <span style={{fontFamily:'Cambria', fontSize:'30px', fontWeight:'revert'}}>{roomType.tenLP}</span>
+                    </Col>
+                    <Col xs={11} md={8} lg={6}>
+                        <Rate allowHalf style={{fontSize:'25px'}} disabled value={roomType.hangPhong} />
+                    </Col>
+                    <Col xs={1} md={6} lg={9}></Col>
+                </Row>
+                <Row style={{padding:'2% 0 2% 0'}} gutter={20}>
+                    <Col xs={1} md={2} lg={3}></Col>
+                    <Col xs={0} md={0} lg={6}>
+                        <Image
+                            width={350}
+                            src={image}
+                        />
+                    </Col>
+                    <Col xs={22} md={20} lg={0}>
+                        <Image
+                            width={400}
+                            src={image}
+                        />
+                    </Col>
+                    <Col xs={0} md={0} lg={7}>
+                        <Row>
+                            <Col span={6} style={{borderRight:'1px solid #CECECE'}}>
+                                <HiOutlineUserGroup style={{width:'4vw', height:'4vh'}}/><span style={{fontSize:'20px'}}>{roomType.soNguoi}</span>
+                            </Col>
+                            <Col span={6} style={{borderRight:'1px solid #CECECE'}}>
+                                <IoIosBed style={{width:'4vw', height:'4vh'}}/><span style={{fontSize:'20px'}}>{roomType.giuong}</span>
+                            </Col>
+                            <Col span={6} style={{borderRight:'1px solid #CECECE'}}>
+                                <FaBath style={{width:'4vw', height:'4vh'}}/><span style={{fontSize:'20px'}}>{roomType.phongTam}</span>
+                            </Col>
+                            <Col span={6} style={{paddingLeft:'2%'}}>
+                                <Select defaultValue="1 room" name="slPhong" style={{height:'4vh', width: 100 }}>
+                                    <Option value="1">1 room</Option>
+                                    <Option value="2">2 rooms</Option>
+                                    <Option value="3">3 rooms</Option>
+                                    <Option value="4">4 rooms</Option>
+                                    <Option value="5">5 rooms</Option>
+                                </Select>
+                            </Col>
+                        </Row>
+                        <hr style={{color:'#D9D9D9'}}/>
+                        <Row>
+                            <Col span={24}>
+                                <Collapse defaultActiveKey={['1']} expandIconPosition='right'>
+                                    <Panel style={{fontFamily:'Cambria', fontSize:'15px', fontWeight:'bold'}} header="MORE DETAILS" key="1">
+                                        <p style={{fontFamily:'Cambria', fontSize:'15px', fontWeight:'normal'}}>
+                                            {roomType.moTaCT}
+                                        </p>
+                                        <Row style={{paddingTop:'3%', paddingBottom:'3%'}} >
+                                            <Col>
+                                                <span style={{fontFamily:'Cambria', fontSize:'15px', fontWeight:'bold'}}>WHAT INCLUDES?</span>
+                                            </Col>
+                                        </Row>
+                                        <Row  style={{fontFamily:'Cambria', fontSize:'15px', fontWeight:'normal'}}>
+                                            <Col span={12}>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Weekly cleaning</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Toiletries</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Washer/Dryer</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Oven</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Fridge</Col>
+                                                </Row>
+                                            </Col>
+                                            <Col span={12}>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Dishwasher</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Iron & ironing board</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Crockery & Cutlery</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Fresh bed & towels</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Hairdryer</Col>
+                                                </Row>
+                                            </Col>
+                                        </Row>
+                                    </Panel>
+                                </Collapse>
+                                <Row style={{padding:'3% 0 3% 0'}}>
+                                    <Col span={24}>
+                                        <span style={{fontFamily:'Cambria'}}>Minimum stay from 1 nights. Price per night</span>
+                                        <Tooltip placement="right"  title="Minimum night stay and average price per night vary depending on dates selected.">
+                                            <span style={{paddingLeft:'2%'}} id="question"><AiFillQuestionCircle style={{width:'1vw', height:'auto'}}/></span>
+                                        </Tooltip>
+                                    </Col>
+                                </Row>
+                                <Row style={{ backgroundColor:'#F3F1EF', padding:'3%' }}>
+                                    <Col>
+                                        <span style={{fontFamily:'Cambria', fontSize:'20px', fontWeight:'bold'}}>Price: 5000 USD</span>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col xs={22} md={20} lg={0}>
+                        <Row>
+                            <Col span={6} style={{borderRight:'1px solid #CECECE'}}>
+                                <HiOutlineUserGroup style={{width:'4vw', height:'4vh'}}/><span style={{fontSize:'20px'}}>{roomType.soNguoi}</span>
+                            </Col>
+                            <Col span={6} style={{borderRight:'1px solid #CECECE'}}>
+                                <IoIosBed style={{width:'4vw', height:'4vh'}}/><span style={{fontSize:'20px'}}>{roomType.giuong}</span>
+                            </Col>
+                            <Col span={6} style={{borderRight:'1px solid #CECECE'}}>
+                                <FaBath style={{width:'4vw', height:'4vh'}}/><span style={{fontSize:'20px'}}>{roomType.phongTam}</span>
+                            </Col>
+                            <Col span={6} style={{paddingLeft:'2%'}}>
+                                <Select defaultValue="1 room" name="slPhong" style={{height:'4vh', width: 100 }}>
+                                    <Option value="1">1 room</Option>
+                                    <Option value="2">2 rooms</Option>
+                                    <Option value="3">3 rooms</Option>
+                                    <Option value="4">4 rooms</Option>
+                                    <Option value="5">5 rooms</Option>
+                                </Select>
+                            </Col>
+                        </Row>
+                        <hr style={{color:'#D9D9D9'}}/>
+                        <Row>
+                            <Col span={24}>
+                                <Collapse defaultActiveKey={['1']} expandIconPosition='right'>
+                                    <Panel style={{fontFamily:'Cambria', fontSize:'15px', fontWeight:'bold'}} header="MORE DETAILS" key="1">
+                                        <p style={{fontFamily:'Cambria', fontSize:'15px', fontWeight:'normal'}}>
+                                            {roomType.moTaCT}
+                                        </p>
+                                        <Row style={{paddingTop:'3%', paddingBottom:'3%'}} >
+                                            <Col>
+                                                <span style={{fontFamily:'Cambria', fontSize:'15px', fontWeight:'bold'}}>WHAT INCLUDES?</span>
+                                            </Col>
+                                            <Col xs={1} md={2} lg={3}></Col>
+                                        </Row>
+                                        <Row style={{ marginTop: '10px', fontFamily:'Cambria', fontSize:'15px', fontWeight:'normal'}}>
+                                            <Col xs={3} md={6} lg={1}></Col>
+                                            <Col xs={9} md={6} lg={11}>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Weekly cleaning</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Toiletries</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Washer/Dryer</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Oven</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Fridge</Col>
+                                                </Row>
+                                            </Col>
+                                            <Col xs={9} md={6} lg={11}>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Dishwasher</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Iron & ironing board</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Crockery & Cutlery</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Fresh bed & towels</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col><AiOutlineCheck/> Hairdryer</Col>
+                                                </Row>
+                                            </Col>
+                                            <Col xs={3} md={6} lg={1}></Col>
+                                        </Row>
+                                    </Col>
+                                    <Col xs={1} md={0} lg={3}></Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col xs={2} md={2} lg={3} />
+                </Row>*/}
                 <hr style={{color:'#D9D9D9'}}/>
                 <Row style={{paddingTop:'3%', paddingBottom:'3%'}}>
                     <Col xs={1} md={4} lg={8}></Col>

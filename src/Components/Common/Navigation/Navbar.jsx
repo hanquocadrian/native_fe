@@ -29,7 +29,6 @@ export default function Navbar() {
     const userisLogin = useSelector(state => state.customerAccountReducer.isLogin);
     const isSocialLogin = useSelector(state => state.customerAccountReducer.isSocialLogin);
     const username = useSelector(state => state.customerAccountReducer.displayName);
-
     var slItemAddCart = useSelector(state => state.cartReducer.sl);
 
     const dispatch = useDispatch();
