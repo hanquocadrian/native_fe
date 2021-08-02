@@ -9,23 +9,31 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { urnCustomerStay } from 'Api/urn';
 import { format } from 'date-fns';
+import BtnExcelCusStay from 'Components/Admin/Common/Button/BtnExcelCusStay';
 
 function PageCustomerStay(props) {
     const phanQuyen = useSelector(state => state.adminAccountReducer.phanQuyen);
     const [dataCustomerStay, setdataCustomerStay] = useState([]);
-
+    const [isRefesh, setIsRefesh] = useState(false);
 
     useEffect(() => {
        var uri = url + urnCustomerStay;
        getData(uri)
        .then(res => setdataCustomerStay(res.data));
-    }, []);
+    }, [isRefesh]);
 
+    const onRefesh = (rf = false) => {
+        if(rf){
+            setIsRefesh(!isRefesh);
+        }
+    }
 
     const columns = [
         {
             title: '#',
             dataIndex: 'idKHO',
+            fixed: 'left',
+            width: 50,
             sorter: {
                 compare: (a, b) => a.idKHO - b.idKHO
             }
@@ -65,6 +73,8 @@ function PageCustomerStay(props) {
         },
         {
             title: phanQuyen === 3 ? 'Actions' : '',
+            fixed: 'right',
+            align: 'center',
             render: (record) => (
                 phanQuyen === 3 && (
                     <>
@@ -104,7 +114,13 @@ function PageCustomerStay(props) {
                             <Col xs={20} md={20} lg={20}>
                                 <h1 className="text-center"><b>LIST OF CUSTOMER STAY</b></h1>
                             </Col>
-                            <Col xs={2} md={2} lg={2} />
+                            <Col xs={2} md={2} lg={2}>
+                                {
+                                    phanQuyen === 3 && (
+                                        <BtnExcelCusStay onRefesh={onRefesh} />
+                                    )
+                                }
+                            </Col>
                         </Row>
                             <Table
                                 columns={ columns } 

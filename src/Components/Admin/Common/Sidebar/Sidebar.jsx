@@ -102,7 +102,18 @@ export default function Sidebar() {
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/booking'>
                                 <FaReceipt />
-                                Booking
+                                Booking room
+                            </Link>
+                        </Menu.Item>
+                    )
+                }
+                {
+                    //  2: U, G  || 3: G
+                    (phanQuyen === 2 || phanQuyen === 3) && (
+                        <Menu.Item className="LinkNavAd">
+                            <Link to='/admin/booking-service'>
+                                <FaReceipt />
+                                Booking service
                             </Link>
                         </Menu.Item>
                     )
@@ -113,7 +124,7 @@ export default function Sidebar() {
                         <Menu.Item className="LinkNavAd">
                             <Link to='/admin/bill'>
                                 <FaMoneyBill />
-                                Bill
+                                Bill room
                             </Link>
                         </Menu.Item>
                     )
