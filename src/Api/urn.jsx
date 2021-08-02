@@ -22,6 +22,7 @@ export const urnSpecialRateID = id => '/api/special-rate/' + id;
 export const urnRoom = '/api/room/';
 export const urnRoomID = id => '/api/room/'+ id;
 export const urnRoomByIdBooking = id => '/api/room/get-rooms-by-idbooking-with-bill/'+ id;
+export const urnRoomByIdBill = id => '/api/room/get-rooms-by-idbill-with-bill/'+ id;
 
 export const urnChartMoneyBooking = '/api/chart/booking-money-by-quarterlies';
 export const urnChartMoneyBookingService = '/api/chart/booking-service-money-by-quarterlies';

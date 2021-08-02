@@ -37,10 +37,15 @@ export default function SurchargePrice(props) {
         },
         {
             title: 'Price',
-            dataIndex: 'giaPT',
-            render: giaPT => (
+            render: record => (
                 <>
-                    <CurrencyFormat value={giaPT} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                    {
+                        record.loaiGPT === 1 ? 
+                        <CurrencyFormat value={record.giaPT} displayType={'text'} thousandSeparator={true} prefix={'$'} /> :
+                        <>
+                            { record.giaPT }%
+                        </>
+                    }
                 </>
             ),
             align: 'center'

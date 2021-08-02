@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Form, Input, Tooltip, Button, message } from 'antd';
+import { Row, Col, Form, Input, Tooltip, Button, message, Switch } from 'antd';
 import { Link } from 'react-router-dom';
 import { ImCancelCircle } from 'react-icons/im';
 import { useState } from 'react';
@@ -10,10 +10,12 @@ import { urnSurchargePrice } from 'Api/urn';
 export default function SurchargePriceAdd() {
     const [tenPT, setTenPT] = useState('');
     const [giaPT, setGiaPT] = useState(0);
+    const [loaiGPT, setLoaiGPT] = useState(1);
 
     function onReset(){
         setTenPT('');
         setGiaPT(0);
+        setLoaiGPT(1);
     }
 
     const onCreate = () => {
@@ -66,8 +68,22 @@ export default function SurchargePriceAdd() {
                             </Col>
                         </Row>
                         <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>Price:</b></Col>
-                            <Col xs={18} md={18} lg={18}><Input type="number" min={1} max={6} name="giaPT" value={giaPT} onChange={ e => setGiaPT(e.target.value) } placeholder="Price" /></Col>
+                            <Col xs={6} md={6} lg={6}><b>{loaiGPT === 1 ? "Price: " : "Percent: "}</b></Col>
+                            <Col xs={18} md={18} lg={18}>
+                                {
+                                    loaiGPT === 1 ? (
+                                        <Input type="number" prefix="$" suffix="USD" min={1} max={6} name="giaPT" value={giaPT} onChange={ e => setGiaPT(e.target.value) } placeholder="Price" />
+                                    ) : (
+                                        <Input type="number" suffix="%" min={1} max={6} name="giaPT" value={giaPT} onChange={ e => setGiaPT(e.target.value) } placeholder="Percent" />
+                                    )
+                                }
+                            </Col>
+                        </Row>
+                        <Row className="mb-15">
+                            <Col xs={6} md={6} lg={6}><b>Type:</b></Col>
+                            <Col xs={18} md={18} lg={18}>
+                                <Switch checkedChildren="Extra basic" checked={loaiGPT === 1 ? true : false} unCheckedChildren="Extra room" defaultChecked onChange={ (checked) => {setLoaiGPT(checked ? 1 : 2)} } />
+                            </Col>
                         </Row>
                         <Row justify="end">
                             <Col xs={2} md={2} lg={2}>

@@ -81,6 +81,12 @@ export default function ExtraFees(props) {
             width: 250
         },
         {
+            title: 'NOTE',
+            dataIndex: 'ghiChu',
+            align: 'center',
+            width: 50
+        },
+        {
             title: 'AMOUNT',
             dataIndex: 'soLuong',
             align: 'center',
@@ -143,7 +149,8 @@ export default function ExtraFees(props) {
         const uri = url + urnExtraFeeID(id);
         deleteData(uri)
         .then(res => {
-            if (typeof res.data !== 'undefined') {
+            if (res.data) {
+                console.log("res delete: ", res.data);
                 var tpt = 0;
                 const uri1 = url + urnExtraFeeByIDPTT(props.idPTT);
                 getData(uri1)
@@ -180,15 +187,17 @@ export default function ExtraFees(props) {
                             if (resUpdBill.data) {
                                 message.success("Delete successfully !", 3).then(()=>{
                                     setIsRefesh(true);
+                                    return;
                                 })
                             }
                         })
                     })
                 });
             }
-            else if(typeof res.response !== 'undefined'){
-                console.log(res.response.data);
-                message.error("Delete fail. " + res.response.data);
+            else {
+                message.error("Something went wrong, please try again!", 3).then(()=>{
+                    return;
+                })
             }
         })
     }
