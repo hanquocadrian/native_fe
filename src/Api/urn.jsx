@@ -34,10 +34,12 @@ export const urnAdminID = id => '/api/admin/'+ id;
 
 export const urnUser = '/api/user/';
 export const urnUserID = id => '/api/user/'+ id;
+export const urnUserByEmail = '/api/user/get-user-by-email';
 
 export const urnKhd = '/api/khd/';
 export const urnKhdID = id => '/api/khd/' + id;
 export const urnKhdWithStatusRRCIsUsing = '/api/khd/get-khd-with-status-rrc-is-using';
+export const urnKhdByEmail = '/api/khd/get-khd-by-email';
 
 export const urnCustomerStay = '/api/customer-stay/';
 export const urnCustomerStayID = id => '/api/customer-stay/' + id;
@@ -86,6 +88,7 @@ export const urnBillDetailID = id => '/api/detail-bill/' + id;
 export const urnRRC = '/api/rrc/';
 export const urnRRCID = id => '/api/rrc/' + id;
 export const urnRRCByIDDDP = id => '/api/rrc/get-by-idDDP/' + id;
+export const urnRoomRentalContractByIDDDP = id => '/api/rrc/get-by-idDDP/' + id;
 export const urnUpdateStatusPaidByIDDDP = id => '/api/rrc/update-status-paid-by-idddp/' + id;
 export const urnRRCByIDKHDWithRCCIsUsing = id => '/api/rrc/get-rrc-by-idkhd-with-status-rrc-is-using/' + id;
 export const urnRRCByIDKHDIDDDPWithRCCIsUsing = '/api/rrc/get-rrc-by-idkhd-idddp-with-status-rrc-is-using';

@@ -3,19 +3,18 @@ import Sidebar from '../../Common/Sidebar/Sidebar';
 import { Row, Col, Table, Button, Tooltip, Tag } from 'antd';
 import { SyncOutlined, CloseCircleOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-
 import { BiDetail } from 'react-icons/bi';
-
 import NavbarTop from '../../Common/Navigation/NavbarTop';
 import { Link } from 'react-router-dom';
-
 import { url } from 'Api/url';
 import { getData } from 'Api/api';
 import { urnBooking } from 'Api/urn';
 import { format } from 'date-fns';
 import CurrencyFormat from 'react-currency-format';
+import { useSelector } from 'react-redux';
 
 export default function PageBooking(props) {
+    const phanQuyen = useSelector(state => state.adminAccountReducer.phanQuyen);
     const [dataBooking, setdataBooking] = useState([]);
 
     useEffect(() => {
@@ -28,7 +27,7 @@ export default function PageBooking(props) {
     
     const columns = [
         {
-            title: 'id',
+            title: '#',
             dataIndex: 'idDDP',
             align: 'center'
         },
@@ -111,16 +110,28 @@ export default function PageBooking(props) {
                         <Col xs={2} md={2} lg={2} />
                         <Col xs={20} md={20} lg={20}>
                             <Row>
-                                <Col xs={2} md={2} lg={2}/>
-                                <Col xs={20} md={20} lg={20}>
+                                <Col xs={3} md={3} lg={3}/>
+                                <Col xs={16} md={16} lg={16}>
                                     <h1 className="text-center"><b>LIST OF BOOKING</b></h1>
                                 </Col>
-                                <Col xs={2} md={2} lg={2}/>
+                                {
+                                    phanQuyen === 3 ? (
+                                        <Col xs={5} md={5} lg={5}>
+                                            <Link to="/admin/create-booking-room">
+                                                <Button>
+                                                    CREATE BOOKING ROOM
+                                                </Button>
+                                            </Link>
+                                        </Col>
+                                    ) : (
+                                        <Col xs={2} md={2} lg={2}/>
+                                    )
+                                }
                             </Row>
                             <Table 
                                 columns={ columns } 
                                 dataSource={ dataBooking } 
-                                pagination={{ pageSize: 7, position: ['topRight', 'none'] }}
+                                pagination={{ pageSize: 7, position: ['topLeft', 'none'] }}
                                 // scroll={{ x: 1080 }}                                                  
                             />
                         </Col>

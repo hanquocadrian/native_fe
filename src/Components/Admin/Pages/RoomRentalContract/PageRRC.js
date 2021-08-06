@@ -110,9 +110,9 @@ function PageRRC(props) {
             fixed: 'right',
             render: (record) => {
                 const onUpdate = (record) => {
-                    if(record.trangThai === 2) {
-                        return message.warning('Customer must checkout in bill!');
-                    }
+                    // if(record.trangThai === 2) {
+                    //     return message.warning('Customer must checkout in bill!');
+                    // }
                     var data = record;
                     data.trangThai = 3;
                     data.ngayDen = format(new Date(record.ngayDen),'yyyy/MM/dd');

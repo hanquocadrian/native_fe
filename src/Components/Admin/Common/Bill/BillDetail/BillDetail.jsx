@@ -186,8 +186,7 @@ export default function ExtraFees(props) {
                         .then(resUpdBill => {
                             if (resUpdBill.data) {
                                 message.success("Delete successfully !", 3).then(()=>{
-                                    setIsRefesh(true);
-                                    return;
+                                    return onRefesh(true);
                                 })
                             }
                         })
@@ -510,6 +509,7 @@ export default function ExtraFees(props) {
                                                             bill && (bill.tinhTrang === 1 ? (
                                                                 <>
                                                                     <Row>
+                                                                        <Col xs={4} md={4} lg={4}/>
                                                                         <Col xs={8} md={8} lg={8}>
                                                                         { 
                                                                             isClickDeposit ? (
@@ -528,16 +528,6 @@ export default function ExtraFees(props) {
                                                                             ) 
                                                                         }
                                                                         </Col> */}
-                                                                        <Col xs={12} md={12} lg={12}>
-                                                                            <Popconfirm
-                                                                                title="Are you sure to cancel bill"
-                                                                                onConfirm={ onSubmitCancelBill }
-                                                                                okText="Yes"
-                                                                                cancelText="No"
-                                                                            >
-                                                                                <Button>CANCEL BILL</Button>
-                                                                            </Popconfirm>
-                                                                        </Col>
                                                                         <Col xs={8} md={8} lg={8}>
                                                                             <Popconfirm
                                                                                 title="Are you sure to cancel bill"
@@ -548,6 +538,17 @@ export default function ExtraFees(props) {
                                                                                 <Button>CANCEL BILL</Button>
                                                                             </Popconfirm>
                                                                         </Col>
+                                                                        <Col xs={4} md={4} lg={4}/>
+                                                                        {/* <Col xs={8} md={8} lg={8}>
+                                                                            <Popconfirm
+                                                                                title="Are you sure to cancel bill"
+                                                                                onConfirm={ onSubmitCancelBill }
+                                                                                okText="Yes"
+                                                                                cancelText="No"
+                                                                            >
+                                                                                <Button>CANCEL BILL</Button>
+                                                                            </Popconfirm>
+                                                                        </Col> */}
                                                                     </Row>
                                                                 </>
                                                             ) : bill.tinhTrang === 2 && (

@@ -18,9 +18,9 @@ function ChartBill(props) {
 
     return (
         <div style={{height: '90vh'}}>
-            <Row className="mb-30 mt-30">
+            <Row className="pb-30 mt-50">
                 <Col xs={24} md={24} lg={24}>
-                    <h3 style={{ fontSize: '20px' }}><b>BILL CHART {year}</b></h3>
+                    <h3 style={{ fontSize: '28px'}}><b>BILL CHART {year}</b></h3>
                 </Col>
             </Row>
             <Row>
