@@ -2,9 +2,8 @@ import { Button, Col, message, Row, Input, Select, Form } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import { getData, postData, putData } from 'Api/api';
 import { url } from 'Api/url';
-import { urnSurchargePrice, urnExtraFee, urnExtraFeeID, urnSaleOffByCost, urnBillUpdateMoneyInBill, urnExtraFeeByIDPTT, urnBillID } from 'Api/urn';
+import { urnSurchargePrice, urnExtraFee, urnSaleOffByCost, urnBillUpdateMoneyInBill, urnExtraFeeByIDPTT, urnBillID, urnRoomByIdBill, urnRoomTypeRateIDLP } from 'Api/urn';
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
 
 function SurchargeAdd(props) {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -14,7 +13,9 @@ function SurchargeAdd(props) {
     const [donGia, setDonGia] = useState(0);
     const [idGPT, setIdGPT] = useState('');
     const [dataGPT, setDataGPT] = useState([]);
-    
+    const [showDataRooms, setShowDataRooms] = useState(false);
+    const [dataRooms, setDataRooms] = useState([]);
+    const [ghiChu, setGhiChu] = useState('Basic');
     const [bill, setBill] = useState(null);
     
     useEffect(() => {
@@ -29,13 +30,55 @@ function SurchargeAdd(props) {
         getData(uri).then(res =>{ console.log("load:", res.data); setDataGPT(res.data); });
     }, []);
 
+    // useEffect(() => {
+    //     dataGPT.map((item, index) => {
+    //         if (item.idGPT === idGPT) {
+    //             setDonGia(item.giaPT);
+    //         }
+    //     })
+    // }, [idGPT]);
+
     useEffect(() => {
-        dataGPT.map((item, index) => {
-            if (item.idGPT === idGPT) {
-                setDonGia(item.giaPT);
+        if (idGPT) {
+            var found = dataGPT.find(item => item.idGPT === idGPT);
+            if (found.loaiGPT === 1) {
+                setShowDataRooms(false);
+                setGhiChu('Basic');
+                dataGPT.map((item, index) => {
+                    if (item.idGPT === idGPT) {
+                        setDonGia(item.giaPT);
+                    }
+                })
             }
-        })
+            else {
+                setShowDataRooms(true);
+                setGhiChu();
+                var uri = url + urnRoomByIdBill(idPTT);
+                getData(uri)
+                .then(res => {
+                    setDataRooms(res.data);
+                    
+                })
+            }
+        }
     }, [idGPT]);
+
+    useEffect(() => {
+        if (ghiChu !== "Basic" && ghiChu) {
+            var found = dataRooms.find(item => item.maPhong === ghiChu);
+            var uri = url + urnRoomTypeRateIDLP(found.idLP);
+            getData(uri)
+            .then(res => {
+                console.log('gia goc: ', res.data);
+                dataGPT.map((item, index) => {
+                    if (item.idGPT === idGPT) {
+                        console.log('gia 20%: ', res.data * (item.giaPT/100));
+                        setDonGia(res.data * (item.giaPT/100));
+                    }
+                })
+            })
+        }
+    }, [ghiChu]);
 
     const showModalSearch = () => {
         setIsModalVisible(true);
@@ -51,6 +94,7 @@ function SurchargeAdd(props) {
         console.log("idGPT: ", idGPT);
         console.log("donGia: ", donGia);
         console.log("sl: ", soLuong);
+        setIdGPT('');
         setSoLuong(0);
         setDonGia(0);
     }
@@ -64,7 +108,8 @@ function SurchargeAdd(props) {
             soLuong: parseInt(soLuong),
             donGia,
             idGPT,
-            idPTT: parseInt(idPTT)
+            idPTT: parseInt(idPTT),
+            ghiChu
         }
         console.log(data);
         var uri = url + urnExtraFee;
@@ -161,15 +206,31 @@ function SurchargeAdd(props) {
                             </Select>
                         </Col>
                     </Row>
+                    {
+                        showDataRooms && (
+                            <Row className="mb-15">
+                                <Col xs={6} md={6} lg={6}><b>Rooms:</b></Col>
+                                <Col xs={18} md={18} lg={18}>
+                                    <Select value={ghiChu} style={{width: '100%'}} onChange={value => setGhiChu(value)}>
+                                        {
+                                            dataRooms.map((item, index) => 
+                                                <Select.Option key={index} value={item.maPhong}>{item.maPhong}</Select.Option>
+                                            )
+                                        }
+                                    </Select>
+                                </Col>
+                            </Row>
+                        )
+                    }
                     <Row className="mb-15">
                         <Col xs={6} md={6} lg={6}><b>Price:</b></Col>
                         <Col xs={18} md={18} lg={18}>
-                            {
+                            {/* {
                                 dataGPT.map((item, index) => 
-                                    item.idGPT === idGPT && 
-                                    <Input type="number" prefix="$" suffix="USD" name="donGia" value={item.giaPT} readOnly/>
-                                )
-                            }
+                                    item.idGPT === idGPT &&  */}
+                                    <Input type="number" prefix="$" suffix="USD" name="donGia" value={donGia} readOnly/>
+                                {/* )
+                            } */}
                         </Col>
                     </Row>
                     <Row className="mb-15">

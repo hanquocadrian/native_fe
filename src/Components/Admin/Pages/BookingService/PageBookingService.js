@@ -1,10 +1,7 @@
 import React from 'react'
 import Sidebar from '../../Common/Sidebar/Sidebar';
-import { Row, Col, Table, Button, Tooltip, Tag } from 'antd';
-import { SyncOutlined, CloseCircleOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { Row, Col, Table, Button, Tooltip } from 'antd';
 import { useEffect, useState } from 'react';
-
-import { BiDetail } from 'react-icons/bi';
 
 import NavbarTop from '../../Common/Navigation/NavbarTop';
 import { Link } from 'react-router-dom';
