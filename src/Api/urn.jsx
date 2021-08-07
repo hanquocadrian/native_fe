@@ -23,6 +23,7 @@ export const urnRoom = '/api/room/';
 export const urnRoomID = id => '/api/room/'+ id;
 export const urnRoomByIdBooking = id => '/api/room/get-rooms-by-idbooking-with-bill/'+ id;
 export const urnRoomByIdBill = id => '/api/room/get-rooms-by-idbill-with-bill/'+ id;
+export const urnRoomsByDatesIdlp = '/api/room/get-rooms-by-dates-idlp/';
 
 export const urnChartMoneyBooking = '/api/chart/booking-money-by-quarterlies';
 export const urnChartMoneyBookingService = '/api/chart/booking-service-money-by-quarterlies';
@@ -42,6 +43,7 @@ export const urnKhdWithStatusRRCIsUsing = '/api/khd/get-khd-with-status-rrc-is-u
 export const urnKhdByEmail = '/api/khd/get-khd-by-email';
 
 export const urnCustomerStay = '/api/customer-stay/';
+export const urnCustomerStayByDateSave = '/api/customer-stay/get-cus-by-date-save/';
 export const urnCustomerStayID = id => '/api/customer-stay/' + id;
 
 

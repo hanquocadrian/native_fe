@@ -1,25 +1,33 @@
-import { Button, Col, DatePicker, message, Row, Spin, Table } from 'antd';
+import { Button, Col, DatePicker, message, Row, Spin, Table, Select, Divider } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
-import { postData } from 'Api/api';
+import { postData, getData } from 'Api/api';
 import { url } from 'Api/url';
-import { urnRoomTypeSearchByDates } from 'Api/urn';
+import { urnRoomsByDatesIdlp } from 'Api/urn';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
 import './index.css';
+import { useEffect } from 'react';
+import { urnRoomType } from 'Api/urn';
 
 const { RangePicker } = DatePicker;
 
-function Search(props) {
+function SearchRoom(props) {
     const [isLoading, setisLoading] = useState(false);
-    const [roomTypeCanBooking, setroomTypeCanBooking] = useState([]);
+    const [roomType, setRoomType] = useState([]);
+    const [rooms, setRooms] = useState([]);
     const [dateA, setdateA] = useState('');
     const [dateB, setdateB] = useState('');
+    const [idLP, setIdLP] = useState(0);
     const [isModalVisible, setIsModalVisible] = useState(false);
+
+    useEffect(() => {
+        var uri = url + urnRoomType;
+        getData(uri).then(res => setRoomType(res.data));
+    }, []);
 
     const columns = [
         {
             title: '#',
-            dataIndex: 'idLP',
+            dataIndex: 'maPhong',
             sorter: {
                 compare: (a, b) => a.idLP - b.idLP
             },
@@ -27,38 +35,10 @@ function Search(props) {
             width: 200
         },
         {
-            title: 'Title',
-            dataIndex: 'tenLP',
+            title: 'Number of guest(s)',
+            dataIndex: 'soNguoi',
             align: 'center', 
             width: 200
-        },
-        {
-            title: 'Kinds of room',
-            dataIndex: 'hangPhong',
-            sorter: {
-                compare: (a, b) => a.hangPhong - b.hangPhong
-            },
-            render: hangPhong => (
-                <>
-                    <b>{hangPhong}</b> Stars
-                </>
-            ),
-            align: 'center', 
-            width: 200
-        },
-        {
-            title: 'Number of rooms',
-            dataIndex: 'soLuong',
-            align: 'center'
-        },
-        {
-            title: 'Actions',
-            align: 'center', 
-            render: (record) => (
-                <>
-                    <Link to={ '/admin/roomtype-detail/' + record.idLP }><Button className="btn-detail">Detail</Button></Link>
-                </>
-            )
         }
     ]
     
@@ -76,32 +56,33 @@ function Search(props) {
     }
 
     const onFindRoom = () => {
-        setroomTypeCanBooking([]);
+        setRooms([]);
         setisLoading(true);
         
-        if(dateA === "" || dateB === ""){ 
+        if(dateA === "" || dateB === "" || idLP === 0){ 
             setisLoading(false); 
-            return message.error("You must choose dates!") 
+            return message.error("You must choose!") 
         }
         const data = {
             dateA,
-            dateB
+            dateB,
+            idLP
         };
         console.log("data: ", data);
-        var uri = url + urnRoomTypeSearchByDates;
+        var uri = url + urnRoomsByDatesIdlp;
         postData(uri, data)
         .then(res => {
-            setroomTypeCanBooking(res.data);
+            setRooms(res.data)
             setisLoading(false);
         })
     }
   
     return (
         <>
-            <Button onClick={ showModalSearch }>Search</Button>
+            <Button onClick={ showModalSearch }>Find room can use</Button>
             <Modal 
-                className="admin-model-search-room"
-                title="Looking for room type by date" 
+                className="admin-model-search-rooms"
+                title="Looking for room by date and roomtype" 
                 visible={ isModalVisible } 
                 onCancel={ handleCancel } 
                 footer={[
@@ -110,18 +91,33 @@ function Search(props) {
                     </Button>
                 ]}
             >
-                <Row>
-                    <Col xs={4} md={4} lg={4} style={{ lineHeight: '32px' }}>
+                <Row className="mb-15">
+                    <Col xs={6} md={6} lg={6} style={{ lineHeight: '32px' }}>
                         <b>Search by dates:</b> 
                     </Col>
-                    <Col xs={18} md={18} lg={18}>
+                    <Col xs={14} md={14} lg={14}>
                         <RangePicker onChange={ onChooseDate } />
                     </Col>
-                    <Col xs={2} md={2} lg={2}>
+                    <Col xs={1} md={1} lg={1} />
+                    <Col xs={3} md={3} lg={3}>
                         <Button onClick={ onFindRoom }>Find now</Button>
                     </Col>
                 </Row>
-                <hr />
+                <Row className="mb-15">
+                    <Col xs={6} md={6} lg={6} style={{ lineHeight: '32px' }}>
+                        <b>Roomtype:</b> 
+                    </Col>
+                    <Col xs={18} md={18} lg={18}>
+                        <Select value={idLP !== 0 ? idLP : ''} style={{ width: 225}} onChange={value => setIdLP(value)}>
+                            {
+                                roomType.map((item, index) =>
+                                    <Select.Option key={index} value={item.idLP}>{item.tenLP}</Select.Option>
+                                )
+                            }
+                        </Select>
+                    </Col>
+                </Row>
+                <Divider />
                 <Row justify="center">
                     <Col>
                         <h1><b>RESULT</b></h1>
@@ -138,9 +134,8 @@ function Search(props) {
                         ) : (
                             <Table
                                 columns={ columns } 
-                                dataSource={ roomTypeCanBooking } 
+                                dataSource={ rooms } 
                                 pagination={{ pageSize: 3, position: ['bottomRight', 'none'] }} 
-                                scroll={{ x: 1080 }}
                             />
                         )
                     }
@@ -150,5 +145,5 @@ function Search(props) {
     )
 }
 
-export default Search
+export default SearchRoom
 
