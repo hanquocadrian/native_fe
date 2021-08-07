@@ -41,7 +41,7 @@ export default function BookingRoomProfile_Detail(props) {
             settrangThaiDat(resDDP.data.trangThaiDat);
             setidKHD(resDDP.data.idKHD);
         })
-    }, []);
+    }, [idDDP]);
 
     useEffect(() => {
         var uri1 = url + urnBookingDetailIDDDP(idDDP);
@@ -65,7 +65,7 @@ export default function BookingRoomProfile_Detail(props) {
                 return 1;
             })
         })
-    }, []);
+    }, [idDDP]);
 
     useEffect(() => {
         var uri = url + urnBillByIDDDP(idDDP);

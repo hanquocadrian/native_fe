@@ -49,6 +49,7 @@ function SurchargeAdd(props) {
                     if (item.idGPT === idGPT) {
                         setDonGia(item.giaPT);
                     }
+                    return 1;
                 })
             }
             else {
@@ -76,6 +77,7 @@ function SurchargeAdd(props) {
                         console.log('gia 20%: ', res.data * (item.giaPT/100));
                         setDonGia(res.data * (item.giaPT/100));
                     }
+                    return 1;
                 })
             })
         }
@@ -125,6 +127,7 @@ function SurchargeAdd(props) {
                     console.log("loadidPTT:", res.data);
                     res.data.map(item => {
                         tpt += (item.soLuong * item.donGia);
+                        return 1;
                     });
                     console.log("tpt:", tpt); 
                     console.log("bill.tongtienphong:", bill.tongTienPhong); 

@@ -35,10 +35,12 @@ export const urnAdminID = id => '/api/admin/'+ id;
 
 export const urnUser = '/api/user/';
 export const urnUserID = id => '/api/user/'+ id;
+export const urnUserByEmail = '/api/user/get-user-by-email';
 
 export const urnKhd = '/api/khd/';
 export const urnKhdID = id => '/api/khd/' + id;
 export const urnKhdWithStatusRRCIsUsing = '/api/khd/get-khd-with-status-rrc-is-using';
+export const urnKhdByEmail = '/api/khd/get-khd-by-email';
 
 export const urnCustomerStay = '/api/customer-stay/';
 export const urnCustomerStayByDateSave = '/api/customer-stay/get-cus-by-date-save/';

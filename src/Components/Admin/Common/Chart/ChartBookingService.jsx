@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2';
 import { url } from 'Api/url';
-import { urnChartMoneyBooking } from 'Api/urn';
+// import { urnChartMoneyBooking } from 'Api/urn';
 import { getData } from 'Api/api';
 import { Col, Row } from 'antd';
 import { urnChartMoneyBookingService } from 'Api/urn';
