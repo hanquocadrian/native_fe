@@ -4,6 +4,7 @@ import { getData, postData, putData } from 'Api/api';
 import { url } from 'Api/url';
 import { urnSurchargePrice, urnExtraFee, urnSaleOffByCost, urnBillUpdateMoneyInBill, urnExtraFeeByIDPTT, urnBillID, urnRoomByIdBill, urnRoomTypeRateIDLP } from 'Api/urn';
 import React, { useState, useEffect } from 'react';
+import SearchRoom from 'Components/Admin/Common/Search/SearchRoom';
 
 function SurchargeAdd(props) {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -48,6 +49,7 @@ function SurchargeAdd(props) {
                     if (item.idGPT === idGPT) {
                         setDonGia(item.giaPT);
                     }
+                    return 1;
                 })
             }
             else {
@@ -75,6 +77,7 @@ function SurchargeAdd(props) {
                         console.log('gia 20%: ', res.data * (item.giaPT/100));
                         setDonGia(res.data * (item.giaPT/100));
                     }
+                    return 1;
                 })
             })
         }
@@ -124,6 +127,7 @@ function SurchargeAdd(props) {
                     console.log("loadidPTT:", res.data);
                     res.data.map(item => {
                         tpt += (item.soLuong * item.donGia);
+                        return 1;
                     });
                     console.log("tpt:", tpt); 
                     console.log("bill.tongtienphong:", bill.tongTienPhong); 
@@ -175,9 +179,12 @@ function SurchargeAdd(props) {
                 visible={ isModalVisible } 
                 onCancel={ handleCancel } 
                 footer={[
-                    <Button onClick={ handleCancel }>
-                        Close
-                    </Button>
+                    <>
+                        <SearchRoom />
+                        <Button onClick={ handleCancel }>
+                            Close
+                        </Button>                    
+                    </>
                 ]}
             >
                 <Row>

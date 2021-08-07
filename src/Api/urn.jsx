@@ -23,6 +23,7 @@ export const urnRoom = '/api/room/';
 export const urnRoomID = id => '/api/room/'+ id;
 export const urnRoomByIdBooking = id => '/api/room/get-rooms-by-idbooking-with-bill/'+ id;
 export const urnRoomByIdBill = id => '/api/room/get-rooms-by-idbill-with-bill/'+ id;
+export const urnRoomsByDatesIdlp = '/api/room/get-rooms-by-dates-idlp/';
 
 export const urnChartMoneyBooking = '/api/chart/booking-money-by-quarterlies';
 export const urnChartMoneyBookingService = '/api/chart/booking-service-money-by-quarterlies';
@@ -34,12 +35,15 @@ export const urnAdminID = id => '/api/admin/'+ id;
 
 export const urnUser = '/api/user/';
 export const urnUserID = id => '/api/user/'+ id;
+export const urnUserByEmail = '/api/user/get-user-by-email';
 
 export const urnKhd = '/api/khd/';
 export const urnKhdID = id => '/api/khd/' + id;
 export const urnKhdWithStatusRRCIsUsing = '/api/khd/get-khd-with-status-rrc-is-using';
+export const urnKhdByEmail = '/api/khd/get-khd-by-email';
 
 export const urnCustomerStay = '/api/customer-stay/';
+export const urnCustomerStayByDateSave = '/api/customer-stay/get-cus-by-date-save/';
 export const urnCustomerStayID = id => '/api/customer-stay/' + id;
 
 

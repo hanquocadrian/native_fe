@@ -94,6 +94,7 @@ export default class Router extends Component {
                         
                         <Components.ProtectedRoute exact path='/admin/booking/' component={ Components.AdPageBooking } />
                         <Components.ProtectedRoute exact path='/admin/booking-detail/:id' component={ Components.AdPageBookingDetail } />
+                        <Components.ProtectedRoute exact path='/admin/create-booking-room/' component={ Components.AdPageCreateBookingRoom } />
                         
                         <Components.ProtectedRoute exact path='/admin/bill/' component={ Components.AdPageBill } />
                         <Components.ProtectedRoute exact path='/admin/bill-detail/:id' component={ Components.AdPageBillDetail } />

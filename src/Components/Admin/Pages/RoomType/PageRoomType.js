@@ -9,7 +9,7 @@ import { GrAdd } from 'react-icons/gr';
 import NavbarTop from '../../Common/Navigation/NavbarTop';
 import { getData, deleteData } from 'Api/api';
 import { urnRoomType, urnRoomTypeID } from 'Api/urn';
-import Search from 'Components/Admin/Common/Search/Search';
+import SearchRoomtype from 'Components/Admin/Common/Search/SearchRoomtype';
 import { useSelector } from 'react-redux';
 
 export default function RoomType(props) {
@@ -124,19 +124,23 @@ export default function RoomType(props) {
                         <Col xs={20} md={20} lg={20}>
                         <Row>
                             <Col xs={2} md={2} lg={2}>
-                                <Tooltip placement="right" title="Create new one">
-                                    <Link to="/admin/roomtype-add">
-                                        <Button className="btn-add" id="btnAdd">
-                                            <GrAdd className="icon-top" />
-                                        </Button>
-                                    </Link>
-                                </Tooltip>
+                            {
+                                phanQuyen === 2 && (    
+                                    <Tooltip placement="right" title="Create new one">
+                                        <Link to="/admin/roomtype-add">
+                                            <Button className="btn-add" id="btnAdd">
+                                                <GrAdd className="icon-top" />
+                                            </Button>
+                                        </Link>
+                                    </Tooltip>
+                                )
+                            }
                             </Col>
                             <Col xs={20} md={20} lg={20}>
                                 <h1 className="text-center"><b>LIST OF ROOM TYPE</b></h1>
                             </Col>
                             <Col xs={2} md={2} lg={2}>
-                                <Search />
+                                <SearchRoomtype />
                             </Col>
                         </Row>
                             <Table 

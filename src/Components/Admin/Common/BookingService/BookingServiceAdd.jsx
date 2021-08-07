@@ -43,6 +43,9 @@ function ActionsBookingService(props) {
     }
 
     const onSave = () => {
+        if(soLuong === 0){
+            return message.error('Error: Amount is 0!');
+        }
         console.log(service.idDV, soLuong);
         var dv = {
             idCTDDV: null, 
@@ -54,6 +57,7 @@ function ActionsBookingService(props) {
         };
         const actionSaveCart = saveItemCartService(dv);
         dispatch(actionSaveCart);
+        return message.success('Was save item into system');
     }
 
     return (
