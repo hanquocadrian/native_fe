@@ -4,6 +4,7 @@ import { getData, postData, putData } from 'Api/api';
 import { url } from 'Api/url';
 import { urnSurchargePrice, urnExtraFee, urnSaleOffByCost, urnBillUpdateMoneyInBill, urnExtraFeeByIDPTT, urnBillID, urnRoomByIdBill, urnRoomTypeRateIDLP } from 'Api/urn';
 import React, { useState, useEffect } from 'react';
+import SearchRoom from 'Components/Admin/Common/Search/SearchRoom';
 
 function SurchargeAdd(props) {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -175,9 +176,12 @@ function SurchargeAdd(props) {
                 visible={ isModalVisible } 
                 onCancel={ handleCancel } 
                 footer={[
-                    <Button onClick={ handleCancel }>
-                        Close
-                    </Button>
+                    <>
+                        <SearchRoom />
+                        <Button onClick={ handleCancel }>
+                            Close
+                        </Button>                    
+                    </>
                 ]}
             >
                 <Row>

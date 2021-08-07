@@ -82,7 +82,7 @@ function SurchargeUpd(props) {
                 })
             }
         }
-    }, [idGPT]);
+    }, [idGPT, idPTT]);
 
     useEffect(() => {
         if (ghiChu !== "Basic" && ghiChu && dataRooms.length > 0) {

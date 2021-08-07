@@ -1,4 +1,4 @@
-import { Button, Col, DatePicker, Input, Row, Select, Tooltip, Progress, message } from 'antd'
+import { Button, Col, DatePicker, Input, Row, Select, Tooltip, Progress, message, Card, Divider, Checkbox, Empty } from 'antd'
 import Form from 'antd/lib/form/Form'
 import { getData } from 'Api/api'
 import { url } from 'Api/url'
@@ -12,6 +12,7 @@ import { format } from 'date-fns';
 import { urnBookingWasDepositOrPaid } from 'Api/urn'
 import { urnRRC } from 'Api/urn'
 import { postData } from 'Api/api'
+import { urnCustomerStayByDateSave } from 'Api/urn'
 
 const { RangePicker } = DatePicker;
 
@@ -22,17 +23,18 @@ function RRCAdd(props) {
     const [maPhong, setMaPhong] = useState("");
     const [soNguoi, setSoNguoi] = useState(0);
     const [dataCusStay, setDataCusStay] = useState([]);
-    const [idKHO, setIdKHO] = useState();
     const [dateA, setDateA] = useState(new Date());
     const [dateB, setDateB] = useState(new Date());
     const [trangThai, setTrangThai] = useState(0);
+
+    const [chooseDataCusStay, setChooseDataCusStay] = useState([]);
 
     useEffect(() => {
         var uri = url + urnBookingWasDepositOrPaid;
         getData(uri).then((res) => setDataBooking(res.data));
             
-        uri = url + urnCustomerStay;
-        getData(uri).then(res => setDataCusStay(res.data));
+        uri = url + urnCustomerStayByDateSave;
+        postData(uri,{ date: format(new Date(), 'yyyy/MM/dd') }).then(res => setDataCusStay(res.data));
     },[]);
 
     useEffect(() => {
@@ -59,41 +61,56 @@ function RRCAdd(props) {
         }
     },[maPhong, dataRooms]);
 
+    const preventChooseCus = (value) => {
+        if(chooseDataCusStay.length === soNguoi){
+            if(chooseDataCusStay.includes(value)){
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
     const onReset = () => {
         setDataRooms([]);
         setIdDDP();
         setMaPhong("");
-        setIdKHO();
         setSoNguoi(0);
         setDateA(new Date());
         setDateB(new Date());
         setTrangThai(0);
+        setChooseDataCusStay([]);
     }
 
     const onCreate = () => {
-        if(trangThai === 0 || maPhong === "" || idDDP === undefined || idKHO === undefined)
+        if(trangThai === 0 || maPhong === "" || idDDP === undefined || chooseDataCusStay.length === 0)
         {
             return message.error("Please, fill out all the fields!");
         }   
-        const data = {
-            idPTP: null,
-            ngayDen: format(new Date(dateA), 'yyyy/MM/dd'),
-            ngayDi: format(new Date(dateB), 'yyyy/MM/dd'),
-            trangThai,
-            maPhong,
-            idDDP,
-            idKHO
-        };
-        // console.log(data);
-        var uri = url + urnRRC;
-        postData(uri, data)
-        .then(res => {
-            if(res.data){
-                message.success("Add completed, wait a few seconds the fields are reset");
-            } else if(res.response.data) {
-                message.error(res.response.data);
-            }
-            onReset();
+        chooseDataCusStay.map((item, i) => {
+            const data = {
+                idPTP: null,
+                ngayDen: format(new Date(dateA), 'yyyy/MM/dd'),
+                ngayDi: format(new Date(dateB), 'yyyy/MM/dd'),
+                trangThai,
+                maPhong,
+                idDDP,
+                idKHO: item
+            };
+            // console.log(data);
+            var uri = url + urnRRC;
+            postData(uri, data)
+            .then(res => {
+                if(res.data){    
+                    if(i === (chooseDataCusStay.length - 1)){
+                        message.success("Add completed, wait a few seconds the fields are reset");
+                        onReset();
+                    }    
+                }
+                else if(res.response.data) {
+                    message.error(res.response.data);
+                }
+            })
         })
     }
 
@@ -126,18 +143,6 @@ function RRCAdd(props) {
                                 {
                                     dataBooking.map((item, index) => 
                                         <Select.Option key={index} value={item.idDDP}>{item.idDDP}</Select.Option>
-                                    )
-                                }
-                                </Select>
-                            </Col>
-                        </Row>
-                        <Row className="mb-15">
-                            <Col xs={6} md={6} lg={6}><b>ID customer stay:</b></Col>
-                            <Col xs={18} md={18} lg={18}>
-                                <Select value={idKHO} style={{width: '100%'}} onChange={value => setIdKHO(value)}>
-                                {
-                                    dataCusStay.map((item, index) => 
-                                        <Select.Option key={index} value={item.idKHO}>{item.idKHO + " - " + item.tenKH}</Select.Option>
                                     )
                                 }
                                 </Select>
@@ -189,6 +194,49 @@ function RRCAdd(props) {
                                 </Row>
                             </Col>
                         </Row>
+                        <Row className="mb-20">
+                        <Col xs={24} md={24} lg={24}>
+                            <Card size="small" style={{padding: '0 5vw 2vh'}}>
+                                <Row style={{ fontFamily: 'Georgia' }}>
+                                    <Col xs={24} md={24} lg={24} style={{ textAlign: 'center', padding: '0'}}>
+                                        <h1><b>CUSTOMER STAY (new)</b></h1>
+                                    </Col>
+                                </Row>
+                                <Divider style={{margin: '0 0 15px 0'}} />
+                                <Row style={{maxHeight: '255px', overflow: 'scroll'}}>
+                                    <Col xs={24} md={24} lg={24} style={{ textAlign:'center' }}>
+                                        <Checkbox.Group value={chooseDataCusStay} onChange={(checkedValues) => {setChooseDataCusStay(checkedValues)}} style={{marginTop: '6px'}}>
+                                            <Row className="mb-15">
+                                                {
+                                                    (dataCusStay.length === 0) && (
+                                                        <Empty description = {
+                                                                <span>
+                                                                    No more customer stay today
+                                                                </span>
+                                                            } 
+                                                        />
+                                                    )
+                                                }
+                                                {
+                                                    dataCusStay.map((item, index) => 
+                                                        <Col xs={24} md={12} lg={8} style={{textAlign:'center'}} className="mb-15">
+                                                            <Checkbox key={index} value={item.idKHO} disabled={preventChooseCus(item.idKHO)}>
+                                                                <p>
+                                                                    {item.idKHO}_{item.tenKH} <br />
+                                                                    CMND: {item.CMND} <br />
+                                                                    Passport: {item.Passport} <br />
+                                                                </p>
+                                                            </Checkbox>
+                                                        </Col> 
+                                                    )
+                                                }
+                                            </Row>
+                                        </Checkbox.Group>
+                                    </Col>
+                                </Row>
+                            </Card>
+                        </Col>
+                    </Row>
                         <Row justify="end">
                             <Col xs={6} md={4} lg={2}>
                                 <Button size="large" onClick={ onReset } className="btn-reset">Reset</Button>

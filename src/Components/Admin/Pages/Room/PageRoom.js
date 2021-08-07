@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
 import { GrAdd } from 'react-icons/gr';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import SearchRoom from 'Components/Admin/Common/Search/SearchRoom';
 
 function PageRoom(props) {
     const phanQuyen = useSelector(state => state.adminAccountReducer.phanQuyen);
@@ -150,19 +151,25 @@ function PageRoom(props) {
                         <Col xs={2} md={2} lg={2} />
                         <Col xs={20} md={20} lg={20}>
                         <Row>
-                            <Col xs={2} md={2} lg={2}>
-                                <Tooltip placement="right" title="Create new one">
-                                    <Link to="/admin/room-add">
-                                        <Button className="btn-add" id="btnAdd">
-                                            <GrAdd className="icon-top" />
-                                        </Button>
-                                    </Link>
-                                </Tooltip>
+                            <Col xs={3} md={3} lg={3}>
+                            {
+                                phanQuyen === 2 && (    
+                                    <Tooltip placement="right" title="Create new one">
+                                        <Link to="/admin/room-add">
+                                            <Button className="btn-add" id="btnAdd">
+                                                <GrAdd className="icon-top" />
+                                            </Button>
+                                        </Link>
+                                    </Tooltip>
+                                )
+                            }
                             </Col>
-                            <Col xs={20} md={20} lg={20}>
+                            <Col xs={18} md={18} lg={18}>
                                 <h1 className="text-center"><b>LIST OF ROOMS</b></h1>
                             </Col>
-                            <Col xs={2} md={2} lg={2} />
+                            <Col xs={3} md={3} lg={3}>
+                                <SearchRoom />
+                            </Col>
                         </Row>
                             <Table
                                 columns={ columns } 
