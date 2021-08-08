@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { url } from 'Api/url';
 import { urnBillID, urnKhdID } from 'Api/urn';
-import { getData } from 'Api/api';
+import { getData, putData } from 'Api/api';
 import { urnBillDetailsByIdBill } from 'Api/urn';
 import { Col, Row, Table, Descriptions, Progress, Button, message, Popconfirm } from 'antd';
 import { columns } from './moduleColumn';
@@ -11,7 +11,7 @@ import { format } from 'date-fns';
 import BtnDeposit from '../Button/BtnDeposit';
 import BtnUpdateRooms from '../Button/BtnUpdateRooms';
 import BtnPDFBill from '../Button/BtnPDFBill';
-import { urnBillCusCancel } from 'Api/urn';
+import { urnBillCusCancel, urnBookingID } from 'Api/urn';
 
 function BillDetails(props) {
     const [bill, setBill] = useState(null);
@@ -55,13 +55,31 @@ function BillDetails(props) {
     }
 
     const onSubmitCancelBill = () => {
-        var uri = url + urnBillCusCancel(bill.idPTT);
-        getData(uri).then(resCancel => {
+        var uri1 = url + urnBillCusCancel(bill.idPTT);
+        getData(uri1).then(resCancel => {
             if (resCancel.data) {
-                message.success(resCancel.data, 2).then(()=>{
-                    setIsRefesh(true);
-                    return;
-                });
+                var uri2 = url + urnBookingID(bill.idDDP);
+                getData(uri2).then(resGetDDP => {
+                    if (resGetDDP.data) {
+                        var dataDDP = {
+                            ngayDen: format(new Date(resGetDDP.data.ngayDen), "yyyy/MM/dd"),
+                            ngayDi: format(new Date(resGetDDP.data.ngayDi), "yyyy/MM/dd"),
+                            soDem: resGetDDP.data.soDem,
+                            ngayDatPhong: format(new Date(resGetDDP.data.ngayDatPhong), "yyyy/MM/dd"),
+                            tongThanhTien: resGetDDP.data.tongThanhTien,
+                            trangThaiDat: 1,
+                            idKHD: resGetDDP.data.idKHD
+                        }
+                        var uri3 = url + urnBookingID(bill.idDDP);
+                        putData(uri3, dataDDP)
+                        .then((resDDP) => {
+                            message.success(resCancel.data, 2).then(()=>{
+                                setIsRefesh(true);
+                                return;
+                            });
+                        })
+                    }
+                })
             }
             else {
                 message.error("Something went wrong, please try again!");

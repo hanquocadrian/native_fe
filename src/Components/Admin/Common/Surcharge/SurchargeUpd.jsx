@@ -82,7 +82,7 @@ function SurchargeUpd(props) {
                 })
             }
         }
-    }, [idGPT, idPTT]);
+    }, [idGPT, idPTT, dataGPT]);
 
     useEffect(() => {
         if (ghiChu !== "Basic" && ghiChu && dataRooms.length > 0) {
@@ -101,7 +101,7 @@ function SurchargeUpd(props) {
                 })
             })
         }
-    }, [ghiChu]);
+    }, [ghiChu, dataRooms, dataGPT, idGPT]);
 
     const showModalSearch = () => {
         setIsModalVisible(true);

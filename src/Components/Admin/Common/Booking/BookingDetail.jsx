@@ -58,7 +58,7 @@ export default function BookingRoomProfile_Detail(props) {
                 return 1;
             })
         })
-    }, []);
+    }, [idDDP]);
 
     useEffect(() => {
         var uri = url + urnBillByIDDDP(idDDP);
@@ -70,7 +70,7 @@ export default function BookingRoomProfile_Detail(props) {
             }
             console.log('created bill: ', createdBill);
         })
-    }, [idDDP]);
+    }, [idDDP, createdBill]);
 
     function showBookingDetail() {
         console.log('dataCTDDP: ', dataCTDDP);

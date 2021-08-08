@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { url } from 'Api/url';
-import { urnBillID, urnKhdID, urnBookingDetailsByIdBooking, urnBillDetailsByIdBill, urnRoomsByDatesIdRoomTypeNumber, urnBillAdminCancel, urnExtraFeeByIDPTT, urnSurchargePrice, urnExtraFeeID, urnSaleOffByCost, urnBillUpdateMoneyInBill } from 'Api/urn';
+import { urnBillID, urnKhdID, urnBookingDetailsByIdBooking, urnBillDetailsByIdBill, urnRoomsByDatesIdRoomTypeNumber, urnBillAdminCancel, urnExtraFeeByIDPTT, urnSurchargePrice, urnExtraFeeID, urnSaleOffByCost, urnBillUpdateMoneyInBill, urnBookingID } from 'Api/urn';
 import { getData, postData, deleteData, putData } from 'Api/api';
 import { Col, Row, Table, Descriptions, Progress, Button, Tooltip, Spin, message, notification, Popconfirm } from 'antd';
 import CurrencyFormat from 'react-currency-format';
@@ -51,6 +51,7 @@ export default function ExtraFees(props) {
             setDataExtraFees(res.data); 
             res.data.map(item => {
                 tpt += (item.soLuong * item.donGia);
+                return 1;
             });
             console.log("tpt:", tpt); 
             setTotalSurcharge(tpt);
@@ -159,6 +160,7 @@ export default function ExtraFees(props) {
                     console.log("loadidPTT:", res.data);
                     res.data.map(item => {
                         tpt += (item.soLuong * item.donGia);
+                        return 1;
                     });
                     console.log("tpt:", tpt); 
                     console.log("bill.tongtienphong:", bill.tongTienPhong); 
@@ -290,21 +292,57 @@ export default function ExtraFees(props) {
     }
 
     const onSubmitCancelBill = () => {
-        var uri = url + urnBillAdminCancel(bill.idPTT);
-        getData(uri).then(resCancel => {
+        var uri1 = url + urnBillAdminCancel(bill.idPTT);
+        getData(uri1).then(resCancel => {
             console.log("kiemtra: ", resCancel.data);
             if (resCancel.data) {
                 if (resCancel.data.flag === true) {
-                    message.success(resCancel.data.message, 2).then(()=>{
-                        setIsRefesh(true);
-                        return;
-                    });
+                    var uri2 = url + urnBookingID(bill.idDDP);
+                    getData(uri2).then(resGetDDP => {
+                        if (resGetDDP.data) {
+                            var dataDDP = {
+                                ngayDen: format(new Date(resGetDDP.data.ngayDen), "yyyy/MM/dd"),
+                                ngayDi: format(new Date(resGetDDP.data.ngayDi), "yyyy/MM/dd"),
+                                soDem: resGetDDP.data.soDem,
+                                ngayDatPhong: format(new Date(resGetDDP.data.ngayDatPhong), "yyyy/MM/dd"),
+                                tongThanhTien: resGetDDP.data.tongThanhTien,
+                                trangThaiDat: 1,
+                                idKHD: resGetDDP.data.idKHD
+                            }
+                            var uri3 = url + urnBookingID(bill.idDDP);
+                            putData(uri3, dataDDP)
+                            .then((resDDP) => {
+                                message.success(resCancel.data.message, 2).then(()=>{
+                                    setIsRefesh(true);
+                                    return;
+                                });
+                            })
+                        }
+                    })
                 }
                 else {
-                    message.warning(resCancel.data.message, 5).then(()=>{
-                        setIsRefesh(true);
-                        return;
-                    });
+                    var uri4 = url + urnBookingID(bill.idDDP);
+                    getData(uri4).then(resGetDDP => {
+                        if (resGetDDP.data) {
+                            var dataDDP = {
+                                ngayDen: format(new Date(resGetDDP.data.ngayDen), "yyyy/MM/dd"),
+                                ngayDi: format(new Date(resGetDDP.data.ngayDi), "yyyy/MM/dd"),
+                                soDem: resGetDDP.data.soDem,
+                                ngayDatPhong: format(new Date(resGetDDP.data.ngayDatPhong), "yyyy/MM/dd"),
+                                tongThanhTien: resGetDDP.data.tongThanhTien,
+                                trangThaiDat: 1,
+                                idKHD: resGetDDP.data.idKHD
+                            }
+                            var uri5 = url + urnBookingID(bill.idDDP);
+                            putData(uri5, dataDDP)
+                            .then((resDDP) => {
+                                message.warning(resCancel.data.message, 5).then(()=>{
+                                    setIsRefesh(true);
+                                    return;
+                                });
+                            })
+                        }
+                    })
                 }
             }
             else {

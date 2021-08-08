@@ -203,6 +203,7 @@ function BookingServiceAdd(props) {
                     return props.propsParent.history.push('/admin/booking-service')
                 })
             }
+            return 1;
         })
     }
 
@@ -226,6 +227,7 @@ function BookingServiceAdd(props) {
                         return props.propsParent.history.push('/admin/booking-service')
                     })
                 }
+                return 1;
             })
         }
     }
@@ -270,8 +272,10 @@ function BookingServiceAdd(props) {
                         setIsCreateSuccess(!isCreateSuccess);
                         message.success("Create booking service successfully");
                     }
+                    return 1;
                 })
             })
+            return 1;
         })
     }
 

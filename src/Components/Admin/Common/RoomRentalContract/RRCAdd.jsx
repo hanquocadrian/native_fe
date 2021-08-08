@@ -3,7 +3,6 @@ import Form from 'antd/lib/form/Form'
 import { getData } from 'Api/api'
 import { url } from 'Api/url'
 import { urnRoomByIdBooking } from 'Api/urn'
-import { urnCustomerStay } from 'Api/urn'
 import moment from 'moment'
 import React, { useState, useEffect} from 'react'
 import { ImCancelCircle } from 'react-icons/im'
@@ -111,6 +110,7 @@ function RRCAdd(props) {
                     message.error(res.response.data);
                 }
             })
+            return 1;
         })
     }
 

@@ -34,6 +34,7 @@ function ActionsBookingRoom(props) {
     const roomType = props.roomType;
     const cartBookingRoom = useSelector(state => state.cartBookingRoomReducer.arrItem);
     const [soLuongDat, setSoLuongDat] = useState(0);
+    const daysDiff = useSelector(state => state.chooseDatesBookingRoomReducer.daysDiff);
     
     useEffect(() => {
         let found = cartBookingRoom.find(item => item.idLP === roomType.idLP);
@@ -42,13 +43,19 @@ function ActionsBookingRoom(props) {
         } else {
             setSoLuongDat(0);
         }
-    },[props])
+    },[props, cartBookingRoom, roomType.idLP])
 
     const choose = e => {
         setSoLuongDat(parseInt(e.target.value))
     }
 
     const onSave = () => {
+        console.log("daysDiff: ", daysDiff);
+        if (daysDiff === 0) {
+            message.error("Please, choose date to booking!");
+            setSoLuongDat(0);
+            return;
+        }
         console.log(roomType.idLP, soLuongDat);
         var uri = url + urnRoomTypeRateIDLP(roomType.idLP);
         getData(uri)
@@ -190,7 +197,7 @@ function CreateBooking(props) {
             money = daysDiff * tongThanhTien;
         }
         setCash(money);
-    },[tongThanhTien])
+    },[tongThanhTien, chooseDataRoomType.length, daysDiff])
 
     const onChooseDate = (date, dateString) => {
         setDateA(dateString[0]);
@@ -281,6 +288,9 @@ function CreateBooking(props) {
         if(cmnd === null || tenKH === '' || email === '' || sdt.length < 10){
             message.error("Please, fill out all the fields!");
             return;
+        }
+        if (daysDiff === 0) {
+            return message.error("Please, choose date to booking!");
         }
         var dataKHD = {
             tenKH,
@@ -474,7 +484,9 @@ function CreateBooking(props) {
                                     <Row className="mb-20 mt-20">
                                         <Col xs={5} md={5} lg={5} style={{lineHeight: '32px', textAlign: 'end' }}><b>Email:</b></Col>
                                         <Col xs={1} md={1} lg={1} />
-                                        <Col xs={13} md={13} lg={13}><Input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} /></Col>
+                                        <Col xs={13} md={13} lg={13}>
+                                            <Input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+                                        </Col>
                                         <Col xs={3} md={3} lg={3}>
                                             <Tooltip placement="right" title="Check email existence in system">
                                                 <Button onClick={ checkEmailExistence }>CHECK</Button>
@@ -485,7 +497,14 @@ function CreateBooking(props) {
                                     <Row className="mb-20 mt-20">
                                         <Col xs={5} md={5} lg={5} style={{lineHeight: '32px', textAlign: 'end' }}><b>ID:</b></Col>
                                         <Col xs={1} md={1} lg={1} />
-                                        <Col xs={16} md={16} lg={16}><Input placeholder="ID customer booking" value={idKHD} onChange={e => setIdKHD(e.target.value)} readOnly /></Col>
+                                        <Col xs={16} md={16} lg={16}>
+                                            {
+                                                checkEmail ? 
+                                                (<Col xs={16} md={16} lg={16}><Input placeholder="ID customer booking" value={idKHD} onChange={e => setIdKHD(e.target.value)} readOnly /></Col>) :
+                                                (<Col xs={16} md={16} lg={16}><Input placeholder="ID customer booking" value={idKHD} disabled /></Col>)
+                                            }
+                                            
+                                        </Col>
                                         <Col xs={2} md={2} lg={2} />
                                     </Row>
                                     <Row className="mb-20 mt-20">

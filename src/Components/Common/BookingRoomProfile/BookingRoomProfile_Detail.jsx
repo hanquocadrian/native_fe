@@ -77,7 +77,7 @@ export default function BookingRoomProfile_Detail(props) {
             }
             console.log('created bill: ', createdBill);
         })
-    }, []);
+    }, [idDDP, createdBill]);
 
     function showBookingDetail() {
         console.log('dataCTDDP: ', dataCTDDP);

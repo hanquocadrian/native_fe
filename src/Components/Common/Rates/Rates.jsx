@@ -18,7 +18,7 @@ function DisplayRate(props) {
             console.log(res.data);
             setGiaLP(parseFloat(res.data || 0));
         })
-    }, []);
+    }, [props.idLP]);
      
     return (
         <>
