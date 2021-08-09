@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { url } from 'Api/url';
-import { urnBillID, urnKhdID, urnBookingDetailsByIdBooking, urnBillDetailsByIdBill, urnRoomsByDatesIdRoomTypeNumber, urnBillAdminCancel, urnExtraFeeByIDPTT, urnSurchargePrice, urnExtraFeeID, urnSaleOffByCost, urnBillUpdateMoneyInBill, urnBookingID } from 'Api/urn';
+import { urnBillID, urnKhdID, urnBookingDetailsByIdBooking, urnBillDetailsByIdBill, urnRoomsByDatesIdRoomTypeNumber, urnBillAdminCancel, urnExtraFeeByIDPTT, urnSurchargePrice, urnExtraFeeID, urnSaleOffByCost, urnBillUpdateMoneyInBill, urnBookingID, urnRRCByIDDDP } from 'Api/urn';
 import { getData, postData, deleteData, putData } from 'Api/api';
 import { Col, Row, Table, Descriptions, Progress, Button, Tooltip, Spin, message, notification, Popconfirm } from 'antd';
 import CurrencyFormat from 'react-currency-format';
@@ -13,6 +13,8 @@ import BtnCheckout from '../../Button/BtnCheckout';
 import SurchargeAdd from 'Components/Admin/Common/Surcharge/SurchargeAdd';
 import SurchargeUpd from 'Components/Admin/Common/Surcharge/SurchargeUpd';
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { urnChangeStatusToCancelBill } from 'Api/urn';
+import Paypal from 'Components/Common/Paypal/Paypal';
 
 export default function ExtraFees(props) {
     const phanQuyen = useSelector(state => state.adminAccountReducer.phanQuyen);
@@ -27,6 +29,8 @@ export default function ExtraFees(props) {
     const [isClickCheckout, setIsClickCheckout] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isRefesh, setIsRefesh] = useState(false);
+    const [payInAdvance, setPayInAdvance] = useState(false);
+    const [rrcExisted, setRrcExisted] = useState(false);
 
     useEffect(() => {
         var uri = url + urnBillID(props.idPTT);
@@ -41,6 +45,16 @@ export default function ExtraFees(props) {
         var uri = url + urnBillDetailsByIdBill(props.idPTT);
         getData(uri).then(res =>{ console.log("load:", res.data); setDataBillDetails(res.data); });
     }, [props.idPTT]);
+
+    useEffect(() => {
+        if(bill){
+            var uri = url + urnRRCByIDDDP(bill.idDDP);
+            getData(uri).then(res => {
+                if(res.data.length > 0)
+                    setRrcExisted(true);
+            })
+        }
+    }, [bill]);
 
     useEffect(() => {
         var tpt = 0;
@@ -203,6 +217,34 @@ export default function ExtraFees(props) {
         })
     }
 
+    const paidcashSettlementForCancel = () => {
+        let uri = url + urnChangeStatusToCancelBill(bill.idPTT);
+        getData(uri).then((res) => {
+            message.success('You have paid for this bill, thank you!');
+            message.success(res.data.message, 2).then(()=>{
+                return setIsRefesh(true);
+            });
+        })
+    }
+
+    const onResultPayForCancel = (err, cancel, payment) => {
+        if(err){
+            message.error('Server Paypal has problem! Can you come back later?');
+            return;
+        } else if (cancel){
+            message.warning('You have cancelled paypal');
+            return;
+        } else {
+            let uri = url + urnChangeStatusToCancelBill(bill.idPTT);
+            getData(uri).then((res) => {
+                message.success('You have paid for this bill, thank you!');
+                message.success(res.data.message, 2).then(()=>{
+                    return setIsRefesh(true);
+                });
+            })
+        }
+    }
+
     const checkToPay = (isDeposit) => {
         setIsLoading(true);
         // Check: Can use rooms on this bill?
@@ -313,7 +355,11 @@ export default function ExtraFees(props) {
                             putData(uri3, dataDDP)
                             .then((resDDP) => {
                                 message.success(resCancel.data.message, 2).then(()=>{
-                                    setIsRefesh(true);
+                                    if (resCancel.data.cusMustPay) {
+                                        setPayInAdvance(true);
+                                    } else {    
+                                        setIsRefesh(true);
+                                    }
                                     return;
                                 });
                             })
@@ -557,25 +603,6 @@ export default function ExtraFees(props) {
                                                                             )
                                                                         }
                                                                         </Col>
-                                                                        {/* <Col xs={8} md={8} lg={8}>
-                                                                        { 
-                                                                            isClickCheckout ? (
-                                                                                <BtnCheckout bill={bill} onRefesh={onRefesh}/>
-                                                                            ) : (
-                                                                                <Button className="btn-create" onClick={ () => checkToPay(false) }>CHECKOUT</Button>
-                                                                            ) 
-                                                                        }
-                                                                        </Col> */}
-                                                                        {/* <Col xs={12} md={12} lg={12}>
-                                                                            <Popconfirm
-                                                                                title="Are you sure to cancel bill"
-                                                                                onConfirm={ onSubmitCancelBill }
-                                                                                okText="Yes"
-                                                                                cancelText="No"
-                                                                            >
-                                                                                <Button>CANCEL BILL</Button>
-                                                                            </Popconfirm>
-                                                                        </Col> */}
                                                                         <Col xs={8} md={8} lg={8}>
                                                                             <Popconfirm
                                                                                 title="Are you sure to cancel bill"
@@ -597,19 +624,52 @@ export default function ExtraFees(props) {
                                                                             isClickCheckout ? (
                                                                                 <BtnCheckout bill={bill} onRefesh={onRefesh}/>
                                                                             ) : (
-                                                                                <Button className="btn-create" onClick={ () => setIsClickCheckout(true) }>CHECKOUT</Button>
+                                                                                <Button className="btn-create" 
+                                                                                    onClick={ () => {
+                                                                                        if(!rrcExisted)
+                                                                                            return message.warning("You can not checkout this bill when you do not stay at hotel.");
+                                                                                        else 
+                                                                                            setIsClickCheckout(true)
+                                                                                    }}
+                                                                                >CHECKOUT</Button>
                                                                             )
                                                                         }
                                                                         </Col>
                                                                         <Col xs={12} md={12} lg={12}>
-                                                                            <Popconfirm
-                                                                                title="Are you sure to cancel bill"
-                                                                                onConfirm={ onSubmitCancelBill }
-                                                                                okText="Yes"
-                                                                                cancelText="No"
-                                                                            >
-                                                                                <Button>CANCEL BILL</Button>
-                                                                            </Popconfirm>
+                                                                        {
+                                                                            payInAdvance ? (
+                                                                                <>
+                                                                                    <Row className="mb-15">
+                                                                                        <Col xs={24} md={24} lg={24}>
+                                                                                            <Popconfirm
+                                                                                                title={"Customer accept pay for this bill with $" +  bill.tongTienConLai}
+                                                                                                onConfirm={ paidcashSettlementForCancel }
+                                                                                                okText="Yes"
+                                                                                                cancelText="No"
+                                                                                            >
+                                                                                                <Button className="btn-create">CASH SETTLE</Button>
+                                                                                            </Popconfirm>
+                                                                                        </Col>
+                                                                                    </Row> 
+                                                                                    <Row>
+                                                                                        <Col xs={24} md={24} lg={24}>
+                                                                                            <Paypal total={ bill.tongTienConLai } onResultPay={ onResultPayForCancel } />
+                                                                                        </Col>
+                                                                                    </Row> 
+                                                                                </>
+                                                                                
+                                                                            ) : (
+                                                                                <Popconfirm
+                                                                                    title="Are you sure to cancel bill"
+                                                                                    onConfirm={ onSubmitCancelBill }
+                                                                                    okText="Yes"
+                                                                                    cancelText="No"
+                                                                                >
+                                                                                    <Button>CANCEL BILL</Button>
+                                                                                </Popconfirm>
+                                                                            )
+                                                                        }
+                                                                            
                                                                         </Col>
                                                                     </Row>
                                                                 </>

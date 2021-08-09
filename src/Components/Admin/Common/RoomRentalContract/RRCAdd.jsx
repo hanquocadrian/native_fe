@@ -8,7 +8,7 @@ import React, { useState, useEffect} from 'react'
 import { ImCancelCircle } from 'react-icons/im'
 import { Link } from 'react-router-dom'
 import { format } from 'date-fns';
-import { urnBookingWasDepositOrPaid } from 'Api/urn'
+import { urnBookingWasDeposit } from 'Api/urn'
 import { urnRRC } from 'Api/urn'
 import { postData } from 'Api/api'
 import { urnCustomerStayByDateSave } from 'Api/urn'
@@ -29,7 +29,7 @@ function RRCAdd(props) {
     const [chooseDataCusStay, setChooseDataCusStay] = useState([]);
 
     useEffect(() => {
-        var uri = url + urnBookingWasDepositOrPaid;
+        var uri = url + urnBookingWasDeposit;
         getData(uri).then((res) => setDataBooking(res.data));
             
         uri = url + urnCustomerStayByDateSave;

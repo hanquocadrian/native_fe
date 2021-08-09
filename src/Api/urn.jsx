@@ -59,7 +59,7 @@ export const urnDetailBookingServiceIDDDDV = id => '/api/detail-book-service/get
 export const urnBooking = '/api/booking/';
 export const urnBookingID = id => '/api/booking/' + id;
 export const urnBookingIDKHD = id => '/api/booking/get_by_idKHD/' + id;
-export const urnBookingWasDepositOrPaid = '/api/booking/was-deposit-or-paid-in-bill/';
+export const urnBookingWasDeposit = '/api/booking/was-deposit-in-bill/';
 export const urnBookingIdKHDWithRRCIsUsing = id => '/api/booking/get-ddp-by-idkhd-with-rrc-is-using/' + id;
 
 
@@ -80,6 +80,7 @@ export const urnBillsByIDKHD = id => '/api/bill/get-bills-by-id-customer-booking
 export const urnBillByIDDDP = id => '/api/bill/get-bill-by-idDDP/' + id;
 export const urnChangeStatusToDepositBill = id => '/api/bill/change-status-to-deposit-by-id-bill/' + id;
 export const urnChangeStatusToPaidBill = id => '/api/bill/change-status-to-paid-by-id-bill/' + id;
+export const urnChangeStatusToCancelBill = id => '/api/bill/change-status-to-cancel-by-id-bill/' + id;
 export const urnBillCusCancel = id => '/api/bill/cus-cancel/' + id;
 export const urnBillAdminCancel = id => '/api/bill/admin-cancel/' + id;
 export const urnBillUpdateMoneyInBill = id => '/api/bill/update-money-in-bill/' + id;
