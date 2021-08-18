@@ -6,9 +6,12 @@ import { urnRoomTypeRateIDLP } from 'Api/urn';
 import { url } from 'Api/url';
 import { getData } from 'Api/api';
 import { urnRoomType } from 'Api/urn';
-
-import './Rates.css';
 import { Link } from 'react-router-dom';
+
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+import './Rates.css';
+
 function DisplayRate(props) {
     const [giaLP, setGiaLP] = useState(null);
 
@@ -78,6 +81,12 @@ function Rates(props) {
         },
     ];
 
+    AOS.init();
+    var aos_flip_left = {
+        'data-aos': 'flip-left',
+        'data-aos-offset': '350'
+    } 
+
     return (
         <>
             <Row className="row-title" justify="center">
@@ -105,7 +114,7 @@ function Rates(props) {
             <Row>
                 <Col xs={0} md={3} lg={3}></Col>
                 <Col xs={24} md={18} lg={18}>
-                    <div className="info-general-rooms" style={{ marginLeft: '7vw', marginTop: '9.5vh', marginBottom: '7vh' }} >
+                    <div { ...aos_flip_left } className="info-general-rooms" style={{ marginLeft: '7vw', marginTop: '9.5vh', marginBottom: '7vh' }} >
                         <span className="text-title"><b>Infomation general rooms:</b></span>
                         <ul style={{ marginTop: '2vh' }}>
                             <li><BsDiamondHalf style={{ marginRight: '1.5vw' }} />Retina Display or LCD TV sets are in all rooms.</li>

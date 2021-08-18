@@ -35,9 +35,9 @@ export default function Footer() {
                             </Row>
                         </Col>
                         <Col xs={24} md={8} lg={8}>
-                            <Row><Link to="" className="navbar-text nav-link navbar-text-footer arrow-right-footer"><span>Stay</span><div></div></Link></Row>
+                            <Row><Link to="/" className="navbar-text nav-link navbar-text-footer arrow-right-footer"><span>Stay</span><div></div></Link></Row>
                             <Row><Link to="/about" className="navbar-text nav-link navbar-text-footer arrow-right-footer"><span>About</span><div></div></Link></Row>
-                            <Row><Link to="/room_rates" className="navbar-text nav-link navbar-text-footer arrow-right-footer"><span>Room Rates</span><div></div></Link></Row>
+                            <Row><Link to="/rates" className="navbar-text nav-link navbar-text-footer arrow-right-footer"><span>Room Rates</span><div></div></Link></Row>
                             <Row><Link to="/" className="navbar-text nav-link navbar-text-footer arrow-right-footer"><span>Rooms</span><div></div></Link></Row>
                             <Row style={{ color: 'whitesmoke', marginTop: '1vh', paddingBottom: '6vh', paddingTop: '9vh' }}>
                                 <Col >© 2020 Native</Col>

@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { urnChangeStatusToPaidBill } from 'Api/urn';
 import { url } from 'Api/url';
 import { getData } from 'Api/api';
-import { urnUpdateStatusPaidByIDDDP } from 'Api/urn';
+import { urnUpdateStatusWentByIDDDP } from 'Api/urn';
 
 function BtnCheckout(props) {
     const bill = props.bill;
@@ -30,7 +30,7 @@ function BtnCheckout(props) {
         let uri = url + urnChangeStatusToPaidBill(bill.idPTT);
         getData(uri).then((res) => {
             message.success('You was checkout, thank you!');
-            var uri = url + urnUpdateStatusPaidByIDDDP(bill.idDDP);
+            var uri = url + urnUpdateStatusWentByIDDDP(bill.idDDP);
             getData(uri).then((res) => {
                 return props.onRefesh(true);
             });
@@ -48,7 +48,7 @@ function BtnCheckout(props) {
             let uri = url + urnChangeStatusToPaidBill(bill.idPTT);
             getData(uri).then((res) => {
                 message.success('You was checkout, thank you!');
-                var uri = url + urnUpdateStatusPaidByIDDDP(bill.idDDP);
+                var uri = url + urnUpdateStatusWentByIDDDP(bill.idDDP);
                 getData(uri).then((res) => {
                     return props.onRefesh(true);
                 });
