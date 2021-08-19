@@ -92,7 +92,7 @@ export const urnRRC = '/api/rrc/';
 export const urnRRCID = id => '/api/rrc/' + id;
 export const urnRRCByIDDDP = id => '/api/rrc/get-by-idDDP/' + id;
 export const urnRoomRentalContractByIDDDP = id => '/api/rrc/get-by-idDDP/' + id;
-export const urnUpdateStatusWentByIDDDP = id => '/api/rrc/update-status-paid-by-idddp/' + id;
+export const urnUpdateStatusWentByIDDDP = id => '/api/rrc/update-status-went-by-idddp/' + id;
 export const urnRRCByIDKHDWithRCCIsUsing = id => '/api/rrc/get-rrc-by-idkhd-with-status-rrc-is-using/' + id;
 export const urnRRCByIDKHDIDDDPWithRCCIsUsing = '/api/rrc/get-rrc-by-idkhd-idddp-with-status-rrc-is-using';
 

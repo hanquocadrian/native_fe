@@ -8,8 +8,28 @@ import { CgSmartHomeWashMachine } from "react-icons/cg";
 import { GiSofa } from "react-icons/gi";
 import { SiClockify } from "react-icons/si";
 
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 export default function AboutHotel() {
+    AOS.init();
+    var aos_right = {
+        'data-aos': "fade-right",
+        'data-aos-offset': "600",
+        'data-aos-duration': "750"
+    };
+    
+    var aos_left = {
+        'data-aos': "fade-left",
+        'data-aos-offset': "600",
+        'data-aos-duration': "750"
+    };
+
+    var aos_zoom_in_up = {
+        'data-aos': "zoom-in-up",
+        'data-aos-offset': "800"
+    }
+
     return (
         <>
             <Row style={{ paddingTop:'3%', paddingBottom:'2%', backgroundColor:'#F3F1EF' }}>
@@ -19,7 +39,7 @@ export default function AboutHotel() {
                 </Col>
                 <Col xs={1} md={3} lg={3}></Col>
             </Row>
-            <Row style={{ overflow: "hidden", height:'92vh'}}>
+            <Row {...aos_right} style={{ overflow: "hidden", height:'92vh'}}>
                 <Col xs={3} md={3} lg={3}/>
                 <Col xs={18} md={18} lg={8} style={{ paddingTop:'15%', paddingBottom:'15%' }}>
                     <h1 style={{textAlign:'center', fontWeight:'revert'}}>Experience.</h1>
@@ -33,7 +53,7 @@ export default function AboutHotel() {
                     <img style={{ width: '100vw', height: 'auto' }} src='./assets/images/IMG_about_1.jpg'  alt="about hotel 1" />
                 </Col>
             </Row>
-            <Row>
+            <Row {...aos_left}>
                 <Col xs={0} md={0} lg={12} style={{ overflow: "hidden", width:'50vw'}}>
                     <img style={{ width: '50vw', height: '92vh' }} src='./assets/images/IMG_about_3.jpg'  alt="about hotel 3" />
                 </Col>
@@ -47,7 +67,7 @@ export default function AboutHotel() {
                     <img style={{ width: '100vw', height: 'auto' }} src='./assets/images/IMG_about_3.jpg'  alt="about hotel 3" />
                 </Col>
             </Row>
-            <Row>
+            <Row {...aos_zoom_in_up}>
                 <Col xs={3} md={3} lg={3} />
                 <Col xs={18} md={18} lg={8} style={{ paddingTop:'15%', paddingBottom:'15%' }}>
                     <h1 style={{textAlign:'center', fontWeight:'revert'}}>Places.</h1>
