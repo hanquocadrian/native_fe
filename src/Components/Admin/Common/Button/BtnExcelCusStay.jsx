@@ -56,7 +56,7 @@ function BtnExcelCusStay(props) {
                 ]}
             >
                 <Row className="mb-15">
-                    <Col xs={24} md={24} lg={12}><b>Room type image file:</b></Col>
+                    <Col xs={24} md={24} lg={12}><b>List cus stay file:</b></Col>
                     <Col xs={24} md={24} lg={12}>
                         <Upload 
                             maxCount={1}
@@ -79,7 +79,7 @@ function BtnExcelCusStay(props) {
                                 setfileExcel(null);
                             }}
                         >
-                            <Button style={{ width: '225px' }} icon={<AiOutlineUpload style={{ fontSize: '20px' }} />}> <span style={{ lineHeight: '25px', fontSize: '15px', position: 'relative', top: '-3px', paddingLeft: '5px' }} >Upload image</span></Button>
+                            <Button style={{ width: '225px' }} icon={<AiOutlineUpload style={{ fontSize: '20px' }} />}> <span style={{ lineHeight: '25px', fontSize: '15px', position: 'relative', top: '-3px', paddingLeft: '5px' }} >Upload file</span></Button>
                         </Upload>
                     </Col>
                 </Row>
