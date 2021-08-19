@@ -48,8 +48,8 @@ export default function HomeIntro() {
                 <Row className="mb-15">
                     <Col xs={1} md={1} lg={1}/>
                     <Col xs={22} md={22} lg={7} style={{textAlign:'center', paddingTop:'10%'}}>
-                        <span style={{fontSize:'43px', fontWeight:'bolder'}}>Swim pool why not ?</span>
-                        <p style={{fontSize:'20px', marginLeft:'5%', paddingTop:'8%'}}>Near Chaweng Beach on Thailand’s idyllic Koh Samui island, the Red Pool at Native hotel beckons guests with its mesmerizing mosaic of yellow, orange, and red tiles.</p>
+                        <span style={{fontSize:'40px', fontWeight:'bolder'}}>Swimming pool why not ?</span>
+                        <p style={{fontSize:'18px', marginLeft:'5%', paddingTop:'8%'}}>Near Chaweng Beach on Thailand’s idyllic Koh Samui island, the Red Pool at Native hotel beckons guests with its mesmerizing mosaic of yellow, orange, and red tiles.</p>
                         <BiSwim style={{width:'70px', height:'auto'}}/>
                     </Col>
                     <Col xs={1} md={1} lg={1}/>
