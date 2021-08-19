@@ -17,7 +17,7 @@ export default function Home() {
         <div style={{ overflow: "hidden", width: "100vw" }}>
             <Navbar />
             <CarouselQC height="92" />
-            <Row style={{ marginTop: "8vh", height: "72vh" }}>
+            <Row className="mb-30" style={{ marginTop: "8vh", height: "72vh" }}>
                 <Col xs={1} md={3} lg={3}></Col>
                 <Col xs={20} md={18} lg={18}>
                     <SliderItem />
