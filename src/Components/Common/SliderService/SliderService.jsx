@@ -73,21 +73,31 @@ export default function SliderService() {
             }
         ]
     };
+
+    var aos_fade_up = {
+        'data-aos': "fade-up",
+        'data-aos-offset': "350",
+        'data-aos-duration': "750",
+        'data-aos-anchor-placement': "center-bottom"
+    };
+
     return (
         <>
-            <Slider {...settings}>
-                { 
-                    services.map((item, index) => 
-                        <ItemService 
-                            key={index} 
-                            idDV = {item.idDV}
-                            tenDV  = {item.tenDV}
-                            moTaTD = {item.moTaTD}
-                            moTaCT = {item.moTaCT}
-                        />
-                    )
-                }
-            </Slider>   
+            <div {...aos_fade_up}>
+                <Slider {...settings}>
+                    { 
+                        services.map((item, index) => 
+                            <ItemService 
+                                key={index} 
+                                idDV = {item.idDV}
+                                tenDV  = {item.tenDV}
+                                moTaTD = {item.moTaTD}
+                                moTaCT = {item.moTaCT}
+                            />
+                        )
+                    }
+                </Slider>
+            </div>
         </>
     )
 }

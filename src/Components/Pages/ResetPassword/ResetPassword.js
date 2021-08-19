@@ -23,6 +23,7 @@ export default function ResetPassword(props) {
         var uri = url + '/api/user/reset-password/' + idTK;
         patchData(uri, data)
         .then(res => {
+            console.log('update pass: ', res.data);
             if (res.data) {
                 props.history.push("/login");
             }

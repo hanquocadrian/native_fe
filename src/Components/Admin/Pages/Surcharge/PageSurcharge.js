@@ -42,6 +42,11 @@ function PageSurcharge(props) {
             align: 'center'
         },
         {
+            title: 'Note',
+            dataIndex: 'ghiChu',
+            align: 'center'
+        },
+        {
             title: 'Amount',
             dataIndex: 'soLuong',
             align: 'center'

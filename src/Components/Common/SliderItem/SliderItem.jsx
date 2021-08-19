@@ -75,6 +75,13 @@ export default function SliderItem() {
         ]
     };
 
+    
+    var aos_left = {
+        'data-aos': "fade-left",
+        'data-aos-offset': "350",
+        'data-aos-duration': "750"
+    };
+
     return (
         <>
             <Row>
@@ -84,19 +91,21 @@ export default function SliderItem() {
                 <p style={{fontSize:'15px', marginBottom: '3vh' }}>We all have favourites, and that's ok. From a West End studio to a slick City penthouse, find your perfect pad.</p> 
             </Row>
             <div style={{ height: '15px' }} />
-            <Slider {...settings}>
-                { 
-                    typeof roomTypes !== 'undefined' && roomTypes.map((item, index) => 
-                        <ItemSlick 
-                            key={index} 
-                            idLP = {item.idLP}
-                            tenLP  = {item.tenLP}
-                            moTaTD = {item.moTaTD}
-                            slHienTai = {item.slHienTai}
-                        />
-                    )
-                }              
-            </Slider>
+            <div { ...aos_left }>
+                <Slider {...settings} >
+                    { 
+                        typeof roomTypes !== 'undefined' && roomTypes.map((item, index) => 
+                            <ItemSlick 
+                                key={index} 
+                                idLP = {item.idLP}
+                                tenLP  = {item.tenLP}
+                                moTaTD = {item.moTaTD}
+                                slHienTai = {item.slHienTai}
+                            />
+                        )
+                    }              
+                </Slider>
+            </div>
         </>
     )
 }
