@@ -113,7 +113,7 @@ function RoomAdd(props) {
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={6}><b>Status:</b></Col>
                             <Col xs={18} md={18} lg={18}>
-                                <Switch checkedChildren="Can use" unCheckedChildren="Busy" defaultChecked onChange={ (checked) => {settrangThai(checked ? 2 : 1)} } />
+                                <Switch checkedChildren="Can use" unCheckedChildren="Not ready" defaultChecked onChange={ (checked) => {settrangThai(checked ? 2 : 1)} } />
                             </Col>
                         </Row>
                         <Row className="mb-15">
