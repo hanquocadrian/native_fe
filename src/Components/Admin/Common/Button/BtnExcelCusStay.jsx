@@ -56,7 +56,7 @@ function BtnExcelCusStay(props) {
                 ]}
             >
                 <Row className="mb-15">
-                    <Col xs={24} md={24} lg={12}><b>Room type image file:</b></Col>
+                    <Col xs={24} md={24} lg={12}><b>List cus stay file:</b></Col>
                     <Col xs={24} md={24} lg={12}>
                         <Upload 
                             maxCount={1}

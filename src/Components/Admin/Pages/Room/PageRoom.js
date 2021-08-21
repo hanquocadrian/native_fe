@@ -83,7 +83,7 @@ function PageRoom(props) {
             },
             render: (trangThai) => (
                 <>
-                    { trangThai === 2 ? "Can use" : "Busy" }
+                    { trangThai === 2 ? "Can use" : "Not ready" }
                 </>
             )
         },

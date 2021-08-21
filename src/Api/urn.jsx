@@ -29,6 +29,7 @@ export const urnChartMoneyBooking = '/api/chart/booking-money-by-quarterlies';
 export const urnChartMoneyBookingService = '/api/chart/booking-service-money-by-quarterlies';
 export const urnChartMoneyBillMonths = '/api/chart/bill-money-by-months';
 export const urnChartNumberRoomTypeToBeBooked = '/api/chart/get-list-number-room-types-to-be-booked/';
+export const urnChartCusStayIn7N1Nationals = '/api/chart/cus-stay-in-7-n-1-nationals';
 
 export const urnAdmin = '/api/admin/';
 export const urnAdminID = id => '/api/admin/'+ id;
