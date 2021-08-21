@@ -11,6 +11,7 @@ import { GrAdd } from 'react-icons/gr';
 import { urnCustomerStayID } from 'Api/urn';
 import { urnRRCID } from 'Api/urn';
 import { putData } from 'Api/api';
+import { useSelector } from 'react-redux';
 
 function ShowCus(props) {
     const [KHO, setKHO] = useState(null);
@@ -26,6 +27,7 @@ function ShowCus(props) {
 }
 
 function PageRRC(props) {
+    const phanQuyen = useSelector(state => state.adminAccountReducer.phanQuyen);
     const [dataRRC, setDataRRC] = useState([]);
     const [reloading, setReloading] = useState(0);
 
@@ -160,13 +162,17 @@ function PageRRC(props) {
                         <Col xs={20} md={20} lg={20}>
                             <Row>
                                 <Col xs={2} md={2} lg={2}>
-                                    <Tooltip placement="right" title="Create new one">
-                                        <Link to="/admin/rrc-add">
-                                            <Button className="btn-add" id="btnAdd">
-                                                <GrAdd className="icon-top" />
-                                            </Button>
-                                        </Link>
-                                    </Tooltip>
+                                {
+                                    phanQuyen === 3 && (    
+                                        <Tooltip placement="right" title="Create new one">
+                                            <Link to="/admin/rrc-add">
+                                                <Button className="btn-add" id="btnAdd">
+                                                    <GrAdd className="icon-top" />
+                                                </Button>
+                                            </Link>
+                                        </Tooltip>
+                                    )
+                                }
                                 </Col>
                                 <Col xs={20} md={20} lg={20}>
                                     <h1 className="text-center"><b>LIST OF ROOM RENTAL CONTRACT</b></h1>
