@@ -7,6 +7,7 @@ import ChartBill from 'Components/Admin/Common/Chart/ChartBill';
 import ChartNumRTBooking from 'Components/Admin/Common/Chart/ChartNumRTBooking';
 import './Home.css';
 import ChartBookingService from 'Components/Admin/Common/Chart/ChartBookingService';
+import ChartCusStay from 'Components/Admin/Common/Chart/ChartCusStay';
 export default function Home(props) {
     return (
         <div style={{ overflow: 'hidden', height: '100%' }}>
@@ -60,6 +61,16 @@ export default function Home(props) {
                                     <Col xs={20} md={20} lg={20}>
                                         <div style={{ height: '3vh' }} />
                                         <ChartNumRTBooking />
+                                    </Col>
+                                    <Col xs={2} md={2} lg={2} />
+                                </Row>
+                            </section>
+                            <section>
+                                <Row>
+                                    <Col xs={2} md={2} lg={2} />
+                                    <Col xs={20} md={20} lg={20}>
+                                        <div style={{ height: '3vh' }} />
+                                        <ChartCusStay />
                                     </Col>
                                     <Col xs={2} md={2} lg={2} />
                                 </Row>
