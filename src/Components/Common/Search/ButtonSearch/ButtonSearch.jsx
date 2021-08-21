@@ -66,14 +66,20 @@ export default function ButtonSearch(props) {
                                 var arrItems = [];
                                 var actionSL = null;
                                 if (!localStorage.getItem('itemsShoppingCart')) {
-                                    localStorage.setItem('dateArriveCart', JSON.stringify(date_cart));
-                                    arrItems.push(obj);
-                                    localStorage.setItem('itemsShoppingCart', JSON.stringify(arrItems));
-                                    // localStorage.setItem('slItemsShoppingCart', JSON.stringify(sl));
-                                    actionSL = addCart(sl);
-                                    dispatch(actionSL);
-                                    message.success("Added to cart successfully!!!");
-                                    setSoLuongDat(0);
+                                    if (obj.slDat <= 5) {
+                                        localStorage.setItem('dateArriveCart', JSON.stringify(date_cart));
+                                        arrItems.push(obj);
+                                        localStorage.setItem('itemsShoppingCart', JSON.stringify(arrItems));
+                                        // localStorage.setItem('slItemsShoppingCart', JSON.stringify(sl));
+                                        actionSL = addCart(sl);
+                                        dispatch(actionSL);
+                                        message.success("Added to cart successfully!!!");
+                                        setSoLuongDat(0);
+                                    }
+                                    else {
+                                        message.error("You only book 5 rooms!!!");
+                                        return;
+                                    }
                                 }
                                 else {
                                     var test = sl + parseInt(JSON.parse(localStorage.getItem('slItemsShoppingCart')).sl, 10);
@@ -100,21 +106,25 @@ export default function ButtonSearch(props) {
                                     }
                                     else {
                                         message.error("You only book 5 rooms!!!");
+                                        return;
                                     }
                                 }
                             }
                             else {
                                 message.error("Sorry, room does not have price yet!!!");
+                                return;
                             }
                         })
                     }
                     else {
                         message.error("Something went wrong, please try again!!!");
+                        return;
                     }
                 })
             }
             else {
                 message.error("Something went wrong, please try again!!!");
+                return;
             }
         })
     }
