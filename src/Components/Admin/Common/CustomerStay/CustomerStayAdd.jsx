@@ -54,7 +54,7 @@ function CustomerStayAdd(props) {
                 onReset();
                 return;
             }
-            if(typeof res.response.data !== undefined){
+            else if(typeof res.response.data !== undefined){
                 console.log("res.response.data: ", res.response.data);
                 if(Array.isArray(res.response.data)){
                     res.response.data.map(err => {

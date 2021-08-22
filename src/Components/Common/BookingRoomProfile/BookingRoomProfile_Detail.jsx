@@ -133,14 +133,14 @@ export default function BookingRoomProfile_Detail(props) {
                     return 1;
                 })
                 var count1 = 0;
-                dataCTDDP.map((item) => {
+                dataCTDDP.map((item) => {//Chạy vòng lặp để post data lên tìm kiếm phòng cho LP tương ứng
                     var dataSearchRoooms = { 
                         dateA, 
                         dateB, 
                         idLP: item.idLP, 
                         soLuong: item.soLuong 
                     };
-                    const uri2 = url + urnRoomsByDatesIdRoomTypeNumber;
+                    const uri2 = url + urnRoomsByDatesIdRoomTypeNumber; // post data lên tìm kiếm maPhong cho LP
                     postData(uri2, dataSearchRoooms)
                     .then((resSearchRooms) => {
                         count1++;
@@ -148,12 +148,12 @@ export default function BookingRoomProfile_Detail(props) {
                             arrRooms = resSearchRooms.data;
                             var i = 0;
                             arrCTPTTnew.map((item) => {
-                                if (item.idLP === dataSearchRoooms.idLP) {
-                                    arrCTPTTnew[arrCTPTTnew.findIndex(x => x === item)].maPhong = arrRooms[i++];
+                                if (item.idLP === dataSearchRoooms.idLP) { //Kiểm tra xem trong mảng arrCTPTTnew có idLP nào trùng vs idLP trong arrRooms trả về hay ko
+                                    arrCTPTTnew[arrCTPTTnew.findIndex(x => x === item)].maPhong = arrRooms[i++]; //Tìm vị trí trong mảng arrCTPTTnew xem cái nào trùng idLP để cập nhật maPhong sử dụng đc
                                 }
                                 return 1;
                             })
-                            if (count1 === dataCTDDP.length) {
+                            if (count1 === dataCTDDP.length) { //Kiểm tra count1 = độ dài của dataCTDDP chưa để thêm từng data vào bảng CTPTT lưu giữ các maPhong cho các LP tương ứng
                                 var count2 = 0;
                                 arrCTPTTnew.map((item) => {
                                     const uri3 = url + urnBillDetail;

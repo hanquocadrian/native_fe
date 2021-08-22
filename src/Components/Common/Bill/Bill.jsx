@@ -121,6 +121,7 @@ function Bill(props) {
             title: 'Action',
             width: 200,
             align: 'center',
+            fixed: 'right',
             render: (record) => (
                 <Link to={'/user/bill-details/' + record.idPTT}>
                     <Button className="btn-detail">Details</Button>

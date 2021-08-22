@@ -89,6 +89,11 @@ export default function RoomRentalContract(props) {
             title: 'Booking id',
             dataIndex: 'idDDP',
             align: 'center'
+        },
+        {
+            title: 'Customer stay id',
+            dataIndex: 'idKHO',
+            align: 'center'
         }
     ];
 
