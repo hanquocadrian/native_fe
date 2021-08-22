@@ -121,18 +121,22 @@ export default function ExtraFees(props) {
         {
             title: phanQuyen === 3 ? 'Actions' : '',
             render: (record) => (
-                phanQuyen === 3 && (
-                    <>
-                        <SurchargeUpd onRefesh={onRefesh} idPT={record.idPT} idPTT = {props.idPTT} tpt={totalSurcharge}/>
-                        <Popconfirm
-                            title="Are you sure?"
-                            onConfirm={ () => onDelete(record.idPT) }
-                            okText="Yes"
-                            cancelText="No"
-                        >
-                            <Tooltip placement="top" title="Delete"><Button className="btn-delete"><RiDeleteBin5Line/></Button></Tooltip>
-                        </Popconfirm>
-                    </>
+                bill && (
+                    (phanQuyen === 3 && (bill.tinhTrang === 2)) ? (
+                        <>
+                            <SurchargeUpd onRefesh={onRefesh} idPT={record.idPT} idPTT = {props.idPTT} tpt={totalSurcharge}/>
+                            <Popconfirm
+                                title="Are you sure?"
+                                onConfirm={ () => onDelete(record.idPT) }
+                                okText="Yes"
+                                cancelText="No"
+                            >
+                                <Tooltip placement="top" title="Delete"><Button className="btn-delete"><RiDeleteBin5Line/></Button></Tooltip>
+                            </Popconfirm>
+                        </>
+                    ) : (
+                        <span>None</span>
+                    )
                 )
             ),
             align: 'center',
