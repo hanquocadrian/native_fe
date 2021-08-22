@@ -44,6 +44,7 @@ export default function RoomTypeAdd() {
             giuong,
             phongTam,
             soLuong,
+            soLuongHT: 0
         }
         console.log(data);
         var uri = url + urnRoomType;
