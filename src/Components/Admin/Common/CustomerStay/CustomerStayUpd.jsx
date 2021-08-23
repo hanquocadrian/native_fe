@@ -69,7 +69,7 @@ function CustomerStayUpd(props) {
             title,
             tenKH,
             ngaySinh: format(new Date(ngaySinh), 'yyyy-MM-dd'),
-            ngayTao: new Date()
+            ngayTao: format(new Date(), 'yyyy-MM-dd')
         }
         console.log(data);
         var uri = url + urnCustomerStayID(idKHO);

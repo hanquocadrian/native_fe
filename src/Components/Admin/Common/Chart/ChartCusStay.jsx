@@ -28,7 +28,7 @@ export default function ChartCusStay(props) {
             </Row>
             <Row>
                 <Col xs={24} md={24} lg={24}>
-                    {/* <Radar
+                    <Radar
                         style={{ maxHeight: '500px' }}
                         data={{
                             labels: nationals,
@@ -46,8 +46,8 @@ export default function ChartCusStay(props) {
                                 }
                             ],
                         }}
-                    />   */}
-                    <Bar
+                    />  
+                    {/* <Bar
                         style={{ maxHeight: '500px' }}
                         data={{
                             labels: nationals,
@@ -71,7 +71,7 @@ export default function ChartCusStay(props) {
                                 }
                             ],
                         }}
-                    />  
+                    />   */}
                 </Col>
             </Row>
         </div>
