@@ -8,6 +8,8 @@ import ChartNumRTBooking from 'Components/Admin/Common/Chart/ChartNumRTBooking';
 import './Home.css';
 import ChartBookingService from 'Components/Admin/Common/Chart/ChartBookingService';
 import ChartCusStay from 'Components/Admin/Common/Chart/ChartCusStay';
+import ChartAdminAccount from 'Components/Admin/Common/Chart/ChartAdminAccount';
+import ChartNativeAccount from 'Components/Admin/Common/Chart/ChartNativeAccount';
 import { useSelector } from 'react-redux';
 export default function Home(props) {
     const phanQuyen = useSelector(state => state.adminAccountReducer.phanQuyen);
@@ -21,6 +23,30 @@ export default function Home(props) {
                 <Col span={19}>
                     <Row className="container" justify="center" style={{height: '90vh', overflow: 'scroll' }}>
                         <Col xs={24} md={24} lg={24}>
+                        {
+                            (phanQuyen === 1) && (<>
+                                <section>
+                                    <Row>
+                                        <Col xs={2} md={2} lg={2} />
+                                        <Col xs={20} md={20} lg={20}>
+                                            <div style={{ height: '3vh' }} />
+                                            <ChartAdminAccount />
+                                        </Col>
+                                        <Col xs={2} md={2} lg={2} />
+                                    </Row>
+                                </section>
+                                <section>
+                                    <Row>
+                                        <Col xs={2} md={2} lg={2} />
+                                        <Col xs={20} md={20} lg={20}>
+                                            <div style={{ height: '3vh' }} />
+                                            <ChartNativeAccount />
+                                        </Col>
+                                        <Col xs={2} md={2} lg={2} />
+                                    </Row>
+                                </section>
+                            </>)
+                        }
                         {
                             (phanQuyen === 2) && (<>
                                 <section>
