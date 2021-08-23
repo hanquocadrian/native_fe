@@ -43,7 +43,8 @@ export default function SurchargePriceUpd(props) {
         }
         const data = {
             tenPT,
-            giaPT
+            giaPT,
+            loaiGPT
         }
         console.log(data);
         var uri = url + urnSurchargePriceID(idGPT);

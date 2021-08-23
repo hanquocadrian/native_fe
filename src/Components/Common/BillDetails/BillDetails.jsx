@@ -233,10 +233,10 @@ function BillDetails(props) {
                                         {
                                             isCanUpdateRoom ? (
                                                 <>
-                                                    <Col xs={4} md={4} lg={4} style={{ textAlign:'center' }}>
+                                                    {/* <Col xs={4} md={4} lg={4} style={{ textAlign:'center' }}>
                                                         <BtnDeposit bill={bill} onRefesh={onRefesh} onCanUpdateRooms={onCanUpdateRooms} />
-                                                    </Col>
-                                                    <Col xs={4} md={4} lg={4} style={{ textAlign:'center' }}>
+                                                    </Col> */}
+                                                    <Col xs={6} md={6} lg={6} style={{ textAlign:'center' }}>
                                                         <BtnUpdateRooms bill={bill} billDetails={ dataBillDetails } onRefeshUpdate={onRefeshUpdate} />
                                                     </Col>
                                                 </>

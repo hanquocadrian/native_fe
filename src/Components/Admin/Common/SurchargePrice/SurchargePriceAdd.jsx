@@ -25,7 +25,8 @@ export default function SurchargePriceAdd() {
         }
         const data = {
             tenPT,
-            giaPT
+            giaPT,
+            loaiGPT
         }
         console.log(data);
         var uri = url + urnSurchargePrice;

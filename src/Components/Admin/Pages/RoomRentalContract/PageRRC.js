@@ -132,17 +132,25 @@ function PageRRC(props) {
 
                 return <>
                     {
-                        (record.trangThai === 2 || record.trangThai === 1) && (
-                            <Popconfirm
-                                title="Are you sure change status to went in this room rental contract?"
-                                onConfirm={ () => onUpdate(record) }
-                                okText="Yes"
-                                cancelText="No"
-                            >
-                                <Button className="btn-edit">Change Status</Button>
-                            </Popconfirm>
-                        )
+                        phanQuyen === 3 ? (
+                            <>{
+                                (record.trangThai === 2 || record.trangThai === 1) && (
+                                    <Popconfirm
+                                        title="Are you sure change status to went in this room rental contract?"
+                                        onConfirm={ () => onUpdate(record) }
+                                        okText="Yes"
+                                        cancelText="No"
+                                    >
+                                        <Button className="btn-edit">Change Status</Button>
+                                    </Popconfirm>
+                                )
+                            }</>
+                        ) : (
+                            <span>No action</span>
+                        ) 
+                                            
                     }
+                    
                 </>
             }
         },

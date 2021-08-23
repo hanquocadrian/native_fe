@@ -100,9 +100,9 @@ function PageRoom(props) {
             )
         },
         {
-            title: phanQuyen === 2 ? 'Actions' : '',
+            title: 'Actions',
             render: (record) => (
-                phanQuyen === 2 && (
+                phanQuyen === 2 ? (
                     <>
                         <Link to={ '/admin/room-upd/' + record.maPhong }><Button className="btn-edit">Edit</Button></Link>
                         <Popconfirm
@@ -114,7 +114,9 @@ function PageRoom(props) {
                             <Button className="btn-delete">Delete</Button>
                         </Popconfirm>
                     </>
-                )
+                ) : (
+                    <span>No action</span>
+                ) 
             )
         }
     ];
