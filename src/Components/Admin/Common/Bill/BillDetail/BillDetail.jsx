@@ -122,7 +122,7 @@ export default function ExtraFees(props) {
             title: phanQuyen === 3 ? 'Actions' : '',
             render: (record) => (
                 bill && (
-                    (phanQuyen === 3 && (bill.tinhTrang === 2)) ? (
+                    (phanQuyen === 3 && (bill.tinhTrang === 1 || bill.tinhTrang === 2)) ? (
                         <>
                             <SurchargeUpd onRefesh={onRefesh} idPT={record.idPT} idPTT = {props.idPTT} tpt={totalSurcharge}/>
                             <Popconfirm
@@ -422,7 +422,7 @@ export default function ExtraFees(props) {
                             <h1 className="text-center"><b>BILL DETAIL</b></h1>
                         </Col>
                         {
-                            phanQuyen === 3 && bill && (bill.tinhTrang === 2 ? (
+                            phanQuyen === 3 && bill && ((bill.tinhTrang === 1 || bill.tinhTrang === 2) ? (
                                 <Col xs={2} md={2} lg={2}>
                                     <SurchargeAdd onRefesh={onRefesh} idPTT = {props.idPTT} tpt={totalSurcharge}/>
                                 </Col>
@@ -461,13 +461,13 @@ export default function ExtraFees(props) {
                                                             '0%': '#108ee9',
                                                             '100%': '#87d068',
                                                         }}
-                                                        percent={ bill && (bill.tinhTrang === 1 ? 30 : (bill.tinhTrang === 2 ? 60 : (bill.tinhTrang === 3 ? 100 : 0))) }
+                                                        percent={ bill && (bill.tinhTrang === 0 ? 30 : ((bill.tinhTrang === 1 || bill.tinhTrang === 2) ? 60 : (bill.tinhTrang === 3 ? 100 : 0))) }
                                                         status="active"
                                                         showInfo={false}
                                                     />
                                                 </Col>
                                                 <Col xs={14} md={10} lg={4} style={{textAlign:'center'}}>
-                                                    { bill && (bill.tinhTrang === 1 ? 'Unpaid' : bill.tinhTrang === 2 ? 'Deposited' :  bill.tinhTrang === 3 ? 'Paid' : <span style={{color:'#E3143C', fontWeight: 'bolder'}}>Canceled</span>) } 
+                                                    { bill && (bill.tinhTrang === 0 ? 'Unpaid' : (bill.tinhTrang === 1 || bill.tinhTrang === 2) ? 'Deposited' :  bill.tinhTrang === 3 ? 'Paid' : <span style={{color:'#E3143C', fontWeight: 'bolder'}}>Canceled</span>) } 
                                                 </Col>
                                             </Row>
                                         </Descriptions.Item>
@@ -594,7 +594,7 @@ export default function ExtraFees(props) {
                                                 <Row className="mb-30">
                                                     <Col xs={24} md={24} lg={24} style={{ textAlign:'center' }}>
                                                         { 
-                                                            bill && (bill.tinhTrang === 1 ? (
+                                                            bill && (bill.tinhTrang === 0 ? (
                                                                 <>
                                                                     <Row>
                                                                         <Col xs={4} md={4} lg={4}/>
@@ -620,7 +620,7 @@ export default function ExtraFees(props) {
                                                                         <Col xs={4} md={4} lg={4}/>
                                                                     </Row>
                                                                 </>
-                                                            ) : bill.tinhTrang === 2 && (
+                                                            ) : (bill.tinhTrang === 1 || bill.tinhTrang === 2) && (
                                                                 <>
                                                                     <Row>
                                                                         <Col xs={12} md={12} lg={12}>

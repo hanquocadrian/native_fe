@@ -110,7 +110,7 @@ export default function BookingRoomProfile_Detail(props) {
 
             var dataPTTP = {
                 ngayThanhToan: format(new Date(), "yyyy/MM/dd"),
-                tinhTrang: 1,
+                tinhTrang: 0,
                 tongTienPhong,
                 tienCoc,
                 phiPhatSinh,
