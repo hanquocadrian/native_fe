@@ -86,7 +86,9 @@ export default function Home(props) {
                                     </Row>
                                 </section>
                             </>)
-                        }
+                        } 
+                        {
+                            (phanQuyen !== 1) && (<>
                             <section>
                                 <Row>
                                     <Col xs={2} md={2} lg={2} />
@@ -107,6 +109,8 @@ export default function Home(props) {
                                     <Col xs={2} md={2} lg={2} />
                                 </Row>
                             </section>
+                            </>)
+                        }
                         </Col>
                     </Row>
                 </Col>

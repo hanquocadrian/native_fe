@@ -2,10 +2,10 @@ const { differenceInDays, format } = require("date-fns");
 const { UPD_DATES_BOOKING_ROOM } = require("ReduxConfig/ActionTypes");
 
 const initialState = {
-    // dateA: format(new Date(), 'yyyy/MM/dd'),
-    // dateB: format(new Date(), 'yyyy/MM/dd'),
-    dateA: (new Date()).getTime() +  (1 * 24 * 60 * 60 * 1000),
-    dateB: (new Date()).getTime() +  (1 * 24 * 60 * 60 * 1000),
+    dateA: format(new Date(), 'yyyy/MM/dd'),
+    dateB: format(new Date(), 'yyyy/MM/dd'),
+    // dateA: (new Date()).getTime() +  (1 * 24 * 60 * 60 * 1000),
+    // dateB: (new Date()).getTime() +  (1 * 24 * 60 * 60 * 1000),
     daysDiff: 0
 }
 

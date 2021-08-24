@@ -209,7 +209,8 @@ function CreateBooking(props) {
         setisLoading(true);
         console.log("dateA: ", dateA);
         console.log("dateB: ", dateB);
-        if(new Date(dateA) < new Date()){
+        if(new Date(dateA) < new Date() - (1 * 24 * 60 * 60 * 1000)){
+            setisLoading(false); 
             return message.error(` Date hasn't chosen yet or date has past`);
         }
         if(dateA === "" || dateB === ""){ 
@@ -236,7 +237,7 @@ function CreateBooking(props) {
 
     function disabledDate(current) {
         // Can not select days before today and today
-        return current && current < moment().endOf('day');
+        return current && current.valueOf() < Date.now() - (1 * 24 * 60 * 60 * 1000);
     }
 
     const checkEmailExistence = () => {
@@ -272,8 +273,8 @@ function CreateBooking(props) {
 
     const onClickCancelButton = () => {
         const data = {
-            dateA: (new Date()).getTime() +  (1 * 24 * 60 * 60 * 1000),
-            dateB: (new Date()).getTime() +  (1 * 24 * 60 * 60 * 1000),
+            dateA: format(new Date(), 'yyyy/MM/dd'),
+            dateB: format(new Date(), 'yyyy/MM/dd'),
         };
 
         const actionChosenDatesBookingRoom = updDatesBookingRoom(data);
@@ -410,8 +411,8 @@ function CreateBooking(props) {
                                                         if (count2 === arrCTPTTnew.length) {
                                                             message.success("Booking successfully, wait a few seconds", 2).then(()=>{
                                                                 const dataDate = {
-                                                                    dateA: (new Date()).getTime() +  (1 * 24 * 60 * 60 * 1000),
-                                                                    dateB: (new Date()).getTime() +  (1 * 24 * 60 * 60 * 1000),
+                                                                    dateA: format(new Date(), 'yyyy/MM/dd'),
+                                                                    dateB: format(new Date(), 'yyyy/MM/dd'),
                                                                 };
                                                         
                                                                 var actionChosenDatesBookingRoom = updDatesBookingRoom(dataDate);

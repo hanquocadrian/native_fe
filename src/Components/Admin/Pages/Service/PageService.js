@@ -128,14 +128,18 @@ export default function PageService(props) {
                         <Col xs={2} md={2} lg={2} />
                         <Col xs={20} md={20} lg={20}>
                             <Row>
-                                <Col xs={2} md={2} lg={2}>
-                                    <Tooltip placement="right" title="Create new one">
-                                        <Link to="/admin/service-add">
-                                            <Button className="btn-add" id="btnAdd">
-                                                <GrAdd className="icon-top" />
-                                            </Button>
-                                        </Link>
-                                    </Tooltip>
+                                <Col xs={2} md={2} lg={2}>  
+                                {
+                                    phanQuyen === 2 && (
+                                        <Tooltip placement="right" title="Create new one">
+                                            <Link to="/admin/service-add">
+                                                <Button className="btn-add" id="btnAdd">
+                                                    <GrAdd className="icon-top" />
+                                                </Button>
+                                            </Link>
+                                        </Tooltip>
+                                    )
+                                }
                                 </Col>
                                 <Col xs={20} md={20} lg={20}>
                                     <h1 className="text-center"><b>LIST OF SERVICES</b></h1>
