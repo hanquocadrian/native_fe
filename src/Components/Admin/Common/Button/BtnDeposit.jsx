@@ -15,12 +15,12 @@ function BtnDeposit(props) {
         var money = 0;
 
         if(bill){
-            if(bill.tinhTrang === 1){
+            if(bill.tinhTrang === 0){
                 money = bill.tienCoc
                 console.log('cast: ', money);
                 setCash(money);
             }
-            if(bill.tinhTrang === 2){
+            if(bill.tinhTrang === 1 || bill.tinhTrang === 2){
                 money = bill.tienConLai;
                 console.log('cast: ', money);
                 setCash(money);

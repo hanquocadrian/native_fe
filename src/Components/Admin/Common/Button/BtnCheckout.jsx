@@ -19,7 +19,7 @@ function BtnCheckout(props) {
         //     console.log('cash: ', money);
         //     setcash(money);
         // }
-        if(bill.tinhTrang === 2){
+        if(bill.tinhTrang === 1 || bill.tinhTrang === 2){
             money = bill.tongTienConLai;
             console.log('cash: ', money);
             setcash(money);

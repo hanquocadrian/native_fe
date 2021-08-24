@@ -135,13 +135,13 @@ function BillDetails(props) {
                                                         '0%': '#108ee9',
                                                         '100%': '#87d068',
                                                     }}
-                                                    percent={ bill && (bill.tinhTrang === 1 ? 30 : (bill.tinhTrang === 2 ? 60 : (bill.tinhTrang === 3 ? 100 : 0))) }
+                                                    percent={ bill && (bill.tinhTrang === 0 ? 30 : ((bill.tinhTrang === 1 || bill.tinhTrang === 2) ? 60 : (bill.tinhTrang === 3 ? 100 : 0))) }
                                                     status="active"
                                                     showInfo={false}
                                                 />
                                             </Col>
                                             <Col xs={14} md={10} lg={4} style={{textAlign:'center'}}>
-                                                { bill && (bill.tinhTrang === 1 ? 'Unpaid' : bill.tinhTrang === 2 ? 'Deposited' : bill.tinhTrang === 3 ? 'Paid' : <span style={{color:'#E3143C', fontWeight: 'bolder'}}>Canceled</span>) } 
+                                                { bill && (bill.tinhTrang === 0 ? 'Unpaid' : (bill.tinhTrang === 1 || bill.tinhTrang === 2) ? 'Deposited' : bill.tinhTrang === 3 ? 'Paid' : <span style={{color:'#E3143C', fontWeight: 'bolder'}}>Canceled</span>) } 
                                             </Col>
                                         </Row>
                                     
@@ -219,7 +219,7 @@ function BillDetails(props) {
                         <Row className="mb-15">
                             <Col xs={6} md={6} lg={9} />
                             {
-                                bill && bill.tinhTrang === 2 && (
+                                bill && bill.tinhTrang === 1 && (
                                     <>
                                         <Col xs={6} md={6} lg={6} style={{ textAlign:'center' }}>
                                             <b><i>Wait pay at hotel</i></b>
@@ -228,7 +228,7 @@ function BillDetails(props) {
                                 )
                             }
                             {
-                                bill && bill.tinhTrang === 1 && (
+                                bill && bill.tinhTrang === 0 && (
                                     <>
                                         {
                                             isCanUpdateRoom ? (
@@ -257,7 +257,7 @@ function BillDetails(props) {
                         <Row className="mb-30">
                             <Col xs={6} md={6} lg={9} />
                             {
-                                bill && bill.tinhTrang === 2 && (
+                                bill && (bill.tinhTrang === 1 || bill.tinhTrang === 2) && (
                                     <>
                                         <Col xs={6} md={6} lg={6} style={{ textAlign:'center' }}>
                                             <Popconfirm
@@ -273,7 +273,7 @@ function BillDetails(props) {
                                 )
                             }
                             {
-                                bill && bill.tinhTrang === 1 && (
+                                bill && bill.tinhTrang === 0 && (
                                     <>
                                         <Col xs={6} md={6} lg={6} style={{ textAlign:'center' }}>
                                             <Button onClick={ onSubmitCancelBill }>Cancel bill</Button>
